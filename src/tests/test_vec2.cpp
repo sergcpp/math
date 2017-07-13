@@ -80,6 +80,18 @@ void test_vec2(math::e_arch arch) {
 
         assert(v12 == v13);
         assert(v11 != v13);
+
+        vec2 v14 = { 1, 2 };
+
+        v14[0] += 1;
+        v14[1] -= 1;
+
+        assert(v14 == Approx2(2, 1));
+
+        v14[0] *= 2;
+        v14[1] /= 2;
+
+        assert(v14 == Approx2(4, 0.5));
     }
 
 

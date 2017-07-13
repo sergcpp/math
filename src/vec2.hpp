@@ -3,6 +3,9 @@
 #include "math_funcs.hpp"
 
 namespace math {
+    class vec3;
+    class vec4;
+
     class vec2 {
         float2 vec_;
 
@@ -14,6 +17,8 @@ namespace math {
         vec2(float v0, float v1) { vec2_init2(vec_, v0, v1); }
         vec2(const float v[2]) { vec2_init2(vec_, v[0], v[1]); }
         vec2(const float2 &v) { vec_ = v; }
+        vec2(const vec3 &v);
+        vec2(const vec4 &v);
 
         class deref {
             float2 &v_; int i_;
@@ -22,6 +27,11 @@ namespace math {
             operator float() const { return vec2_get(v_, i_); }
             deref operator=(const float rhs) { vec2_set(v_, i_, rhs); return *this; }
             deref operator=(const deref &rhs) { return operator=((float)rhs); }
+
+            deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
+            deref operator-=(float rhs) { *this = float(*this) - rhs; return *this; }
+            deref operator*=(float rhs) { *this = float(*this) * rhs; return *this; }
+            deref operator/=(float rhs) { *this = float(*this) / rhs; return *this; }
         };
 
         deref operator[] (int i) { return deref(vec_, i); }
@@ -78,3 +88,9 @@ namespace math {
     inline vec2 operator*(const vec2 &v1, const vec2 &v2) { return vec2(vec2_mul_vec2(v1.vec_, v2.vec_)); }
     inline vec2 operator/(const vec2 &v1, const vec2 &v2) { return vec2(vec2_div_vec2(v1.vec_, v2.vec_)); }
 }
+
+#include "vec3.hpp"
+#include "vec4.hpp"
+
+inline math::vec2::vec2(const vec3 &v) { vec2_init2(vec_, v[0], v[1]); }
+inline math::vec2::vec2(const vec4 &v) { vec2_init2(vec_, v[0], v[1]); }

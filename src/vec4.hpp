@@ -9,6 +9,7 @@ namespace math {
         float4 vec_;
 
         friend class mat4;
+        friend class quat;
     public:
         vec4(e_uninitialize) { assert(is_aligned(this, alignment)); }
         vec4() : vec4(uninitialize) { vec4_init1(vec_, 0); }
@@ -30,6 +31,11 @@ namespace math {
             operator float() const { return vec4_get(v_, i_); }
             deref operator=(const float rhs) { vec4_set(v_, i_, rhs); return *this; }
             deref operator=(const deref &rhs) { return operator=((float)rhs); }
+
+            deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
+            deref operator-=(float rhs) { *this = float(*this) - rhs; return *this; }
+            deref operator*=(float rhs) { *this = float(*this) * rhs; return *this; }
+            deref operator/=(float rhs) { *this = float(*this) / rhs; return *this; }
         };
 
         deref operator[] (int i) { return deref(vec_, i); }

@@ -82,6 +82,18 @@ void test_vec3(math::e_arch arch) {
 
         assert(v12 == v13);
         assert(v11 != v13);
+
+        vec3 v14 = { 1, 2, 3 };
+
+        v14[0] += 1;
+        v14[1] -= 1;
+        v14[2] *= 2;
+
+        assert(v14 == Approx3(2, 1, 6));
+
+        v14[1] /= 2;
+
+        assert(v14[1] == Approx(0.5));
     }
 }
 

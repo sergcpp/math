@@ -88,6 +88,15 @@ void test_vec4(math::e_arch arch) {
 
         assert(v12 == v13);
         assert(v11 != v13);
+
+        vec4 v14 = { 1, 2, 3, 4 };
+
+        v14[0] += 1;
+        v14[1] -= 1;
+        v14[2] *= 2;
+        v14[3] /= 2;
+
+        assert(v14 == Approx4(2, 1, 6, 2));
     }
 
     /*glm::vec4 v1;

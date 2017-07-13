@@ -101,4 +101,7 @@ namespace math {
     inline vec2 smoothstep(float edge0, float edge1, const vec2 &x) { return smoothstep(vec2(edge0), vec2(edge1), x); }
     inline vec3 smoothstep(float edge0, float edge1, const vec3 &x) { return smoothstep(vec3(edge0), vec3(edge1), x); }
     inline vec4 smoothstep(float edge0, float edge1, const vec4 &x) { return smoothstep(vec4(edge0), vec4(edge1), x); }
+
+    //
+    inline bool isnan(float v) { return std::isnan(v); }
 }

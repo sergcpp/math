@@ -246,10 +246,10 @@ namespace math {
     extern float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
 #endif
 
-    using ref::mat4_eq_mat4;
+    using NS::mat4_eq_mat4;
 
-    using ref::mat4_get;
-    using ref::mat4_set;
+    using NS::mat4_get;
+    using NS::mat4_set;
 }
 
 #undef NS

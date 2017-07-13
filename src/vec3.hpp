@@ -17,6 +17,7 @@ namespace math {
         vec3(const float4 &v) : vec3(uninitialize) { vec_ = v; }
         vec3(const vec2 &v01, float v2) : vec3(uninitialize) { vec3_init3(vec_, v01[0], v01[1], v2); }
         vec3(float v0, const vec2 &v12) : vec3(uninitialize) { vec3_init3(vec_, v0, v12[0], v12[1]); }
+        vec3(const vec4 &v);
 
         class deref {
             float4 &v_; int i_;
@@ -25,6 +26,11 @@ namespace math {
             operator float() const { return vec3_get(v_, i_); }
             deref operator=(const float rhs) { vec3_set(v_, i_, rhs); return *this; }
             deref operator=(const deref &rhs) { return operator=((float)rhs); }
+
+            deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
+            deref operator-=(float rhs) { *this = float(*this) - rhs; return *this; }
+            deref operator*=(float rhs) { *this = float(*this) * rhs; return *this; }
+            deref operator/=(float rhs) { *this = float(*this) / rhs; return *this; }
         };
 
         deref operator[] (int i) { return deref(vec_, i); }
@@ -85,3 +91,7 @@ namespace math {
     inline vec3 operator*(const vec3 &v1, const vec3 &v2) { return vec3(vec3_mul_vec3(v1.vec_, v2.vec_)); }
     inline vec3 operator/(const vec3 &v1, const vec3 &v2) { return vec3(vec3_div_vec3(v1.vec_, v2.vec_)); }
 }
+
+#include "vec4.hpp"
+
+inline math::vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
