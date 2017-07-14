@@ -497,9 +497,9 @@ namespace ref {
     } DEF_END
 
     DECL_FUNC(bool) mat3_eq_mat3(const float12 &m1, const float12 &m2) {
-        return m1.comp[0] == m2.comp[0] && m1.comp[1] == m2.comp[1] && m1.comp[2] == m2.comp[2] &&
-            m1.comp[3] == m2.comp[3] && m1.comp[4] == m2.comp[4] && m1.comp[5] == m2.comp[5] &&
-            m1.comp[6] == m2.comp[6] && m1.comp[7] == m2.comp[7] && m1.comp[8] == m2.comp[8];
+        return m1.comp4[0][0] == m2.comp4[0][0] && m1.comp4[0][1] == m2.comp4[0][1] && m1.comp4[0][2] == m2.comp4[0][2] &&
+               m1.comp4[1][0] == m2.comp4[1][0] && m1.comp4[1][1] == m2.comp4[1][1] && m1.comp4[1][2] == m2.comp4[1][2] &&
+               m1.comp4[2][0] == m2.comp4[2][0] && m1.comp4[2][1] == m2.comp4[2][1] && m1.comp4[2][2] == m2.comp4[2][2];
     }
 
     DECL_FUNC(float12) mat3_add_mat3(const float12 &v1, const float12 &v2) {
@@ -610,10 +610,10 @@ namespace ref {
 
     DECL_FUNC(bool) mat4_eq_mat4(const float16 &m1, const float16 &m2) {
         return m1.comp[0] == m2.comp[0] && m1.comp[1] == m2.comp[1] && m1.comp[2] == m2.comp[2] && m1.comp[3] == m2.comp[3] &&
-            m1.comp[4] == m2.comp[4] && m1.comp[5] == m2.comp[5] && m1.comp[6] == m2.comp[6] && m1.comp[7] == m2.comp[7] &&
-            m1.comp[8] == m2.comp[8] && m1.comp[9] == m2.comp[9] && m1.comp[10] == m2.comp[10] && m1.comp[11] == m2.comp[11] &&
-            m1.comp[12] == m2.comp[12] && m1.comp[13] == m2.comp[13] && m1.comp[14] == m2.comp[14] && m1.comp[15] == m2.comp[15];
-    }
+               m1.comp[4] == m2.comp[4] && m1.comp[5] == m2.comp[5] && m1.comp[6] == m2.comp[6] && m1.comp[7] == m2.comp[7] &&
+               m1.comp[8] == m2.comp[8] && m1.comp[9] == m2.comp[9] && m1.comp[10] == m2.comp[10] && m1.comp[11] == m2.comp[11] &&
+               m1.comp[12] == m2.comp[12] && m1.comp[13] == m2.comp[13] && m1.comp[14] == m2.comp[14] && m1.comp[15] == m2.comp[15];
+    } DEF_END
 
     DECL_FUNC(float16) mat4_add_mat4(const float16 &v1, const float16 &v2) {
         float16 ret;

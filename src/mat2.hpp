@@ -15,6 +15,7 @@ namespace math {
         mat2(const float v[4]) : mat2(uninitialize) { mat2_init4(vec_, v[0], v[1], v[2], v[3]); }
         mat2(const vec2 &v01, const vec2 &v23) : mat2(uninitialize) { mat2_init2(vec_, v01.vec_, v23.vec_); }
         mat2(const float4 &v) : mat2(uninitialize) { vec_ = v; }
+        mat2(const mat2 &m) : mat2(uninitialize) { vec_ = m.vec_; }
 
         class deref {
             float4 &v_; int i_;

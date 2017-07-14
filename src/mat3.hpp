@@ -28,6 +28,7 @@ namespace math {
             mat3_init3(vec_, v0.vec_, v1.vec_, v2.vec_);
         }
         mat3(const float12 &v) : mat3(uninitialize) { vec_ = v; }
+        mat3(const mat3 &v) : mat3(uninitialize) { vec_ = v.vec_; }
 
         class deref {
             float12 &v_; int i_;
