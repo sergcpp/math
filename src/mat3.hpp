@@ -6,7 +6,7 @@ namespace math {
     class mat3 {
         float12 vec_;
     public:
-        mat3(e_uninitialize) { assert(is_aligned(this, 16)); }
+        mat3(e_uninitialize) { assert(is_aligned(this, alignment)); }
         mat3() : mat3(uninitialize) { mat3_init1(vec_, 0); }
         explicit mat3(float v) : mat3(uninitialize) { mat3_init1(vec_, v); }
         mat3(float v00, float v01, float v02,

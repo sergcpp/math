@@ -8,7 +8,7 @@ namespace math {
     class mat2 {
         float4 vec_;
     public:
-        mat2(e_uninitialize) { assert(is_aligned(this, 16)); }
+        mat2(e_uninitialize) { assert(is_aligned(this, alignment)); }
         mat2() : mat2(uninitialize) { mat2_init1(vec_, 0); }
         explicit mat2(float v) : mat2(uninitialize) { mat2_init1(vec_, v); }
         mat2(float v0, float v1, float v2, float v3) : mat2(uninitialize) { mat2_init4(vec_, v0, v1, v2, v3); }
