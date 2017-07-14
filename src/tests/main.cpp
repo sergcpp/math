@@ -22,5 +22,8 @@ int main() {
     test_trigonometric();
     test_common();
 
+    // no reason to test in debug mode
+#ifdef NDEBUG
     test_perf();
+#endif
 }
