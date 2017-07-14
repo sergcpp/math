@@ -115,6 +115,22 @@ void test_mat2(math::e_arch arch) {
 
         assert(m12 == m13);
         assert(m11 != m13);
+
+        mat2 m14 = { 1, 2,
+                     1, 2 };
+
+        m14[0] += { 1, 1 };
+        m14[1] -= { 1, 1 };
+        
+
+        assert(m14[0] == Approx2(2, 3) &&
+               m14[1] == Approx2(0, 1));
+
+        m14[0] *= { 2, 2 };
+        m14[1] /= { 2, 2 };
+
+        assert(m14[0] == Approx2(4, 6) &&
+               m14[1] == Approx2(0, 0.5));
     }
 
 }

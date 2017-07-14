@@ -25,6 +25,11 @@ namespace math {
             deref operator=(const deref &rhs) { return operator=((vec2)rhs); }
 
             vec2::deref operator[] (int i) const { return vec2::deref(v_.vec2[i_], i); }
+
+            deref operator+=(const vec2 &rhs) { *this = vec2(*this) + rhs; return *this; }
+            deref operator-=(const vec2 &rhs) { *this = vec2(*this) - rhs; return *this; }
+            deref operator*=(const vec2 &rhs) { *this = vec2(*this) * rhs; return *this; }
+            deref operator/=(const vec2 &rhs) { *this = vec2(*this) / rhs; return *this; }
         };
 
         deref operator[] (int i) { return deref(vec_, i); }
