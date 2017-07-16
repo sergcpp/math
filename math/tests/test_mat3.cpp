@@ -14,9 +14,9 @@ void test_mat3(math::e_arch arch) {
                 8, 9, 10),
              m4(vec3(0.0f), vec3(1), vec3(2));
 
-        assert(m1[0] == Approx3(0, 0, 0));
-        assert(m1[1] == Approx3(0, 0, 0));
-        assert(m1[2] == Approx3(0, 0, 0));
+        assert(m1[0] == Approx3(1, 0, 0));
+        assert(m1[1] == Approx3(0, 1, 0));
+        assert(m1[2] == Approx3(0, 0, 1));
 
         assert(m2[0] == Approx3(2.3f, 0, 0));
         assert(m2[1] == Approx3(0, 2.3f, 0));
@@ -35,20 +35,20 @@ void test_mat3(math::e_arch arch) {
 
         assert(m1[0] == Approx3(1, 2, 3));
         assert(m1[1] == Approx3(3, 4, 5));
-        assert(m1[2] == Approx3(0, 0, 0));
+        assert(m1[2] == Approx3(0, 0, 1));
 
         m1[0][1] = 3;
         m1[1][1] = 8;
 
         assert(m1[0] == Approx3(1, 3, 3));
         assert(m1[1] == Approx3(3, 8, 5));
-        assert(m1[2] == Approx3(0, 0, 0));
+        assert(m1[2] == Approx3(0, 0, 1));
 
         mat3 m5 = m1 + m2, m6 = m2 + m3;
 
         assert(m5[0] == Approx3(3.3, 3, 3) &&
                m5[1] == Approx3(3, 10.3, 5) &&
-               m5[2] == Approx3(0, 0, 2.3));
+               m5[2] == Approx3(0, 0, 3.3));
         assert(m6[0] == Approx3(2.3, 1, 2) &&
                m6[1] == Approx3(4, 7.3, 6) &&
                m6[2] == Approx3(8, 9, 12.3));
@@ -57,7 +57,7 @@ void test_mat3(math::e_arch arch) {
 
         assert(m7[0] == Approx3(-1.3, 3, 3) &&
                m7[1] == Approx3(3, 5.7, 5) &&
-               m7[2] == Approx3(0, 0, -2.3));
+               m7[2] == Approx3(0, 0, -1.3));
         assert(m8[0] == Approx3(2.3, -1, -2) &&
                m8[1] == Approx3(-4, -2.7, -6) &&
                m8[2] == Approx3(-8, -9, -7.7));
@@ -66,7 +66,7 @@ void test_mat3(math::e_arch arch) {
 
         assert(m9[0] == Approx3(2.3, 6.9, 6.9) &&
                m9[1] == Approx3(6.9, 18.4, 11.5) &&
-               m9[2] == Approx3(0, 0, 0));
+               m9[2] == Approx3(0, 0, 2.3));
         assert(m10[0] == Approx3(0, 2.3, 4.6) &&
                m10[1] == Approx3(9.2, 11.5, 13.8) &&
                m10[2] == Approx3(18.4, 20.7, 23));

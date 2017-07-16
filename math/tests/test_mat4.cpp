@@ -15,10 +15,10 @@ void test_mat4(math::e_arch arch) {
                 12, 13, 14, 15),
             m4(vec4(0.0f), vec4(1), vec4(2), vec4(3));
 
-        assert(m1[0] == Approx4(0, 0, 0, 0));
-        assert(m1[1] == Approx4(0, 0, 0, 0));
-        assert(m1[2] == Approx4(0, 0, 0, 0));
-        assert(m1[3] == Approx4(0, 0, 0, 0));
+        assert(m1[0] == Approx4(1, 0, 0, 0));
+        assert(m1[1] == Approx4(0, 1, 0, 0));
+        assert(m1[2] == Approx4(0, 0, 1, 0));
+        assert(m1[3] == Approx4(0, 0, 0, 1));
 
         assert(m2[0] == Approx4(2.3f, 0, 0, 0));
         assert(m2[1] == Approx4(0, 2.3f, 0, 0));
@@ -40,23 +40,23 @@ void test_mat4(math::e_arch arch) {
 
         assert(m1[0] == Approx4(1, 2, 3, 4));
         assert(m1[1] == Approx4(3, 4, 5, 6));
-        assert(m1[2] == Approx4(0, 0, 0, 0));
-        assert(m1[3] == Approx4(0, 0, 0, 0));
+        assert(m1[2] == Approx4(0, 0, 1, 0));
+        assert(m1[3] == Approx4(0, 0, 0, 1));
 
         m1[0][1] = 3;
         m1[1][1] = 8;
 
         assert(m1[0] == Approx4(1, 3, 3, 4));
         assert(m1[1] == Approx4(3, 8, 5, 6));
-        assert(m1[2] == Approx4(0, 0, 0, 0));
-        assert(m1[3] == Approx4(0, 0, 0, 0));
+        assert(m1[2] == Approx4(0, 0, 1, 0));
+        assert(m1[3] == Approx4(0, 0, 0, 1));
 
         mat4 m5 = m1 + m2, m6 = m2 + m3;
 
         assert(m5[0] == Approx4(3.3, 3, 3, 4) &&
                m5[1] == Approx4(3, 10.3, 5, 6) &&
-               m5[2] == Approx4(0, 0, 2.3, 0) &&
-               m5[3] == Approx4(0, 0, 0, 2.3));
+               m5[2] == Approx4(0, 0, 3.3, 0) &&
+               m5[3] == Approx4(0, 0, 0, 3.3));
         assert(m6[0] == Approx4(2.3, 1, 2, 3) &&
                m6[1] == Approx4(4, 7.3, 6, 7) &&
                m6[2] == Approx4(8, 9, 12.3, 11) &&
@@ -66,8 +66,8 @@ void test_mat4(math::e_arch arch) {
 
         assert(m7[0] == Approx4(-1.3, 3, 3, 4) &&
                m7[1] == Approx4(3, 5.7, 5, 6) &&
-               m7[2] == Approx4(0, 0, -2.3, 0) &&
-               m7[3] == Approx4(0, 0, 0, -2.3));
+               m7[2] == Approx4(0, 0, -1.3, 0) &&
+               m7[3] == Approx4(0, 0, 0, -1.3));
         assert(m8[0] == Approx4(2.3, -1, -2, -3) &&
                m8[1] == Approx4(-4, -2.7, -6, -7) &&
                m8[2] == Approx4(-8, -9, -7.7, -11) &&
@@ -77,8 +77,8 @@ void test_mat4(math::e_arch arch) {
 
         assert(m9[0] == Approx4(2.3, 6.9, 6.9, 9.2) &&
                m9[1] == Approx4(6.9, 18.4, 11.5, 13.8) &&
-               m9[2] == Approx4(0, 0, 0, 0) &&
-               m9[3] == Approx4(0, 0, 0, 0));
+               m9[2] == Approx4(0, 0, 2.3, 0) &&
+               m9[3] == Approx4(0, 0, 0, 2.3));
         assert(m10[0] == Approx4(0, 2.3, 4.6, 6.9) &&
                m10[1] == Approx4(9.2, 11.5, 13.8, 16.1) &&
                m10[2] == Approx4(18.4, 20.7, 23, 25.3) &&

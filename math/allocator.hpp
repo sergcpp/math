@@ -13,6 +13,26 @@
 // from https://gist.github.com/donny-dont/1471329
 
 namespace math {
+    inline void *aligned_malloc(size_t size, size_t alignment) {
+#if defined(_MSC_VER) || defined(__MINGW32__)
+        return _mm_malloc(size, alignment);
+#elif __STDC_VERSION__ >= 201112L
+        return aligned_alloc(alignment, size);
+#else
+        return memalign(alignment, size);
+#endif
+    }
+
+    inline void aligned_free(void *p) {
+#if defined(_MSC_VER) || defined(__MINGW32__)
+        _mm_free(p);
+#elif __STDC_VERSION__ >= 201112L
+        free(p);
+#else
+        free(p);
+#endif
+    }
+
     template <typename T, std::size_t Alignment>
     class aligned_allocator {
     public:
@@ -100,13 +120,7 @@ namespace math {
             }
 
             // Mallocator wraps malloc().
-#if defined(_MSC_VER) || defined(__MINGW32__)
-            void * const pv = _mm_malloc(n * sizeof(T), Alignment);
-#elif __STDC_VERSION__ >= 201112L
-            void * const pv = aligned_alloc(Alignment, n * sizeof(T));
-#else
-            void * const pv = memalign(Alignment, n * sizeof(T));
-#endif
+            void * const pv = aligned_malloc(n * sizeof(T), Alignment);
 
             // Allocators should throw std::bad_alloc in the case of memory allocation failure.
             if (pv == NULL) {
@@ -117,13 +131,7 @@ namespace math {
         }
 
         void deallocate(T * const p, const std::size_t n) const {
-#if defined(_MSC_VER) || defined(__MINGW32__)
-            _mm_free(p);
-#elif __STDC_VERSION__ >= 201112L
-            free(p);
-#else
-            free(p);
-#endif
+            aligned_free(p);
         }
 
 

@@ -78,18 +78,18 @@ namespace math {
     using NS::vec3_normalize;
     using NS::vec3_normalize_fast;
 #else
-    extern void (FASTCALL *vec3_init1)(float4 &vec, float val);
-    extern void (FASTCALL *vec3_init3)(float4 &vec, float v0, float v1, float v2);
-    extern float4 (FASTCALL *vec3_add_vec3)(const float4 &v1, const float4 &v2);
-    extern float4 (FASTCALL *vec3_sub_vec3)(const float4 &v1, const float4 &v2);
-    extern float4 (FASTCALL *vec3_mul_vec3)(const float4 &v1, const float4 &v2);
-    extern float4 (FASTCALL *vec3_div_vec3)(const float4 &v1, const float4 &v2);
+    extern void (FASTCALL *vec3_init1)(float3 &vec, float val);
+    extern void (FASTCALL *vec3_init3)(float3 &vec, float v0, float v1, float v2);
+    extern float3 (FASTCALL *vec3_add_vec3)(const float3 &v1, const float3 &v2);
+    extern float3 (FASTCALL *vec3_sub_vec3)(const float3 &v1, const float3 &v2);
+    extern float3 (FASTCALL *vec3_mul_vec3)(const float3 &v1, const float3 &v2);
+    extern float3 (FASTCALL *vec3_div_vec3)(const float3 &v1, const float3 &v2);
 
-    extern float (FASTCALL *vec3_length)(const float4 &vec);
-    extern float (FASTCALL *vec3_dot)(const float4 &v1, const float4 &v2);
-    extern float4 (FASTCALL *vec3_cross)(const float4 &v1, const float4 &v2);
-    extern float4 (FASTCALL *vec3_normalize)(const float4 &vec);
-    extern float4 (FASTCALL *vec3_normalize_fast)(const float4 &vec);
+    extern float (FASTCALL *vec3_length)(const float3 &vec);
+    extern float (FASTCALL *vec3_dot)(const float3 &v1, const float3 &v2);
+    extern float3 (FASTCALL *vec3_cross)(const float3 &v1, const float3 &v2);
+    extern float3 (FASTCALL *vec3_normalize)(const float3 &vec);
+    extern float3 (FASTCALL *vec3_normalize_fast)(const float3 &vec);
 #endif
     using NS::vec3_eq_vec3;
 
@@ -186,21 +186,21 @@ namespace math {
 
     using NS::mat3_comp_mul;
 #else
-    extern void (FASTCALL *mat3_init1)(float12 &vec, float val);
-    extern void (FASTCALL *mat3_init3)(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2);
-    extern void (FASTCALL *mat3_init9)(float12 &vec, float v00, float v01, float v02,
-                                                     float v10, float v11, float v12,
-                                                     float v20, float v21, float v22);
+    extern void (FASTCALL *mat3_init1)(float9 &vec, float val);
+    extern void (FASTCALL *mat3_init3)(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
+    extern void (FASTCALL *mat3_init9)(float9 &vec, float v00, float v01, float v02,
+                                                    float v10, float v11, float v12,
+                                                    float v20, float v21, float v22);
 
-    extern float12 (FASTCALL *mat3_add_mat3)(const float12 &v1, const float12 &v2);
-    extern float12 (FASTCALL *mat3_sub_mat3)(const float12 &v1, const float12 &v2);
-    extern float12 (FASTCALL *mat3_mul_mat3)(const float12 &v1, const float12 &v2);
-    extern float12 (FASTCALL *mat3_div_mat3)(const float12 &v1, const float12 &v2);
+    extern float9 (FASTCALL *mat3_add_mat3)(const float9 &v1, const float9 &v2);
+    extern float9 (FASTCALL *mat3_sub_mat3)(const float9 &v1, const float9 &v2);
+    extern float9 (FASTCALL *mat3_mul_mat3)(const float9 &v1, const float9 &v2);
+    extern float9 (FASTCALL *mat3_div_mat3)(const float9 &v1, const float9 &v2);
 
-    extern float12 (FASTCALL *mat3_mul_float)(const float12 &v1, float v2);
-    extern float12 (FASTCALL *mat3_div_float)(const float12 &v1, float v2);
+    extern float9 (FASTCALL *mat3_mul_float)(const float9 &v1, float v2);
+    extern float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
-    extern float12 (FASTCALL *mat3_comp_mul)(const float12 &m1, const float12 &m2);
+    extern float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
 #endif
 
     using NS::mat3_eq_mat3;

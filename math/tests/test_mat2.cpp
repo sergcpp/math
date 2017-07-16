@@ -10,8 +10,8 @@ void test_mat2(math::e_arch arch) {
     {   // basic usage
         mat2 m1, m2(2.3f), m3(0, 1, 2, 3), m4(vec2(0, 1), vec2(2, 3));
 
-        assert(m1[0] == Approx2(0, 0));
-        assert(m1[1] == Approx2(0, 0));
+        assert(m1[0] == Approx2(1, 0));
+        assert(m1[1] == Approx2(0, 1));
 
         assert(m2[0] == Approx2(2.3f, 0));
         assert(m2[1] == Approx2(0, 2.3f));

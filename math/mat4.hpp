@@ -8,25 +8,13 @@ namespace math {
         float16 vec_;
     public:
         mat4(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        mat4() : mat4(uninitialize) { mat4_init1(vec_, 0); }
+        mat4() : mat4(1.0f) {}
         explicit mat4(float v) : mat4(uninitialize) { mat4_init1(vec_, v); }
         mat4(float v00, float v01, float v02, float v03,
              float v10, float v11, float v12, float v13,
              float v20, float v21, float v22, float v23,
              float v30, float v31, float v32, float v33) : mat4(uninitialize) {
             mat4_init16(vec_, v00, v01, v02, v03, v10, v11, v12, v13, v20, v21, v22, v23, v30, v31, v32, v33);
-        }
-        mat4(const float v[4][4]) : mat4(uninitialize) {
-            mat4_init16(vec_, v[0][0], v[0][1], v[0][2], v[0][3],
-                              v[1][0], v[1][1], v[1][2], v[1][3],
-                              v[2][0], v[2][1], v[2][2], v[2][3],
-                              v[3][0], v[3][1], v[3][2], v[3][3]);
-        }
-        mat4(const float v[16]) : mat4(uninitialize) {
-            mat4_init16(vec_, v[0], v[1], v[2], v[3],
-                              v[4], v[5], v[6], v[7],
-                              v[8], v[9], v[10], v[11],
-                              v[12], v[13], v[14], v[15]);
         }
         mat4(const vec4 &v0, const vec4 &v1, const vec4 &v2, const vec4 &v3) : mat4(uninitialize) {
             mat4_init4(vec_, v0.vec_, v1.vec_, v2.vec_, v3.vec_);
@@ -95,4 +83,11 @@ namespace math {
     inline mat4 operator/(const mat4 &m1, float v1) { return mat4_div_float(m1.vec_, v1); }
 
     inline mat4 matrixCompMult(const mat4 &m1, const mat4 &m2) { return mat4_comp_mul(m1.vec_, m2.vec_); }
+
+    inline mat4 make_mat4(const float v[16]) {
+        return mat4(v[0], v[1], v[2], v[3],
+                    v[4], v[5], v[6], v[7],
+                    v[8], v[9], v[10], v[11],
+                    v[12], v[13], v[14], v[15]);
+    }
 }

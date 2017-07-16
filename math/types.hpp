@@ -71,25 +71,41 @@ typedef float __m128[4];
 #define DEF_END OMIT_FRAME_END
 
 #if defined(CPU_ARCH_SCALAR)
+    #define ALIGN_M32 1
+    #define ALIGN_M64 1
     #define ALIGN_M128 1
     #define ALIGN_M256 1
 #elif defined(CPU_ARCH_SSE2) || defined(CPU_ARCH_SSE3) || defined(CPU_ARCH_SSE4_1) || defined(CPU_ARCH_NEON)
+    #define ALIGN_M32 4
+    #define ALIGN_M64 8
     #define ALIGN_M128 16
     #define ALIGN_M256 16
 #elif defined(CPU_ARCH_AVX)
+    #define ALIGN_M32 4
+    #define ALIGN_M64 8
     #define ALIGN_M128 16
     #define ALIGN_M256 32
 #else
+    #define ALIGN_M32 4
+    #define ALIGN_M64 8
     #define ALIGN_M128 16
     #define ALIGN_M256 32
 #endif
 
 #ifdef __GNUC__
+    #define ALIGN_M32_BEG
+    #define ALIGN_M32_END __attribute__((aligned(ALIGN_M32)))
+    #define ALIGN_M64_BEG
+    #define ALIGN_M64_END __attribute__((aligned(ALIGN_M64)))
     #define ALIGN_M128_BEG
     #define ALIGN_M128_END __attribute__((aligned(ALIGN_M128)))
     #define ALIGN_M256_BEG
     #define ALIGN_M256_END __attribute__((aligned(ALIGN_M256)))
 #else
+    #define ALIGN_M32_BEG __declspec(align(ALIGN_M32))
+    #define ALIGN_M32_END
+    #define ALIGN_M64_BEG __declspec(align(ALIGN_M64))
+    #define ALIGN_M64_END
     #define ALIGN_M128_BEG __declspec(align(ALIGN_M128))
     #define ALIGN_M128_END
     #define ALIGN_M256_BEG __declspec(align(ALIGN_M256))
@@ -100,6 +116,8 @@ typedef float __m128[4];
 #pragma warning(disable : 4359) // lesser alignment ignored
 
 namespace math {
+    const size_t alignment_m32 = ALIGN_M32;
+    const size_t alignment_m64 = ALIGN_M64;
     const size_t alignment_m128 = ALIGN_M128;
     const size_t alignment_m256 = ALIGN_M256;
 
@@ -109,6 +127,12 @@ namespace math {
 
     static_assert(sizeof(float2) == 8, "!");
 
+    ALIGN_M32_BEG union float3{
+        float comp[3];
+    } ALIGN_M32_END;
+
+    static_assert(sizeof(float3) == 12, "!");
+
     ALIGN_M128_BEG union float4 {
         __m128 vec;
         float2 vec2[2];
@@ -117,6 +141,14 @@ namespace math {
     } ALIGN_M128_END;
 
     static_assert(sizeof(float4) == 16, "!");
+
+    ALIGN_M32_BEG union float9 {
+        float3 vec3[3];
+        float comp[9];
+        float comp3[3][3];
+    } ALIGN_M32_END;
+
+    static_assert(sizeof(float9) == 36, "!");
 
     ALIGN_M128_BEG union float12 {
         __m128 vec[3];

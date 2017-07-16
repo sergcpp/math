@@ -14,43 +14,49 @@ namespace sse2 {
 
     const __m128 zero_last_mask = _mm_castsi128_ps(_mm_set_epi32(0, 0xffffffff, 0xffffffff, 0xffffffff));
 
+    // should be faster than _mm_setr_ps as it uses only 3 loads
+    inline __m128 load_float3(const float3& v) {
+        __m128 x = _mm_load_ss(&v.comp[0]);
+        __m128 y = _mm_load_ss(&v.comp[1]);
+        __m128 z = _mm_load_ss(&v.comp[2]);
+        __m128 xy = _mm_movelh_ps(x, y);
+        return _mm_shuffle_ps(xy, z, _MM_SHUFFLE(2, 0, 2, 0));
+    }
+
+    inline float3 save_float3(const __m128 &v) {
+        union {
+            float3 f;
+            __m128 v;
+        } res;
+        res.v = v;
+        return res.f;
+    }
+
     // vec3
-    DEF_FUNC(void) vec3_init1(float4 &vec, float val) {
-        vec.vec = _mm_set_ps1(val);
+    DEF_FUNC(float3) vec3_add_vec3(const float3 &v1, const float3 &v2) {
+        __m128 res = _mm_add_ps(load_float3(v1), load_float3(v2));
+        return save_float3(res);
     } DEF_END
 
-    DEF_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2) {
-        vec.vec = _mm_set_ps(0, v2, v1, v0);
+    DEF_FUNC(float3) vec3_sub_vec3(const float3 &v1, const float3 &v2) {
+        __m128 res = _mm_sub_ps(load_float3(v1), load_float3(v2));
+        return save_float3(res);
     } DEF_END
 
-    DEF_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
-        ret.vec = _mm_add_ps(v1.vec, v2.vec);
-        return ret;
+    DEF_FUNC(float3) vec3_mul_vec3(const float3 &v1, const float3 &v2) {
+        __m128 res = _mm_mul_ps(load_float3(v1), load_float3(v2));
+        return save_float3(res);
     } DEF_END
 
-    DEF_FUNC(float4) vec3_sub_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
-        ret.vec = _mm_sub_ps(v1.vec, v2.vec);
-        return ret;
+    DEF_FUNC(float3) vec3_div_vec3(const float3 &v1, const float3 &v2) {
+        __m128 res = _mm_div_ps(load_float3(v1), load_float3(v2));
+        return save_float3(res);
     } DEF_END
 
-    DEF_FUNC(float4) vec3_mul_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
-        ret.vec = _mm_mul_ps(v1.vec, v2.vec);
-        return ret;
-    } DEF_END
-
-    DEF_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
-        ret.vec = _mm_div_ps(v1.vec, v2.vec);
-        return ret;
-    } DEF_END
-
-    DEF_FUNC(float) vec3_length(const float4 &v) {
+    DEF_FUNC(float) vec3_length(const float3 &v) {
         __m128 r1, r2;
-        r1 = _mm_mul_ps(v.vec, v.vec);
-        r1 = _mm_and_ps(r1, zero_last_mask);
+        __m128 vv = _mm_setr_ps(v.comp[0], v.comp[1], v.comp[2], 0);
+        r1 = _mm_mul_ps(vv, vv);
 
         r2 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(2, 3, 0, 1));
         r1 = _mm_add_ps(r1, r2);
@@ -60,10 +66,11 @@ namespace sse2 {
         return _mm_cvtss_f32(_mm_sqrt_ss(r1));
     } DEF_END
 
-    DEF_FUNC(float) vec3_dot(const float4 &v1, const float4 &v2) {
+    DEF_FUNC(float) vec3_dot(const float3 &v1, const float3 &v2) {
         __m128 r1, r2;
-        r1 = _mm_mul_ps(v1.vec, v2.vec);
-        r1 = _mm_and_ps(r1, zero_last_mask);
+        __m128 vv1 = _mm_setr_ps(v1.comp[0], v1.comp[1], v1.comp[2], 0);
+        __m128 vv2 = _mm_setr_ps(v2.comp[0], v2.comp[1], v2.comp[2], 0);
+        r1 = _mm_mul_ps(vv1, vv2);
 
         r2 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(2, 3, 0, 1));
         r1 = _mm_add_ps(r1, r2);
@@ -73,26 +80,26 @@ namespace sse2 {
         return _mm_cvtss_f32(r1);
     } DEF_END
 
-    DEF_FUNC(float4) vec3_cross(const float4 &v1, const float4 &v2) {
-        float4 ret;
-        ret.vec = _mm_sub_ps(_mm_mul_ps(_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 0, 2, 1)), _mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 1, 0, 2))),
-                             _mm_mul_ps(_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 1, 0, 2)), _mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 0, 2, 1))));
-        return ret;
+    DEF_FUNC(float3) vec3_cross(const float3 &v1, const float3 &v2) {
+        __m128 vv1 = _mm_setr_ps(v1.comp[0], v1.comp[1], v1.comp[2], 0);
+        __m128 vv2 = _mm_setr_ps(v2.comp[0], v2.comp[1], v2.comp[2], 0);
+        __m128 res = _mm_sub_ps(_mm_mul_ps(_mm_shuffle_ps(vv1, vv1, _MM_SHUFFLE(3, 0, 2, 1)), _mm_shuffle_ps(vv2, vv2, _MM_SHUFFLE(3, 1, 0, 2))),
+                                _mm_mul_ps(_mm_shuffle_ps(vv1, vv1, _MM_SHUFFLE(3, 1, 0, 2)), _mm_shuffle_ps(vv2, vv2, _MM_SHUFFLE(3, 0, 2, 1))));
+        return save_float3(res);
     } DEF_END
 
-    DEF_FUNC(float4) vec3_normalize(const float4 &v) {
+    DEF_FUNC(float3) vec3_normalize(const float3 &v) {
         __m128 r1, r2;
-        r1 = _mm_mul_ps(v.vec, v.vec);
-        r1 = _mm_and_ps(r1, zero_last_mask);
+        __m128 vv = _mm_setr_ps(v.comp[0], v.comp[1], v.comp[2], 0);
+        r1 = _mm_mul_ps(vv, vv);
 
         r2 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(2, 3, 0, 1));
         r1 = _mm_add_ps(r1, r2);
         r2 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(0, 1, 2, 3));
         r1 = _mm_add_ps(r1, r2);
 
-        float4 ret;
-        ret.vec = _mm_div_ps(v.vec, _mm_sqrt_ps(r1));
-        return ret;
+        __m128 res = _mm_div_ps(vv, _mm_sqrt_ps(r1));
+        return save_float3(res);
     } DEF_END
 
     // vec4
@@ -211,78 +218,59 @@ namespace sse2 {
     } DEF_END
 
     // mat3
-    DEF_FUNC(void) mat3_init1(float12 &vec, float val) {
-        vec.vec[0] = _mm_set_ps(0, 0, 0, val);
-        vec.vec[1] = _mm_set_ps(0, 0, val, 0);
-        vec.vec[2] = _mm_set_ps(0, val, 0, 0);
-    } DEF_END
-
-    DEF_FUNC(void) mat3_init9(float12 &vec, float v00, float v01, float v02,
-                                             float v10, float v11, float v12,
-                                             float v20, float v21, float v22) {
-        vec.vec[0] = _mm_set_ps(0, v02, v01, v00);
-        vec.vec[1] = _mm_set_ps(0, v12, v11, v10);
-        vec.vec[2] = _mm_set_ps(0, v22, v21, v20);
-    } DEF_END
-
-    DEF_FUNC(void) mat3_init3(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2) {
-        vec.vec[0] = v0.vec;
-        vec.vec[1] = v1.vec;
-        vec.vec[2] = v2.vec;
-    } DEF_END
-
-    DEF_FUNC(float12) mat3_add_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
-        ret.vec[0] = _mm_add_ps(v1.vec[0], v2.vec[0]);
-        ret.vec[1] = _mm_add_ps(v1.vec[1], v2.vec[1]);
-        ret.vec[2] = _mm_add_ps(v1.vec[2], v2.vec[2]);
+    DEF_FUNC(float9) mat3_add_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
+        ret.vec3[0] = save_float3(_mm_add_ps(load_float3(v1.vec3[0]), load_float3(v2.vec3[0])));
+        ret.vec3[1] = save_float3(_mm_add_ps(load_float3(v1.vec3[1]), load_float3(v2.vec3[1])));
+        ret.vec3[2] = save_float3(_mm_add_ps(load_float3(v1.vec3[2]), load_float3(v2.vec3[2])));
         return ret;
     } DEF_END
 
-    DEF_FUNC(float12) mat3_sub_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
-        ret.vec[0] = _mm_sub_ps(v1.vec[0], v2.vec[0]);
-        ret.vec[1] = _mm_sub_ps(v1.vec[1], v2.vec[1]);
-        ret.vec[2] = _mm_sub_ps(v1.vec[2], v2.vec[2]);
+    DEF_FUNC(float9) mat3_sub_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
+        ret.vec3[0] = save_float3(_mm_sub_ps(load_float3(v1.vec3[0]), load_float3(v2.vec3[0])));
+        ret.vec3[1] = save_float3(_mm_sub_ps(load_float3(v1.vec3[1]), load_float3(v2.vec3[1])));
+        ret.vec3[2] = save_float3(_mm_sub_ps(load_float3(v1.vec3[2]), load_float3(v2.vec3[2])));
         return ret;
     } DEF_END
 
-    DEF_FUNC(float12) mat3_mul_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DEF_FUNC(float9) mat3_mul_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
 
         __m128 r1, r2,
-               B0 = v2.vec[0], B1 = v2.vec[1], B2 = v2.vec[2];
+               A0 = load_float3(v1.vec3[0]), A1 = load_float3(v1.vec3[1]), A2 = load_float3(v1.vec3[2]),
+               B0 = load_float3(v2.vec3[0]), B1 = load_float3(v2.vec3[1]), B2 = load_float3(v2.vec3[2]);
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0x00), B0);
-        r2 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0x55), B1));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0xAA), B2));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0xAA), B2));
-        ret.vec[0] = r1;
-        ret.vec[1] = r2;
+        r1 = _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0x00), B0);
+        r2 = _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0x00), B0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0x55), B1));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0x55), B1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0xAA), B2));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0xAA), B2));
+        ret.vec3[0] = save_float3(r1);
+        ret.vec3[1] = save_float3(r2);
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0xAA), B2));
-        ret.vec[2] = r1;
+        r1 = _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0x00), B0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0x55), B1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0xAA), B2));
+        ret.vec3[2] = save_float3(r1);
 
         return ret;
     } DEF_END
 
-    DEF_FUNC(float12) mat3_div_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
-        ret.vec[0] = _mm_div_ps(v1.vec[0], v2.vec[0]);
-        ret.vec[1] = _mm_div_ps(v1.vec[1], v2.vec[1]);
-        ret.vec[2] = _mm_div_ps(v1.vec[2], v2.vec[2]);
+    DEF_FUNC(float9) mat3_div_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
+        ret.vec3[0] = save_float3(_mm_div_ps(load_float3(v1.vec3[0]), load_float3(v2.vec3[0])));
+        ret.vec3[1] = save_float3(_mm_div_ps(load_float3(v1.vec3[1]), load_float3(v2.vec3[1])));
+        ret.vec3[2] = save_float3(_mm_div_ps(load_float3(v1.vec3[2]), load_float3(v2.vec3[2])));
         return ret;
     } DEF_END
 
-    DEF_FUNC(float12) mat3_comp_mul(const float12 &v1, const float12 &v2) {
-        float12 ret;
-        ret.vec[0] = _mm_mul_ps(v1.vec[0], v2.vec[0]);
-        ret.vec[1] = _mm_mul_ps(v1.vec[1], v2.vec[1]);
-        ret.vec[2] = _mm_mul_ps(v1.vec[2], v2.vec[2]);
+    DEF_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2) {
+        float9 ret;
+        ret.vec3[0] = save_float3(_mm_mul_ps(load_float3(v1.vec3[0]), load_float3(v2.vec3[0])));
+        ret.vec3[1] = save_float3(_mm_mul_ps(load_float3(v1.vec3[1]), load_float3(v2.vec3[1])));
+        ret.vec3[2] = save_float3(_mm_mul_ps(load_float3(v1.vec3[2]), load_float3(v2.vec3[2])));
         return ret;
     } DEF_END
 
@@ -411,16 +399,16 @@ namespace sse2 {
     using namespace ref;
 
     // vec3
-    DECL_FUNC(void) vec3_init1(float4 &vec, float val);
-    DECL_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2);
-    DECL_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_sub_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_mul_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float) vec3_length(const float4 &v);
-    DECL_FUNC(float) vec3_dot(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_cross(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_normalize(const float4 &v);
+    DECL_FUNC(void) vec3_init1(float3 &vec, float val);
+    DECL_FUNC(void) vec3_init3(float3 &vec, float v0, float v1, float v2);
+    DECL_FUNC(float3) vec3_add_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_sub_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_mul_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_div_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float) vec3_length(const float3 &v);
+    DECL_FUNC(float) vec3_dot(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_cross(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_normalize(const float3 &v);
 
     // vec4
     DECL_FUNC(void) vec4_init1(float4 &vec, float val);

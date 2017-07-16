@@ -92,18 +92,18 @@ namespace math {
     static void init_cpu(CPUFeatures &cpu);
 
 #if defined(CPU_ARCH_UNKNOWN)
-    void (FASTCALL *vec3_init1)(float4 &vec, float val);
-    void (FASTCALL *vec3_init3)(float4 &vec, float v0, float v1, float v2);
-    float4 (FASTCALL *vec3_add_vec3)(const float4 &v1, const float4 &v2);
-    float4 (FASTCALL *vec3_sub_vec3)(const float4 &v1, const float4 &v2);
-    float4 (FASTCALL *vec3_mul_vec3)(const float4 &v1, const float4 &v2);
-    float4 (FASTCALL *vec3_div_vec3)(const float4 &v1, const float4 &v2);
+    void (FASTCALL *vec3_init1)(float3 &vec, float val);
+    void (FASTCALL *vec3_init3)(float3 &vec, float v0, float v1, float v2);
+    float3 (FASTCALL *vec3_add_vec3)(const float3 &v1, const float3 &v2);
+    float3 (FASTCALL *vec3_sub_vec3)(const float3 &v1, const float3 &v2);
+    float3 (FASTCALL *vec3_mul_vec3)(const float3 &v1, const float3 &v2);
+    float3 (FASTCALL *vec3_div_vec3)(const float3 &v1, const float3 &v2);
 
-    float (FASTCALL *vec3_length)(const float4 &vec);
-    float (FASTCALL *vec3_dot)(const float4 &v1, const float4 &v2);
-    float4 (FASTCALL *vec3_cross)(const float4 &v1, const float4 &v2);
-    float4 (FASTCALL *vec3_normalize)(const float4 &vec);
-    float4 (FASTCALL *vec3_normalize_fast)(const float4 &vec);
+    float (FASTCALL *vec3_length)(const float3 &vec);
+    float (FASTCALL *vec3_dot)(const float3 &v1, const float3 &v2);
+    float3 (FASTCALL *vec3_cross)(const float3 &v1, const float3 &v2);
+    float3 (FASTCALL *vec3_normalize)(const float3 &vec);
+    float3 (FASTCALL *vec3_normalize_fast)(const float3 &vec);
 
     void (FASTCALL *vec4_init1)(float4 &vec, float val);
     void (FASTCALL *vec4_init4)(float4 &vec, float v0, float v1, float v2, float v3);
@@ -127,21 +127,21 @@ namespace math {
 
     float4 (FASTCALL *mat2_comp_mul)(const float4 &m1, const float4 &m2);
 
-    void (FASTCALL *mat3_init1)(float12 &vec, float val);
-    void (FASTCALL *mat3_init3)(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2);
-    void (FASTCALL *mat3_init9)(float12 &vec, float v00, float v01, float v02,
-                                              float v10, float v11, float v12,
-                                              float v20, float v21, float v22);
+    void (FASTCALL *mat3_init1)(float9 &vec, float val);
+    void (FASTCALL *mat3_init3)(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
+    void (FASTCALL *mat3_init9)(float9 &vec, float v00, float v01, float v02,
+                                             float v10, float v11, float v12,
+                                             float v20, float v21, float v22);
 
-    float12 (FASTCALL *mat3_add_mat3)(const float12 &v1, const float12 &v2);
-    float12 (FASTCALL *mat3_sub_mat3)(const float12 &v1, const float12 &v2);
-    float12 (FASTCALL *mat3_mul_mat3)(const float12 &v1, const float12 &v2);
-    float12 (FASTCALL *mat3_div_mat3)(const float12 &v1, const float12 &v2);
+    float9 (FASTCALL *mat3_add_mat3)(const float9 &v1, const float9 &v2);
+    float9 (FASTCALL *mat3_sub_mat3)(const float9 &v1, const float9 &v2);
+    float9 (FASTCALL *mat3_mul_mat3)(const float9 &v1, const float9 &v2);
+    float9 (FASTCALL *mat3_div_mat3)(const float9 &v1, const float9 &v2);
 
-    float12 (FASTCALL *mat3_mul_float)(const float12 &v1, float v2);
-    float12 (FASTCALL *mat3_div_float)(const float12 &v1, float v2);
+    float9 (FASTCALL *mat3_mul_float)(const float9 &v1, float v2);
+    float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
-    float12 (FASTCALL *mat3_comp_mul)(const float12 &m1, const float12 &m2);
+    float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
 
     void (FASTCALL *mat4_init1)(float16 &vec, float val);
     void (FASTCALL *mat4_init4)(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);
@@ -163,18 +163,18 @@ namespace math {
     float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
 #endif
     const struct func_table {
-        void (FASTCALL *vec3_init1)(float4 &vec, float val);
-        void (FASTCALL *vec3_init3)(float4 &vec, float v0, float v1, float v2);
-        float4 (FASTCALL *vec3_add_vec3)(const float4 &v1, const float4 &v2);
-        float4 (FASTCALL *vec3_sub_vec3)(const float4 &v1, const float4 &v2);
-        float4 (FASTCALL *vec3_mul_vec3)(const float4 &v1, const float4 &v2);
-        float4 (FASTCALL *vec3_div_vec3)(const float4 &v1, const float4 &v2);
+        void (FASTCALL *vec3_init1)(float3 &vec, float val);
+        void (FASTCALL *vec3_init3)(float3 &vec, float v0, float v1, float v2);
+        float3 (FASTCALL *vec3_add_vec3)(const float3 &v1, const float3 &v2);
+        float3 (FASTCALL *vec3_sub_vec3)(const float3 &v1, const float3 &v2);
+        float3 (FASTCALL *vec3_mul_vec3)(const float3 &v1, const float3 &v2);
+        float3 (FASTCALL *vec3_div_vec3)(const float3 &v1, const float3 &v2);
 
-        float (FASTCALL *vec3_length)(const float4 &vec);
-        float (FASTCALL *vec3_dot)(const float4 &v1, const float4 &v2);
-        float4 (FASTCALL *vec3_cross)(const float4 &v1, const float4 &v2);
-        float4 (FASTCALL *vec3_normalize)(const float4 &vec);
-        float4 (FASTCALL *vec3_normalize_fast)(const float4 &vec);
+        float (FASTCALL *vec3_length)(const float3 &vec);
+        float (FASTCALL *vec3_dot)(const float3 &v1, const float3 &v2);
+        float3 (FASTCALL *vec3_cross)(const float3 &v1, const float3 &v2);
+        float3 (FASTCALL *vec3_normalize)(const float3 &vec);
+        float3 (FASTCALL *vec3_normalize_fast)(const float3 &vec);
 
         void (FASTCALL *vec4_init1)(float4 &vec, float val);
         void (FASTCALL *vec4_init4)(float4 &vec, float v0, float v1, float v2, float v3);
@@ -198,21 +198,21 @@ namespace math {
 
         float4 (FASTCALL *mat2_comp_mul)(const float4 &m1, const float4 &m2);
 
-        void (FASTCALL *mat3_init1)(float12 &vec, float val);
-        void (FASTCALL *mat3_init3)(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2);
-        void (FASTCALL *mat3_init9)(float12 &vec, float v00, float v01, float v02,
-                                                  float v10, float v11, float v12,
-                                                  float v20, float v21, float v22);
+        void (FASTCALL *mat3_init1)(float9 &vec, float val);
+        void (FASTCALL *mat3_init3)(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
+        void (FASTCALL *mat3_init9)(float9 &vec, float v00, float v01, float v02,
+                                                 float v10, float v11, float v12,
+                                                 float v20, float v21, float v22);
 
-        float12 (FASTCALL *mat3_add_mat3)(const float12 &v1, const float12 &v2);
-        float12 (FASTCALL *mat3_sub_mat3)(const float12 &v1, const float12 &v2);
-        float12 (FASTCALL *mat3_mul_mat3)(const float12 &v1, const float12 &v2);
-        float12 (FASTCALL *mat3_div_mat3)(const float12 &v1, const float12 &v2);
+        float9 (FASTCALL *mat3_add_mat3)(const float9 &v1, const float9 &v2);
+        float9 (FASTCALL *mat3_sub_mat3)(const float9 &v1, const float9 &v2);
+        float9 (FASTCALL *mat3_mul_mat3)(const float9 &v1, const float9 &v2);
+        float9 (FASTCALL *mat3_div_mat3)(const float9 &v1, const float9 &v2);
 
-        float12 (FASTCALL *mat3_mul_float)(const float12 &v1, float v2);
-        float12 (FASTCALL *mat3_div_float)(const float12 &v1, float v2);
+        float9 (FASTCALL *mat3_mul_float)(const float9 &v1, float v2);
+        float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
-        float12 (FASTCALL *mat3_comp_mul)(const float12 &m1, const float12 &m2);
+        float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
 
         void (FASTCALL *mat4_init1)(float16 &vec, float val);
         void (FASTCALL *mat4_init4)(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);

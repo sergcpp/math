@@ -15,7 +15,6 @@ namespace math {
         vec2() { vec2_init1(vec_, 0); }
         vec2(float v) { vec2_init1(vec_, v); }
         vec2(float v0, float v1) { vec2_init2(vec_, v0, v1); }
-        vec2(const float v[2]) { vec2_init2(vec_, v[0], v[1]); }
         vec2(const float2 &v) { vec_ = v; }
         vec2(const vec3 &v);
         vec2(const vec4 &v);
@@ -87,6 +86,8 @@ namespace math {
     inline vec2 operator-(const vec2 &v1, const vec2 &v2) { return vec2(vec2_sub_vec2(v1.vec_, v2.vec_)); }
     inline vec2 operator*(const vec2 &v1, const vec2 &v2) { return vec2(vec2_mul_vec2(v1.vec_, v2.vec_)); }
     inline vec2 operator/(const vec2 &v1, const vec2 &v2) { return vec2(vec2_div_vec2(v1.vec_, v2.vec_)); }
+
+    inline vec2 make_vec2(const float v[2]) { return vec2(v[0], v[1]); }
 }
 
 #include "vec3.hpp"

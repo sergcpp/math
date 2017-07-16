@@ -15,7 +15,6 @@ namespace math {
         vec4() : vec4(uninitialize) { vec4_init1(vec_, 0); }
         vec4(float v) : vec4(uninitialize) { vec4_init1(vec_, v); }
         vec4(float v0, float v1, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v0, v1, v2, v3); }
-        vec4(const float v[4]) : vec4(uninitialize) { vec4_init4(vec_, v[0], v[1], v[2], v[3]); }
         vec4(const float4 &v) : vec4(uninitialize) { vec_ = v; }
         vec4(const vec2 &v01, const vec2 &v23) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
         vec4(const vec2 &v01, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v2, v3); }
@@ -99,6 +98,8 @@ namespace math {
     inline vec4 operator-(const vec4 &v1, const vec4 &v2) { return vec4(vec4_sub_vec4(v1.vec_, v2.vec_)); }
     inline vec4 operator*(const vec4 &v1, const vec4 &v2) { return vec4(vec4_mul_vec4(v1.vec_, v2.vec_)); }
     inline vec4 operator/(const vec4 &v1, const vec4 &v2) { return vec4(vec4_div_vec4(v1.vec_, v2.vec_)); }
+
+    inline vec4 make_vec4(const float v[4]) { return vec4(v[0], v[1], v[2], v[3]); }
 }
 
 #include "mat4.hpp"

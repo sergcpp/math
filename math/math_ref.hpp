@@ -123,134 +123,134 @@ namespace ref {
     } DEF_END
 
     // vec3
-    DECL_FUNC(void) vec3_init1(float4 &vec, float val) {
+    DECL_FUNC(void) vec3_init1(float3 &vec, float val) {
         vec.comp[0] = vec.comp[1] = vec.comp[2] = val;
     } DEF_END
 
-    DECL_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2) {
+    DECL_FUNC(void) vec3_init3(float3 &vec, float v0, float v1, float v2) {
         vec.comp[0] = v0; vec.comp[1] = v1; vec.comp[2] = v2;
     } DEF_END
 
-    DECL_FUNC(bool) vec3_eq_vec3(const float4 &v1, const float4 &v2) {
+    DECL_FUNC(bool) vec3_eq_vec3(const float3 &v1, const float3 &v2) {
         return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1] && v1.comp[2] == v2.comp[2];
     } DEF_END
 
-    DECL_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_add_vec3(const float3 &v1, const float3 &v2) {
+        float3 ret;
         ret.comp[0] = v1.comp[0] + v2.comp[0];
         ret.comp[1] = v1.comp[1] + v2.comp[1];
         ret.comp[2] = v1.comp[2] + v2.comp[2];
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_sub_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_sub_vec3(const float3 &v1, const float3 &v2) {
+        float3 ret;
         ret.comp[0] = v1.comp[0] - v2.comp[0];
         ret.comp[1] = v1.comp[1] - v2.comp[1];
         ret.comp[2] = v1.comp[2] - v2.comp[2];
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_mul_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_mul_vec3(const float3 &v1, const float3 &v2) {
+        float3 ret;
         ret.comp[0] = v1.comp[0] * v2.comp[0];
         ret.comp[1] = v1.comp[1] * v2.comp[1];
         ret.comp[2] = v1.comp[2] * v2.comp[2];
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_div_vec3(const float3 &v1, const float3 &v2) {
+        float3 ret;
         ret.comp[0] = v1.comp[0] / v2.comp[0];
         ret.comp[1] = v1.comp[1] / v2.comp[1];
         ret.comp[2] = v1.comp[2] / v2.comp[2];
         return ret;
     } DEF_END
 
-    DECL_FUNC(float) vec3_get(const float4 &vec, int i) {
+    DECL_FUNC(float) vec3_get(const float3 &vec, int i) {
         return vec.comp[i];
     } DEF_END
 
-    DECL_FUNC(void) vec3_set(float4 &vec, int i, float v) {
+    DECL_FUNC(void) vec3_set(float3 &vec, int i, float v) {
         vec.comp[i] = v;
     } DEF_END
 
-    DECL_FUNC(float) vec3_length(const float4 &vec) {
+    DECL_FUNC(float) vec3_length(const float3 &vec) {
         return sqrtf(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
     } DEF_END
 
-    DECL_FUNC(float) vec3_dot(const float4 &v1, const float4 &v2) {
+    DECL_FUNC(float) vec3_dot(const float3 &v1, const float3 &v2) {
         return v1.comp[0] * v2.comp[0] + v1.comp[1] * v2.comp[1] + v1.comp[2] * v2.comp[2];
     } DEF_END
 
-    DECL_FUNC(float4) vec3_cross(const float4 &v1, const float4 &v2) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_cross(const float3 &v1, const float3 &v2) {
+        float3 ret;
         ret.comp[0] = v1.comp[1] * v2.comp[2] - v1.comp[2] * v2.comp[1];
         ret.comp[1] = v1.comp[2] * v2.comp[0] - v1.comp[0] * v2.comp[2];
         ret.comp[2] = v1.comp[0] * v2.comp[1] - v1.comp[1] * v2.comp[0];
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_normalize(const float4 &vec) {
+    DECL_FUNC(float3) vec3_normalize(const float3 &vec) {
         float norm = sqrtf(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
-        float4 ret;
+        float3 ret;
         ret.comp[0] = vec.comp[0] / norm;
         ret.comp[1] = vec.comp[1] / norm;
         ret.comp[2] = vec.comp[2] / norm;
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_normalize_fast(const float4 &vec) {
+    DECL_FUNC(float3) vec3_normalize_fast(const float3 &vec) {
         float inv_norm = 1.0f / sqrtf(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
-        float4 ret;
+        float3 ret;
         ret.comp[0] = vec.comp[0] * inv_norm;
         ret.comp[1] = vec.comp[1] * inv_norm;
         ret.comp[2] = vec.comp[2] * inv_norm;
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_sin(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_sin(const float3 &v) {
+        float3 ret;
         ret.comp[0] = sinf(v.comp[0]);
         ret.comp[1] = sinf(v.comp[1]);
         ret.comp[2] = sinf(v.comp[2]);
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_cos(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_cos(const float3 &v) {
+        float3 ret;
         ret.comp[0] = cosf(v.comp[0]);
         ret.comp[1] = cosf(v.comp[1]);
         ret.comp[2] = cosf(v.comp[2]);
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_tan(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_tan(const float3 &v) {
+        float3 ret;
         ret.comp[0] = tanf(v.comp[0]);
         ret.comp[1] = tanf(v.comp[1]);
         ret.comp[2] = tanf(v.comp[2]);
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_asin(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_asin(const float3 &v) {
+        float3 ret;
         ret.comp[0] = asinf(v.comp[0]);
         ret.comp[1] = asinf(v.comp[1]);
         ret.comp[2] = asinf(v.comp[2]);
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_acos(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_acos(const float3 &v) {
+        float3 ret;
         ret.comp[0] = acosf(v.comp[0]);
         ret.comp[1] = acosf(v.comp[1]);
         ret.comp[2] = acosf(v.comp[2]);
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) vec3_atan(const float4 &v) {
-        float4 ret;
+    DECL_FUNC(float3) vec3_atan(const float3 &v) {
+        float3 ret;
         ret.comp[0] = atanf(v.comp[0]);
         ret.comp[1] = atanf(v.comp[1]);
         ret.comp[2] = atanf(v.comp[2]);
@@ -475,108 +475,108 @@ namespace ref {
     } DEF_END
 
     // mat3
-    DECL_FUNC(void) mat3_init1(float12 &vec, float val) {
-        vec.comp4[0][0] = vec.comp4[1][1] = vec.comp4[2][2] = val;
-        vec.comp4[0][1] = vec.comp4[0][2] =
-            vec.comp4[1][0] = vec.comp4[1][2] =
-            vec.comp4[2][0] = vec.comp4[2][1] = 0;
+    DECL_FUNC(void) mat3_init1(float9 &vec, float val) {
+        vec.comp3[0][0] = vec.comp3[1][1] = vec.comp3[2][2] = val;
+        vec.comp3[0][1] = vec.comp3[0][2] =
+            vec.comp3[1][0] = vec.comp3[1][2] =
+            vec.comp3[2][0] = vec.comp3[2][1] = 0;
     } DEF_END
 
-    DECL_FUNC(void) mat3_init9(float12 &vec, float v00, float v01, float v02,
-                                             float v10, float v11, float v12,
-                                             float v20, float v21, float v22) {
-        vec.comp4[0][0] = v00; vec.comp4[0][1] = v01; vec.comp4[0][2] = v02;
-        vec.comp4[1][0] = v10; vec.comp4[1][1] = v11; vec.comp4[1][2] = v12;
-        vec.comp4[2][0] = v20; vec.comp4[2][1] = v21; vec.comp4[2][2] = v22;
+    DECL_FUNC(void) mat3_init9(float9 &vec, float v00, float v01, float v02,
+                                            float v10, float v11, float v12,
+                                            float v20, float v21, float v22) {
+        vec.comp3[0][0] = v00; vec.comp3[0][1] = v01; vec.comp3[0][2] = v02;
+        vec.comp3[1][0] = v10; vec.comp3[1][1] = v11; vec.comp3[1][2] = v12;
+        vec.comp3[2][0] = v20; vec.comp3[2][1] = v21; vec.comp3[2][2] = v22;
     } DEF_END
 
-    DECL_FUNC(void) mat3_init3(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2) {
-        vec.vec4[0] = v0;
-        vec.vec4[1] = v1;
-        vec.vec4[2] = v2;
+    DECL_FUNC(void) mat3_init3(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2) {
+        vec.vec3[0] = v0;
+        vec.vec3[1] = v1;
+        vec.vec3[2] = v2;
     } DEF_END
 
-    DECL_FUNC(bool) mat3_eq_mat3(const float12 &m1, const float12 &m2) {
-        return m1.comp4[0][0] == m2.comp4[0][0] && m1.comp4[0][1] == m2.comp4[0][1] && m1.comp4[0][2] == m2.comp4[0][2] &&
-               m1.comp4[1][0] == m2.comp4[1][0] && m1.comp4[1][1] == m2.comp4[1][1] && m1.comp4[1][2] == m2.comp4[1][2] &&
-               m1.comp4[2][0] == m2.comp4[2][0] && m1.comp4[2][1] == m2.comp4[2][1] && m1.comp4[2][2] == m2.comp4[2][2];
+    DECL_FUNC(bool) mat3_eq_mat3(const float9 &m1, const float9 &m2) {
+        return m1.comp3[0][0] == m2.comp3[0][0] && m1.comp3[0][1] == m2.comp3[0][1] && m1.comp3[0][2] == m2.comp3[0][2] &&
+               m1.comp3[1][0] == m2.comp3[1][0] && m1.comp3[1][1] == m2.comp3[1][1] && m1.comp3[1][2] == m2.comp3[1][2] &&
+               m1.comp3[2][0] == m2.comp3[2][0] && m1.comp3[2][1] == m2.comp3[2][1] && m1.comp3[2][2] == m2.comp3[2][2];
     }
 
-    DECL_FUNC(float12) mat3_add_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_add_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] + v2.comp4[i][j];
+                ret.comp3[i][j] = v1.comp3[i][j] + v2.comp3[i][j];
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_sub_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_sub_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] - v2.comp4[i][j];
+                ret.comp3[i][j] = v1.comp3[i][j] - v2.comp3[i][j];
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_mul_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_mul_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = (v1.comp4[i][0] * v2.comp4[0][j])
-                    + (v1.comp4[i][1] * v2.comp4[1][j])
-                    + (v1.comp4[i][2] * v2.comp4[2][j]);
+                ret.comp3[i][j] = v1.comp3[i][0] * v2.comp3[0][j] +
+                                  v1.comp3[i][1] * v2.comp3[1][j] +
+                                  v1.comp3[i][2] * v2.comp3[2][j];
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_div_mat3(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_div_mat3(const float9 &v1, const float9 &v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] / v2.comp4[i][j];
+                ret.comp3[i][j] = v1.comp3[i][j] / v2.comp3[i][j];
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_mul_float(const float12 &v1, float v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_mul_float(const float9 &v1, float v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] * v2;
+                ret.comp3[i][j] = v1.comp3[i][j] * v2;
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_div_float(const float12 &v1, float v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_div_float(const float9 &v1, float v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] / v2;
+                ret.comp3[i][j] = v1.comp3[i][j] / v2;
             }
         }
         return ret;
     } DEF_END
 
-    DECL_FUNC(float4) mat3_get(const float12 &vec, int i) {
-        return vec.vec4[i];
+    DECL_FUNC(float3) mat3_get(const float9 &vec, int i) {
+        return vec.vec3[i];
     } DEF_END
 
-        DECL_FUNC(void) mat3_set(float12 &vec, int i, const float4 &v) {
-        vec.vec4[i] = v;
+    DECL_FUNC(void) mat3_set(float9 &vec, int i, const float3 &v) {
+        vec.vec3[i] = v;
     } DEF_END
 
-    DECL_FUNC(float12) mat3_comp_mul(const float12 &v1, const float12 &v2) {
-        float12 ret;
+    DECL_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2) {
+        float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp4[i][j] = v1.comp4[i][j] * v2.comp4[i][j];
+                ret.comp3[i][j] = v1.comp3[i][j] * v2.comp3[i][j];
             }
         }
         return ret;
@@ -780,21 +780,21 @@ namespace ref {
     DECL_FUNC(float4) mat2_comp_mul(const float4 &m1, const float4 &m2);
 
     // mat3
-    DECL_FUNC(void) mat3_init1(float12 &vec, float val);
-    DECL_FUNC(void) mat3_init9(float12 &vec, float v00, float v01, float v02,
-                                             float v10, float v11, float v12,
-                                             float v20, float v21, float v22);
-    DECL_FUNC(void) mat3_init3(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2);
-    DECL_FUNC(bool) mat3_eq_mat3(const float12 &m1, const float12 &m2);
-    DECL_FUNC(float12) mat3_add_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_sub_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_mul_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_div_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_mul_float(const float12 &v1, float v2);
-    DECL_FUNC(float12) mat3_div_float(const float12 &v1, float v2);
-    DECL_FUNC(float4) mat3_get(const float12 &vec, int i);
+    DECL_FUNC(void) mat3_init1(float9 &vec, float val);
+    DECL_FUNC(void) mat3_init9(float9 &vec, float v00, float v01, float v02,
+                                            float v10, float v11, float v12,
+                                            float v20, float v21, float v22);
+    DECL_FUNC(void) mat3_init3(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
+    DECL_FUNC(bool) mat3_eq_mat3(const float9 &m1, const float9 &m2);
+    DECL_FUNC(float9) mat3_add_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_sub_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_mul_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_div_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_mul_float(const float9 &v1, float v2);
+    DECL_FUNC(float9) mat3_div_float(const float9 &v1, float v2);
+    DECL_FUNC(float3) mat3_get(const float12 &vec, int i);
     DECL_FUNC(void) mat3_set(float12 &vec, int i, const float4 &v);
-    DECL_FUNC(float12) mat3_comp_mul(const float12 &v1, const float12 &v2);
+    DECL_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2);
 
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);
