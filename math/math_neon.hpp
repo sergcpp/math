@@ -16,7 +16,7 @@ namespace neon {
     using namespace ref;
     
     // vec3
-    DEF_FUNC(void) vec3_init1(float4 &vec, float val) {
+    /*DEF_FUNC(void) vec3_init1(float4 &vec, float val) {
         vec.vec = vdupq_n_f32(val);
     } DEF_END
 
@@ -47,7 +47,7 @@ namespace neon {
         float4 ret;
         ret.vec = vdivq_f32(v1.vec, v2.vec);
         return ret;
-    } DEF_END
+    } DEF_END*/
 
     // vec4
     DEF_FUNC(void) vec4_init1(float4 &vec, float val) {
@@ -98,12 +98,12 @@ namespace neon {
     using namespace ref;
     
     // vec3
-    DECL_FUNC(void) vec3_init1(float4 &vec, float val);
+    /*DECL_FUNC(void) vec3_init1(float4 &vec, float val);
     DECL_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2);
     DECL_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2);
     DECL_FUNC(float4) vec3_sub_vec3(const float4 &v1, const float4 &v2);
     DECL_FUNC(float4) vec3_mul_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2);
+    DECL_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2);*/
 
     // vec4
     DECL_FUNC(void) vec4_init1(float4 &vec, float val);
