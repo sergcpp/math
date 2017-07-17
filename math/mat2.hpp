@@ -54,7 +54,12 @@ namespace math {
         friend mat2 operator*(const mat2 &m1, const mat2 &m2);
         friend mat2 operator/(const mat2 &m1, const mat2 &m2);
 
+        friend vec2 operator*(const mat2 &m, const vec2 &v);
+        friend vec2 operator*(const vec2 &v, const mat2 &m);
+
         friend mat2 matrixCompMult(const mat2 &m1, const mat2 &m2);
+
+        friend const float *value_ptr(const mat2 &m);
 
         static const size_t alignment = alignment_m128;
     };
@@ -75,5 +80,9 @@ namespace math {
 
     inline mat2 make_mat2(const float v[4]) {
         return mat2(v[0], v[1], v[2], v[3]);
+    }
+
+    inline const float *value_ptr(const mat2 &m) {
+        return &m.vec_.comp[0];
     }
 }

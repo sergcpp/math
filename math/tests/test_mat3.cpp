@@ -176,9 +176,9 @@ void test_mat3(math::e_arch arch) {
         assert(m9[0] == Approx3(0, 1, 2) &&
                m9[1] == Approx3(-1, 0, 1) &&
                m9[2] == Approx3(-2, -1, 0));
-        assert(m10[0] == Approx3(14, 14, 14) &&
-               m10[1] == Approx3(14, 14, 14) &&
-               m10[2] == Approx3(14, 14, 14));
+        assert(m10[0] == Approx3(3, 6, 9) &&
+               m10[1] == Approx3(6, 12, 18) &&
+               m10[2] == Approx3(9, 18, 27));
         assert(m11[0] == Approx3(1, 2, 3) &&
                m11[1] == Approx3(0.5, 1, 1.5) &&
                m11[2] == Approx3(0.33333, 0.66666, 1));

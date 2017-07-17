@@ -3,6 +3,7 @@ project(test_math)
 
 add_executable(test_math main.cpp
                          test_assert.h
+                         test_comb.cpp
                          test_common.cpp
                          test_geometric.cpp
                          test_mat2.cpp

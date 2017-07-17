@@ -526,9 +526,9 @@ namespace ref {
         float9 ret;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                ret.comp3[i][j] = v1.comp3[i][0] * v2.comp3[0][j] +
-                                  v1.comp3[i][1] * v2.comp3[1][j] +
-                                  v1.comp3[i][2] * v2.comp3[2][j];
+                ret.comp3[i][j] = v2.comp3[i][0] * v1.comp3[0][j] +
+                                  v2.comp3[i][1] * v1.comp3[1][j] +
+                                  v2.comp3[i][2] * v1.comp3[2][j];
             }
         }
         return ret;
@@ -635,10 +635,10 @@ namespace ref {
         float16 ret;
         for (int i = 0; i < 16; i += 4) {
             for (int j = 0; j < 4; j++) {
-                ret.comp[i + j] = (v1.comp[i + 0] * v2.comp[j + 0])
-                    + (v1.comp[i + 1] * v2.comp[j + 4])
-                    + (v1.comp[i + 2] * v2.comp[j + 8])
-                    + (v1.comp[i + 3] * v2.comp[j + 12]);
+                ret.comp[i + j] = (v2.comp[i + 0] * v1.comp[j + 0]) +
+                                  (v2.comp[i + 1] * v1.comp[j + 4]) +
+                                  (v2.comp[i + 2] * v1.comp[j + 8]) +
+                                  (v2.comp[i + 3] * v1.comp[j + 12]);
             }
         }
         return ret;
@@ -672,7 +672,7 @@ namespace ref {
         return vec.vec4[i];
     } DEF_END
 
-        DECL_FUNC(void) mat4_set(float16 &vec, int i, const float4 &v) {
+    DECL_FUNC(void) mat4_set(float16 &vec, int i, const float4 &v) {
         vec.vec4[i] = v;
     } DEF_END
 
@@ -685,14 +685,53 @@ namespace ref {
     } DEF_END
 
     // comb
-    DECL_FUNC(float4) mat4_mul_vec4(const float16 &v1, const float4 &v2) {
+    DECL_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v) {
+        float2 ret;
+        ret.comp[0] = m.comp2[0][0] * v.comp[0] + m.comp2[1][0] * v.comp[1];
+        ret.comp[1] = m.comp2[0][1] * v.comp[0] + m.comp2[1][1] * v.comp[1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float3) mat3_mul_vec3(const float9 &m, const float3 &v) {
+        float3 ret;
+        ret.comp[0] = m.comp3[0][0] * v.comp[0] + m.comp3[1][0] * v.comp[1] + m.comp3[2][0] * v.comp[2];
+        ret.comp[1] = m.comp3[0][1] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[2][1] * v.comp[2];
+        ret.comp[2] = m.comp3[0][2] * v.comp[0] + m.comp3[1][2] * v.comp[1] + m.comp3[2][2] * v.comp[2];
+        return ret;
+    }
+
+    DECL_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
         float4 ret;
         for (int i = 0; i < 4; i++) {
-            ret.comp[i] = v1.comp4[i][0] * v2.comp[0] +
-                v1.comp4[i][1] * v2.comp[1] +
-                v1.comp4[i][2] * v2.comp[2] +
-                v1.comp4[i][3] * v2.comp[3];
+            ret.comp[i] = m.comp4[0][i] * v.comp[0] +
+                          m.comp4[1][i] * v.comp[1] +
+                          m.comp4[2][i] * v.comp[2] +
+                          m.comp4[3][i] * v.comp[3];
         }
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m) {
+        float2 ret;
+        ret.comp[0] = v.comp[0] * m.comp2[0][0] + v.comp[1] * m.comp2[0][1];
+        ret.comp[1] = v.comp[0] * m.comp2[1][0] + v.comp[1] * m.comp2[1][1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float3) vec3_mul_mat3(const float3 &v, const float9 &m) {
+        float3 ret;
+        ret.comp[0] = m.comp3[0][0] * v.comp[0] + m.comp3[0][1] * v.comp[1] + m.comp3[0][2] * v.comp[2];
+        ret.comp[1] = m.comp3[1][0] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[1][2] * v.comp[2];
+        ret.comp[2] = m.comp3[2][0] * v.comp[0] + m.comp3[2][1] * v.comp[1] + m.comp3[2][2] * v.comp[2];
+        return ret;
+    }
+
+    DECL_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m) {
+        float4 ret;
+        ret.comp[0] = m.comp4[0][0] * v.comp[0] + m.comp4[0][1] * v.comp[1] + m.comp4[0][2] * v.comp[2] + m.comp4[0][3] * v.comp[3];
+        ret.comp[1] = m.comp4[1][0] * v.comp[0] + m.comp4[1][1] * v.comp[1] + m.comp4[1][2] * v.comp[2] + m.comp4[1][3] * v.comp[3];
+        ret.comp[2] = m.comp4[2][0] * v.comp[0] + m.comp4[2][1] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[2][3] * v.comp[3];
+        ret.comp[3] = m.comp4[3][0] * v.comp[0] + m.comp4[3][1] * v.comp[1] + m.comp4[3][2] * v.comp[2] + m.comp4[3][3] * v.comp[3];
         return ret;
     } DEF_END
 }
@@ -815,7 +854,13 @@ namespace ref {
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
 
     // comb
-    DECL_FUNC(float4) mat4_mul_vec4(const float16 &v1, const float4 &v2);
+    DECL_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v);
+    DECL_FUNC(float3) mat3_mul_vec3(const float9 &m, const float3 &v);
+    DECL_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v);
+
+    DECL_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m);
+    DECL_FUNC(float3) vec3_mul_mat3(const float3 &v, const float9 &m);
+    DECL_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m);
 }
 }
 

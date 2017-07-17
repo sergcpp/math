@@ -61,7 +61,12 @@ namespace math {
         friend mat3 operator*(const mat3 &m1, float v1);
         friend mat3 operator/(const mat3 &m1, float v1);
 
+        friend vec3 operator*(const mat3 &m, const vec3 &v);
+        friend vec3 operator*(const vec3 &v, const mat3 &m);
+
         friend mat3 matrixCompMult(const mat3 &m1, const mat3 &m2);
+
+        friend const float *value_ptr(const mat3 &m);
 
         static const size_t alignment = alignment_m32;
     };
@@ -84,5 +89,9 @@ namespace math {
         return mat3(v[0], v[1], v[2], 
                     v[3], v[4], v[5], 
                     v[6], v[7], v[8]);
+    }
+
+    inline const float *value_ptr(const mat3 &m) {
+        return &m.vec_.comp[0];
     }
 }

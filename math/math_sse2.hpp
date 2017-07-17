@@ -241,18 +241,18 @@ namespace sse2 {
                A0 = load_float3(v1.vec3[0]), A1 = load_float3(v1.vec3[1]), A2 = load_float3(v1.vec3[2]),
                B0 = load_float3(v2.vec3[0]), B1 = load_float3(v2.vec3[1]), B2 = load_float3(v2.vec3[2]);
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0x00), B0);
-        r2 = _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0x55), B1));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A0, A0, 0xAA), B2));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(A1, A1, 0xAA), B2));
+        r1 = _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0x00), A0);
+        r2 = _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0x00), A0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0x55), A1));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0x55), A1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0xAA), A2));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0xAA), A2));
         ret.vec3[0] = save_float3(r1);
         ret.vec3[1] = save_float3(r2);
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(A2, A2, 0xAA), B2));
+        r1 = _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0x00), A0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0x55), A1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0xAA), A2));
         ret.vec3[2] = save_float3(r1);
 
         return ret;
@@ -321,27 +321,27 @@ namespace sse2 {
         float16 ret;
 
         __m128 r1, r2,
-               B0 = v2.vec[0], B1 = v2.vec[1], B2 = v2.vec[2], B3 = v2.vec[3];
+               A0 = v1.vec[0], A1 = v1.vec[1], A2 = v1.vec[2], A3 = v1.vec[3];
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0x00), B0);
-        r2 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0x55), B1));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0xAA), B2));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0xAA), B2));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[0], v1.vec[0], 0xFF), B3));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[1], v1.vec[1], 0xFF), B3));
+        r1 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0x00), A0);
+        r2 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0x00), A0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0x55), A1));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0x55), A1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0xAA), A2));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0xAA), A2));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0xFF), A3));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0xFF), A3));
         ret.vec[0] = r1;
         ret.vec[1] = r2;
 
-        r1 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0x00), B0);
-        r2 = _mm_mul_ps(_mm_shuffle_ps(v1.vec[3], v1.vec[3], 0x00), B0);
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0x55), B1));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[3], v1.vec[3], 0x55), B1));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0xAA), B2));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[3], v1.vec[3], 0xAA), B2));
-        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v1.vec[2], v1.vec[2], 0xFF), B3));
-        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v1.vec[3], v1.vec[3], 0xFF), B3));
+        r1 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0x00), A0);
+        r2 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0x00), A0);
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0x55), A1));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0x55), A1));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0xAA), A2));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0xAA), A2));
+        r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0xFF), A3));
+        r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0xFF), A3));
         ret.vec[2] = r1;
         ret.vec[3] = r2;
 
@@ -383,6 +383,28 @@ namespace sse2 {
         ret.vec[1] = _mm_mul_ps(v1.vec[1], v2.vec[1]);
         ret.vec[2] = _mm_mul_ps(v1.vec[2], v2.vec[2]);
         ret.vec[3] = _mm_mul_ps(v1.vec[3], v2.vec[3]);
+        return ret;
+    } DEF_END
+
+    // comb
+    DECL_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
+        float4 ret;
+        __m128 v0 = _mm_shuffle_ps(v.vec, v.vec, _MM_SHUFFLE(0, 0, 0, 0));
+        __m128 v1 = _mm_shuffle_ps(v.vec, v.vec, _MM_SHUFFLE(1, 1, 1, 1));
+        __m128 v2 = _mm_shuffle_ps(v.vec, v.vec, _MM_SHUFFLE(2, 2, 2, 2));
+        __m128 v3 = _mm_shuffle_ps(v.vec, v.vec, _MM_SHUFFLE(3, 3, 3, 3));
+
+        __m128 m0 = _mm_mul_ps(m.vec[0], v0);
+        __m128 m1 = _mm_mul_ps(m.vec[1], v1);
+        __m128 a0 = _mm_add_ps(m0, m1);
+
+        __m128 m2 = _mm_mul_ps(m.vec[2], v2);
+        __m128 m3 = _mm_mul_ps(m.vec[3], v3);
+        __m128 a1 = _mm_add_ps(m2, m3);
+
+        __m128 a2 = _mm_add_ps(a0, a1);
+
+        ret.vec = a2;
         return ret;
     } DEF_END
 }

@@ -75,6 +75,9 @@ namespace math {
         friend vec4 operator/(const vec4 &v1, const vec4 &v2);
 
         friend vec4 operator*(const mat4 &m, const vec4 &v);
+        friend vec4 operator*(const vec4 &v, const mat4 &m);
+
+        friend const float *value_ptr(const vec4 &v);
 
         friend float length(const vec4 &v);
         friend float dot(const vec4 &v1, const vec4 &v2);
@@ -100,12 +103,14 @@ namespace math {
     inline vec4 operator/(const vec4 &v1, const vec4 &v2) { return vec4(vec4_div_vec4(v1.vec_, v2.vec_)); }
 
     inline vec4 make_vec4(const float v[4]) { return vec4(v[0], v[1], v[2], v[3]); }
+    inline const float *value_ptr(const vec4 &v) { return &v.vec_.comp[0]; }
 }
 
 #include "mat4.hpp"
 
 namespace math {
     inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
+    inline vec4 operator*(const vec4 &v, const mat4 &m) { return vec4(vec4_mul_mat4(v.vec_, m.vec_)); }
 
     inline float operator*(float f1, const vec4::deref &f2) { return f1 * float(f2); }
     inline float operator/(float f1, const vec4::deref &f2) { return f1 / float(f2); }

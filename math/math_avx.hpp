@@ -58,18 +58,18 @@ namespace avx {
     DEF_FUNC(float16) mat4_mul_mat4(const float16 &v1, const float16 &v2) {
         float16 ret;
 
-        __m256 B0 = _mm256_broadcast_ps(&v2.vec[0]), B1 = _mm256_broadcast_ps(&v2.vec[1]),
-               B2 = _mm256_broadcast_ps(&v2.vec[2]), B3 = _mm256_broadcast_ps(&v2.vec[3]);
+        __m256 A0 = _mm256_broadcast_ps(&v1.vec[0]), A1 = _mm256_broadcast_ps(&v1.vec[1]),
+               A2 = _mm256_broadcast_ps(&v1.vec[2]), A3 = _mm256_broadcast_ps(&v1.vec[3]);
 
         __m256 out01x, out23x;
-        out01x = _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[0], v1.vec2[0], 0x00), B0);
-        out23x = _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[1], v1.vec2[1], 0x00), B0);
-        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[0], v1.vec2[0], 0x55), B1));
-        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[1], v1.vec2[1], 0x55), B1));
-        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[0], v1.vec2[0], 0xaa), B2));
-        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[1], v1.vec2[1], 0xaa), B2));
-        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[0], v1.vec2[0], 0xff), B3));
-        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v1.vec2[1], v1.vec2[1], 0xff), B3));
+        out01x = _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[0], v2.vec2[0], 0x00), A0);
+        out23x = _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[1], v2.vec2[1], 0x00), A0);
+        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[0], v2.vec2[0], 0x55), A1));
+        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[1], v2.vec2[1], 0x55), A1));
+        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[0], v2.vec2[0], 0xaa), A2));
+        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[1], v2.vec2[1], 0xaa), A2));
+        out01x = _mm256_add_ps(out01x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[0], v2.vec2[0], 0xff), A3));
+        out23x = _mm256_add_ps(out23x, _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[1], v2.vec2[1], 0xff), A3));
 
         ret.vec2[0] = out01x;
         ret.vec2[1] = out23x;

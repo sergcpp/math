@@ -9,6 +9,7 @@ void test_geometric();
 void test_transform();
 void test_trigonometric();
 void test_common();
+void test_comb();
 
 void test_perf();
 
@@ -23,6 +24,7 @@ int main() {
     test_transform();
     test_trigonometric();
     test_common();
+    test_comb();
 
     // no reason to test in debug mode
 #ifdef NDEBUG

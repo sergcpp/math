@@ -170,6 +170,9 @@ namespace math {
     using NS::mat2_get;
     using NS::mat2_set;
 
+    using NS::mat2_mul_vec2;
+    using NS::vec2_mul_mat2;
+
     // mat3
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::mat3_init1;
@@ -207,6 +210,9 @@ namespace math {
 
     using NS::mat3_get;
     using NS::mat3_set;
+
+    using NS::mat3_mul_vec3;
+    using NS::vec3_mul_mat3;
 
     // mat4
 #if !defined(CPU_ARCH_UNKNOWN)
@@ -250,6 +256,8 @@ namespace math {
 
     using NS::mat4_get;
     using NS::mat4_set;
+
+    using NS::vec4_mul_mat4;
 }
 
 #undef NS

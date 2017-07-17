@@ -3,6 +3,7 @@
 #include "math_funcs.hpp"
 
 namespace math {
+    class mat2;
     class vec3;
     class vec4;
 
@@ -64,6 +65,11 @@ namespace math {
         friend vec2 operator*(const vec2 &v1, const vec2 &v2);
         friend vec2 operator/(const vec2 &v1, const vec2 &v2);
 
+        friend vec2 operator*(const mat2 &m, const vec2 &v);
+        friend vec2 operator*(const vec2 &v, const mat2 &m);
+
+        friend const float *value_ptr(const vec2 &v);
+
         friend float length(const vec2 &vec);
         friend float dot(const vec2 &v1, const vec2 &v2);
         friend vec2 normalize(const vec2 &v);
@@ -88,14 +94,19 @@ namespace math {
     inline vec2 operator/(const vec2 &v1, const vec2 &v2) { return vec2(vec2_div_vec2(v1.vec_, v2.vec_)); }
 
     inline vec2 make_vec2(const float v[2]) { return vec2(v[0], v[1]); }
+    inline const float *value_ptr(const vec2 &v) { return &v.vec_.comp[0]; }
 }
 
+#include "mat2.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"
 
 namespace math {
     inline vec2::vec2(const vec3 &v) { vec2_init2(vec_, v[0], v[1]); }
     inline vec2::vec2(const vec4 &v) { vec2_init2(vec_, v[0], v[1]); }
+
+    inline vec2 operator*(const mat2 &m, const vec2 &v) { return vec2(mat2_mul_vec2(m.vec_, v.vec_)); }
+    inline vec2 operator*(const vec2 &v, const mat2 &m) { return vec2(vec2_mul_mat2(v.vec_, m.vec_)); }
 
     inline float operator*(float f1, const vec2::deref &f2) { return f1 * float(f2); }
     inline float operator/(float f1, const vec2::deref &f2) { return f1 / float(f2); }
