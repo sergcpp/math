@@ -399,8 +399,6 @@ namespace sse2 {
     using namespace ref;
 
     // vec3
-    DECL_FUNC(void) vec3_init1(float3 &vec, float val);
-    DECL_FUNC(void) vec3_init3(float3 &vec, float v0, float v1, float v2);
     DECL_FUNC(float3) vec3_add_vec3(const float3 &v1, const float3 &v2);
     DECL_FUNC(float3) vec3_sub_vec3(const float3 &v1, const float3 &v2);
     DECL_FUNC(float3) vec3_mul_vec3(const float3 &v1, const float3 &v2);
@@ -431,16 +429,11 @@ namespace sse2 {
     DECL_FUNC(float4) mat2_comp_mul(const float4 &m1, const float4 &m2);
 
     // mat3
-    DECL_FUNC(void) mat3_init1(float12 &vec, float val);
-    DECL_FUNC(void) mat3_init9(float12 &vec, float v00, float v01, float v02,
-                                             float v10, float v11, float v12,
-                                             float v20, float v21, float v22);
-    DECL_FUNC(void) mat3_init3(float12 &vec, const float4 &v0, const float4 &v1, const float4 &v2);
-    DECL_FUNC(float12) mat3_add_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_sub_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_mul_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_div_mat3(const float12 &v1, const float12 &v2);
-    DECL_FUNC(float12) mat3_comp_mul(const float12 &v1, const float12 &v2);
+    DECL_FUNC(float9) mat3_add_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_sub_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_mul_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_div_mat3(const float9 &v1, const float9 &v2);
+    DECL_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2);
 
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);

@@ -724,26 +724,26 @@ namespace ref {
     DECL_FUNC(float2) vec2_atan(const float2 &v);
 
     // vec3
-    DECL_FUNC(void) vec3_init1(float4 &vec, float val);
-    DECL_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2);
-    DECL_FUNC(bool) vec3_eq_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_sub_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_mul_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_div_vec3(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float) vec3_get(const float4 &vec, int i);
-    DECL_FUNC(void) vec3_set(float4 &vec, int i, float v);
-    DECL_FUNC(float) vec3_length(const float4 &vec);
-    DECL_FUNC(float) vec3_dot(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_cross(const float4 &v1, const float4 &v2);
-    DECL_FUNC(float4) vec3_normalize(const float4 &vec);
-    DECL_FUNC(float4) vec3_normalize_fast(const float4 &vec);
-    DECL_FUNC(float4) vec3_sin(const float4 &v);
-    DECL_FUNC(float4) vec3_cos(const float4 &v);
-    DECL_FUNC(float4) vec3_tan(const float4 &v);
-    DECL_FUNC(float4) vec3_asin(const float4 &v);
-    DECL_FUNC(float4) vec3_acos(const float4 &v);
-    DECL_FUNC(float4) vec3_atan(const float4 &v);
+    DECL_FUNC(void) vec3_init1(float3 &vec, float val);
+    DECL_FUNC(void) vec3_init3(float3 &vec, float v0, float v1, float v2);
+    DECL_FUNC(bool) vec3_eq_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_add_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_sub_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_mul_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_div_vec3(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float) vec3_get(const float3 &vec, int i);
+    DECL_FUNC(void) vec3_set(float3 &vec, int i, float v);
+    DECL_FUNC(float) vec3_length(const float3 &vec);
+    DECL_FUNC(float) vec3_dot(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_cross(const float3 &v1, const float3 &v2);
+    DECL_FUNC(float3) vec3_normalize(const float3 &vec);
+    DECL_FUNC(float3) vec3_normalize_fast(const float3 &vec);
+    DECL_FUNC(float3) vec3_sin(const float3 &v);
+    DECL_FUNC(float3) vec3_cos(const float3 &v);
+    DECL_FUNC(float3) vec3_tan(const float3 &v);
+    DECL_FUNC(float3) vec3_asin(const float3 &v);
+    DECL_FUNC(float3) vec3_acos(const float3 &v);
+    DECL_FUNC(float3) vec3_atan(const float3 &v);
 
     // vec4
     DECL_FUNC(void) vec4_init1(float4 &vec, float val);
@@ -792,8 +792,8 @@ namespace ref {
     DECL_FUNC(float9) mat3_div_mat3(const float9 &v1, const float9 &v2);
     DECL_FUNC(float9) mat3_mul_float(const float9 &v1, float v2);
     DECL_FUNC(float9) mat3_div_float(const float9 &v1, float v2);
-    DECL_FUNC(float3) mat3_get(const float12 &vec, int i);
-    DECL_FUNC(void) mat3_set(float12 &vec, int i, const float4 &v);
+    DECL_FUNC(float3) mat3_get(const float9 &vec, int i);
+    DECL_FUNC(void) mat3_set(float9 &vec, int i, const float3 &v);
     DECL_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2);
 
     // mat4
