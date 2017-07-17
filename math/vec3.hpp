@@ -95,4 +95,15 @@ namespace math {
 
 #include "vec4.hpp"
 
-inline math::vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
+namespace math {
+    inline vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
+
+    inline float operator*(float f1, const vec3::deref &f2) { return f1 * float(f2); }
+    inline float operator/(float f1, const vec3::deref &f2) { return f1 / float(f2); }
+    inline vec2 operator*(const vec2 &v, const vec3::deref &f) { return v * float(f); }
+    inline vec2 operator/(const vec2 &v, const vec3::deref &f) { return v / float(f); }
+    inline vec3 operator*(const vec3 &v, const vec3::deref &f) { return v * float(f); }
+    inline vec3 operator/(const vec3 &v, const vec3::deref &f) { return v / float(f); }
+    inline vec4 operator*(const vec4 &v, const vec3::deref &f) { return v * float(f); }
+    inline vec4 operator/(const vec4 &v, const vec3::deref &f) { return v / float(f); }
+}

@@ -8,6 +8,7 @@ add_executable(test_math main.cpp
                          test_mat2.cpp
                          test_mat3.cpp
                          test_mat4.cpp
+                         test_transform.cpp
                          test_trigonometric.cpp
                          test_vec2.cpp
                          test_vec3.cpp

@@ -6,6 +6,7 @@ void test_mat2();
 void test_mat3();
 void test_mat4();
 void test_geometric();
+void test_transform();
 void test_trigonometric();
 void test_common();
 
@@ -19,6 +20,7 @@ int main() {
     test_mat3();
     test_mat4();
     test_geometric();
+    test_transform();
     test_trigonometric();
     test_common();
 

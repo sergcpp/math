@@ -95,6 +95,41 @@ void test_vec3(math::e_arch arch) {
 
         assert(v14[1] == Approx(0.5));
     }
+
+    {   // arithmetics with deref
+        vec3 vv{ 2, 2, 2 };
+
+        float f1 = 2;
+        vec2 v1 = { 1, 2 };
+        vec3 v2 = { 1, 2, 3 };
+        vec4 v3 = { 1, 2, 3, 4 };
+        mat2 m1;
+        mat3 m2;
+        mat4 m3;
+
+        f1 = f1 * vv[0];
+        v1 = v1 * vv[0];
+        v2 = v2 * vv[0];
+        v3 = v3 * vv[0];
+        m1 = m1 * vv[0];
+        m2 = m2 * vv[0];
+        m3 = m3 * vv[0];
+
+        assert(f1 == Approx(4));
+        assert(v1 == Approx2(2, 4));
+        assert(v2 == Approx3(2, 4, 6));
+        assert(v3 == Approx4(2, 4, 6, 8));
+
+        assert(m1[0] == Approx2(2, 0));
+        assert(m1[1] == Approx2(0, 2));
+        assert(m2[0] == Approx3(2, 0, 0));
+        assert(m2[1] == Approx3(0, 2, 0));
+        assert(m2[2] == Approx3(0, 0, 2));
+        assert(m3[0] == Approx4(2, 0, 0, 0));
+        assert(m3[1] == Approx4(0, 2, 0, 0));
+        assert(m3[2] == Approx4(0, 0, 2, 0));
+        assert(m3[3] == Approx4(0, 0, 0, 2));
+    }
 }
 
 void test_vec3() {

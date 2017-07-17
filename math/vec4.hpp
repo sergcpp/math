@@ -28,7 +28,7 @@ namespace math {
         public:
             deref(float4 &v, int i) : v_(v), i_(i) {}
             operator float() const { return vec4_get(v_, i_); }
-            deref operator=(const float rhs) { vec4_set(v_, i_, rhs); return *this; }
+            deref operator=(float rhs) { vec4_set(v_, i_, rhs); return *this; }
             deref operator=(const deref &rhs) { return operator=((float)rhs); }
 
             deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
@@ -106,4 +106,13 @@ namespace math {
 
 namespace math {
     inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
+
+    inline float operator*(float f1, const vec4::deref &f2) { return f1 * float(f2); }
+    inline float operator/(float f1, const vec4::deref &f2) { return f1 / float(f2); }
+    inline vec2 operator*(const vec2 &v, const vec4::deref &f) { return v * float(f); }
+    inline vec2 operator/(const vec2 &v, const vec4::deref &f) { return v / float(f); }
+    inline vec3 operator*(const vec3 &v, const vec4::deref &f) { return v * float(f); }
+    inline vec3 operator/(const vec3 &v, const vec4::deref &f) { return v / float(f); }
+    inline vec4 operator*(const vec4 &v, const vec4::deref &f) { return v * float(f); }
+    inline vec4 operator/(const vec4 &v, const vec4::deref &f) { return v / float(f); }
 }

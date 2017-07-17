@@ -5,6 +5,7 @@
 #include "common.hpp"
 #include "exponential.hpp"
 #include "geometric.hpp"
+#include "transform.hpp"
 #include "trigonometric.hpp"
 
 #include "mat2.hpp"

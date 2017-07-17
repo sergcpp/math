@@ -13,17 +13,15 @@ namespace math {
         return T(3.14159265358979f);
     }
 
-    template<typename T>
-    T radians(const T &degrees) {
-        static const T half(pi<float>() / 180.0f);
-        return degrees * half;
-    }
+    inline float radians(float degrees) { return degrees * (pi<float>() / 180.0f); }
+    inline vec2 radians(const vec2 &degrees) { return degrees * (pi<float>() / 180.0f); }
+    inline vec3 radians(const vec3 &degrees) { return degrees * (pi<float>() / 180.0f); }
+    inline vec4 radians(const vec4 &degrees) { return degrees * (pi<float>() / 180.0f); }
 
-    template<typename T>
-    T degrees(const T &radians) {
-        static const T half(180.0f / pi<float>());
-        return radians * half;
-    }
+    inline float degrees(float radians) { return radians * (180.0f / pi<float>()); }
+    inline vec2 degrees(const vec2 &radians) { return radians * (180.0f / pi<float>()); }
+    inline vec3 degrees(const vec3 &radians) { return radians * (180.0f / pi<float>()); }
+    inline vec4 degrees(const vec4 &radians) { return radians * (180.0f / pi<float>()); }
 
     inline float sin(float angle) { return sinf(angle); }
     inline vec2 sin(const vec2 &angle) { return vec2(vec2_sin(angle.vec_)); }
