@@ -71,13 +71,13 @@ namespace math {
             return !(*this == other);
         }
 
-        void construct(T * const p, const T& t) const {
-            void * const pv = static_cast<void *>(p);
-
-            new (pv)T(t);
+        template< class U, class... Args >
+        void construct( U* p, Args&&... args ) {
+            ::new((void *)p) U(std::forward<Args>(args)...);
         }
 
-        void destroy(T * const p) const {
+        template<class U>
+        void destroy(U *p) {
             p->~T();
         }
 
