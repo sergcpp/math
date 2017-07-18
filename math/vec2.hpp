@@ -3,6 +3,7 @@
 #include "math_funcs.hpp"
 
 namespace math {
+    class ivec2;
     class mat2;
     class vec3;
     class vec4;
@@ -19,6 +20,7 @@ namespace math {
         vec2(const float2 &v) { vec_ = v; }
         vec2(const vec3 &v);
         vec2(const vec4 &v);
+        explicit vec2(const ivec2 &v);
 
         class deref {
             float2 &v_; int i_;
@@ -97,6 +99,7 @@ namespace math {
     inline const float *value_ptr(const vec2 &v) { return &v.vec_.comp[0]; }
 }
 
+#include "ivec2.hpp"
 #include "mat2.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"
@@ -104,6 +107,7 @@ namespace math {
 namespace math {
     inline vec2::vec2(const vec3 &v) { vec2_init2(vec_, v[0], v[1]); }
     inline vec2::vec2(const vec4 &v) { vec2_init2(vec_, v[0], v[1]); }
+    inline vec2::vec2(const ivec2 &v) { vec2_init2(vec_, float(v[0]), float(v[1])); }
 
     inline vec2 operator*(const mat2 &m, const vec2 &v) { return vec2(mat2_mul_vec2(m.vec_, v.vec_)); }
     inline vec2 operator*(const vec2 &v, const mat2 &m) { return vec2(vec2_mul_mat2(v.vec_, m.vec_)); }

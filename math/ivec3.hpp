@@ -5,6 +5,7 @@
 namespace math {
     class ivec2;
     class ivec4;
+    class vec3;
 
     class ivec3 {
         int3 vec_;
@@ -17,6 +18,7 @@ namespace math {
         ivec3(const ivec2 &v01, int v2);
         ivec3(int v0, const ivec2 &v12);
         ivec3(const ivec4 &v);
+        explicit ivec3(const vec3 &v);
 
         class deref {
             int3 &v_; int i_;
@@ -85,6 +87,7 @@ namespace math {
     inline ivec3::ivec3(const ivec2 &v01, int v2) : ivec3(uninitialize) { ivec3_init3(vec_, v01[0], v01[1], v2); }
     inline ivec3::ivec3(int v0, const ivec2 &v12) : ivec3(uninitialize) { ivec3_init3(vec_, v0, v12[0], v12[1]); }
     inline ivec3::ivec3(const ivec4 &v) : ivec3(uninitialize) { ivec3_init3(vec_, v[0], v[1], v[2]); }
+    inline ivec3::ivec3(const vec3 &v) : ivec3(uninitialize) { ivec3_init3(vec_, int(v[0]), int(v[1]), int(v[2])); }
 
     inline int operator*(int f1, const ivec3::deref &f2) { return f1 * int(f2); }
     inline int operator/(int f1, const ivec3::deref &f2) { return f1 / int(f2); }

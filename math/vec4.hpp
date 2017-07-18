@@ -3,7 +3,10 @@
 #include "math_funcs.hpp"
 
 namespace math {
+    class ivec4;
     class mat4;
+    class vec2;
+    class vec3;
 
     class vec4 {
         float4 vec_;
@@ -16,12 +19,13 @@ namespace math {
         vec4(float v) : vec4(uninitialize) { vec4_init1(vec_, v); }
         vec4(float v0, float v1, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v0, v1, v2, v3); }
         vec4(const float4 &v) : vec4(uninitialize) { vec_ = v; }
-        vec4(const vec2 &v01, const vec2 &v23) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
-        vec4(const vec2 &v01, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v2, v3); }
-        vec4(float v0, const vec2 &v12, float v3) : vec4(uninitialize) { vec4_init4(vec_, v0, v12[0], v12[1], v3); }
-        vec4(float v0, float v1, const vec2 &v23) : vec4(uninitialize) { vec4_init4(vec_, v0, v1, v23[0], v23[1]); }
-        vec4(const vec3 &v012, float v3) : vec4(uninitialize) { vec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
-        vec4(float v0, const vec3 &v123) : vec4(uninitialize) { vec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
+        vec4(const vec2 &v01, const vec2 &v23);
+        vec4(const vec2 &v01, float v2, float v3);
+        vec4(float v0, const vec2 &v12, float v3);
+        vec4(float v0, float v1, const vec2 &v23);
+        vec4(const vec3 &v012, float v3);
+        vec4(float v0, const vec3 &v123);
+        explicit vec4(const ivec4 &v);
 
         class deref {
             float4 &v_; int i_;
@@ -107,8 +111,18 @@ namespace math {
 }
 
 #include "mat4.hpp"
+#include "vec2.hpp"
+#include "vec3.hpp"
 
 namespace math {
+    inline vec4::vec4(const vec2 &v01, const vec2 &v23) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
+    inline vec4::vec4(const vec2 &v01, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v01[0], v01[1], v2, v3); }
+    inline vec4::vec4(float v0, const vec2 &v12, float v3) : vec4(uninitialize) { vec4_init4(vec_, v0, v12[0], v12[1], v3); }
+    inline vec4::vec4(float v0, float v1, const vec2 &v23) : vec4(uninitialize) { vec4_init4(vec_, v0, v1, v23[0], v23[1]); }
+    inline vec4::vec4(const vec3 &v012, float v3) : vec4(uninitialize) { vec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
+    inline vec4::vec4(float v0, const vec3 &v123) : vec4(uninitialize) { vec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
+    inline vec4::vec4(const ivec4 &v) : vec4(uninitialize) { vec4_init4(vec_, float(v[0]), float(v[1]), float(v[2]), float(v[3])); }
+
     inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
     inline vec4 operator*(const vec4 &v, const mat4 &m) { return vec4(vec4_mul_mat4(v.vec_, m.vec_)); }
 

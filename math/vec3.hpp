@@ -1,10 +1,11 @@
 #pragma once
 
 #include "math_funcs.hpp"
-#include "vec2.hpp"
 
 namespace math {
+    class ivec3;
     class mat3;
+    class vec2;
 
     class vec3 {
         float3 vec_;
@@ -16,9 +17,10 @@ namespace math {
         vec3(float v) : vec3(uninitialize) { vec3_init1(vec_, v); }
         vec3(float v0, float v1, float v2) : vec3(uninitialize) { vec3_init3(vec_, v0, v1, v2); }
         vec3(const float3 &v) : vec3(uninitialize) { vec_ = v; }
-        vec3(const vec2 &v01, float v2) : vec3(uninitialize) { vec3_init3(vec_, v01[0], v01[1], v2); }
-        vec3(float v0, const vec2 &v12) : vec3(uninitialize) { vec3_init3(vec_, v0, v12[0], v12[1]); }
+        vec3(const vec2 &v01, float v2);
+        vec3(float v0, const vec2 &v12);
         vec3(const vec4 &v);
+        explicit vec3(const ivec3 &v);
 
         class deref {
             float3 &v_; int i_;
@@ -101,11 +103,16 @@ namespace math {
     inline const float *value_ptr(const vec3 &v) { return &v.vec_.comp[0]; }
 }
 
+#include "ivec3.hpp"
 #include "mat3.hpp"
+#include "vec2.hpp"
 #include "vec4.hpp"
 
 namespace math {
+    inline vec3::vec3(const vec2 &v01, float v2) : vec3(uninitialize) { vec3_init3(vec_, v01[0], v01[1], v2); }
+    inline vec3::vec3(float v0, const vec2 &v12) : vec3(uninitialize) { vec3_init3(vec_, v0, v12[0], v12[1]); }
     inline vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
+    inline vec3::vec3(const ivec3 &v) : vec3(uninitialize) { vec3_init3(vec_, float(v[0]), float(v[1]), float(v[2])); }
 
     inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
     inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }

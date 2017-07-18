@@ -2,6 +2,8 @@
 
 #include "../math.hpp"
 
+#pragma warning(disable : 4244)
+
 void test_trigonometric(math::e_arch arch) {
     using namespace math;
 
