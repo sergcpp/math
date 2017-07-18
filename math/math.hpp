@@ -12,6 +12,10 @@
 #include "mat3.hpp"
 #include "mat4.hpp"
 
+#include "ivec2.hpp"
+#include "ivec3.hpp"
+#include "ivec4.hpp"
+
 namespace math {
     struct CPUFeatures {
         bool initialized = false;

@@ -684,6 +684,166 @@ namespace ref {
         return ret;
     } DEF_END
 
+    // ivec2
+    DECL_FUNC(void) ivec2_init1(int2 &vec, int val) {
+        vec.comp[0] = vec.comp[1] = val;
+    } DEF_END
+
+    DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1) {
+        vec.comp[0] = v0; vec.comp[1] = v1;
+    } DEF_END
+
+    DECL_FUNC(bool) ivec2_eq_ivec2(const int2 &v1, const int2 &v2) {
+        return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1];
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.comp[0] = v1.comp[0] + v2.comp[0];
+        ret.comp[1] = v1.comp[1] + v2.comp[1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.comp[0] = v1.comp[0] - v2.comp[0];
+        ret.comp[1] = v1.comp[1] - v2.comp[1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_mul_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.comp[0] = v1.comp[0] * v2.comp[0];
+        ret.comp[1] = v1.comp[1] * v2.comp[1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_div_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.comp[0] = v1.comp[0] / v2.comp[0];
+        ret.comp[1] = v1.comp[1] / v2.comp[1];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int) ivec2_get(const int2 &vec, int i) {
+        return vec.comp[i];
+    } DEF_END
+
+    DECL_FUNC(void) ivec2_set(int2 &vec, int i, int v) {
+        vec.comp[i] = v;
+    } DEF_END
+
+    // ivec3
+    DECL_FUNC(void) ivec3_init1(int3 &vec, int val) {
+        vec.comp[0] = vec.comp[1] = vec.comp[2] = val;
+    } DEF_END
+
+    DECL_FUNC(void) ivec3_init3(int3 &vec, int v0, int v1, int v2) {
+        vec.comp[0] = v0; vec.comp[1] = v1; vec.comp[2] = v2;
+    } DEF_END
+
+    DECL_FUNC(bool) ivec3_eq_ivec3(const int3 &v1, const int3 &v2) {
+        return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1] && v1.comp[2] == v2.comp[2];
+    } DEF_END
+
+    DECL_FUNC(int3) ivec3_add_ivec3(const int3 &v1, const int3 &v2) {
+        int3 ret;
+        ret.comp[0] = v1.comp[0] + v2.comp[0];
+        ret.comp[1] = v1.comp[1] + v2.comp[1];
+        ret.comp[2] = v1.comp[2] + v2.comp[2];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int3) ivec3_sub_ivec3(const int3 &v1, const int3 &v2) {
+        int3 ret;
+        ret.comp[0] = v1.comp[0] - v2.comp[0];
+        ret.comp[1] = v1.comp[1] - v2.comp[1];
+        ret.comp[2] = v1.comp[2] - v2.comp[2];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int3) ivec3_mul_ivec3(const int3 &v1, const int3 &v2) {
+        int3 ret;
+        ret.comp[0] = v1.comp[0] * v2.comp[0];
+        ret.comp[1] = v1.comp[1] * v2.comp[1];
+        ret.comp[2] = v1.comp[2] * v2.comp[2];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int3) ivec3_div_ivec3(const int3 &v1, const int3 &v2) {
+        int3 ret;
+        ret.comp[0] = v1.comp[0] / v2.comp[0];
+        ret.comp[1] = v1.comp[1] / v2.comp[1];
+        ret.comp[2] = v1.comp[2] / v2.comp[2];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int) ivec3_get(const int3 &vec, int i) {
+        return vec.comp[i];
+    } DEF_END
+
+    DECL_FUNC(void) ivec3_set(int3 &vec, int i, int v) {
+        vec.comp[i] = v;
+    } DEF_END
+
+    // ivec4
+    DECL_FUNC(void) ivec4_init1(int4 &vec, int val) {
+        vec.comp[0] = vec.comp[1] = vec.comp[2] = vec.comp[3] = val;
+    } DEF_END
+
+    DECL_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3) {
+        vec.comp[0] = v0; vec.comp[1] = v1; vec.comp[2] = v2; vec.comp[3] = v3;
+    } DEF_END
+
+    DECL_FUNC(bool) ivec4_eq_ivec4(const int4 &v1, const int4 &v2) {
+        return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1] &&
+               v1.comp[2] == v2.comp[2] && v1.comp[3] == v2.comp[3];
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.comp[0] = v1.comp[0] + v2.comp[0];
+        ret.comp[1] = v1.comp[1] + v2.comp[1];
+        ret.comp[2] = v1.comp[2] + v2.comp[2];
+        ret.comp[3] = v1.comp[3] + v2.comp[3];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.comp[0] = v1.comp[0] - v2.comp[0];
+        ret.comp[1] = v1.comp[1] - v2.comp[1];
+        ret.comp[2] = v1.comp[2] - v2.comp[2];
+        ret.comp[3] = v1.comp[3] - v2.comp[3];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_mul_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.comp[0] = v1.comp[0] * v2.comp[0];
+        ret.comp[1] = v1.comp[1] * v2.comp[1];
+        ret.comp[2] = v1.comp[2] * v2.comp[2];
+        ret.comp[3] = v1.comp[3] * v2.comp[3];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_div_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.comp[0] = v1.comp[0] / v2.comp[0];
+        ret.comp[1] = v1.comp[1] / v2.comp[1];
+        ret.comp[2] = v1.comp[2] / v2.comp[2];
+        ret.comp[3] = v1.comp[3] / v2.comp[3];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int) ivec4_get(const int4 &vec, int i) {
+        return vec.comp[i];
+    } DEF_END
+
+    DECL_FUNC(void) ivec4_set(int4 &vec, int i, int v) {
+        vec.comp[i] = v;
+    } DEF_END
+
     // comb
     DECL_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v) {
         float2 ret;
@@ -852,6 +1012,39 @@ namespace ref {
     DECL_FUNC(float4) mat4_get(const float16 &vec, int i);
     DECL_FUNC(void) mat4_set(float16 &vec, int i, const float4 &v);
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
+
+    // ivec2
+    DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
+    DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
+    DECL_FUNC(bool) ivec2_eq_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(int2) ivec2_mul_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(int2) ivec2_div_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(int) ivec2_get(const int2 &vec, int i);
+    DECL_FUNC(void) ivec2_set(int2 &vec, int i, int v);
+
+    // ivec3
+    DECL_FUNC(void) ivec3_init1(int3 &vec, int val);
+    DECL_FUNC(void) ivec3_init3(int3 &vec, int v0, int v1, int v2);
+    DECL_FUNC(bool) ivec3_eq_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(int3) ivec3_add_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(int3) ivec3_sub_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(int3) ivec3_mul_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(int3) ivec3_div_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(int) ivec3_get(const int3 &vec, int i);
+    DECL_FUNC(void) ivec3_set(int3 &vec, int i, int v);
+
+    // ivec4
+    DECL_FUNC(void) ivec4_init1(int4 &vec, int val);
+    DECL_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3);
+    DECL_FUNC(bool) ivec4_eq_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(int4) ivec4_mul_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(int4) ivec4_div_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(int) ivec4_get(const int4 &vec, int i);
+    DECL_FUNC(void) ivec4_set(int4 &vec, int i, int v);
 
     // comb
     DECL_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v);

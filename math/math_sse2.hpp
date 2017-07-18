@@ -386,6 +386,52 @@ namespace sse2 {
         return ret;
     } DEF_END
 
+    // ivec2
+    DECL_FUNC(void) ivec2_init1(int2 &vec, int val) {
+        vec.vec = _mm_set1_pi32(val);
+        _mm_empty();
+    } DEF_END
+
+    DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1) {
+        vec.vec = _mm_set_pi32(v1, v0);
+        _mm_empty();
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.vec = _mm_add_pi32(v1.vec, v2.vec);
+        _mm_empty();
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2) {
+        int2 ret;
+        ret.vec = _mm_sub_pi32(v1.vec, v2.vec);
+        _mm_empty();
+        return ret;
+    } DEF_END
+
+    // ivec4
+    DECL_FUNC(void) ivec4_init1(int4 &vec, int val) {
+        vec.vec = _mm_set1_epi32(val);
+    } DEF_END
+
+    DECL_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3) {
+        vec.vec = _mm_set_epi32(v3, v2, v1, v0);
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.vec = _mm_add_epi32(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2) {
+        int4 ret;
+        ret.vec = _mm_sub_epi32(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
     // comb
     DECL_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
         float4 ret;

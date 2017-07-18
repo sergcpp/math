@@ -10,6 +10,9 @@ set(SOURCE_FILES allocator.hpp
                  common.hpp
                  exponential.hpp
                  geometric.hpp
+                 ivec2.hpp
+                 ivec3.hpp
+                 ivec4.hpp
                  mat2.hpp
                  mat3.hpp
                  mat4.hpp

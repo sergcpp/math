@@ -84,7 +84,19 @@ void cpuid(int info[4], int InfoType) {
                                                         \
     NS::mat4_comp_mul,                                  \
                                                         \
-    NS::mat4_mul_vec4,                                  
+    NS::mat4_mul_vec4,                                  \
+                                                        \
+    NS::ivec2_init1, NS::ivec2_init2,                   \
+    NS::ivec2_add_ivec2, NS::ivec2_sub_ivec2,           \
+    NS::ivec2_mul_ivec2, NS::ivec2_div_ivec2,           \
+                                                        \
+    NS::ivec3_init1, NS::ivec3_init3,                   \
+    NS::ivec3_add_ivec3, NS::ivec3_sub_ivec3,           \
+    NS::ivec3_mul_ivec3, NS::ivec3_div_ivec3,           \
+                                                        \
+    NS::ivec4_init1, NS::ivec4_init4,                   \
+    NS::ivec4_add_ivec4, NS::ivec4_sub_ivec4,           \
+    NS::ivec4_mul_ivec4, NS::ivec4_div_ivec4,
 
 namespace math {
     CPUFeatures cpu = {};
@@ -161,6 +173,27 @@ namespace math {
     float16 (FASTCALL *mat4_comp_mul)(const float16 &m1, const float16 &m2);
 
     float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
+
+    void (FASTCALL *ivec2_init1)(int2 &vec, int val);
+    void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
+    int2 (FASTCALL *ivec2_add_ivec2)(const int2 &v1, const int2 &v2);
+    int2 (FASTCALL *ivec2_sub_ivec2)(const int2 &v1, const int2 &v2);
+    int2 (FASTCALL *ivec2_mul_ivec2)(const int2 &v1, const int2 &v2);
+    int2 (FASTCALL *ivec2_div_ivec2)(const int2 &v1, const int2 &v2);
+
+    void (FASTCALL *ivec3_init1)(int3 &vec, int val);
+    void (FASTCALL *ivec3_init3)(int3 &vec, int v0, int v1, int v2);
+    int3 (FASTCALL *ivec3_add_ivec3)(const int3 &v1, const int3 &v2);
+    int3 (FASTCALL *ivec3_sub_ivec3)(const int3 &v1, const int3 &v2);
+    int3 (FASTCALL *ivec3_mul_ivec3)(const int3 &v1, const int3 &v2);
+    int3 (FASTCALL *ivec3_div_ivec3)(const int3 &v1, const int3 &v2);
+
+    void (FASTCALL *ivec4_init1)(int4 &vec, int val);
+    void (FASTCALL *ivec4_init4)(int4 &vec, int v0, int v1, int v2, int v3);
+    int4 (FASTCALL *ivec4_add_ivec4)(const int4 &v1, const int4 &v2);
+    int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
+    int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
+    int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
 #endif
     const struct func_table {
         void (FASTCALL *vec3_init1)(float3 &vec, float val);
@@ -232,6 +265,27 @@ namespace math {
         float16 (FASTCALL *mat4_comp_mul)(const float16 &m1, const float16 &m2);
 
         float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
+
+        void (FASTCALL *ivec2_init1)(int2 &vec, int val);
+        void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
+        int2 (FASTCALL *ivec2_add_ivec2)(const int2 &v1, const int2 &v2);
+        int2 (FASTCALL *ivec2_sub_ivec2)(const int2 &v1, const int2 &v2);
+        int2 (FASTCALL *ivec2_mul_ivec2)(const int2 &v1, const int2 &v2);
+        int2 (FASTCALL *ivec2_div_ivec2)(const int2 &v1, const int2 &v2);
+
+        void (FASTCALL *ivec3_init1)(int3 &vec, int val);
+        void (FASTCALL *ivec3_init3)(int3 &vec, int v0, int v1, int v2);
+        int3 (FASTCALL *ivec3_add_ivec3)(const int3 &v1, const int3 &v2);
+        int3 (FASTCALL *ivec3_sub_ivec3)(const int3 &v1, const int3 &v2);
+        int3 (FASTCALL *ivec3_mul_ivec3)(const int3 &v1, const int3 &v2);
+        int3 (FASTCALL *ivec3_div_ivec3)(const int3 &v1, const int3 &v2);
+
+        void (FASTCALL *ivec4_init1)(int4 &vec, int val);
+        void (FASTCALL *ivec4_init4)(int4 &vec, int v0, int v1, int v2, int v3);
+        int4 (FASTCALL *ivec4_add_ivec4)(const int4 &v1, const int4 &v2);
+        int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
+        int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
+        int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
     } funcs[] = {   {   // Reference
                         FUNC_LIST(ref)
                     },
@@ -356,6 +410,27 @@ void math::init(math::e_arch arch) {
     mat4_comp_mul = t.mat4_comp_mul;
 
     mat4_mul_vec4 = t.mat4_mul_vec4;
+
+    ivec2_init1 = t.ivec2_init1;
+    ivec2_init2 = t.ivec2_init2;
+    ivec2_add_ivec2 = t.ivec2_add_ivec2;
+    ivec2_sub_ivec2 = t.ivec2_sub_ivec2;
+    ivec2_mul_ivec2 = t.ivec2_mul_ivec2;
+    ivec2_div_ivec2 = t.ivec2_div_ivec2;
+
+    ivec3_init1 = t.ivec3_init1;
+    ivec3_init3 = t.ivec3_init3;
+    ivec3_add_ivec3 = t.ivec3_add_ivec3;
+    ivec3_sub_ivec3 = t.ivec3_sub_ivec3;
+    ivec3_mul_ivec3 = t.ivec3_mul_ivec3;
+    ivec3_div_ivec3 = t.ivec3_div_ivec3;
+
+    ivec4_init1 = t.ivec4_init1;
+    ivec4_init4 = t.ivec4_init4;
+    ivec4_add_ivec4 = t.ivec4_add_ivec4;
+    ivec4_sub_ivec4 = t.ivec4_sub_ivec4;
+    ivec4_mul_ivec4 = t.ivec4_mul_ivec4;
+    ivec4_div_ivec4 = t.ivec4_div_ivec4;
 #endif
 #endif
 }
