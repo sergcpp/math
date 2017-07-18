@@ -258,6 +258,75 @@ namespace math {
     using NS::mat4_set;
 
     using NS::vec4_mul_mat4;
+
+    // ivec2
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::ivec2_init1;
+    using NS::ivec2_init2;
+    using NS::ivec2_eq_ivec2;
+    using NS::ivec2_add_ivec2;
+    using NS::ivec2_sub_ivec2;
+    using NS::ivec2_mul_ivec2;
+    using NS::ivec2_div_ivec2;
+#else
+    extern void (FASTCALL *ivec2_init1)(int2 &vec, int val);
+    extern void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
+    extern int2 (FASTCALL *ivec2_add_ivec2)(const int2 &v1, const int2 &v2);
+    extern int2 (FASTCALL *ivec2_sub_ivec2)(const int2 &v1, const int2 &v2);
+    extern int2 (FASTCALL *ivec2_mul_ivec2)(const int2 &v1, const int2 &v2);
+    extern int2 (FASTCALL *ivec2_div_ivec2)(const int2 &v1, const int2 &v2);
+#endif
+
+    using NS::ivec2_eq_ivec2;
+
+    using NS::ivec2_get;
+    using NS::ivec2_set;
+
+    // ivec3
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::ivec3_init1;
+    using NS::ivec3_init3;
+    using NS::ivec3_eq_ivec3;
+    using NS::ivec3_add_ivec3;
+    using NS::ivec3_sub_ivec3;
+    using NS::ivec3_mul_ivec3;
+    using NS::ivec3_div_ivec3;
+#else
+    extern void (FASTCALL *ivec3_init1)(int3 &vec, int val);
+    extern void (FASTCALL *ivec3_init3)(int3 &vec, int v0, int v1, int v2);
+    extern int3 (FASTCALL *ivec3_add_ivec3)(const int3 &v1, const int3 &v2);
+    extern int3 (FASTCALL *ivec3_sub_ivec3)(const int3 &v1, const int3 &v2);
+    extern int3 (FASTCALL *ivec3_mul_ivec3)(const int3 &v1, const int3 &v2);
+    extern int3 (FASTCALL *ivec3_div_ivec3)(const int3 &v1, const int3 &v2);
+#endif
+
+    using NS::ivec3_eq_ivec3;
+
+    using NS::ivec3_get;
+    using NS::ivec3_set;
+
+    // ivec4
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::ivec4_init1;
+    using NS::ivec4_init4;
+    using NS::ivec4_eq_ivec4;
+    using NS::ivec4_add_ivec4;
+    using NS::ivec4_sub_ivec4;
+    using NS::ivec4_mul_ivec4;
+    using NS::ivec4_div_ivec4;
+#else
+    extern void (FASTCALL *ivec4_init1)(int4 &vec, int val);
+    extern void (FASTCALL *ivec4_init4)(int4 &vec, int v0, int v1, int v2, int v3);
+    extern int4 (FASTCALL *ivec4_add_ivec4)(const int4 &v1, const int4 &v2);
+    extern int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
+    extern int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
+    extern int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
+#endif
+
+    using NS::ivec4_eq_ivec4;
+
+    using NS::ivec4_get;
+    using NS::ivec4_set;
 }
 
 #undef NS

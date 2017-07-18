@@ -2,10 +2,10 @@
 
 #include "../math.hpp"
 
-void test_geometric(math::e_arch feat) {
+void test_geometric(math::e_arch arch) {
     using namespace math;
 
-    init(feat);
+    init(arch);
 
     {   // vec2
         vec2 v0 = { 1, 2 }, v1 = { -1, -2 };

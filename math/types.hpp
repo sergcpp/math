@@ -127,7 +127,7 @@ namespace math {
 
     static_assert(sizeof(float2) == 8, "!");
 
-    ALIGN_M32_BEG union float3{
+    ALIGN_M32_BEG union float3 {
         float comp[3];
     } ALIGN_M32_END;
 
@@ -168,6 +168,26 @@ namespace math {
     } ALIGN_M256_END;
 
     static_assert(sizeof(float16) == 64, "!");
+
+    ALIGN_M64_BEG union int2 {
+        __m64 vec;
+        int comp[2];
+    } ALIGN_M64_END;
+
+    static_assert(sizeof(int2) == 8, "!");
+
+    ALIGN_M32_BEG union int3 {
+        int comp[3];
+    } ALIGN_M32_END;
+
+    static_assert(sizeof(int3) == 12, "!");
+
+    ALIGN_M128_BEG union int4 {
+        __m128i vec;
+        int comp[4];
+    } ALIGN_M128_END;
+
+    static_assert(sizeof(int4) == 16, "!");
 }
 
 #undef ALIGN_M128

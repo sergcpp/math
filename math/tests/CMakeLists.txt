@@ -6,6 +6,9 @@ add_executable(test_math main.cpp
                          test_comb.cpp
                          test_common.cpp
                          test_geometric.cpp
+                         test_ivec2.cpp
+                         test_ivec3.cpp
+                         test_ivec4.cpp
                          test_mat2.cpp
                          test_mat3.cpp
                          test_mat4.cpp
