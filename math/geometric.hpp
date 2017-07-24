@@ -13,9 +13,17 @@ namespace math {
     inline float length(const vec3 &v) { return vec3_length(v.vec_); }
     inline float length(const vec4 &v) { return vec4_length(v.vec_); }
 
+    inline float length2(float v) { return v * v; }
+    inline float length2(const vec2 &v) { return dot(v, v); }
+    inline float length2(const vec3 &v) { return dot(v, v); }
+    inline float length2(const vec4 &v) { return dot(v, v); }
+
     // distance between points
     template <typename T>
     float distance(const T &v1, const T &v2) { return length(v1 - v2); }
+
+    template <typename T>
+    float distance2(const T &v1, const T &v2) { return dot(v1 - v2, v1 - v2); }
 
     // dot product
     inline float dot(const vec2 &v1, const vec2 &v2) { return vec2_dot(v1.vec_, v2.vec_); }

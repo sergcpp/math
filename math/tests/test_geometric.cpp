@@ -11,13 +11,17 @@ void test_geometric(math::e_arch arch) {
         vec2 v0 = { 1, 2 }, v1 = { -1, -2 };
 
         float l0 = length(v0);
+        float ll0 = length2(v0);
 
         float d01 = distance(v0, v1);
+        float dd01 = distance2(v0, v1);
 
         float dot01 = dot(v0, v1);
 
         assert(l0 == Approx(2.23606));
+        assert(ll0 == Approx(5));
         assert(d01 == Approx(4.47213));
+        assert(dd01 == Approx(20));
         assert(dot01 == Approx(-5));
     }
 
@@ -25,13 +29,17 @@ void test_geometric(math::e_arch arch) {
         vec3 v0 = { 1, 2, 3 }, v1 = { -1, -2, -3 };
 
         float l0 = length(v0);
+        float ll0 = length2(v0);
 
         float d01 = distance(v0, v1);
+        float dd01 = distance2(v0, v1);
 
         float dot01 = dot(v0, v1);
 
         assert(l0 == Approx(3.74165));
+        assert(ll0 == Approx(14));
         assert(d01 == Approx(7.48331));
+        assert(dd01 == Approx(56));
         assert(dot01 == Approx(-14));
 
         vec3 v2 = { 2, 3, 4 }, v3 = { 5, 6, 7 };
@@ -52,13 +60,17 @@ void test_geometric(math::e_arch arch) {
         vec4 v0 = { 1, 2, 3, 4 }, v1 = { -1, -2, -3, -4 };
 
         float l0 = length(v0);
+        float ll0 = length2(v0);
 
         float d01 = distance(v0, v1);
+        float dd01 = distance2(v0, v1);
 
         float dot01 = dot(v0, v1);
 
         assert(l0 == Approx(5.47722));
+        assert(ll0 == Approx(30));
         assert(d01 == Approx(10.95445));
+        assert(dd01 == Approx(120));
         assert(dot01 == Approx(-30));
 
         vec4 v2 = normalize(v0), v3 = normalize_fast(v1);

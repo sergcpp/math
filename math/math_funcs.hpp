@@ -32,8 +32,8 @@
 namespace math {
     enum e_uninitialize { uninitialize };
 
-    template <typename T>
-    using aligned_vector = std::vector<T, aligned_allocator<T, T::alignment>>;
+    template <typename T, std::size_t Alignment = T::alignment>
+    using aligned_vector = std::vector<T, aligned_allocator<T, Alignment>>;
 
     inline bool is_aligned(const void *p, size_t byte_count) {
         return ((uintptr_t)p) % byte_count == 0;
