@@ -46,6 +46,7 @@ namespace math {
     inline vec4 mod(const vec4 &x, float y) { return mod(x, vec4(y)); }
 
     // minimum value
+    inline int min(int x, int y) { return x < y ? x : y; }
     inline float min(float x, float y) { return std::fmin(x, y); }
     inline vec2 min(const vec2 &x, const vec2 &y) { return vec2(min(x[0], y[0]), min(x[1], y[1])); }
     inline vec3 min(const vec3 &x, const vec3 &y) { return vec3(min(x[0], y[0]), min(x[1], y[1]), min(x[2], y[2])); }
@@ -56,6 +57,7 @@ namespace math {
     inline vec4 min(const vec4 &x, float y) { return min(x, vec4(y)); }
 
     // maximum value
+    inline int max(int x, int y) { return x > y ? x : y; }
     inline float max(float x, float y) { return std::fmax(x, y); }
     inline vec2 max(const vec2 &x, const vec2 &y) { return vec2(max(x[0], y[0]), max(x[1], y[1])); }
     inline vec3 max(const vec3 &x, const vec3 &y) { return vec3(max(x[0], y[0]), max(x[1], y[1]), max(x[2], y[2])); }

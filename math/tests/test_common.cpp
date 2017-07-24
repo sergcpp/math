@@ -123,7 +123,7 @@ void test_common(math::e_arch arch) {
         vec3 v3 = { v2, 5 };
         vec4 v4 = { v3, -8 };
 
-        float min1 = math::min(v1, 2);
+        float min1 = math::min(v1, 2.0f);
         vec2 min2 = math::min(v2, { 2, -2.3f });
         vec3 min3 = math::min(v3, { 2, -2.3f, 4 });
         vec4 min4 = math::min(v4, { 2, -2.3f, 4, -9.1f });
@@ -133,10 +133,10 @@ void test_common(math::e_arch arch) {
         assert(min3 == Approx3(2, -3.5, 4));
         assert(min4 == Approx4(2, -3.5, 4, -9.1));
 
-        min1 = math::min(v1, 2);
-        min2 = math::min(v2, 2);
-        min3 = math::min(v3, 2);
-        min4 = math::min(v4, 2);
+        min1 = math::min(v1, 2.0f);
+        min2 = math::min(v2, 2.0f);
+        min3 = math::min(v3, 2.0f);
+        min4 = math::min(v4, 2.0f);
 
         assert(min1 == Approx(2));
         assert(min2 == Approx2(2, -3.5));
@@ -150,7 +150,7 @@ void test_common(math::e_arch arch) {
         vec3 v3 = { v2, 5 };
         vec4 v4 = { v3, -8 };
 
-        float max1 = math::max(v1, 2);
+        float max1 = math::max(v1, 2.0f);
         vec2 max2 = math::max(v2, { 2, -2.3f });
         vec3 max3 = math::max(v3, { 2, -2.3f, 4 });
         vec4 max4 = math::max(v4, { 2, -2.3f, 4, -9.1f });
@@ -160,10 +160,10 @@ void test_common(math::e_arch arch) {
         assert(max3 == Approx3(3.4, -2.3, 5));
         assert(max4 == Approx4(3.4, -2.3, 5, -8));
 
-        max1 = math::max(v1, 2);
-        max2 = math::max(v2, 2);
-        max3 = math::max(v3, 2);
-        max4 = math::max(v4, 2);
+        max1 = math::max(v1, 2.0f);
+        max2 = math::max(v2, 2.0f);
+        max3 = math::max(v3, 2.0f);
+        max4 = math::max(v4, 2.0f);
 
         assert(max1 == Approx(3.4));
         assert(max2 == Approx2(3.4, 2));

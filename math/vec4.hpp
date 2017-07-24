@@ -16,7 +16,7 @@ namespace math {
     public:
         vec4(e_uninitialize) { assert(is_aligned(this, alignment)); }
         vec4() : vec4(uninitialize) { vec4_init1(vec_, 0); }
-        vec4(float v) : vec4(uninitialize) { vec4_init1(vec_, v); }
+        explicit vec4(float v) : vec4(uninitialize) { vec4_init1(vec_, v); }
         vec4(float v0, float v1, float v2, float v3) : vec4(uninitialize) { vec4_init4(vec_, v0, v1, v2, v3); }
         vec4(const float4 &v) : vec4(uninitialize) { vec_ = v; }
         vec4(const vec2 &v01, const vec2 &v23);
@@ -69,7 +69,12 @@ namespace math {
         vec4 &operator*=(const vec4 &rhs) { (*this) = (*this) * rhs; return *this; }
         vec4 &operator/=(const vec4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        vec4 operator-() const { return (*this) * -1; }
+        vec4 &vec4::operator+=(float rhs);
+        vec4 &vec4::operator-=(float rhs);
+        vec4 &vec4::operator*=(float rhs);
+        vec4 &vec4::operator/=(float rhs);
+
+        vec4 operator-() const;
 
         friend bool operator==(const vec4 &v1, const vec4 &v2);
 
@@ -105,6 +110,22 @@ namespace math {
     inline vec4 operator-(const vec4 &v1, const vec4 &v2) { return vec4(vec4_sub_vec4(v1.vec_, v2.vec_)); }
     inline vec4 operator*(const vec4 &v1, const vec4 &v2) { return vec4(vec4_mul_vec4(v1.vec_, v2.vec_)); }
     inline vec4 operator/(const vec4 &v1, const vec4 &v2) { return vec4(vec4_div_vec4(v1.vec_, v2.vec_)); }
+
+    inline vec4 operator+(const vec4 &v, float f) { return v + vec4(f); }
+    inline vec4 operator+(float f, const vec4 &v) { return vec4(f) + v; }
+    inline vec4 operator-(const vec4 &v, float f) { return v - vec4(f); }
+    inline vec4 operator-(float f, const vec4 &v) { return vec4(f) - v; }
+    inline vec4 operator*(const vec4 &v, float f) { return v * vec4(f); }
+    inline vec4 operator*(float f, const vec4 &v) { return vec4(f) * v; }
+    inline vec4 operator/(const vec4 &v, float f) { return v / vec4(f); }
+    inline vec4 operator/(float f, const vec4 &v) { return vec4(f) / v; }
+
+    inline vec4 &vec4::operator+=(float rhs) { (*this) = (*this) + rhs; return *this; }
+    inline vec4 &vec4::operator-=(float rhs) { (*this) = (*this) - rhs; return *this; }
+    inline vec4 &vec4::operator*=(float rhs) { (*this) = (*this) * rhs; return *this; }
+    inline vec4 &vec4::operator/=(float rhs) { (*this) = (*this) / rhs; return *this; }
+
+    inline vec4 vec4::operator-() const { return (*this) * -1.0f; }
 
     inline vec4 make_vec4(const float v[4]) { return vec4(v[0], v[1], v[2], v[3]); }
     inline const float *value_ptr(const vec4 &v) { return &v.vec_.comp[0]; }

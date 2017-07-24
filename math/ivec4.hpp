@@ -12,7 +12,7 @@ namespace math {
     public:
         ivec4(e_uninitialize) { assert(is_aligned(this, alignment)); }
         ivec4() { ivec4_init1(vec_, 0); }
-        ivec4(int v) { ivec4_init1(vec_, v); }
+        explicit ivec4(int v) { ivec4_init1(vec_, v); }
         ivec4(int v0, int v1, int v2, int v3) { ivec4_init4(vec_, v0, v1, v2, v3); }
         ivec4(const int4 &v) { vec_ = v; }
         ivec4(const ivec2 &v01, const ivec2 &v23);
@@ -65,7 +65,7 @@ namespace math {
         ivec4 &operator*=(const ivec4 &rhs) { (*this) = (*this) * rhs; return *this; }
         ivec4 &operator/=(const ivec4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        ivec4 operator-() const { return (*this) * -1; }
+        ivec4 operator-() const;
 
         friend bool operator==(const ivec4 &v1, const ivec4 &v2);
 
@@ -84,6 +84,17 @@ namespace math {
     inline ivec4 operator-(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_sub_ivec4(v1.vec_, v2.vec_)); }
     inline ivec4 operator*(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_mul_ivec4(v1.vec_, v2.vec_)); }
     inline ivec4 operator/(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_div_ivec4(v1.vec_, v2.vec_)); }
+
+    inline ivec4 operator+(const ivec4 &v, int f) { return v + ivec4(f); }
+    inline ivec4 operator+(int f, const ivec4 &v) { return ivec4(f) + v; }
+    inline ivec4 operator-(const ivec4 &v, int f) { return v - ivec4(f); }
+    inline ivec4 operator-(int f, const ivec4 &v) { return ivec4(f) - v; }
+    inline ivec4 operator*(const ivec4 &v, int f) { return v * ivec4(f); }
+    inline ivec4 operator*(int f, const ivec4 &v) { return ivec4(f) * v; }
+    inline ivec4 operator/(const ivec4 &v, int f) { return v / ivec4(f); }
+    inline ivec4 operator/(int f, const ivec4 &v) { return ivec4(f) / v; }
+
+    inline ivec4 ivec4::operator-() const { return (*this) * -1; }
 }
 
 #include "ivec2.hpp"

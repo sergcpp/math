@@ -12,7 +12,7 @@ namespace math {
     public:
         ivec3(e_uninitialize) { assert(is_aligned(this, alignment)); }
         ivec3() : ivec3(uninitialize) { ivec3_init1(vec_, 0); }
-        ivec3(int v) : ivec3(uninitialize) { ivec3_init1(vec_, v); }
+        explicit ivec3(int v) : ivec3(uninitialize) { ivec3_init1(vec_, v); }
         ivec3(int v0, int v1, int v2) : ivec3(uninitialize) { ivec3_init3(vec_, v0, v1, v2); }
         ivec3(const int3 &v) : ivec3(uninitialize) { vec_ = v; }
         ivec3(const ivec2 &v01, int v2);
@@ -59,7 +59,7 @@ namespace math {
         ivec3 &operator*=(const ivec3 &rhs) { (*this) = (*this) * rhs; return *this; }
         ivec3 &operator/=(const ivec3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        ivec3 operator-() const { return (*this) * -1; }
+        ivec3 operator-() const;
 
         friend bool operator==(const ivec3 &v1, const ivec3 &v2);
 
@@ -78,6 +78,17 @@ namespace math {
     inline ivec3 operator-(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_sub_ivec3(v1.vec_, v2.vec_)); }
     inline ivec3 operator*(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_mul_ivec3(v1.vec_, v2.vec_)); }
     inline ivec3 operator/(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_div_ivec3(v1.vec_, v2.vec_)); }
+
+    inline ivec3 operator+(const ivec3 &v, int f) { return v + ivec3(f); }
+    inline ivec3 operator+(int f, const ivec3 &v) { return ivec3(f) + v; }
+    inline ivec3 operator-(const ivec3 &v, int f) { return v - ivec3(f); }
+    inline ivec3 operator-(int f, const ivec3 &v) { return ivec3(f) - v; }
+    inline ivec3 operator*(const ivec3 &v, int f) { return v * ivec3(f); }
+    inline ivec3 operator*(int f, const ivec3 &v) { return ivec3(f) * v; }
+    inline ivec3 operator/(const ivec3 &v, int f) { return v / ivec3(f); }
+    inline ivec3 operator/(int f, const ivec3 &v) { return ivec3(f) / v; }
+
+    inline ivec3 ivec3::operator-() const { return (*this) * -1; }
 }
 
 #include "ivec2.hpp"

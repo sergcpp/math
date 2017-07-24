@@ -15,7 +15,7 @@ namespace math {
     public:
         vec2(e_uninitialize) {}
         vec2() { vec2_init1(vec_, 0); }
-        vec2(float v) { vec2_init1(vec_, v); }
+        explicit vec2(float v) { vec2_init1(vec_, v); }
         vec2(float v0, float v1) { vec2_init2(vec_, v0, v1); }
         vec2(const float2 &v) { vec_ = v; }
         vec2(const vec3 &v);
@@ -58,7 +58,12 @@ namespace math {
         vec2 &operator*=(const vec2 &rhs) { (*this) = (*this) * rhs; return *this; }
         vec2 &operator/=(const vec2 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        vec2 operator-() const { return (*this) * -1; }
+        vec2 &operator+=(float rhs);
+        vec2 &operator-=(float rhs);
+        vec2 &operator*=(float rhs);
+        vec2 &operator/=(float rhs);
+
+        vec2 operator-() const;
 
         friend bool operator==(const vec2 &v1, const vec2 &v2);
 
@@ -94,6 +99,22 @@ namespace math {
     inline vec2 operator-(const vec2 &v1, const vec2 &v2) { return vec2(vec2_sub_vec2(v1.vec_, v2.vec_)); }
     inline vec2 operator*(const vec2 &v1, const vec2 &v2) { return vec2(vec2_mul_vec2(v1.vec_, v2.vec_)); }
     inline vec2 operator/(const vec2 &v1, const vec2 &v2) { return vec2(vec2_div_vec2(v1.vec_, v2.vec_)); }
+
+    inline vec2 operator+(const vec2 &v, float f) { return v + vec2(f); }
+    inline vec2 operator+(float f, const vec2 &v) { return vec2(f) + v; }
+    inline vec2 operator-(const vec2 &v, float f) { return v - vec2(f); }
+    inline vec2 operator-(float f, const vec2 &v) { return vec2(f) - v; }
+    inline vec2 operator*(const vec2 &v, float f) { return v * vec2(f); }
+    inline vec2 operator*(float f, const vec2 &v) { return vec2(f) * v; }
+    inline vec2 operator/(const vec2 &v, float f) { return v / vec2(f); }
+    inline vec2 operator/(float f, const vec2 &v) { return vec2(f) / v; }
+
+    inline vec2 &vec2::operator+=(float rhs) { (*this) = (*this) + rhs; return *this; }
+    inline vec2 &vec2::operator-=(float rhs) { (*this) = (*this) - rhs; return *this; }
+    inline vec2 &vec2::operator*=(float rhs) { (*this) = (*this) * rhs; return *this; }
+    inline vec2 &vec2::operator/=(float rhs) { (*this) = (*this) / rhs; return *this; }
+
+    inline vec2 vec2::operator-() const { return (*this) * -1.0f; }
 
     inline vec2 make_vec2(const float v[2]) { return vec2(v[0], v[1]); }
     inline const float *value_ptr(const vec2 &v) { return &v.vec_.comp[0]; }
