@@ -68,6 +68,8 @@ namespace math {
 
         friend mat4 matrixCompMult(const mat4 &m1, const mat4 &m2);
 
+        friend mat4 inverse(const mat4 &m);
+
         friend const float *value_ptr(const mat4 &m);
 
         static const size_t alignment = alignment_m256;

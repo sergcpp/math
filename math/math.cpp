@@ -67,6 +67,7 @@ void cpuid(int info[4], int InfoType) {
     NS::mat2_mul_mat2, NS::mat2_div_mat2,               \
                                                         \
     NS::mat2_comp_mul,                                  \
+    NS::mat2_inverse,                                   \
                                                         \
     NS::mat3_init1, NS::mat3_init3, NS::mat3_init9,     \
     NS::mat3_add_mat3, NS::mat3_sub_mat3,               \
@@ -75,6 +76,7 @@ void cpuid(int info[4], int InfoType) {
     NS::mat3_mul_float, NS::mat3_div_float,             \
                                                         \
     NS::mat3_comp_mul,                                  \
+    NS::mat3_inverse,                                   \
                                                         \
     NS::mat4_init1, NS::mat4_init4, NS::mat4_init16,    \
     NS::mat4_add_mat4, NS::mat4_sub_mat4,               \
@@ -83,6 +85,7 @@ void cpuid(int info[4], int InfoType) {
     NS::mat4_mul_float, NS::mat4_div_float,             \
                                                         \
     NS::mat4_comp_mul,                                  \
+    NS::mat4_inverse,                                   \
                                                         \
     NS::mat4_mul_vec4,                                  \
                                                         \
@@ -138,6 +141,7 @@ namespace math {
     float4 (FASTCALL *mat2_div_mat2)(const float4 &v1, const float4 &v2);
 
     float4 (FASTCALL *mat2_comp_mul)(const float4 &m1, const float4 &m2);
+    float4 (FASTCALL *mat2_inverse)(const float4 &m);
 
     void (FASTCALL *mat3_init1)(float9 &vec, float val);
     void (FASTCALL *mat3_init3)(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
@@ -154,6 +158,7 @@ namespace math {
     float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
     float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
+    float9 (FASTCALL *mat3_inverse)(const float9 &m);
 
     void (FASTCALL *mat4_init1)(float16 &vec, float val);
     void (FASTCALL *mat4_init4)(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);
@@ -171,6 +176,7 @@ namespace math {
     float16 (FASTCALL *mat4_div_float)(const float16 &v1, float v2);
 
     float16 (FASTCALL *mat4_comp_mul)(const float16 &m1, const float16 &m2);
+    float16 (FASTCALL *mat4_inverse)(const float16 &m);
 
     float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
 
@@ -230,6 +236,7 @@ namespace math {
         float4 (FASTCALL *mat2_div_mat2)(const float4 &v1, const float4 &v2);
 
         float4 (FASTCALL *mat2_comp_mul)(const float4 &m1, const float4 &m2);
+        float4 (FASTCALL *mat2_inverse)(const float4 &m);
 
         void (FASTCALL *mat3_init1)(float9 &vec, float val);
         void (FASTCALL *mat3_init3)(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
@@ -246,6 +253,7 @@ namespace math {
         float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
         float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
+        float9 (FASTCALL *mat3_inverse)(const float9 &m);
 
         void (FASTCALL *mat4_init1)(float16 &vec, float val);
         void (FASTCALL *mat4_init4)(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);
@@ -263,6 +271,7 @@ namespace math {
         float16 (FASTCALL *mat4_div_float)(const float16 &v1, float v2);
 
         float16 (FASTCALL *mat4_comp_mul)(const float16 &m1, const float16 &m2);
+        float16 (FASTCALL *mat4_inverse)(const float16 &m);
 
         float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
 
@@ -380,6 +389,7 @@ void math::init(math::e_arch arch) {
     mat2_div_mat2 = t.mat2_div_mat2;
 
     mat2_comp_mul = t.mat2_comp_mul;
+    mat2_inverse = t.mat2_inverse;
 
     mat3_init1 = t.mat3_init1;
     mat3_init3 = t.mat3_init3;
@@ -394,6 +404,7 @@ void math::init(math::e_arch arch) {
     mat3_div_float = t.mat3_div_float;
 
     mat3_comp_mul = t.mat3_comp_mul;
+    mat3_inverse = t.mat3_inverse;
 
     mat4_init1 = t.mat4_init1;
     mat4_init4 = t.mat4_init4;
@@ -408,6 +419,7 @@ void math::init(math::e_arch arch) {
     mat4_div_float = t.mat4_div_float;
 
     mat4_comp_mul = t.mat4_comp_mul;
+    mat4_inverse = t.mat4_inverse;
 
     mat4_mul_vec4 = t.mat4_mul_vec4;
 

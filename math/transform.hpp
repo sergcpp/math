@@ -7,6 +7,10 @@
 #include "trigonometric.hpp"
 
 namespace math {
+    inline mat2 inverse(const mat2 &m) { return mat2(mat2_inverse(m.vec_)); }
+    inline mat3 inverse(const mat3 &m) { return mat3(mat3_inverse(m.vec_)); }
+    inline mat4 inverse(const mat4 &m) { return mat4(mat4_inverse(m.vec_)); }
+
     inline mat4 translate(const mat4 &m, const vec3 &v) {
         mat4 res;
         res[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];

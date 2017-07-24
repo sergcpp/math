@@ -160,6 +160,7 @@ namespace math {
     extern float4(FASTCALL *mat2_div_mat2)(const float4 &v1, const float4 &v2);
 
     extern float4 (FASTCALL *mat2_comp_mul)(const float4 &m1, const float4 &m2);
+    extern float4 (FASTCALL *mat2_inverse)(const float4 &m);
 #endif
 
     using NS::mat2_init1;
@@ -204,6 +205,7 @@ namespace math {
     extern float9 (FASTCALL *mat3_div_float)(const float9 &v1, float v2);
 
     extern float9 (FASTCALL *mat3_comp_mul)(const float9 &m1, const float9 &m2);
+    extern float9 (FASTCALL *mat3_inverse)(const float9 &m);
 #endif
 
     using NS::mat3_eq_mat3;
@@ -248,6 +250,7 @@ namespace math {
     extern float16 (FASTCALL *mat4_div_float)(const float16 &v1, float v2);
 
     extern float16 (FASTCALL *mat4_comp_mul)(const float16 &m1, const float16 &m2);
+    extern float16 (FASTCALL *mat4_inverse)(const float16 &m);
 
     extern float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
 #endif

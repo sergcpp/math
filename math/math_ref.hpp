@@ -474,6 +474,17 @@ namespace ref {
         return ret;
     } DEF_END
 
+    DECL_FUNC(float4) mat2_inverse(const float4 &m) {
+        float inv_det = 1.0f / (m.comp2[0][0] * m.comp2[1][1] - m.comp2[1][0] * m.comp2[0][1]);
+
+        float4 ret;
+        ret.comp2[0][0] = m.comp2[1][1] * inv_det;
+        ret.comp2[0][1] = -m.comp2[0][1] * inv_det;
+        ret.comp2[1][0] = -m.comp2[1][0] * inv_det;
+        ret.comp2[1][1] = m.comp2[0][0] * inv_det;
+        return ret;
+    } DEF_END
+
     // mat3
     DECL_FUNC(void) mat3_init1(float9 &vec, float val) {
         vec.comp3[0][0] = vec.comp3[1][1] = vec.comp3[2][2] = val;
@@ -582,6 +593,24 @@ namespace ref {
         return ret;
     } DEF_END
 
+    DECL_FUNC(float9) mat3_inverse(const float9 &m) {
+        float inv_det = 1.0f / (m.comp3[0][0] * (m.comp3[1][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[1][2])
+                              - m.comp3[1][0] * (m.comp3[0][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[0][2])
+                              + m.comp3[2][0] * (m.comp3[0][1] * m.comp3[1][2] - m.comp3[1][1] * m.comp3[0][2]));
+
+        float9 ret;
+        ret.comp3[0][0] = +(m.comp3[1][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[1][2]) * inv_det;
+        ret.comp3[1][0] = -(m.comp3[1][0] * m.comp3[2][2] - m.comp3[2][0] * m.comp3[1][2]) * inv_det;
+        ret.comp3[2][0] = +(m.comp3[1][0] * m.comp3[2][1] - m.comp3[2][0] * m.comp3[1][1]) * inv_det;
+        ret.comp3[0][1] = -(m.comp3[0][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[0][2]) * inv_det;
+        ret.comp3[1][1] = +(m.comp3[0][0] * m.comp3[2][2] - m.comp3[2][0] * m.comp3[0][2]) * inv_det;
+        ret.comp3[2][1] = -(m.comp3[0][0] * m.comp3[2][1] - m.comp3[2][0] * m.comp3[0][1]) * inv_det;
+        ret.comp3[0][2] = +(m.comp3[0][1] * m.comp3[1][2] - m.comp3[1][1] * m.comp3[0][2]) * inv_det;
+        ret.comp3[1][2] = -(m.comp3[0][0] * m.comp3[1][2] - m.comp3[1][0] * m.comp3[0][2]) * inv_det;
+        ret.comp3[2][2] = +(m.comp3[0][0] * m.comp3[1][1] - m.comp3[1][0] * m.comp3[0][1]) * inv_det;
+        return ret;
+    }
+
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val) {
         vec.comp4[0][0] = vec.comp4[1][1] = vec.comp4[2][2] = vec.comp4[3][3] = val;
@@ -681,6 +710,51 @@ namespace ref {
         for (int i = 0; i < 16; i++) {
             ret.comp[i] = v1.comp[i] * v2.comp[i];
         }
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float16) mat4_inverse(const float16 &m) {
+        float A2323 = m.comp4[2][2] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][2];
+        float A1323 = m.comp4[2][1] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][1];
+        float A1223 = m.comp4[2][1] * m.comp4[3][2] - m.comp4[2][2] * m.comp4[3][1];
+        float A0323 = m.comp4[2][0] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][0];
+        float A0223 = m.comp4[2][0] * m.comp4[3][2] - m.comp4[2][2] * m.comp4[3][0];
+        float A0123 = m.comp4[2][0] * m.comp4[3][1] - m.comp4[2][1] * m.comp4[3][0];
+        float A2313 = m.comp4[1][2] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][2];
+        float A1313 = m.comp4[1][1] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][1];
+        float A1213 = m.comp4[1][1] * m.comp4[3][2] - m.comp4[1][2] * m.comp4[3][1];
+        float A2312 = m.comp4[1][2] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][2];
+        float A1312 = m.comp4[1][1] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][1];
+        float A1212 = m.comp4[1][1] * m.comp4[2][2] - m.comp4[1][2] * m.comp4[2][1];
+        float A0313 = m.comp4[1][0] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][0];
+        float A0213 = m.comp4[1][0] * m.comp4[3][2] - m.comp4[1][2] * m.comp4[3][0];
+        float A0312 = m.comp4[1][0] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][0];
+        float A0212 = m.comp4[1][0] * m.comp4[2][2] - m.comp4[1][2] * m.comp4[2][0];
+        float A0113 = m.comp4[1][0] * m.comp4[3][1] - m.comp4[1][1] * m.comp4[3][0];
+        float A0112 = m.comp4[1][0] * m.comp4[2][1] - m.comp4[1][1] * m.comp4[2][0];
+
+        float inv_det = 1.0f / (m.comp4[0][0] * (m.comp4[1][1] * A2323 - m.comp4[1][2] * A1323 + m.comp4[1][3] * A1223)
+                                - m.comp4[0][1] * (m.comp4[1][0] * A2323 - m.comp4[1][2] * A0323 + m.comp4[1][3] * A0223)
+                                + m.comp4[0][2] * (m.comp4[1][0] * A1323 - m.comp4[1][1] * A0323 + m.comp4[1][3] * A0123)
+                                - m.comp4[0][3] * (m.comp4[1][0] * A1223 - m.comp4[1][1] * A0223 + m.comp4[1][2] * A0123));
+
+        float16 ret;
+        ret.comp4[0][0] = inv_det *   (m.comp4[1][1] * A2323 - m.comp4[1][2] * A1323 + m.comp4[1][3] * A1223);
+        ret.comp4[0][1] = inv_det * -(m.comp4[0][1] * A2323 - m.comp4[0][2] * A1323 + m.comp4[0][3] * A1223);
+        ret.comp4[0][2] = inv_det *   (m.comp4[0][1] * A2313 - m.comp4[0][2] * A1313 + m.comp4[0][3] * A1213);
+        ret.comp4[0][3] = inv_det * -(m.comp4[0][1] * A2312 - m.comp4[0][2] * A1312 + m.comp4[0][3] * A1212);
+        ret.comp4[1][0] = inv_det * -(m.comp4[1][0] * A2323 - m.comp4[1][2] * A0323 + m.comp4[1][3] * A0223);
+        ret.comp4[1][1] = inv_det *   (m.comp4[0][0] * A2323 - m.comp4[0][2] * A0323 + m.comp4[0][3] * A0223);
+        ret.comp4[1][2] = inv_det * -(m.comp4[0][0] * A2313 - m.comp4[0][2] * A0313 + m.comp4[0][3] * A0213);
+        ret.comp4[1][3] = inv_det *   (m.comp4[0][0] * A2312 - m.comp4[0][2] * A0312 + m.comp4[0][3] * A0212);
+        ret.comp4[2][0] = inv_det *   (m.comp4[1][0] * A1323 - m.comp4[1][1] * A0323 + m.comp4[1][3] * A0123);
+        ret.comp4[2][1] = inv_det * -(m.comp4[0][0] * A1323 - m.comp4[0][1] * A0323 + m.comp4[0][3] * A0123);
+        ret.comp4[2][2] = inv_det *   (m.comp4[0][0] * A1313 - m.comp4[0][1] * A0313 + m.comp4[0][3] * A0113);
+        ret.comp4[2][3] = inv_det * -(m.comp4[0][0] * A1312 - m.comp4[0][1] * A0312 + m.comp4[0][3] * A0112);
+        ret.comp4[3][0] = inv_det * -(m.comp4[1][0] * A1223 - m.comp4[1][1] * A0223 + m.comp4[1][2] * A0123);
+        ret.comp4[3][1] = inv_det *   (m.comp4[0][0] * A1223 - m.comp4[0][1] * A0223 + m.comp4[0][2] * A0123);
+        ret.comp4[3][2] = inv_det * -(m.comp4[0][0] * A1213 - m.comp4[0][1] * A0213 + m.comp4[0][2] * A0113);
+        ret.comp4[3][3] = inv_det *   (m.comp4[0][0] * A1212 - m.comp4[0][1] * A0212 + m.comp4[0][2] * A0112);
         return ret;
     } DEF_END
 
