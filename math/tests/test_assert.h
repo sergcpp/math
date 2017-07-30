@@ -43,25 +43,52 @@ public:
 };
 
 inline bool operator==(float val, const ApproxT<double> &app) {
-    return math::distance(val, (float)app.val_) < app.eps_;
+    return fabs(val - (float)app.val_) < app.eps_;
 }
 
-inline bool operator==(const math::vec2 &val, const ApproxT<math::vec2> &app) {
-    return math::distance(val, app.val_) < app.eps_;
+inline bool operator==(double val, const ApproxT<double> &app) {
+    return fabs(val - app.val_) < app.eps_;
 }
 
-inline bool operator==(const math::vec3 &val, const ApproxT<math::vec3> &app) {
-    return math::distance(val, app.val_) < app.eps_;
+inline bool operator==(const math::vec2 &val, const ApproxT<math::dvec2> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_;
 }
 
-inline bool operator==(const math::vec4 &val, const ApproxT<math::vec4> &app) {
-    return math::distance(val, app.val_) < app.eps_;
+inline bool operator==(const math::dvec2 &val, const ApproxT<math::dvec2> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_;
+}
+
+inline bool operator==(const math::vec3 &val, const ApproxT<math::dvec3> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_ &&
+           fabs(val[2] - app.val_[2]) < app.eps_;
+}
+
+inline bool operator==(const math::dvec3 &val, const ApproxT<math::dvec3> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_ &&
+           fabs(val[2] - app.val_[2]) < app.eps_;
+}
+inline bool operator==(const math::vec4 &val, const ApproxT<math::dvec4> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_ &&
+           fabs(val[2] - app.val_[2]) < app.eps_ &&
+           fabs(val[3] - app.val_[3]) < app.eps_;
+}
+
+inline bool operator==(const math::dvec4 &val, const ApproxT<math::dvec4> &app) {
+    return fabs(val[0] - app.val_[0]) < app.eps_ &&
+           fabs(val[1] - app.val_[1]) < app.eps_ &&
+           fabs(val[2] - app.val_[2]) < app.eps_ &&
+           fabs(val[3] - app.val_[3]) < app.eps_;
 }
 
 inline ApproxT<double> Approx(double x) { return ApproxT<double>(x); }
-inline ApproxT<math::vec2> Approx(const math::vec2 &v) { return ApproxT<math::vec2>(v); }
-inline ApproxT<math::vec3> Approx(const math::vec3 &v) { return ApproxT<math::vec3>(v); }
-inline ApproxT<math::vec4> Approx(const math::vec4 &v) { return ApproxT<math::vec4>(v); }
-inline ApproxT<math::vec2> Approx2(double x, double y) { return ApproxT<math::vec2>(math::vec2((float)x, (float)y)); }
-inline ApproxT<math::vec3> Approx3(double x, double y, double z) { return ApproxT<math::vec3>(math::vec3((float)x, (float)y, (float)z)); }
-inline ApproxT<math::vec4> Approx4(double x, double y, double z, double w) { return ApproxT<math::vec4>(math::vec4((float)x, (float)y, (float)z, (float)w)); }
+inline ApproxT<math::dvec2> Approx(const math::vec2 &v) { return ApproxT<math::dvec2>(math::dvec2(v)); }
+inline ApproxT<math::dvec3> Approx(const math::vec3 &v) { return ApproxT<math::dvec3>(math::dvec3(v)); }
+inline ApproxT<math::dvec4> Approx(const math::vec4 &v) { return ApproxT<math::dvec4>(math::dvec4(v)); }
+inline ApproxT<math::dvec2> Approx2(double x, double y) { return ApproxT<math::dvec2>({ x, y }); }
+inline ApproxT<math::dvec3> Approx3(double x, double y, double z) { return ApproxT<math::dvec3>({ x, y, z }); }
+inline ApproxT<math::dvec4> Approx4(double x, double y, double z, double w) { return ApproxT<math::dvec4>({ x, y, z, w }); }

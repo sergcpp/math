@@ -7,6 +7,10 @@
 #include "vec4.hpp"
 #include "quat.hpp"
 
+#include "dvec2.hpp"
+#include "dvec3.hpp"
+#include "dvec4.hpp"
+
 namespace math {
     // length of vector
     inline float length(float v) { return fabs(v); }
@@ -18,6 +22,11 @@ namespace math {
     inline float length2(const vec2 &v) { return dot(v, v); }
     inline float length2(const vec3 &v) { return dot(v, v); }
     inline float length2(const vec4 &v) { return dot(v, v); }
+
+    inline double length(double v) { return fabs(v); }
+    inline double length(const dvec2 &v) { return dvec2_length(v.vec_); }
+    inline double length(const dvec3 &v) { return dvec3_length(v.vec_); }
+    inline double length(const dvec4 &v) { return dvec4_length(v.vec_); }
 
     // distance between points
     template <typename T>

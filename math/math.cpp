@@ -103,7 +103,19 @@ void cpuid(int info[4], int InfoType) {
                                                         \
     NS::quat_init4,                                     \
     NS::quat_add_quat, NS::quat_mul_quat,               \
-    NS::quat_mul_float, NS::quat_div_float,                 
+    NS::quat_mul_float, NS::quat_div_float,             \
+                                                        \
+    NS::dvec2_init1, NS::dvec2_init2,                   \
+    NS::dvec2_add_dvec2, NS::dvec2_sub_dvec2,           \
+    NS::dvec2_mul_dvec2, NS::dvec2_div_dvec2,           \
+                                                        \
+    NS::dvec3_init1, NS::dvec3_init3,                   \
+    NS::dvec3_add_dvec3, NS::dvec3_sub_dvec3,           \
+    NS::dvec3_mul_dvec3, NS::dvec3_div_dvec3,           \
+                                                        \
+    NS::dvec4_init1, NS::dvec4_init4,                   \
+    NS::dvec4_add_dvec4, NS::dvec4_sub_dvec4,           \
+    NS::dvec4_mul_dvec4, NS::dvec4_div_dvec4,
 
 namespace math {
     CPUFeatures cpu = {};
@@ -210,6 +222,27 @@ namespace math {
     float4 (FASTCALL *quat_mul_quat)(const float4 &v1, const float4 &v2);
     float4 (FASTCALL *quat_mul_float)(const float4 &v, float f);
     float4 (FASTCALL *quat_div_float)(const float4 &v, float f);
+
+    void (FASTCALL *dvec2_init1)(double2 &vec, double val);
+    void (FASTCALL *dvec2_init2)(double2 &vec, double v0, double v1);
+    double2 (FASTCALL *dvec2_add_dvec2)(const double2 &v1, const double2 &v2);
+    double2 (FASTCALL *dvec2_sub_dvec2)(const double2 &v1, const double2 &v2);
+    double2 (FASTCALL *dvec2_mul_dvec2)(const double2 &v1, const double2 &v2);
+    double2 (FASTCALL *dvec2_div_dvec2)(const double2 &v1, const double2 &v2);
+
+    void (FASTCALL *dvec3_init1)(double3 &vec, double val);
+    void (FASTCALL *dvec3_init3)(double3 &vec, double v0, double v1, double v2);
+    double3 (FASTCALL *dvec3_add_dvec3)(const double3 &v1, const double3 &v2);
+    double3 (FASTCALL *dvec3_sub_dvec3)(const double3 &v1, const double3 &v2);
+    double3 (FASTCALL *dvec3_mul_dvec3)(const double3 &v1, const double3 &v2);
+    double3 (FASTCALL *dvec3_div_dvec3)(const double3 &v1, const double3 &v2);
+
+    void (FASTCALL *dvec4_init1)(double4 &vec, double val);
+    void (FASTCALL *dvec4_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+    double4 (FASTCALL *dvec4_add_dvec4)(const double4 &v1, const double4 &v2);
+    double4 (FASTCALL *dvec4_sub_dvec4)(const double4 &v1, const double4 &v2);
+    double4 (FASTCALL *dvec4_mul_dvec4)(const double4 &v1, const double4 &v2);
+    double4 (FASTCALL *dvec4_div_dvec4)(const double4 &v1, const double4 &v2);
 #endif
     const struct func_table {
         void (FASTCALL *vec3_init1)(float3 &vec, float val);
@@ -311,6 +344,27 @@ namespace math {
         float4 (FASTCALL *quat_mul_quat)(const float4 &v1, const float4 &v2);
         float4 (FASTCALL *quat_mul_float)(const float4 &v, float f);
         float4 (FASTCALL *quat_div_float)(const float4 &v, float f);
+
+        void (FASTCALL *dvec2_init1)(double2 &vec, double val);
+        void (FASTCALL *dvec2_init2)(double2 &vec, double v0, double v1);
+        double2 (FASTCALL *dvec2_add_dvec2)(const double2 &v1, const double2 &v2);
+        double2 (FASTCALL *dvec2_sub_dvec2)(const double2 &v1, const double2 &v2);
+        double2 (FASTCALL *dvec2_mul_dvec2)(const double2 &v1, const double2 &v2);
+        double2 (FASTCALL *dvec2_div_dvec2)(const double2 &v1, const double2 &v2);
+
+        void (FASTCALL *dvec3_init1)(double3 &vec, double val);
+        void (FASTCALL *dvec3_init3)(double3 &vec, double v0, double v1, double v2);
+        double3 (FASTCALL *dvec3_add_dvec3)(const double3 &v1, const double3 &v2);
+        double3 (FASTCALL *dvec3_sub_dvec3)(const double3 &v1, const double3 &v2);
+        double3 (FASTCALL *dvec3_mul_dvec3)(const double3 &v1, const double3 &v2);
+        double3 (FASTCALL *dvec3_div_dvec3)(const double3 &v1, const double3 &v2);
+
+        void (FASTCALL *dvec4_init1)(double4 &vec, double val);
+        void (FASTCALL *dvec4_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+        double4 (FASTCALL *dvec4_add_dvec4)(const double4 &v1, const double4 &v2);
+        double4 (FASTCALL *dvec4_sub_dvec4)(const double4 &v1, const double4 &v2);
+        double4 (FASTCALL *dvec4_mul_dvec4)(const double4 &v1, const double4 &v2);
+        double4 (FASTCALL *dvec4_div_dvec4)(const double4 &v1, const double4 &v2);
     } funcs[] = {   {   // Reference
                         FUNC_LIST(ref)
                     },
@@ -465,6 +519,27 @@ void math::init(math::e_arch arch) {
     quat_mul_quat = t.quat_mul_quat;
     quat_mul_float = t.quat_mul_float;
     quat_div_float = t.quat_div_float;
+
+    dvec2_init1 = t.dvec2_init1;
+    dvec2_init2 = t.dvec2_init2;
+    dvec2_add_dvec2 = t.dvec2_add_dvec2;
+    dvec2_sub_dvec2 = t.dvec2_sub_dvec2;
+    dvec2_mul_dvec2 = t.dvec2_mul_dvec2;
+    dvec2_div_dvec2 = t.dvec2_div_dvec2;
+
+    dvec3_init1 = t.dvec3_init1;
+    dvec3_init3 = t.dvec3_init3;
+    dvec3_add_dvec3 = t.dvec3_add_dvec3;
+    dvec3_sub_dvec3 = t.dvec3_sub_dvec3;
+    dvec3_mul_dvec3 = t.dvec3_mul_dvec3;
+    dvec3_div_dvec3 = t.dvec3_div_dvec3;
+
+    dvec4_init1 = t.dvec4_init1;
+    dvec4_init4 = t.dvec4_init4;
+    dvec4_add_dvec4 = t.dvec4_add_dvec4;
+    dvec4_sub_dvec4 = t.dvec4_sub_dvec4;
+    dvec4_mul_dvec4 = t.dvec4_mul_dvec4;
+    dvec4_div_dvec4 = t.dvec4_div_dvec4;
 #endif
 #endif
 }

@@ -58,6 +58,14 @@ math::aligned_vector<math::mat4> create_mat4s(size_t N) {
     return mats;
 }
 
+math::aligned_vector<math::dvec4> create_dvec4s(size_t N) {
+    math::aligned_vector<math::dvec4> vecs(N, math::uninitialize);
+    for (size_t i = 0; i < N; i++) {
+        vecs[i] = math::dvec4(double(i), double(i + 1), double(i + 2), double(i + 3));
+    }
+    return vecs;
+}
+
 struct scoped_timer {
     const char *name;
     math::e_arch arch;
@@ -443,6 +451,22 @@ void test_mat4_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M)
     for (size_t j = 0; j < M; j++) {
         for (size_t i = 0; i < N - 1; i += 2) {
             mats[i] = matrixCompMult(mats[i], mats[i + 1]);
+        }
+    }
+}
+
+void test_dvec4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
+    using namespace std; using namespace math;
+
+    init(arch);
+
+    auto vecs = create_dvec4s(N);
+
+    scoped_timer timer = { name, arch };
+
+    for (size_t j = 0; j < M; j++) {
+        for (size_t i = 0; i < N - 1; i += 2) {
+            vecs[i] *= vecs[i + 1];
         }
     }
 }

@@ -95,6 +95,46 @@ namespace avx {
         _mm256_zeroupper();
         return ret;
     } DEF_END
+
+    // dvec4
+    DECL_FUNC(void) dvec4_init1(double4 &vec, double val) {
+        vec.vec2 = _mm256_set1_pd(val);
+        _mm256_zeroupper();
+    } DEF_END
+
+    DECL_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+        vec.vec2 = _mm256_set_pd(v3, v2, v1, v0);
+        _mm256_zeroupper();
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec2 = _mm256_add_pd(v1.vec2, v2.vec2);
+        _mm256_zeroupper();
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec2 = _mm256_sub_pd(v1.vec2, v2.vec2);
+        _mm256_zeroupper();
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec2 = _mm256_mul_pd(v1.vec2, v2.vec2);
+        _mm256_zeroupper();
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec2 = _mm256_div_pd(v1.vec2, v2.vec2);
+        _mm256_zeroupper();
+        return ret;
+    } DEF_END
+
 #endif
 }
 }
@@ -122,6 +162,15 @@ namespace avx {
     DECL_FUNC(float16) mat4_mul_mat4(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_div_mat4(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
+
+    // dvec4
+    DECL_FUNC(void) dvec4_init1(double4 &vec, double val);
+    DECL_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3);
+    DECL_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2);
+    DECL_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2);
+    DECL_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2);
+    DECL_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2);
+
 #endif
 }
 }

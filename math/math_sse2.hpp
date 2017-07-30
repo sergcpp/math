@@ -432,6 +432,77 @@ namespace sse2 {
         return ret;
     } DEF_END
 
+    // dvec2
+    DECL_FUNC(void) dvec2_init1(double2 &vec, double val) {
+        vec.vec = _mm_set1_pd(val);
+    } DEF_END
+
+    DECL_FUNC(void) dvec2_init2(double2 &vec, double v0, double v1) {
+        vec.vec = _mm_set_pd(v1, v0);
+    } DEF_END
+
+    DECL_FUNC(double2) dvec2_add_dvec2(const double2 &v1, const double2 &v2) {
+        double2 ret;
+        ret.vec = _mm_add_pd(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double2) dvec2_sub_dvec2(const double2 &v1, const double2 &v2) {
+        double2 ret;
+        ret.vec = _mm_sub_pd(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double2) dvec2_mul_dvec2(const double2 &v1, const double2 &v2) {
+        double2 ret;
+        ret.vec = _mm_mul_pd(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double2) dvec2_div_dvec2(const double2 &v1, const double2 &v2) {
+        double2 ret;
+        ret.vec = _mm_div_pd(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    // dvec4
+    DECL_FUNC(void) dvec4_init1(double4 &vec, double val) {
+        vec.vec[0] = vec.vec[1] = _mm_set1_pd(val);
+    } DEF_END
+
+    DECL_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+        vec.vec[0] = _mm_set_pd(v1, v0);
+        vec.vec[1] = _mm_set_pd(v3, v2);
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec[0] = _mm_add_pd(v1.vec[0], v2.vec[0]);
+        ret.vec[1] = _mm_add_pd(v1.vec[1], v2.vec[1]);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec[0] = _mm_sub_pd(v1.vec[0], v2.vec[0]);
+        ret.vec[1] = _mm_sub_pd(v1.vec[1], v2.vec[1]);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec[0] = _mm_mul_pd(v1.vec[0], v2.vec[0]);
+        ret.vec[1] = _mm_mul_pd(v1.vec[1], v2.vec[1]);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
+        double4 ret;
+        ret.vec[0] = _mm_div_pd(v1.vec[0], v2.vec[0]);
+        ret.vec[1] = _mm_div_pd(v1.vec[1], v2.vec[1]);
+        return ret;
+    } DEF_END
+
     // comb
     DECL_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
         float4 ret;

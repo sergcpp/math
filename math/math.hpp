@@ -17,6 +17,10 @@
 #include "ivec3.hpp"
 #include "ivec4.hpp"
 
+#include "dvec2.hpp"
+#include "dvec3.hpp"
+#include "dvec4.hpp"
+
 namespace math {
     struct CPUFeatures {
         bool initialized = false;

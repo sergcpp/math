@@ -356,6 +356,81 @@ namespace math {
     using NS::quat_to_mat3;
     using NS::mat3_to_quat;
     using NS::mat4_to_quat;
+
+    // dvec2
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::dvec2_init1;
+    using NS::dvec2_init2;
+    using NS::dvec2_eq_dvec2;
+    using NS::dvec2_add_dvec2;
+    using NS::dvec2_sub_dvec2;
+    using NS::dvec2_mul_dvec2;
+    using NS::dvec2_div_dvec2;
+#else
+    extern void (FASTCALL *dvec2_init1)(double2 &vec, double val);
+    extern void (FASTCALL *dvec2_init2)(double2 &vec, double v0, double v1);
+    extern double2 (FASTCALL *dvec2_add_dvec2)(const double2 &v1, const double2 &v2);
+    extern double2 (FASTCALL *dvec2_sub_dvec2)(const double2 &v1, const double2 &v2);
+    extern double2 (FASTCALL *dvec2_mul_dvec2)(const double2 &v1, const double2 &v2);
+    extern double2 (FASTCALL *dvec2_div_dvec2)(const double2 &v1, const double2 &v2);
+#endif
+
+    using NS::dvec2_eq_dvec2;
+
+    using NS::dvec2_get;
+    using NS::dvec2_set;
+
+    using NS::dvec2_length;
+
+    // dvec3
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::dvec3_init1;
+    using NS::dvec3_init3;
+    using NS::dvec3_eq_dvec3;
+    using NS::dvec3_add_dvec3;
+    using NS::dvec3_sub_dvec3;
+    using NS::dvec3_mul_dvec3;
+    using NS::dvec3_div_dvec3;
+#else
+    extern void (FASTCALL *dvec3_init1)(double3 &vec, double val);
+    extern void (FASTCALL *dvec3_init3)(double3 &vec, double v0, double v1, double v2);
+    extern double3 (FASTCALL *dvec3_add_dvec3)(const double3 &v1, const double3 &v2);
+    extern double3 (FASTCALL *dvec3_sub_dvec3)(const double3 &v1, const double3 &v2);
+    extern double3 (FASTCALL *dvec3_mul_dvec3)(const double3 &v1, const double3 &v2);
+    extern double3 (FASTCALL *dvec3_div_dvec3)(const double3 &v1, const double3 &v2);
+#endif
+
+    using NS::dvec3_eq_dvec3;
+
+    using NS::dvec3_get;
+    using NS::dvec3_set;
+
+    using NS::dvec3_length;
+
+    // dvec4
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::dvec4_init1;
+    using NS::dvec4_init4;
+    using NS::dvec4_eq_dvec4;
+    using NS::dvec4_add_dvec4;
+    using NS::dvec4_sub_dvec4;
+    using NS::dvec4_mul_dvec4;
+    using NS::dvec4_div_dvec4;
+#else
+    extern void (FASTCALL *dvec4_init1)(double4 &vec, double val);
+    extern void (FASTCALL *dvec4_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+    extern double4 (FASTCALL *dvec4_add_dvec4)(const double4 &v1, const double4 &v2);
+    extern double4 (FASTCALL *dvec4_sub_dvec4)(const double4 &v1, const double4 &v2);
+    extern double4 (FASTCALL *dvec4_mul_dvec4)(const double4 &v1, const double4 &v2);
+    extern double4 (FASTCALL *dvec4_div_dvec4)(const double4 &v1, const double4 &v2);
+#endif
+
+    using NS::dvec4_eq_dvec4;
+
+    using NS::dvec4_get;
+    using NS::dvec4_set;
+
+    using NS::dvec4_length;
 }
 
 #undef NS

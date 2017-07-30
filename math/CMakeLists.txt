@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES allocator.hpp
                  common.hpp
+                 dvec2.hpp
+                 dvec3.hpp
+                 dvec4.hpp
                  exponential.hpp
                  geometric.hpp
                  ivec2.hpp

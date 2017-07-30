@@ -10,6 +10,10 @@ void test_ivec3();
 void test_ivec4();
 void test_quat();
 
+void test_dvec2();
+void test_dvec3();
+void test_dvec4();
+
 void test_geometric();
 void test_transform();
 void test_trigonometric();
@@ -29,6 +33,11 @@ int main() {
     test_ivec3();
     test_ivec4();
     test_quat();
+
+    test_dvec2();
+    test_dvec3();
+    test_dvec4();
+
     test_geometric();
     test_transform();
     test_trigonometric();

@@ -32,7 +32,7 @@ namespace math {
         public:
             deref(float4 &v, int i) : v_(v), i_(i) {}
             operator float() const { return vec4_get(v_, i_); }
-            deref operator=(float rhs) { vec4_set(v_, i_, rhs); return *this; }
+            deref operator=(const float rhs) { vec4_set(v_, i_, rhs); return *this; }
             deref operator=(const deref &rhs) { return operator=((float)rhs); }
 
             deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
