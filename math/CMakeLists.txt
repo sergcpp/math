@@ -25,6 +25,7 @@ set(SOURCE_FILES allocator.hpp
                  math_sse2.hpp
                  math_sse3.hpp
                  math_sse4_1.hpp
+                 quat.hpp
                  transform.hpp
                  trigonometric.hpp
                  types.hpp

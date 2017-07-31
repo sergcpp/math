@@ -4,6 +4,8 @@
 #include "vec4.hpp"
 
 namespace math {
+    class mat3;
+
     class mat4 {
         float16 vec_;
     public:
@@ -20,7 +22,15 @@ namespace math {
             mat4_init4(vec_, v0.vec_, v1.vec_, v2.vec_, v3.vec_);
         }
         mat4(const float16 &v) : mat4(uninitialize) { vec_ = v; }
+        mat4(const float9 &v) : mat4(uninitialize) {
+            mat4_init16(vec_, 
+                v.comp3[0][0], v.comp3[0][1], v.comp3[0][2], 0,
+                v.comp3[1][0], v.comp3[1][1], v.comp3[1][2], 0,
+                v.comp3[2][0], v.comp3[2][1], v.comp3[2][2], 0,
+                0, 0, 0, 1);
+        }
         mat4(const mat4 &v) : mat4(uninitialize) { vec_ = v.vec_; }
+        mat4(const mat3 &v);
 
         class deref {
             float16 &v_; int i_;
@@ -72,6 +82,8 @@ namespace math {
 
         friend const float *value_ptr(const mat4 &m);
 
+        friend quat to_quat(const mat4 &m);
+
         static const size_t alignment = alignment_m256;
     };
 
@@ -99,4 +111,13 @@ namespace math {
     inline const float *value_ptr(const mat4 &m) {
         return &m.vec_.comp[0];
     }
+}
+
+#include "mat3.hpp"
+#include "quat.hpp"
+
+namespace math {
+    inline mat4::mat4(const mat3 &m) : mat4(m.vec_) {}
+
+    inline quat to_quat(const mat4 &m) { return quat(mat4_to_quat(m.vec_)); }
 }

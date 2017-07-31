@@ -1,10 +1,16 @@
 #pragma once
 
 #include "math_funcs.hpp"
+#include "vec3.hpp"
 
 namespace math {
+    class quat;
+    class vec3;
+
     class mat3 {
         float9 vec_;
+
+        friend class mat4;
     public:
         mat3(e_uninitialize) { assert(is_aligned(this, alignment)); }
         mat3() : mat3(1.0f) {}
@@ -70,6 +76,8 @@ namespace math {
 
         friend const float *value_ptr(const mat3 &m);
 
+        friend quat to_quat(const mat3 &m);
+
         static const size_t alignment = alignment_m32;
     };
 
@@ -96,4 +104,13 @@ namespace math {
     inline const float *value_ptr(const mat3 &m) {
         return &m.vec_.comp[0];
     }
+
+    inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
+    inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }
+}
+
+#include "quat.hpp"
+
+namespace math {
+    inline quat to_quat(const mat3 &m) { return quat(mat3_to_quat(m.vec_)); }
 }

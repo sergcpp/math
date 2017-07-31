@@ -5,6 +5,9 @@
 #include "vec2.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"
+#include "quat.hpp"
+
+#include "trigonometric.hpp"
 
 namespace math {
     // absolute value
@@ -82,6 +85,20 @@ namespace math {
     inline vec2 mix(const vec2 &x, const vec2 &y, float a) { return mix(x, y, vec2(a)); }
     inline vec3 mix(const vec3 &x, const vec3 &y, float a) { return mix(x, y, vec3(a)); }
     inline vec4 mix(const vec4 &x, const vec4 &y, float a) { return mix(x, y, vec4(a)); }
+
+    inline quat mix(const quat &x, const quat &y, float a) {
+        const float cos_theta = dot(x, y);
+
+        if (cos_theta > 1.0f - std::numeric_limits<float>::epsilon()) {
+            return quat(mix(x.r(), y.r(), a),
+                mix(x.i(), y.i(), a),
+                mix(x.j(), y.j(), a),
+                mix(x.k(), y.k(), a));
+        } else {
+            float angle = acos(cos_theta);
+            return (sin((1.0f - a) * angle) * x + sin(a * angle) * y) / sin(angle);
+        }
+    }
 
     // 0.0 if x < edge, else 1.0
     inline float step(float edge, float x) { return x < edge ? 0.0f : 1.0f; }

@@ -18,5 +18,6 @@ add_executable(test_math main.cpp
                          test_vec3.cpp
                          test_vec4.cpp
                          test_perf.cpp
+                         test_quat.cpp
                        )
 target_link_libraries(test_math math)

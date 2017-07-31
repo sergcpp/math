@@ -453,6 +453,29 @@ namespace sse2 {
         ret.vec = a2;
         return ret;
     } DEF_END
+
+    // quat
+    DECL_FUNC(void) quat_init4(float4 &vec, float r, float i, float j, float k) {
+        vec.vec = _mm_set_ps(r, k, j, i);
+    } DEF_END
+
+    DECL_FUNC(float4) quat_add_quat(const float4 &v1, const float4 &v2) {
+        float4 ret;
+        ret.vec = _mm_add_ps(v1.vec, v2.vec);
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) quat_mul_float(const float4 &v1, const float f) {
+        float4 ret;
+        ret.vec = _mm_mul_ps(v1.vec, _mm_set1_ps(f));
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) quat_div_float(const float4 &v1, const float f) {
+        float4 ret;
+        ret.vec = _mm_div_ps(v1.vec, _mm_set1_ps(f));
+        return ret;
+    } DEF_END
 }
 }
 

@@ -967,6 +967,199 @@ namespace ref {
         ret.comp[2] = m.comp4[2][0] * v.comp[0] + m.comp4[2][1] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[2][3] * v.comp[3];
         ret.comp[3] = m.comp4[3][0] * v.comp[0] + m.comp4[3][1] * v.comp[1] + m.comp4[3][2] * v.comp[2] + m.comp4[3][3] * v.comp[3];
         return ret;
+    }
+
+    // quat
+    DECL_FUNC(void) quat_init4(float4 &vec, float r, float i, float j, float k) {
+        vec.comp[0] = i; vec.comp[1] = j; vec.comp[2] = k; vec.comp[3] = r;
+    } DEF_END
+
+    DECL_FUNC(bool) quat_eq_quat(const float4 &v1, const float4 &v2) {
+        return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1] && v1.comp[2] == v2.comp[2] && v1.comp[3] == v2.comp[3];
+    } DEF_END
+
+    DECL_FUNC(float4) quat_add_quat(const float4 &v1, const float4 &v2) {
+        float4 ret;
+        ret.comp[0] = v1.comp[0] + v2.comp[0];
+        ret.comp[1] = v1.comp[1] + v2.comp[1];
+        ret.comp[2] = v1.comp[2] + v2.comp[2];
+        ret.comp[3] = v1.comp[3] + v2.comp[3];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) quat_mul_quat(const float4 &v1, const float4 &v2) {
+        float4 ret;
+        ret.comp[3] = v1.comp[3] * v2.comp[3] - v1.comp[0] * v2.comp[0] - v1.comp[1] * v2.comp[1] - v1.comp[2] * v2.comp[2];
+        ret.comp[0] = v1.comp[3] * v2.comp[0] + v1.comp[0] * v2.comp[3] + v1.comp[1] * v2.comp[2] - v1.comp[2] * v2.comp[1];
+        ret.comp[1] = v1.comp[3] * v2.comp[1] + v1.comp[1] * v2.comp[3] + v1.comp[2] * v2.comp[0] - v1.comp[0] * v2.comp[2];
+        ret.comp[2] = v1.comp[3] * v2.comp[2] + v1.comp[2] * v2.comp[3] + v1.comp[0] * v2.comp[1] - v1.comp[1] * v2.comp[0];
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) quat_mul_float(const float4 &v1, const float f) {
+        float4 ret;
+        ret.comp[0] = v1.comp[0] * f;
+        ret.comp[1] = v1.comp[1] * f;
+        ret.comp[2] = v1.comp[2] * f;
+        ret.comp[3] = v1.comp[3] * f;
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) quat_div_float(const float4 &v1, const float f) {
+        float4 ret;
+        ret.comp[0] = v1.comp[0] / f;
+        ret.comp[1] = v1.comp[1] / f;
+        ret.comp[2] = v1.comp[2] / f;
+        ret.comp[3] = v1.comp[3] / f;
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float) quat_get(const float4 &vec, int i) {
+        return vec.comp[i];
+    } DEF_END
+
+    DECL_FUNC(void) quat_set(float4 &vec, int i, float v) {
+        vec.comp[i] = v;
+    } DEF_END
+
+    DECL_FUNC(float9) quat_to_mat3(const float4 &vec) {
+        float9 ret;
+
+        float qxx = vec.comp[0] * vec.comp[0];
+        float qyy = vec.comp[1] * vec.comp[1];
+        float qzz = vec.comp[2] * vec.comp[2];
+        float qxz = vec.comp[0] * vec.comp[2];
+        float qxy = vec.comp[0] * vec.comp[1];
+        float qyz = vec.comp[1] * vec.comp[2];
+        float qwx = vec.comp[3] * vec.comp[0];
+        float qwy = vec.comp[3] * vec.comp[1];
+        float qwz = vec.comp[3] * vec.comp[2];
+
+        ret.comp3[0][0] = 1 - 2 * (qyy +  qzz);
+        ret.comp3[0][1] = 2 * (qxy + qwz);
+        ret.comp3[0][2] = 2 * (qxz - qwy);
+
+        ret.comp3[1][0] = 2 * (qxy - qwz);
+        ret.comp3[1][1] = 1 - 2 * (qxx + qzz);
+        ret.comp3[1][2] = 2 * (qyz + qwx);
+
+        ret.comp3[2][0] = 2 * (qxz + qwy);
+        ret.comp3[2][1] = 2 * (qyz - qwx);
+        ret.comp3[2][2] = 1 - 2 * (qxx + qyy);
+
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) mat3_to_quat(const float9 &vec) {
+        float fourXSquaredMinus1 = vec.comp3[0][0] - vec.comp3[1][1] - vec.comp3[2][2];
+        float fourYSquaredMinus1 = vec.comp3[1][1] - vec.comp3[0][0] - vec.comp3[2][2];
+        float fourZSquaredMinus1 = vec.comp3[2][2] - vec.comp3[0][0] - vec.comp3[1][1];
+        float fourWSquaredMinus1 = vec.comp3[0][0] + vec.comp3[1][1] + vec.comp3[2][2];
+
+        int biggestIndex = 0;
+        float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+        if (fourXSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+            biggestIndex = 1;
+        }
+        if (fourYSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+            biggestIndex = 2;
+        }
+        if (fourZSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+            biggestIndex = 3;
+        }
+
+        float biggestVal = sqrt(fourBiggestSquaredMinus1 + 1) * 0.5f;
+        float mult = 0.25f / biggestVal;
+
+        float4 ret;
+        switch (biggestIndex) {
+        case 0:
+            ret.comp[3] = biggestVal;
+            ret.comp[0] = (vec.comp3[1][2] - vec.comp3[2][1]) * mult;
+            ret.comp[1] = (vec.comp3[2][0] - vec.comp3[0][2]) * mult;
+            ret.comp[2] = (vec.comp3[0][1] - vec.comp3[1][0]) * mult;
+            break;
+        case 1:
+            ret.comp[3] = (vec.comp3[1][2] - vec.comp3[2][1]) * mult;
+            ret.comp[0] = biggestVal;
+            ret.comp[1] = (vec.comp3[0][1] + vec.comp3[1][0]) * mult;
+            ret.comp[2] = (vec.comp3[2][0] + vec.comp3[0][2]) * mult;
+            break;
+        case 2:
+            ret.comp[3] = (vec.comp3[2][0] - vec.comp3[0][2]) * mult;
+            ret.comp[0] = (vec.comp3[0][1] + vec.comp3[1][0]) * mult;
+            ret.comp[1] = biggestVal;
+            ret.comp[2] = (vec.comp3[1][2] + vec.comp3[2][1]) * mult;
+            break;
+        case 3:
+            ret.comp[3] = (vec.comp3[0][1] - vec.comp3[1][0]) * mult;
+            ret.comp[0] = (vec.comp3[2][0] + vec.comp3[0][2]) * mult;
+            ret.comp[1] = (vec.comp3[1][2] + vec.comp3[2][1]) * mult;
+            ret.comp[2] = biggestVal;
+            break;
+        default:
+            break;
+        }
+        return ret;
+    } DEF_END
+
+    DECL_FUNC(float4) mat4_to_quat(const float16 &vec) {
+        float fourXSquaredMinus1 = vec.comp4[0][0] - vec.comp4[1][1] - vec.comp4[2][2];
+        float fourYSquaredMinus1 = vec.comp4[1][1] - vec.comp4[0][0] - vec.comp4[2][2];
+        float fourZSquaredMinus1 = vec.comp4[2][2] - vec.comp4[0][0] - vec.comp4[1][1];
+        float fourWSquaredMinus1 = vec.comp4[0][0] + vec.comp4[1][1] + vec.comp4[2][2];
+
+        int biggestIndex = 0;
+        float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+        if (fourXSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+            biggestIndex = 1;
+        }
+        if (fourYSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+            biggestIndex = 2;
+        }
+        if (fourZSquaredMinus1 > fourBiggestSquaredMinus1) {
+            fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+            biggestIndex = 3;
+        }
+
+        float biggestVal = sqrt(fourBiggestSquaredMinus1 + 1) * 0.5f;
+        float mult = 0.25f / biggestVal;
+
+        float4 ret;
+        switch (biggestIndex) {
+        case 0:
+            ret.comp[3] = biggestVal;
+            ret.comp[0] = (vec.comp4[1][2] - vec.comp4[2][1]) * mult;
+            ret.comp[1] = (vec.comp4[2][0] - vec.comp4[0][2]) * mult;
+            ret.comp[2] = (vec.comp4[0][1] - vec.comp4[1][0]) * mult;
+            break;
+        case 1:
+            ret.comp[3] = (vec.comp4[1][2] - vec.comp4[2][1]) * mult;
+            ret.comp[0] = biggestVal;
+            ret.comp[1] = (vec.comp4[0][1] + vec.comp4[1][0]) * mult;
+            ret.comp[2] = (vec.comp4[2][0] + vec.comp4[0][2]) * mult;
+            break;
+        case 2:
+            ret.comp[3] = (vec.comp4[2][0] - vec.comp4[0][2]) * mult;
+            ret.comp[0] = (vec.comp4[0][1] + vec.comp4[1][0]) * mult;
+            ret.comp[1] = biggestVal;
+            ret.comp[2] = (vec.comp4[1][2] + vec.comp4[2][1]) * mult;
+            break;
+        case 3:
+            ret.comp[3] = (vec.comp4[0][1] - vec.comp4[1][0]) * mult;
+            ret.comp[0] = (vec.comp4[2][0] + vec.comp4[0][2]) * mult;
+            ret.comp[1] = (vec.comp4[1][2] + vec.comp4[2][1]) * mult;
+            ret.comp[2] = biggestVal;
+            break;
+        default:
+            break;
+        }
+        return ret;
     } DEF_END
 }
 }

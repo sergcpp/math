@@ -312,7 +312,6 @@ namespace math {
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec4_init1;
     using NS::ivec4_init4;
-    using NS::ivec4_eq_ivec4;
     using NS::ivec4_add_ivec4;
     using NS::ivec4_sub_ivec4;
     using NS::ivec4_mul_ivec4;
@@ -330,6 +329,30 @@ namespace math {
 
     using NS::ivec4_get;
     using NS::ivec4_set;
+
+    // quat
+#if !defined(CPU_ARCH_UNKNOWN)
+    using NS::quat_init4;
+    using NS::quat_add_quat;
+    using NS::quat_mul_quat;
+    using NS::quat_mul_float;
+    using NS::quat_div_float;
+#else
+    extern void (FASTCALL *quat_init4)(float4 &vec, float r, float i, float j, float k);
+    extern float4 (FASTCALL *quat_add_quat)(const float4 &v1, const float4 &v2);
+    extern float4 (FASTCALL *quat_mul_quat)(const float4 &v1, const float4 &v2);
+    extern float4 (FASTCALL *quat_mul_float)(const float4 &v, float f);
+    extern float4 (FASTCALL *quat_div_float)(const float4 &v, float f);
+#endif
+
+    using NS::quat_eq_quat;
+
+    using NS::quat_get;
+    using NS::quat_set;
+
+    using NS::quat_to_mat3;
+    using NS::mat3_to_quat;
+    using NS::mat4_to_quat;
 }
 
 #undef NS

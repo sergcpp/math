@@ -135,9 +135,6 @@ namespace math {
     inline vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
     inline vec3::vec3(const ivec3 &v) : vec3(uninitialize) { vec3_init3(vec_, float(v[0]), float(v[1]), float(v[2])); }
 
-    inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
-    inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }
-
     inline float operator*(float f1, const vec3::deref &f2) { return f1 * float(f2); }
     inline float operator/(float f1, const vec3::deref &f2) { return f1 / float(f2); }
     inline vec2 operator*(const vec2 &v, const vec3::deref &f) { return v * float(f); }

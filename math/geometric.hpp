@@ -5,6 +5,7 @@
 #include "vec2.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"
+#include "quat.hpp"
 
 namespace math {
     // length of vector
@@ -29,6 +30,7 @@ namespace math {
     inline float dot(const vec2 &v1, const vec2 &v2) { return vec2_dot(v1.vec_, v2.vec_); }
     inline float dot(const vec3 &v1, const vec3 &v2) { return vec3_dot(v1.vec_, v2.vec_); }
     inline float dot(const vec4 &v1, const vec4 &v2) { return vec4_dot(v1.vec_, v2.vec_); }
+    inline float dot(const quat &q1, const quat &q2) { return vec4_dot(q1.vec_, q2.vec_); }
 
     // cross product
     inline vec3 cross(const vec3 &v1, const vec3 &v2) { return vec3(vec3_cross(v1.vec_, v2.vec_)); }

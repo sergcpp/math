@@ -8,6 +8,8 @@ void test_mat4();
 void test_ivec2();
 void test_ivec3();
 void test_ivec4();
+void test_quat();
+
 void test_geometric();
 void test_transform();
 void test_trigonometric();
@@ -26,6 +28,7 @@ int main() {
     test_ivec2();
     test_ivec3();
     test_ivec4();
+    test_quat();
     test_geometric();
     test_transform();
     test_trigonometric();

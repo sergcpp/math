@@ -69,10 +69,10 @@ namespace math {
         vec4 &operator*=(const vec4 &rhs) { (*this) = (*this) * rhs; return *this; }
         vec4 &operator/=(const vec4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        vec4 &vec4::operator+=(float rhs);
-        vec4 &vec4::operator-=(float rhs);
-        vec4 &vec4::operator*=(float rhs);
-        vec4 &vec4::operator/=(float rhs);
+        vec4 &operator+=(float rhs);
+        vec4 &operator-=(float rhs);
+        vec4 &operator*=(float rhs);
+        vec4 &operator/=(float rhs);
 
         vec4 operator-() const;
 

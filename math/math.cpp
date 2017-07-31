@@ -99,7 +99,11 @@ void cpuid(int info[4], int InfoType) {
                                                         \
     NS::ivec4_init1, NS::ivec4_init4,                   \
     NS::ivec4_add_ivec4, NS::ivec4_sub_ivec4,           \
-    NS::ivec4_mul_ivec4, NS::ivec4_div_ivec4,
+    NS::ivec4_mul_ivec4, NS::ivec4_div_ivec4,           \
+                                                        \
+    NS::quat_init4,                                     \
+    NS::quat_add_quat, NS::quat_mul_quat,               \
+    NS::quat_mul_float, NS::quat_div_float,                 
 
 namespace math {
     CPUFeatures cpu = {};
@@ -200,6 +204,12 @@ namespace math {
     int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
     int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
     int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
+
+    void (FASTCALL *quat_init4)(float4 &vec, float r, float i, float j, float k);
+    float4 (FASTCALL *quat_add_quat)(const float4 &v1, const float4 &v2);
+    float4 (FASTCALL *quat_mul_quat)(const float4 &v1, const float4 &v2);
+    float4 (FASTCALL *quat_mul_float)(const float4 &v, float f);
+    float4 (FASTCALL *quat_div_float)(const float4 &v, float f);
 #endif
     const struct func_table {
         void (FASTCALL *vec3_init1)(float3 &vec, float val);
@@ -295,6 +305,12 @@ namespace math {
         int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
         int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
         int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
+
+        void (FASTCALL *quat_init4)(float4 &vec, float r, float i, float j, float k);
+        float4 (FASTCALL *quat_add_quat)(const float4 &v1, const float4 &v2);
+        float4 (FASTCALL *quat_mul_quat)(const float4 &v1, const float4 &v2);
+        float4 (FASTCALL *quat_mul_float)(const float4 &v, float f);
+        float4 (FASTCALL *quat_div_float)(const float4 &v, float f);
     } funcs[] = {   {   // Reference
                         FUNC_LIST(ref)
                     },
@@ -443,6 +459,12 @@ void math::init(math::e_arch arch) {
     ivec4_sub_ivec4 = t.ivec4_sub_ivec4;
     ivec4_mul_ivec4 = t.ivec4_mul_ivec4;
     ivec4_div_ivec4 = t.ivec4_div_ivec4;
+
+    quat_init4 = t.quat_init4;
+    quat_add_quat = t.quat_add_quat;
+    quat_mul_quat = t.quat_mul_quat;
+    quat_mul_float = t.quat_mul_float;
+    quat_div_float = t.quat_div_float;
 #endif
 #endif
 }
