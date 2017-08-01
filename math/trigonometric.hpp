@@ -1,11 +1,6 @@
 #pragma once
 
-#include <cmath>
-
-#include "math_funcs.hpp"
-#include "vec2.hpp"
-#include "vec3.hpp"
-#include "vec4.hpp"
+#include "common.hpp"
 
 namespace math {
     template<typename T>
@@ -52,4 +47,21 @@ namespace math {
     inline vec2 atan(const vec2 &angle) { return vec2(vec2_atan(angle.vec_)); }
     inline vec3 atan(const vec3 &angle) { return vec3(vec3_atan(angle.vec_)); }
     inline vec4 atan(const vec4 &angle) { return vec4(vec4_atan(angle.vec_)); }
+
+    // quat
+    inline float roll(const quat &q) {
+        return atan2(2.0f * (q.x() * q.y() + q.w() * q.z()), q.w() * q.w() + q.x() * q.x() - q.y() * q.y() - q.z() * q.z());
+    }
+
+    inline float pitch(const quat &q) {
+        return atan2(2.0f * (q.y() * q.z() + q.w() * q.x()), q.w() * q.w() - q.x() * q.x() - q.y() * q.y() + q.z() * q.z());
+    }
+
+    inline float yaw(const quat &q) {
+        return asin(clamp(-2.0f * (q.x() * q.z() - q.w() * q.y()), -1.0f, 1.0f));
+    }
+
+    inline vec3 euler_angles(const quat &q) {
+        return vec3(pitch(q), yaw(q), roll(q));
+    }
 }

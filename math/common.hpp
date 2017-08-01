@@ -7,8 +7,6 @@
 #include "vec4.hpp"
 #include "quat.hpp"
 
-#include "trigonometric.hpp"
-
 namespace math {
     // absolute value
     inline float abs(float x) { return fabs(x); }
@@ -77,7 +75,11 @@ namespace math {
     inline vec2 clamp(const vec2 &x, float min_val, float max_val) { return clamp(x, vec2(min_val), vec2(max_val)); }
     inline vec3 clamp(const vec3 &x, float min_val, float max_val) { return clamp(x, vec3(min_val), vec3(max_val)); }
     inline vec4 clamp(const vec4 &x, float min_val, float max_val) { return clamp(x, vec4(min_val), vec4(max_val)); }
+}
 
+#include "trigonometric.hpp"
+
+namespace math {
     // linear blend of x and y
     template <typename T>
     T mix(const T &x, const T &y, const T &a) { return x * (1 - a) + y * a; }

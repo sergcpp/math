@@ -63,6 +63,19 @@ void test_quat(math::e_arch arch) {
 
         assert(q0 == Approx4(2, 3, 4, 1)); assert(q1 == Approx4(2, 3, 4, 1)); assert(q2 == Approx4(2, 3, 4, 1));
     }
+
+    {   // angles
+        quat q0 = { 0.8249534f, -0.2835689f, 0.4623645f, 0.1589328f };
+
+        float p = pitch(q0);
+        float y = yaw(q0);
+        float r = roll(q0);
+
+        vec3 angles = euler_angles(q0);
+
+        assert(p == Approx(-0.662173092) && y == Approx(1.02169740) && r == Approx(-1.14202898e-07));
+        assert(angles[0] == Approx(-0.662173092) && angles[1] == Approx(1.02169740) && angles[2] == Approx(-1.14202898e-07));
+    }
 }
 
 void test_quat() {
