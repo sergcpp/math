@@ -64,4 +64,25 @@ namespace math {
     inline vec3 euler_angles(const quat &q) {
         return vec3(pitch(q), yaw(q), roll(q));
     }
+
+    inline quat slerp(const quat &q0, const quat &q1, float a) {
+        quat q2 = q1;
+
+        float cos_theta = dot(q0, q1);
+
+        if (cos_theta < 0) {
+            q2 = -q1;
+            cos_theta = -cos_theta;
+        }
+
+        if (cos_theta > 1 - std::numeric_limits<float>::epsilon()) {
+            return quat(mix(q0.w(), q1.w(), a),
+                        mix(q0.x(), q1.x(), a),
+                        mix(q0.y(), q1.y(), a),
+                        mix(q0.z(), q1.z(), a));
+        } else {
+            float angle = acos(cos_theta);
+            return (sin((1.0f - a) * angle) * q0 + sin(a * angle) * q2) / sin(angle);
+        }
+    }
 }

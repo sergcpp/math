@@ -76,6 +76,15 @@ void test_quat(math::e_arch arch) {
         assert(p == Approx(-0.662173092) && y == Approx(1.02169740) && r == Approx(-1.14202898e-07));
         assert(angles[0] == Approx(-0.662173092) && angles[1] == Approx(1.02169740) && angles[2] == Approx(-1.14202898e-07));
     }
+
+    {   // slerp
+        math::quat q0 = { 0.8249534f, -0.2835689f, 0.4623645f, 0.1589328f },
+                   q1 = { 0.2356965f, 0.0823028f, 0.2226638f, 0.9423876f };
+
+        math::quat q2 = math::slerp(q0, q1, 0.54f);
+
+        assert(q2[0] == Approx(-0.103703402) && q2[1] == Approx(0.395408362) && q2[2] == Approx(0.685032368) && q2[3] == Approx(0.603016138));
+    }
 }
 
 void test_quat() {

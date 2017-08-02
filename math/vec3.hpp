@@ -6,6 +6,7 @@ namespace math {
     class ivec3;
     class mat3;
     class vec2;
+    class vec4;
 
     class vec3 {
         float3 vec_;

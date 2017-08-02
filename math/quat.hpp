@@ -40,9 +40,9 @@ namespace math {
         quat &operator+=(const quat &rhs) { (*this) = (*this) + rhs; return *this; }
         quat &operator*=(const quat &rhs) { (*this) = (*this) * rhs; return *this; }
 
-        quat &operator*=(float rhs);
+        quat &operator*=(float rhs) { (*this) = (*this) * rhs; return *this; }
 
-        quat operator-() const;
+        quat operator-() const { return (*this) * -1.0f; }
 
         friend bool operator==(const quat &q1, const quat &q2);
 
