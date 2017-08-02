@@ -62,10 +62,10 @@ namespace math {
         vec3 &operator*=(const vec3 &rhs) { (*this) = (*this) * rhs; return *this; }
         vec3 &operator/=(const vec3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        vec3 &vec3::operator+=(float rhs);
-        vec3 &vec3::operator-=(float rhs);
-        vec3 &vec3::operator*=(float rhs);
-        vec3 &vec3::operator/=(float rhs);
+        vec3 &operator+=(float rhs);
+        vec3 &operator-=(float rhs);
+        vec3 &operator*=(float rhs);
+        vec3 &operator/=(float rhs);
 
         vec3 operator-() const;
 
