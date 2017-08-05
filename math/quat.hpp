@@ -73,7 +73,7 @@ namespace math {
     inline quat operator*(float f, const quat &q) { return quat(quat_mul_float(q.vec_, f)); }
     inline quat operator/(const quat &q, float f) { return quat(quat_div_float(q.vec_, f)); }
 
-    inline quat make_quat(const float v[4]) { return quat(v[0], v[1], v[2], v[3]); }
+    inline quat make_quat(const float v[4]) { return quat(v[3], v[0], v[1], v[2]); }
     inline const float *value_ptr(const quat &q) { return &q.vec_.comp[0]; }
 }
 

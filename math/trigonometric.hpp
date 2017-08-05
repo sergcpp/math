@@ -1,5 +1,7 @@
 #pragma once
 
+#include <limits>
+
 #include "common.hpp"
 
 namespace math {
