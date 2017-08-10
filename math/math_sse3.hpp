@@ -8,12 +8,15 @@
 #pragma GCC target ("sse3")
 #endif
 
+#if defined(__SSE3__)
 #include <pmmintrin.h>
+#endif
 
 namespace math {
 namespace sse3 {
     using namespace sse2;
 
+#if defined(__SSE3__)
     const __m128 zero_last_mask = _mm_castsi128_ps(_mm_set_epi32(0, 0xffffffff, 0xffffffff, 0xffffffff));
 
     // vec3
@@ -76,6 +79,7 @@ namespace sse3 {
         r = _mm_hadd_ps(r, r);
         return _mm_cvtss_f32(r);*/
     } DEF_END
+#endif
 }
 }
 
@@ -89,6 +93,7 @@ namespace math {
 namespace sse3 {
     using namespace sse2;
 
+#if defined(__SSE3__)    
     // vec3
     DECL_FUNC(float) vec3_length(const float3 &v);
     DECL_FUNC(float) vec3_dot(const float3 &v1, const float3 &v2);
@@ -96,6 +101,7 @@ namespace sse3 {
     // vec4
     DECL_FUNC(float) vec4_length(const float4 &v);
     DECL_FUNC(float) vec4_dot(const float4 &v1, const float4 &v2);
+#endif
 }
 }
 

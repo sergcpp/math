@@ -16,7 +16,8 @@
 namespace math {
 namespace avx {
     using namespace sse4_1;
-    
+
+#if defined(__AVX__)
     // mat4
     DEF_FUNC(void) mat4_init1(float16 &vec, float val) {
         vec.vec2[0] = _mm256_set_ps(0, 0, val, 0, 0, 0, 0, val);
@@ -94,6 +95,7 @@ namespace avx {
         _mm256_zeroupper();
         return ret;
     } DEF_END
+#endif
 }
 }
 
@@ -107,6 +109,7 @@ namespace math {
 namespace avx {
     using namespace sse4_1;
 
+#if defined(__AVX__)
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);
     DECL_FUNC(void) mat4_init16(float16 &vec, float v00, float v01, float v02, float v03,
@@ -119,6 +122,7 @@ namespace avx {
     DECL_FUNC(float16) mat4_mul_mat4(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_div_mat4(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
+#endif
 }
 }
 
