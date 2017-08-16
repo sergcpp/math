@@ -109,28 +109,32 @@ namespace avx {
 
     DECL_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
-        ret.vec2 = _mm256_add_pd(v1.vec2, v2.vec2);
+        const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
+        ret.vec2 = _mm256_add_pd(_v1, _v2);
         _mm256_zeroupper();
         return ret;
     } DEF_END
 
     DECL_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
-        ret.vec2 = _mm256_sub_pd(v1.vec2, v2.vec2);
+        const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
+        ret.vec2 = _mm256_sub_pd(_v1, _v2);
         _mm256_zeroupper();
         return ret;
     } DEF_END
 
     DECL_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
-        ret.vec2 = _mm256_mul_pd(v1.vec2, v2.vec2);
+        const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
+        ret.vec2 = _mm256_mul_pd(_v1, _v2);
         _mm256_zeroupper();
         return ret;
     } DEF_END
 
     DECL_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
-        ret.vec2 = _mm256_div_pd(v1.vec2, v2.vec2);
+        const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
+        ret.vec2 = _mm256_div_pd(_v1, _v2);
         _mm256_zeroupper();
         return ret;
     } DEF_END
