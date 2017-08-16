@@ -17,7 +17,7 @@ namespace math {
 namespace avx {
     using namespace sse4_1;
 
-#if defined(__AVX__)
+#if defined(__AVX__) || defined(_MSC_VER)
     // mat4
     DEF_FUNC(void) mat4_init1(float16 &vec, float val) {
         vec.vec2[0] = _mm256_set_ps(0, 0, val, 0, 0, 0, 0, val);
