@@ -15,7 +15,7 @@ namespace sse2 {
     const __m128 zero_last_mask = _mm_castsi128_ps(_mm_set_epi32(0, 0xffffffff, 0xffffffff, 0xffffffff));
 
     // should be faster than _mm_setr_ps as it uses only 3 loads
-    inline __m128 load_float3(const float3& v) {
+    inline __m128 load_float3(const float3 &v) {
         __m128 x = _mm_load_ss(&v.comp[0]);
         __m128 y = _mm_load_ss(&v.comp[1]);
         __m128 z = _mm_load_ss(&v.comp[2]);
@@ -30,6 +30,24 @@ namespace sse2 {
         } res;
         res.v = v;
         return res.f;
+    }
+
+    inline __m128d load_double3_01(const double3 &v) {
+        return _mm_setr_pd(v.comp[0], v.comp[1]);
+    }
+
+    inline __m128d load_double3_2X(const double3 &v) {
+        return _mm_setr_pd(v.comp[2], 2);
+    }
+
+    inline double3 save_double3(const __m128d &v01, const __m128d &v2X) {
+        union {
+            double3 d;
+            __m128d v[2];
+        } res;
+        res.v[0] = v01;
+        res.v[1] = v2X;
+        return res.d;
     }
 
     // vec3
@@ -463,6 +481,31 @@ namespace sse2 {
         double2 ret;
         ret.vec = _mm_div_pd(v1.vec, v2.vec);
         return ret;
+    } DEF_END
+
+    // dvec3
+    DECL_FUNC(double3) dvec3_add_dvec3(const double3 &v1, const double3 &v2) {
+        __m128d d01 = _mm_add_pd(load_double3_01(v1), load_double3_01(v2));
+        __m128d d2X = _mm_add_pd(load_double3_2X(v1), load_double3_2X(v2));
+        return save_double3(d01, d2X);
+    } DEF_END
+
+    DECL_FUNC(double3) dvec3_sub_dvec3(const double3 &v1, const double3 &v2) {
+        __m128d d01 = _mm_sub_pd(load_double3_01(v1), load_double3_01(v2));
+        __m128d d2X = _mm_sub_pd(load_double3_2X(v1), load_double3_2X(v2));
+        return save_double3(d01, d2X);
+    } DEF_END
+
+    DECL_FUNC(double3) dvec3_mul_dvec3(const double3 &v1, const double3 &v2) {
+        __m128d d01 = _mm_mul_pd(load_double3_01(v1), load_double3_01(v2));
+        __m128d d2X = _mm_mul_pd(load_double3_2X(v1), load_double3_2X(v2));
+        return save_double3(d01, d2X);
+    } DEF_END
+
+    DECL_FUNC(double3) dvec3_div_dvec3(const double3 &v1, const double3 &v2) {
+        __m128d d01 = _mm_div_pd(load_double3_01(v1), load_double3_01(v2));
+        __m128d d2X = _mm_div_pd(load_double3_2X(v1), load_double3_2X(v2));
+        return save_double3(d01, d2X);
     } DEF_END
 
     // dvec4
