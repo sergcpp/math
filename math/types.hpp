@@ -4,7 +4,7 @@
 #include <emmintrin.h>
 #include <immintrin.h>
 
-#if !defined(__AVX__) && !defined(_MSC_VER)
+#if !defined(__AVX__) && !defined(_MSC_VER) && !defined(__linux__)
 typedef float __m256[8];
 #endif
 
