@@ -65,8 +65,8 @@ namespace math {
     };
 
     extern CPUFeatures cpu;
-
     enum e_arch { Scalar, SSE2, SSE3, SSE4_1, AVX, NEON };
+    extern const char *arch_name[];
     void init(e_arch arch = AVX);
     bool supported(e_arch arch);
 }

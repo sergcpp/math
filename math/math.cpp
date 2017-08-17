@@ -120,6 +120,8 @@ void cpuid(int info[4], int InfoType) {
 namespace math {
     CPUFeatures cpu = {};
 
+    const char *arch_name[] = { "Scalar", "SSE2", "SSE3", "SSE4_1", "AVX", "NEON" };
+
     static void init_cpu(CPUFeatures &cpu);
 
 #if defined(CPU_ARCH_UNKNOWN)
