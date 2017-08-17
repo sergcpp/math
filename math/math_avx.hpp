@@ -97,17 +97,17 @@ namespace avx {
     } DEF_END
 
     // dvec4
-    DECL_FUNC(void) dvec4_init1(double4 &vec, double val) {
+    DEF_FUNC(void) dvec4_init1(double4 &vec, double val) {
         vec.vec2 = _mm256_set1_pd(val);
         _mm256_zeroupper();
     } DEF_END
 
-    DECL_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+    DEF_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
         vec.vec2 = _mm256_set_pd(v3, v2, v1, v0);
         _mm256_zeroupper();
     } DEF_END
 
-    DECL_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
+    DEF_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
         const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
         ret.vec2 = _mm256_add_pd(_v1, _v2);
@@ -115,7 +115,7 @@ namespace avx {
         return ret;
     } DEF_END
 
-    DECL_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
+    DEF_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
         const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
         ret.vec2 = _mm256_sub_pd(_v1, _v2);
@@ -123,7 +123,7 @@ namespace avx {
         return ret;
     } DEF_END
 
-    DECL_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
+    DEF_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
         const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
         ret.vec2 = _mm256_mul_pd(_v1, _v2);
@@ -131,7 +131,7 @@ namespace avx {
         return ret;
     } DEF_END
 
-    DECL_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
+    DEF_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
         double4 ret;
         const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
         ret.vec2 = _mm256_div_pd(_v1, _v2);
@@ -153,7 +153,7 @@ namespace math {
 namespace avx {
     using namespace sse4_1;
 
-#if defined(__AVX__)
+#if defined(__AVX__) || defined(_MSC_VER)
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);
     DECL_FUNC(void) mat4_init16(float16 &vec, float v00, float v01, float v02, float v03,

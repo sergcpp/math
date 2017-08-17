@@ -38,18 +38,18 @@ void test_transform(math::e_arch arch) {
     }
 
     {   // test inverse
-        math::mat2 m2 = { 1, 2, 3, 4 };
-        math::mat3 m3 = { 1, 2, 3,
-                          4, 1, 2,
-                          3, 4, 1 };
-        math::mat4 m4 = { 1, 2, 3, 4,
-                          1, 2, 1, 2,
-                          1, 1, 1, 1,
-                          3, 2, 1, 1 };
+        mat2 m2 = { 1, 2, 3, 4 };
+        mat3 m3 = { 1, 2, 3,
+                    4, 1, 2,
+                    3, 4, 1 };
+        mat4 m4 = { 1, 2, 3, 4,
+                    1, 2, 1, 2,
+                    1, 1, 1, 1,
+                    3, 2, 1, 1 };
 
-        math::mat2 im2 = math::inverse(m2);
-        math::mat3 im3 = math::inverse(m3);
-        math::mat4 im4 = math::inverse(m4);
+        mat2 im2 = inverse(m2);
+        mat3 im3 = inverse(m3);
+        mat4 im4 = inverse(m4);
 
         assert(im2[0] == Approx2(-2, 1));
         assert(im2[1] == Approx2(1.5, -0.5));
