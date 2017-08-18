@@ -1,34 +1,51 @@
 #include "test_assert.h"
 
+#include <iostream>
+#include <random>
+
 #include "../math.hpp"
 
-void test_common(math::e_arch arch) {
+void test_common(math::e_arch arch, unsigned seed) {
     using namespace math;
 
     init(arch);
 
-    {   // abs
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+    const int NUM_REPEATS = 1000;
+    std::mt19937 gen(seed);
+    std::uniform_real_distribution<float> dist(-1000000, 1000000),
+                                          pos_dist(0, 1000000),
+                                          neg_dist(-1000000, 0);
+
+    std::cout << "\t" << math::arch_name[arch] << " ...";
+
+    // abs
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        float r1 = pos_dist(gen), r2 = neg_dist(gen), r3 = pos_dist(gen), r4 = neg_dist(gen);
+
+        float v1 = r1;
+        vec2 v2 = { v1, r2 };
+        vec3 v3 = { v2, r3 };
+        vec4 v4 = { v3, r4 };
 
         float abs1 = math::abs(v1);
         vec2 abs2 = math::abs(v2);
         vec3 abs3 = math::abs(v3);
         vec4 abs4 = math::abs(v4);
 
-        assert(abs1 == Approx(3.4));
-        assert(abs2 == Approx2(3.4, 3.5));
-        assert(abs3 == Approx3(3.4, 3.5, 5));
-        assert(abs4 == Approx4(3.4, 3.5, 5, 8));
+        assert(abs1 == Approx(r1));
+        assert(abs2 == Approx2(r1, -r2));
+        assert(abs3 == Approx3(r1, -r2, r3));
+        assert(abs4 == Approx4(r1, -r2, r3, -r4));
     }
 
-    {   // sign
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+    // sign
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        float r1 = pos_dist(gen), r2 = neg_dist(gen), r3 = pos_dist(gen), r4 = neg_dist(gen);
+
+        float v1 = r1;
+        vec2 v2 = { v1, r2 };
+        vec3 v3 = { v2, r3 };
+        vec4 v4 = { v3, r4 };
 
         float sign1 = math::sign(v1);
         vec2 sign2 = math::sign(v2);
@@ -42,144 +59,167 @@ void test_common(math::e_arch arch) {
     }
 
     {   // floor
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> floor_test_data;
 
-        float floor1 = math::floor(v1);
-        vec2 floor2 = math::floor(v2);
-        vec3 floor3 = math::floor(v3);
-        vec4 floor4 = math::floor(v4);
+        for (size_t i = 0; i < floor_test_data.size(); i += 8) {
+            float v1 = floor_test_data[i];
+            vec2 v2 = { v1, floor_test_data[i + 2] };
+            vec3 v3 = { v2, floor_test_data[i + 4] };
+            vec4 v4 = { v3, floor_test_data[i + 6] };
 
-        assert(floor1 == Approx(3));
-        assert(floor2 == Approx2(3, -4));
-        assert(floor3 == Approx3(3, -4, 5));
-        assert(floor4 == Approx4(3, -4, 5, -8));
+            float floor1 = math::floor(v1);
+            vec2 floor2 = math::floor(v2);
+            vec3 floor3 = math::floor(v3);
+            vec4 floor4 = math::floor(v4);
+
+            assert(floor1 == Approx(floor_test_data[i + 1]));
+            assert(floor2 == Approx2(floor_test_data[i + 1], floor_test_data[i + 3]));
+            assert(floor3 == Approx3(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5]));
+            assert(floor4 == Approx4(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5], floor_test_data[i + 7]));
+        }
     }
 
     {   // ceil
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> ceil_test_data;
 
-        float ceil1 = math::ceil(v1);
-        vec2 ceil2 = math::ceil(v2);
-        vec3 ceil3 = math::ceil(v3);
-        vec4 ceil4 = math::ceil(v4);
+        for (size_t i = 0; i < ceil_test_data.size(); i += 8) {
+            float v1 = ceil_test_data[i];
+            vec2 v2 = { v1, ceil_test_data[i + 2] };
+            vec3 v3 = { v2, ceil_test_data[i + 4] };
+            vec4 v4 = { v3, ceil_test_data[i + 6] };
 
-        assert(ceil1 == Approx(4));
-        assert(ceil2 == Approx2(4, -3));
-        assert(ceil3 == Approx3(4, -3, 5));
-        assert(ceil4 == Approx4(4, -3, 5, -8));
+            float ceil1 = math::ceil(v1);
+            vec2 ceil2 = math::ceil(v2);
+            vec3 ceil3 = math::ceil(v3);
+            vec4 ceil4 = math::ceil(v4);
+
+            assert(ceil1 == Approx(ceil_test_data[i + 1]));
+            assert(ceil2 == Approx2(ceil_test_data[i + 1], ceil_test_data[i + 3]));
+            assert(ceil3 == Approx3(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5]));
+            assert(ceil4 == Approx4(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5], ceil_test_data[i + 7]));
+        }
     }
 
     {   // fract
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> fract_test_data;
 
-        float fract1 = math::fract(v1);
-        vec2 fract2 = math::fract(v2);
-        vec3 fract3 = math::fract(v3);
-        vec4 fract4 = math::fract(v4);
+        for (size_t i = 0; i < fract_test_data.size(); i += 8) {
+            float v1 = fract_test_data[i];
+            vec2 v2 = { v1, fract_test_data[i + 2] };
+            vec3 v3 = { v2, fract_test_data[i + 4] };
+            vec4 v4 = { v3, fract_test_data[i + 6] };
 
-        assert(fract1 == Approx(0.4));
-        assert(fract2 == Approx2(0.4, 0.5));
-        assert(fract3 == Approx3(0.4, 0.5, 0));
-        assert(fract4 == Approx4(0.4, 0.5, 0, 0));
+            float fract1 = math::fract(v1);
+            vec2 fract2 = math::fract(v2);
+            vec3 fract3 = math::fract(v3);
+            vec4 fract4 = math::fract(v4);
+
+            assert(fract1 == Approx(fract_test_data[i + 1]));
+            assert(fract2 == Approx2(fract_test_data[i + 1], fract_test_data[i + 3]));
+            assert(fract3 == Approx3(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5]));
+            assert(fract4 == Approx4(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5], fract_test_data[i + 7]));
+        }
     }
 
     {   // mod
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> mod_test_data;
 
-        float mod1 = math::mod(v1, 2.0f);
-        vec2 mod2 = math::mod(v2, vec2(2, 3));
-        vec3 mod3 = math::mod(v3, vec3(2, 3, 4));
-        vec4 mod4 = math::mod(v4, vec4(2, 3, 4, 5));
+        for (size_t i = 0; i < mod_test_data.size(); i += 12) {
+            float v1 = mod_test_data[i];
+            vec2 v2 = { v1, mod_test_data[i + 3] };
+            vec3 v3 = { v2, mod_test_data[i + 6] };
+            vec4 v4 = { v3, mod_test_data[i + 9] };
 
-        assert(mod1 == Approx(1.4));
-        assert(mod2 == Approx2(1.4, 2.5));
-        assert(mod3 == Approx3(1.4, 2.5, 1));
-        assert(mod4 == Approx4(1.4, 2.5, 1, 2));
+            float mod1 = math::mod(v1, mod_test_data[i + 1]);
+            vec2 mod2 = math::mod(v2, vec2(mod_test_data[i + 1], mod_test_data[i + 4]));
+            vec3 mod3 = math::mod(v3, vec3(mod_test_data[i + 1], mod_test_data[i + 4], mod_test_data[i + 7]));
+            vec4 mod4 = math::mod(v4, vec4(mod_test_data[i + 1], mod_test_data[i + 4], mod_test_data[i + 7], mod_test_data[i + 10]));
 
-        mod2 = math::mod(v2, vec2(2));
-        mod3 = math::mod(v3, vec3(3));
-        mod4 = math::mod(v4, vec4(4));
-
-        assert(mod2 == Approx2(1.4, 0.5));
-        assert(mod3 == Approx3(0.4, 2.5, 2));
-        assert(mod4 == Approx4(3.4, 0.5, 1, 0));
+            assert(mod1 == Approx(mod_test_data[i + 2]));
+            assert(mod2 == Approx2(mod_test_data[i + 2], mod_test_data[i + 5]));
+            assert(mod3 == Approx3(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8]));
+            assert(mod4 == Approx4(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8], mod_test_data[i + 11]));
+        }
     }
 
     {   // min
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> min_test_data;
 
-        float min1 = math::min(v1, 2.0f);
-        vec2 min2 = math::min(v2, { 2, -2.3f });
-        vec3 min3 = math::min(v3, { 2, -2.3f, 4 });
-        vec4 min4 = math::min(v4, { 2, -2.3f, 4, -9.1f });
+        for (size_t i = 0; i < min_test_data.size(); i += 17) {
+            float v1 = min_test_data[i];
+            vec2 v2 = { v1, min_test_data[i + 3] };
+            vec3 v3 = { v2, min_test_data[i + 6] };
+            vec4 v4 = { v3, min_test_data[i + 9] };
 
-        assert(min1 == Approx(2));
-        assert(min2 == Approx2(2, -3.5));
-        assert(min3 == Approx3(2, -3.5, 4));
-        assert(min4 == Approx4(2, -3.5, 4, -9.1));
+            float min1 = math::min(v1, min_test_data[i + 1]);
+            vec2 min2 = math::min(v2, { min_test_data[i + 1], min_test_data[i + 4] });
+            vec3 min3 = math::min(v3, { min_test_data[i + 1], min_test_data[i + 4], min_test_data[i + 7] });
+            vec4 min4 = math::min(v4, { min_test_data[i + 1], min_test_data[i + 4], min_test_data[i + 7], min_test_data[i + 10] });
 
-        min1 = math::min(v1, 2.0f);
-        min2 = math::min(v2, 2.0f);
-        min3 = math::min(v3, 2.0f);
-        min4 = math::min(v4, 2.0f);
+            assert(min1 == Approx(min_test_data[i + 2]));
+            assert(min2 == Approx2(min_test_data[i + 2], min_test_data[i + 5]));
+            assert(min3 == Approx3(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8]));
+            assert(min4 == Approx4(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8], min_test_data[i + 11]));
 
-        assert(min1 == Approx(2));
-        assert(min2 == Approx2(2, -3.5));
-        assert(min3 == Approx3(2, -3.5, 2));
-        assert(min4 == Approx4(2, -3.5, 2, -8));
+            min1 = math::min(v1, min_test_data[i + 12]);
+            min2 = math::min(v2, min_test_data[i + 12]);
+            min3 = math::min(v3, min_test_data[i + 12]);
+            min4 = math::min(v4, min_test_data[i + 12]);
+
+            assert(min1 == Approx(min_test_data[i + 13]));
+            assert(min2 == Approx2(min_test_data[i + 13], min_test_data[i + 14]));
+            assert(min3 == Approx3(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15]));
+            assert(min4 == Approx4(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15], min_test_data[i + 16]));
+        }
     }
 
     {   // max
-        float v1 = 3.4f;
-        vec2 v2 = { v1, -3.5f };
-        vec3 v3 = { v2, 5 };
-        vec4 v4 = { v3, -8 };
+        extern std::vector<float> max_test_data;
 
-        float max1 = math::max(v1, 2.0f);
-        vec2 max2 = math::max(v2, { 2, -2.3f });
-        vec3 max3 = math::max(v3, { 2, -2.3f, 4 });
-        vec4 max4 = math::max(v4, { 2, -2.3f, 4, -9.1f });
+        for (size_t i = 0; i < max_test_data.size(); i += 17) {
+            float v1 = max_test_data[i];
+            vec2 v2 = { v1, max_test_data[i + 3] };
+            vec3 v3 = { v2, max_test_data[i + 6] };
+            vec4 v4 = { v3, max_test_data[i + 9] };
 
-        assert(max1 == Approx(3.4));
-        assert(max2 == Approx2(3.4, -2.3));
-        assert(max3 == Approx3(3.4, -2.3, 5));
-        assert(max4 == Approx4(3.4, -2.3, 5, -8));
+            float max1 = math::max(v1, max_test_data[i + 1]);
+            vec2 max2 = math::max(v2, { max_test_data[i + 1], max_test_data[i + 4] });
+            vec3 max3 = math::max(v3, { max_test_data[i + 1], max_test_data[i + 4], max_test_data[i + 7] });
+            vec4 max4 = math::max(v4, { max_test_data[i + 1], max_test_data[i + 4], max_test_data[i + 7], max_test_data[i + 10] });
 
-        max1 = math::max(v1, 2.0f);
-        max2 = math::max(v2, 2.0f);
-        max3 = math::max(v3, 2.0f);
-        max4 = math::max(v4, 2.0f);
+            assert(max1 == Approx(max_test_data[i + 2]));
+            assert(max2 == Approx2(max_test_data[i + 2], max_test_data[i + 5]));
+            assert(max3 == Approx3(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8]));
+            assert(max4 == Approx4(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8], max_test_data[i + 11]));
 
-        assert(max1 == Approx(3.4));
-        assert(max2 == Approx2(3.4, 2));
-        assert(max3 == Approx3(3.4, 2, 5));
-        assert(max4 == Approx4(3.4, 2, 5, 2));
+            max1 = math::max(v1, max_test_data[i + 12]);
+            max2 = math::max(v2, max_test_data[i + 12]);
+            max3 = math::max(v3, max_test_data[i + 12]);
+            max4 = math::max(v4, max_test_data[i + 12]);
+
+            assert(max1 == Approx(max_test_data[i + 13]));
+            assert(max2 == Approx2(max_test_data[i + 13], max_test_data[i + 14]));
+            assert(max3 == Approx3(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15]));
+            assert(max4 == Approx4(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15], max_test_data[i + 16]));
+        }
     }
+
+    std::cout << "OK" << std::endl;
 }
 
 void test_common() {
-    test_common(math::Scalar);
+    std::random_device rd;
+    auto seed = rd();
+
+    std::cout << "test_common (seed " << seed << ")" << std::endl;
+
+    test_common(math::Scalar, seed);
 #ifndef __arm__
-    test_common(math::SSE2);
-    test_common(math::SSE3);
-    test_common(math::SSE4_1);
-    test_common(math::AVX);
+    test_common(math::SSE2, seed);
+    test_common(math::SSE3, seed);
+    test_common(math::SSE4_1, seed);
+    test_common(math::AVX, seed);
 #else
-    test_common(math::NEON);
+    test_common(math::NEON, seed);
 #endif
 }

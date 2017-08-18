@@ -55,7 +55,7 @@ namespace math {
         mat3 &operator*=(const mat3 &rhs) { (*this) = (*this) * rhs; return *this; }
         mat3 &operator/=(const mat3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        mat3 operator-() const { return matrixCompMult((*this), mat3(-1, -1, -1, -1, -1, -1, -1, -1, -1)); }
+        mat3 operator-() const { return matrix_comp_mult((*this), mat3(-1, -1, -1, -1, -1, -1, -1, -1, -1)); }
 
         friend bool operator==(const mat3 &m1, const mat3 &m2);
 
@@ -70,7 +70,7 @@ namespace math {
         friend vec3 operator*(const mat3 &m, const vec3 &v);
         friend vec3 operator*(const vec3 &v, const mat3 &m);
 
-        friend mat3 matrixCompMult(const mat3 &m1, const mat3 &m2);
+        friend mat3 matrix_comp_mult(const mat3 &m1, const mat3 &m2);
 
         friend mat3 inverse(const mat3 &m);
 
@@ -93,7 +93,7 @@ namespace math {
     inline mat3 operator*(float v1, const mat3 &m1) { return operator*(m1, v1); }
     inline mat3 operator/(const mat3 &m1, float v1) { return mat3_div_float(m1.vec_, v1); }
 
-    inline mat3 matrixCompMult(const mat3 &m1, const mat3 &m2) { return mat3_comp_mul(m1.vec_, m2.vec_); }
+    inline mat3 matrix_comp_mult(const mat3 &m1, const mat3 &m2) { return mat3_comp_mul(m1.vec_, m2.vec_); }
 
     inline mat3 make_mat3(const float v[9]) {
         return mat3(v[0], v[1], v[2], 

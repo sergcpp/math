@@ -402,7 +402,7 @@ void test_mat3_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M)
 
     for (size_t j = 0; j < M; j++) {
         for (size_t i = 0; i < N - 1; i += 2) {
-            mats[i] = matrixCompMult(mats[i], mats[i + 1]);
+            mats[i] = matrix_comp_mult(mats[i], mats[i + 1]);
         }
     }
 }
@@ -450,7 +450,7 @@ void test_mat4_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M)
 
     for (size_t j = 0; j < M; j++) {
         for (size_t i = 0; i < N - 1; i += 2) {
-            mats[i] = matrixCompMult(mats[i], mats[i + 1]);
+            mats[i] = matrix_comp_mult(mats[i], mats[i + 1]);
         }
     }
 }

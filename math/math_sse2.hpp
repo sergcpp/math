@@ -216,10 +216,10 @@ namespace sse2 {
 
     DEF_FUNC(float4) mat2_mul_mat2(const float4 &v1, const float4 &v2) {
         float4 ret;
-        ret.vec = _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(2, 2, 0, 0)),
-                                        _mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(1, 0, 1, 0))),
-                             _mm_mul_ps(_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 3, 1, 1)),
-                                        _mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 2, 3, 2))));
+        ret.vec = _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(2, 2, 0, 0)),
+                                        _mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(1, 0, 1, 0))),
+                             _mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 3, 1, 1)),
+                                        _mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 2, 3, 2))));
         return ret;
     } DEF_END
 

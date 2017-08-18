@@ -62,7 +62,7 @@ namespace math {
         mat4 &operator*=(const mat4 &rhs) { (*this) = (*this) * rhs; return *this; }
         mat4 &operator/=(const mat4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        mat4 operator-() const { return matrixCompMult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
+        mat4 operator-() const { return matrix_comp_mult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
 
         friend bool operator==(const mat4 &m1, const mat4 &m2);
 
@@ -77,7 +77,7 @@ namespace math {
         friend vec4 operator*(const mat4 &m, const vec4 &v);
         friend vec4 operator*(const vec4 &v, const mat4 &m);
 
-        friend mat4 matrixCompMult(const mat4 &m1, const mat4 &m2);
+        friend mat4 matrix_comp_mult(const mat4 &m1, const mat4 &m2);
 
         friend mat4 inverse(const mat4 &m);
 
@@ -100,7 +100,7 @@ namespace math {
     inline mat4 operator*(float v1, const mat4 &m1) { return operator*(m1, v1); }
     inline mat4 operator/(const mat4 &m1, float v1) { return mat4_div_float(m1.vec_, v1); }
 
-    inline mat4 matrixCompMult(const mat4 &m1, const mat4 &m2) { return mat4_comp_mul(m1.vec_, m2.vec_); }
+    inline mat4 matrix_comp_mult(const mat4 &m1, const mat4 &m2) { return mat4_comp_mul(m1.vec_, m2.vec_); }
 
     inline mat4 make_mat4(const float v[16]) {
         return mat4(v[0], v[1], v[2], v[3],

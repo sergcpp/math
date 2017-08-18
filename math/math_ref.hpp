@@ -441,10 +441,10 @@ namespace ref {
 
     DEF_FUNC(float4) mat2_mul_mat2(const float4 &v1, const float4 &v2) {
         float4 ret;
-        ret.comp2[0][0] = v1.comp2[0][0] * v2.comp2[0][0] + v1.comp2[0][1] * v2.comp2[1][0];
-        ret.comp2[0][1] = v1.comp2[0][0] * v2.comp2[0][1] + v1.comp2[0][1] * v2.comp2[1][1];
-        ret.comp2[1][0] = v1.comp2[1][0] * v2.comp2[0][0] + v1.comp2[1][1] * v2.comp2[1][0];
-        ret.comp2[1][1] = v1.comp2[1][0] * v2.comp2[0][1] + v1.comp2[1][1] * v2.comp2[1][1];
+        ret.comp2[0][0] = v1.comp2[0][0] * v2.comp2[0][0] + v1.comp2[1][0] * v2.comp2[0][1];
+        ret.comp2[0][1] = v1.comp2[0][1] * v2.comp2[0][0] + v1.comp2[1][1] * v2.comp2[0][1];
+        ret.comp2[1][0] = v1.comp2[0][0] * v2.comp2[1][0] + v1.comp2[1][0] * v2.comp2[1][1];
+        ret.comp2[1][1] = v1.comp2[0][1] * v2.comp2[1][0] + v1.comp2[1][1] * v2.comp2[1][1];
         return ret;
     } DEF_END
 

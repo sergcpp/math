@@ -5,6 +5,7 @@ add_executable(test_math main.cpp
                          test_assert.h
                          test_comb.cpp
                          test_common.cpp
+                         test_data.cpp
                          test_dvec2.cpp
                          test_dvec3.cpp
                          test_dvec4.cpp
