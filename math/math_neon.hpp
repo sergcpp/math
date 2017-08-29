@@ -16,15 +16,7 @@ namespace neon {
     using namespace ref;
     
     // vec3
-    /*DEF_FUNC(void) vec3_init1(float4 &vec, float val) {
-        vec.vec = vdupq_n_f32(val);
-    } DEF_END
-
-    DEF_FUNC(void) vec3_init3(float4 &vec, float v0, float v1, float v2) {
-        float values[4] = { v0, v1, v2, 0 };
-        vec.vec = vld1q_f32(values);
-    } DEF_END
-
+    /*
     DEF_FUNC(float4) vec3_add_vec3(const float4 &v1, const float4 &v2) {
         float4 ret;
         ret.vec = vaddq_f32(v1.vec, v2.vec);
