@@ -1301,12 +1301,12 @@ namespace ref {
 
     DEF_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
         float4 ret;
-        for (int i = 0; i < 4; i++) {
-            ret.comp[i] = m.comp4[0][i] * v.comp[0] +
-                m.comp4[1][i] * v.comp[1] +
-                m.comp4[2][i] * v.comp[2] +
-                m.comp4[3][i] * v.comp[3];
-        }
+
+		ret.comp[0] = m.comp4[0][0] * v.comp[0] + m.comp4[1][0] * v.comp[1] + m.comp4[2][0] * v.comp[2] + m.comp4[3][0] * v.comp[3];
+		ret.comp[1] = m.comp4[0][1] * v.comp[0] + m.comp4[1][1] * v.comp[1] + m.comp4[2][1] * v.comp[2] + m.comp4[3][1] * v.comp[3];
+		ret.comp[2] = m.comp4[0][2] * v.comp[0] + m.comp4[1][2] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[3][2] * v.comp[3];
+		ret.comp[3] = m.comp4[0][3] * v.comp[0] + m.comp4[1][3] * v.comp[1] + m.comp4[2][3] * v.comp[2] + m.comp4[3][3] * v.comp[3];
+
         return ret;
     } DEF_END
 

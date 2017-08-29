@@ -3,46 +3,12 @@
 #include "../math.hpp"
 
 #include <iostream>
-
 #include <random>
-#include "glm/ext.hpp"
 
 void test_geometric(math::e_arch arch, unsigned seed) {
     using namespace math;
 
     init(arch);
-
-	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_real_distribution<float> dist(-100, 100);
-
-		std::string s;
-		for (int i = 0; i < 256; i++) {
-			glm::mat4 m1 { dist(gen), dist(gen), dist(gen), dist(gen),
-						   dist(gen), dist(gen), dist(gen), dist(gen),
-						   dist(gen), dist(gen), dist(gen), dist(gen),
-						   dist(gen), dist(gen), dist(gen), dist(gen) };
-			glm::mat4 m2 = glm::inverse(m1);
-
-			for (int j = 0; j < 4; j++) {
-				for (int k = 0; k < 4; k++) {
-					s += std::to_string(m1[j][k]);
-					s += "f, ";
-				}
-			}
-
-			for (int j = 0; j < 4; j++) {
-				for (int k = 0; k < 4; k++) {
-					s += std::to_string(m2[j][k]);
-					s += "f, ";
-				}
-			}
-			s += "\n";
-		}
-
-		volatile int ii = 0;
-	}
 
 	std::cout << "\t" << math::arch_name[arch] << " ...";
 
