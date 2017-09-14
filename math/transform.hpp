@@ -25,7 +25,7 @@ namespace math {
         vec3 axis = normalize(_axis);
         vec3 temp = (1.0f - c) * axis;
 
-        mat4 rot(uninitialize);
+        mat4 rot(noinit);
         rot[0][0] = c + temp[0] * axis[0];
         rot[0][1] = 0 + temp[0] * axis[1] + s * axis[2];
         rot[0][2] = 0 + temp[0] * axis[2] - s * axis[1];
@@ -38,7 +38,7 @@ namespace math {
         rot[2][1] = 0 + temp[2] * axis[1] - s * axis[0];
         rot[2][2] = c + temp[2] * axis[2];
 
-        mat4 res(uninitialize);
+        mat4 res(noinit);
         res[0] = m[0] * rot[0][0] + m[1] * rot[0][1] + m[2] * rot[0][2];
         res[1] = m[0] * rot[1][0] + m[1] * rot[1][1] + m[2] * rot[1][2];
         res[2] = m[0] * rot[2][0] + m[1] * rot[2][1] + m[2] * rot[2][2];
@@ -47,7 +47,7 @@ namespace math {
     }
 
     inline mat4 scale(const mat4 &m, const vec3 &v) {
-        mat4 res(uninitialize);
+        mat4 res(noinit);
         res[0] = m[0] * v[0];
         res[1] = m[1] * v[1];
         res[2] = m[2] * v[2];

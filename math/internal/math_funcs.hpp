@@ -30,7 +30,7 @@
 #endif
 
 namespace math {
-    enum e_uninitialize { uninitialize };
+    enum e_noinit { noinit };
 
     template <typename T, std::size_t Alignment = T::alignment>
     using aligned_vector = std::vector<T, aligned_allocator<T, Alignment>>;

@@ -13,11 +13,11 @@ namespace math {
 
         friend class mat3;
     public:
-        vec3(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        vec3() : vec3(uninitialize) { vec3_init1(vec_, 0); }
-        explicit vec3(float v) : vec3(uninitialize) { vec3_init1(vec_, v); }
-        vec3(float v0, float v1, float v2) : vec3(uninitialize) { vec3_init3(vec_, v0, v1, v2); }
-        vec3(const float3 &v) : vec3(uninitialize) { vec_ = v; }
+        vec3(e_noinit) { assert(is_aligned(this, alignment)); }
+        vec3() : vec3(noinit) { vec3_init1(vec_, 0); }
+        explicit vec3(float v) : vec3(noinit) { vec3_init1(vec_, v); }
+        vec3(float v0, float v1, float v2) : vec3(noinit) { vec3_init3(vec_, v0, v1, v2); }
+        vec3(const float3 &v) : vec3(noinit) { vec_ = v; }
         vec3(const vec2 &v01, float v2);
         vec3(float v0, const vec2 &v12);
         vec3(const vec4 &v);
@@ -131,10 +131,10 @@ namespace math {
 #include "vec4.hpp"
 
 namespace math {
-    inline vec3::vec3(const vec2 &v01, float v2) : vec3(uninitialize) { vec3_init3(vec_, v01[0], v01[1], v2); }
-    inline vec3::vec3(float v0, const vec2 &v12) : vec3(uninitialize) { vec3_init3(vec_, v0, v12[0], v12[1]); }
-    inline vec3::vec3(const vec4 &v) : vec3(uninitialize) { vec3_init3(vec_, v[0], v[1], v[2]); }
-    inline vec3::vec3(const ivec3 &v) : vec3(uninitialize) { vec3_init3(vec_, float(v[0]), float(v[1]), float(v[2])); }
+    inline vec3::vec3(const vec2 &v01, float v2) : vec3(noinit) { vec3_init3(vec_, v01[0], v01[1], v2); }
+    inline vec3::vec3(float v0, const vec2 &v12) : vec3(noinit) { vec3_init3(vec_, v0, v12[0], v12[1]); }
+    inline vec3::vec3(const vec4 &v) : vec3(noinit) { vec3_init3(vec_, v[0], v[1], v[2]); }
+    inline vec3::vec3(const ivec3 &v) : vec3(noinit) { vec3_init3(vec_, float(v[0]), float(v[1]), float(v[2])); }
 
     inline float operator*(float f1, const vec3::deref &f2) { return f1 * float(f2); }
     inline float operator/(float f1, const vec3::deref &f2) { return f1 / float(f2); }

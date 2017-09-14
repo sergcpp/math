@@ -9,27 +9,27 @@ namespace math {
     class mat4 {
         float16 vec_;
     public:
-        mat4(e_uninitialize) { assert(is_aligned(this, alignment)); }
+        mat4(e_noinit) { assert(is_aligned(this, alignment)); }
         mat4() : mat4(1.0f) {}
-        explicit mat4(float v) : mat4(uninitialize) { mat4_init1(vec_, v); }
+        explicit mat4(float v) : mat4(noinit) { mat4_init1(vec_, v); }
         mat4(float v00, float v01, float v02, float v03,
              float v10, float v11, float v12, float v13,
              float v20, float v21, float v22, float v23,
-             float v30, float v31, float v32, float v33) : mat4(uninitialize) {
+             float v30, float v31, float v32, float v33) : mat4(noinit) {
             mat4_init16(vec_, v00, v01, v02, v03, v10, v11, v12, v13, v20, v21, v22, v23, v30, v31, v32, v33);
         }
-        mat4(const vec4 &v0, const vec4 &v1, const vec4 &v2, const vec4 &v3) : mat4(uninitialize) {
+        mat4(const vec4 &v0, const vec4 &v1, const vec4 &v2, const vec4 &v3) : mat4(noinit) {
             mat4_init4(vec_, v0.vec_, v1.vec_, v2.vec_, v3.vec_);
         }
-        mat4(const float16 &v) : mat4(uninitialize) { vec_ = v; }
-        mat4(const float9 &v) : mat4(uninitialize) {
+        mat4(const float16 &v) : mat4(noinit) { vec_ = v; }
+        mat4(const float9 &v) : mat4(noinit) {
             mat4_init16(vec_, 
                 v.comp3[0][0], v.comp3[0][1], v.comp3[0][2], 0,
                 v.comp3[1][0], v.comp3[1][1], v.comp3[1][2], 0,
                 v.comp3[2][0], v.comp3[2][1], v.comp3[2][2], 0,
                 0, 0, 0, 1);
         }
-        mat4(const mat4 &v) : mat4(uninitialize) { vec_ = v.vec_; }
+        mat4(const mat4 &v) : mat4(noinit) { vec_ = v.vec_; }
         mat4(const mat3 &v);
 
         class deref {

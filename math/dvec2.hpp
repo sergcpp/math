@@ -12,9 +12,9 @@ namespace math {
 
         friend class mat2;
     public:
-        dvec2(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        dvec2() : dvec2(uninitialize) { dvec2_init1(vec_, 0); }
-        dvec2(double v) : dvec2(uninitialize) { dvec2_init1(vec_, v); }
+        dvec2(e_noinit) { assert(is_aligned(this, alignment)); }
+        dvec2() : dvec2(noinit) { dvec2_init1(vec_, 0); }
+        dvec2(double v) : dvec2(noinit) { dvec2_init1(vec_, v); }
         dvec2(double v0, double v1) { dvec2_init2(vec_, v0, v1); }
         dvec2(const double2 &v) { vec_ = v; }
         dvec2(const dvec3 &v);
@@ -105,7 +105,7 @@ namespace math {
 namespace math {
     inline dvec2::dvec2(const dvec3 &v) { dvec2_init2(vec_, v[0], v[1]); }
     inline dvec2::dvec2(const dvec4 &v) { dvec2_init2(vec_, v[0], v[1]); }
-    inline dvec2::dvec2(const vec2 &v) : dvec2(uninitialize) { dvec2_init2(vec_, double(v[0]), double(v[1])); }
+    inline dvec2::dvec2(const vec2 &v) : dvec2(noinit) { dvec2_init2(vec_, double(v[0]), double(v[1])); }
 
     //inline vec2 operator*(const mat2 &m, const vec2 &v) { return vec2(mat2_mul_vec2(m.vec_, v.vec_)); }
     //inline vec2 operator*(const vec2 &v, const mat2 &m) { return vec2(vec2_mul_mat2(v.vec_, m.vec_)); }

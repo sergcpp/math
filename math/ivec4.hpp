@@ -10,7 +10,7 @@ namespace math {
     class ivec4 {
         int4 vec_;
     public:
-        ivec4(e_uninitialize) { assert(is_aligned(this, alignment)); }
+        ivec4(e_noinit) { assert(is_aligned(this, alignment)); }
         ivec4() { ivec4_init1(vec_, 0); }
         explicit ivec4(int v) { ivec4_init1(vec_, v); }
         ivec4(int v0, int v1, int v2, int v3) { ivec4_init4(vec_, v0, v1, v2, v3); }
@@ -102,13 +102,13 @@ namespace math {
 #include "vec4.hpp"
 
 namespace math {
-    inline ivec4::ivec4(const ivec2 &v01, const ivec2 &v23) : ivec4(uninitialize) { ivec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
-    inline ivec4::ivec4(const ivec2 &v01, int v2, int v3) : ivec4(uninitialize) { ivec4_init4(vec_, v01[0], v01[1], v2, v3); }
-    inline ivec4::ivec4(int v0, const ivec2 &v12, int v3) : ivec4(uninitialize) { ivec4_init4(vec_, v0, v12[0], v12[1], v3); }
-    inline ivec4::ivec4(int v0, int v1, const ivec2 &v23) : ivec4(uninitialize) { ivec4_init4(vec_, v0, v1, v23[0], v23[1]); }
-    inline ivec4::ivec4(const ivec3 &v012, int v3) : ivec4(uninitialize) { ivec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
-    inline ivec4::ivec4(int v0, const ivec3 &v123) : ivec4(uninitialize) { ivec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
-    inline ivec4::ivec4(const vec4 &v) : ivec4(uninitialize) { ivec4_init4(vec_, int(v[0]), int(v[1]), int(v[2]), int(v[3])); }
+    inline ivec4::ivec4(const ivec2 &v01, const ivec2 &v23) : ivec4(noinit) { ivec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
+    inline ivec4::ivec4(const ivec2 &v01, int v2, int v3) : ivec4(noinit) { ivec4_init4(vec_, v01[0], v01[1], v2, v3); }
+    inline ivec4::ivec4(int v0, const ivec2 &v12, int v3) : ivec4(noinit) { ivec4_init4(vec_, v0, v12[0], v12[1], v3); }
+    inline ivec4::ivec4(int v0, int v1, const ivec2 &v23) : ivec4(noinit) { ivec4_init4(vec_, v0, v1, v23[0], v23[1]); }
+    inline ivec4::ivec4(const ivec3 &v012, int v3) : ivec4(noinit) { ivec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
+    inline ivec4::ivec4(int v0, const ivec3 &v123) : ivec4(noinit) { ivec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
+    inline ivec4::ivec4(const vec4 &v) : ivec4(noinit) { ivec4_init4(vec_, int(v[0]), int(v[1]), int(v[2]), int(v[3])); }
 
     inline int operator*(int f1, const ivec4::deref &f2) { return f1 * int(f2); }
     inline int operator/(int f1, const ivec4::deref &f2) { return f1 / int(f2); }

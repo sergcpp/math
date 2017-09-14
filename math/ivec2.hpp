@@ -10,11 +10,11 @@ namespace math {
     class ivec2 {
         int2 vec_;
     public:
-        ivec2(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        ivec2() : ivec2(uninitialize) { ivec2_init1(vec_, 0); }
-        explicit ivec2(int v) : ivec2(uninitialize) { ivec2_init1(vec_, v); }
-        ivec2(int v0, int v1) : ivec2(uninitialize) { ivec2_init2(vec_, v0, v1); }
-        ivec2(const int2 &v) : ivec2(uninitialize) { vec_ = v; }
+        ivec2(e_noinit) { assert(is_aligned(this, alignment)); }
+        ivec2() : ivec2(noinit) { ivec2_init1(vec_, 0); }
+        explicit ivec2(int v) : ivec2(noinit) { ivec2_init1(vec_, v); }
+        ivec2(int v0, int v1) : ivec2(noinit) { ivec2_init2(vec_, v0, v1); }
+        ivec2(const int2 &v) : ivec2(noinit) { vec_ = v; }
         ivec2(const ivec3 &v);
         ivec2(const ivec4 &v);
         explicit ivec2(const vec2 &v);

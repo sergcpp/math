@@ -13,7 +13,7 @@ namespace math {
 
         friend class mat2;
     public:
-        vec2(e_uninitialize) {}
+        vec2(e_noinit) {}
         vec2() { vec2_init1(vec_, 0); }
         explicit vec2(float v) { vec2_init1(vec_, v); }
         vec2(float v0, float v1) { vec2_init2(vec_, v0, v1); }

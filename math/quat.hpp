@@ -9,10 +9,10 @@ namespace math {
         float4 vec_;
 
     public:
-        quat(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        quat() : quat(uninitialize) { quat_init4(vec_, 1, 0, 0, 0); }
-        quat(float r, float i, float j, float k) : quat(uninitialize) { quat_init4(vec_, r, i, j, k); }
-        quat(const vec4 &v) : quat(uninitialize) { vec_ = v.vec_; }
+        quat(e_noinit) { assert(is_aligned(this, alignment)); }
+        quat() : quat(noinit) { quat_init4(vec_, 1, 0, 0, 0); }
+        quat(float r, float i, float j, float k) : quat(noinit) { quat_init4(vec_, r, i, j, k); }
+        quat(const vec4 &v) : quat(noinit) { vec_ = v.vec_; }
 
         class deref {
             float4 &v_; int i_;

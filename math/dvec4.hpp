@@ -11,11 +11,11 @@ namespace math {
         double4 vec_;
 
     public:
-        dvec4(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        dvec4() : dvec4(uninitialize) { dvec4_init1(vec_, 0); }
-        dvec4(double v) : dvec4(uninitialize) { dvec4_init1(vec_, v); }
-        dvec4(double v0, double v1, double v2, double v3) : dvec4(uninitialize) { dvec4_init4(vec_, v0, v1, v2, v3); }
-        dvec4(const double4 &v) : dvec4(uninitialize) { vec_ = v; }
+        dvec4(e_noinit) { assert(is_aligned(this, alignment)); }
+        dvec4() : dvec4(noinit) { dvec4_init1(vec_, 0); }
+        dvec4(double v) : dvec4(noinit) { dvec4_init1(vec_, v); }
+        dvec4(double v0, double v1, double v2, double v3) : dvec4(noinit) { dvec4_init4(vec_, v0, v1, v2, v3); }
+        dvec4(const double4 &v) : dvec4(noinit) { vec_ = v; }
         dvec4(const dvec2 &v01, const dvec2 &v23);
         dvec4(const dvec2 &v01, double v2, double v3);
         dvec4(double v0, const dvec2 &v12, double v3);
@@ -111,13 +111,13 @@ namespace math {
 #include "dvec3.hpp"
 
 namespace math {
-    inline dvec4::dvec4(const dvec2 &v01, const dvec2 &v23) : dvec4(uninitialize) { dvec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
-    inline dvec4::dvec4(const dvec2 &v01, double v2, double v3) : dvec4(uninitialize) { dvec4_init4(vec_, v01[0], v01[1], v2, v3); }
-    inline dvec4::dvec4(double v0, const dvec2 &v12, double v3) : dvec4(uninitialize) { dvec4_init4(vec_, v0, v12[0], v12[1], v3); }
-    inline dvec4::dvec4(double v0, double v1, const dvec2 &v23) : dvec4(uninitialize) { dvec4_init4(vec_, v0, v1, v23[0], v23[1]); }
-    inline dvec4::dvec4(const dvec3 &v012, double v3) : dvec4(uninitialize) { dvec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
-    inline dvec4::dvec4(double v0, const dvec3 &v123) : dvec4(uninitialize) { dvec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
-    inline dvec4::dvec4(const vec4 &v) : dvec4(uninitialize) { dvec4_init4(vec_, double(v[0]), double(v[1]), double(v[2]), double(v[3])); }
+    inline dvec4::dvec4(const dvec2 &v01, const dvec2 &v23) : dvec4(noinit) { dvec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
+    inline dvec4::dvec4(const dvec2 &v01, double v2, double v3) : dvec4(noinit) { dvec4_init4(vec_, v01[0], v01[1], v2, v3); }
+    inline dvec4::dvec4(double v0, const dvec2 &v12, double v3) : dvec4(noinit) { dvec4_init4(vec_, v0, v12[0], v12[1], v3); }
+    inline dvec4::dvec4(double v0, double v1, const dvec2 &v23) : dvec4(noinit) { dvec4_init4(vec_, v0, v1, v23[0], v23[1]); }
+    inline dvec4::dvec4(const dvec3 &v012, double v3) : dvec4(noinit) { dvec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
+    inline dvec4::dvec4(double v0, const dvec3 &v123) : dvec4(noinit) { dvec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
+    inline dvec4::dvec4(const vec4 &v) : dvec4(noinit) { dvec4_init4(vec_, double(v[0]), double(v[1]), double(v[2]), double(v[3])); }
 
     //inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
     //inline vec4 operator*(const vec4 &v, const mat4 &m) { return vec4(vec4_mul_mat4(v.vec_, m.vec_)); }

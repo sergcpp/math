@@ -6,7 +6,7 @@
 #include "../math.hpp"
 
 math::aligned_vector<math::vec2> create_vec2s(size_t N) {
-    math::aligned_vector<math::vec2> vecs(N, math::uninitialize);
+    math::aligned_vector<math::vec2> vecs(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         vecs[i] = math::vec2(float(i), float(i + 1));
     }
@@ -14,7 +14,7 @@ math::aligned_vector<math::vec2> create_vec2s(size_t N) {
 }
 
 math::aligned_vector<math::vec3> create_vec3s(size_t N) {
-    math::aligned_vector<math::vec3> vecs(N, math::uninitialize);
+    math::aligned_vector<math::vec3> vecs(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         vecs[i] = math::vec3(float(i), float(i + 1), float(i + 2));
     }
@@ -22,7 +22,7 @@ math::aligned_vector<math::vec3> create_vec3s(size_t N) {
 }
 
 math::aligned_vector<math::vec4> create_vec4s(size_t N) {
-    math::aligned_vector<math::vec4> vecs(N, math::uninitialize);
+    math::aligned_vector<math::vec4> vecs(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         vecs[i] = math::vec4(float(i), float(i + 1), float(i + 2), float(i + 3));
     }
@@ -30,7 +30,7 @@ math::aligned_vector<math::vec4> create_vec4s(size_t N) {
 }
 
 math::aligned_vector<math::mat2> create_mat2s(size_t N) {
-    math::aligned_vector<math::mat2> mats(N, math::uninitialize);
+    math::aligned_vector<math::mat2> mats(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         mats[i] = math::mat2(float(i), float(i + 1), float(i + 2), float(i + 3));
     }
@@ -38,7 +38,7 @@ math::aligned_vector<math::mat2> create_mat2s(size_t N) {
 }
 
 math::aligned_vector<math::mat3> create_mat3s(size_t N) {
-    math::aligned_vector<math::mat3> mats(N, math::uninitialize);
+    math::aligned_vector<math::mat3> mats(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         mats[i] = math::mat3(float(i), float(i + 1), float(i + 2),
                              float(i), float(i + 1), float(i + 2),
@@ -48,7 +48,7 @@ math::aligned_vector<math::mat3> create_mat3s(size_t N) {
 }
 
 math::aligned_vector<math::mat4> create_mat4s(size_t N) {
-    math::aligned_vector<math::mat4> mats(N, math::uninitialize);
+    math::aligned_vector<math::mat4> mats(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         mats[i] = math::mat4(float(i), float(i + 1), float(i + 2), float(i + 3),
                              float(i), float(i + 1), float(i + 2), float(i + 3),
@@ -59,7 +59,7 @@ math::aligned_vector<math::mat4> create_mat4s(size_t N) {
 }
 
 math::aligned_vector<math::dvec4> create_dvec4s(size_t N) {
-    math::aligned_vector<math::dvec4> vecs(N, math::uninitialize);
+    math::aligned_vector<math::dvec4> vecs(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
         vecs[i] = math::dvec4(double(i), double(i + 1), double(i + 2), double(i + 3));
     }

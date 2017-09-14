@@ -12,11 +12,11 @@ namespace math {
 
         friend class mat3;
     public:
-        dvec3(e_uninitialize) { assert(is_aligned(this, alignment)); }
-        dvec3() : dvec3(uninitialize) { dvec3_init1(vec_, 0); }
-        dvec3(double v) : dvec3(uninitialize) { dvec3_init1(vec_, v); }
-        dvec3(double v0, double v1, double v2) : dvec3(uninitialize) { dvec3_init3(vec_, v0, v1, v2); }
-        dvec3(const double3 &v) : dvec3(uninitialize) { vec_ = v; }
+        dvec3(e_noinit) { assert(is_aligned(this, alignment)); }
+        dvec3() : dvec3(noinit) { dvec3_init1(vec_, 0); }
+        dvec3(double v) : dvec3(noinit) { dvec3_init1(vec_, v); }
+        dvec3(double v0, double v1, double v2) : dvec3(noinit) { dvec3_init3(vec_, v0, v1, v2); }
+        dvec3(const double3 &v) : dvec3(noinit) { vec_ = v; }
         dvec3(const dvec2 &v01, double v2);
         dvec3(double v0, const dvec2 &v12);
         dvec3(const dvec4 &v);
@@ -108,10 +108,10 @@ namespace math {
 #include "vec3.hpp"
 
 namespace math {
-    inline dvec3::dvec3(const dvec2 &v01, double v2) : dvec3(uninitialize) { dvec3_init3(vec_, v01[0], v01[1], v2); }
-    inline dvec3::dvec3(double v0, const dvec2 &v12) : dvec3(uninitialize) { dvec3_init3(vec_, v0, v12[0], v12[1]); }
-    inline dvec3::dvec3(const dvec4 &v) : dvec3(uninitialize) { dvec3_init3(vec_, v[0], v[1], v[2]); }
-    inline dvec3::dvec3(const vec3 &v) : dvec3(uninitialize) { dvec3_init3(vec_, double(v[0]), double(v[1]), double(v[2])); }
+    inline dvec3::dvec3(const dvec2 &v01, double v2) : dvec3(noinit) { dvec3_init3(vec_, v01[0], v01[1], v2); }
+    inline dvec3::dvec3(double v0, const dvec2 &v12) : dvec3(noinit) { dvec3_init3(vec_, v0, v12[0], v12[1]); }
+    inline dvec3::dvec3(const dvec4 &v) : dvec3(noinit) { dvec3_init3(vec_, v[0], v[1], v[2]); }
+    inline dvec3::dvec3(const vec3 &v) : dvec3(noinit) { dvec3_init3(vec_, double(v[0]), double(v[1]), double(v[2])); }
 
     //inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
     //inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }

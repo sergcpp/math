@@ -11,19 +11,19 @@ namespace math {
 
         friend class mat4;
     public:
-        mat3(e_uninitialize) { assert(is_aligned(this, alignment)); }
+        mat3(e_noinit) { assert(is_aligned(this, alignment)); }
         mat3() : mat3(1.0f) {}
-        explicit mat3(float v) : mat3(uninitialize) { mat3_init1(vec_, v); }
+        explicit mat3(float v) : mat3(noinit) { mat3_init1(vec_, v); }
         mat3(float v00, float v01, float v02,
              float v10, float v11, float v12,
-             float v20, float v21, float v22) : mat3(uninitialize) {
+             float v20, float v21, float v22) : mat3(noinit) {
             mat3_init9(vec_, v00, v01, v02, v10, v11, v12, v20, v21, v22);
         }
-        mat3(const vec3 &v0, const vec3 &v1, const vec3 &v2) : mat3(uninitialize) {
+        mat3(const vec3 &v0, const vec3 &v1, const vec3 &v2) : mat3(noinit) {
             mat3_init3(vec_, v0.vec_, v1.vec_, v2.vec_);
         }
-        mat3(const float9 &v) : mat3(uninitialize) { vec_ = v; }
-        mat3(const mat3 &v) : mat3(uninitialize) { vec_ = v.vec_; }
+        mat3(const float9 &v) : mat3(noinit) { vec_ = v; }
+        mat3(const mat3 &v) : mat3(noinit) { vec_ = v.vec_; }
 
         class deref {
             float9 &v_; int i_;
