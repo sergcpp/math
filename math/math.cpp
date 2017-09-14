@@ -29,16 +29,16 @@ void cpuid(int info[4], int InfoType) {
 
 #if defined(__arm__)
     #ifdef __ARM_NEON__
-        #include "math_neon.hpp"
+        #include "internal/math_neon.hpp"
     #endif
 #elif defined(__EMSCRIPTEN__)
-    #include "math_sse2.hpp"
-    #include "math_sse3.hpp"
+    #include "internal/math_sse2.hpp"
+    #include "internal/math_sse3.hpp"
 #else
-    #include "math_sse2.hpp"
-    #include "math_sse3.hpp"
-    #include "math_sse4_1.hpp"
-    #include "math_avx.hpp"
+    #include "internal/math_sse2.hpp"
+    #include "internal/math_sse3.hpp"
+    #include "internal/math_sse4_1.hpp"
+    #include "internal/math_avx.hpp"
 #endif
 
 #define FUNC_LIST(NS)                                   \

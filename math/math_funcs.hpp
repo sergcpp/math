@@ -5,24 +5,24 @@
 #include <vector>
 
 #include "allocator.hpp"
-#include "math_ref.hpp"
+#include "internal/math_ref.hpp"
 
 #if defined(CPU_ARCH_SCALAR)
     #define NS ref
 #elif defined(CPU_ARCH_SSE2)
-    #include "math_sse2.hpp"
+    #include "internal/math_sse2.hpp"
     #define NS sse2
 #elif defined(CPU_ARCH_SSE3)
-    #include "math_sse3.hpp"
+    #include "internal/math_sse3.hpp"
     #define NS sse3
 #elif defined(CPU_ARCH_SSE4_1)
-    #include "math_sse4_1.hpp"
+    #include "internal/math_sse4_1.hpp"
     #define NS sse4_1
 #elif defined(CPU_ARCH_AVX)
-    #include "math_avx.hpp"
+    #include "internal/math_avx.hpp"
     #define NS avx
 #elif defined(CPU_ARCH_NEON)
-    #include "math_neon.hpp"
+    #include "internal/math_neon.hpp"
     #define NS neon
 #else
     #define CPU_ARCH_UNKNOWN
