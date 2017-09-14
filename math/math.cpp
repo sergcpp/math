@@ -627,14 +627,14 @@ void math::init_cpu(CPUFeatures &cpu) {
 #if defined(MATH_NO_INLINE)
 #define MATH_IMPL
 
-#include "math_ref.hpp"
+#include "internal/math_ref.hpp"
 #ifndef __arm__
-    #include "math_sse2.hpp"
-    #include "math_sse3.hpp"
-    #include "math_sse4_1.hpp"
-    #include "math_avx.hpp"
+    #include "internal/math_sse2.hpp"
+    #include "internal/math_sse3.hpp"
+    #include "internal/math_sse4_1.hpp"
+    #include "internal/math_avx.hpp"
 #else
-    #include "math_neon.hpp"
+    #include "internal/math_neon.hpp"
 #endif
 
 #undef MATH_IMPL

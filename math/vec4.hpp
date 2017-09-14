@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math_funcs.hpp"
+#include "internal/math_funcs.hpp"
 
 namespace math {
     class ivec4;

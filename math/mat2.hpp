@@ -1,6 +1,5 @@
 #pragma once
 
-#include "math_funcs.hpp"
 #include "vec2.hpp"
 
 namespace math {
