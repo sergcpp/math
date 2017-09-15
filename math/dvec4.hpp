@@ -109,6 +109,7 @@ namespace math {
 
 #include "dvec2.hpp"
 #include "dvec3.hpp"
+#include "vec4.hpp"
 
 namespace math {
     inline dvec4::dvec4(const dvec2 &v01, const dvec2 &v23) : dvec4(noinit) { dvec4_init4(vec_, v01[0], v01[1], v23[0], v23[1]); }
