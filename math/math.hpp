@@ -1,7 +1,5 @@
 #pragma once
 
-#include "allocator.hpp"
-
 #include "common.hpp"
 #include "exponential.hpp"
 #include "geometric.hpp"

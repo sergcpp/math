@@ -2,17 +2,34 @@
 
 #include <cmath>
 
+#include "dvec2.hpp"
+#include "dvec3.hpp"
+#include "dvec4.hpp"
 #include "vec2.hpp"
 #include "vec3.hpp"
 #include "vec4.hpp"
 #include "quat.hpp"
 
+#include "internal/allocator.hpp"
+
 namespace math {
+	template<class T> struct is_double_precision : std::false_type {};
+
+	template<> struct is_double_precision<double> : std::true_type {};
+	template<> struct is_double_precision<dvec2> : std::true_type {};
+	template<> struct is_double_precision<dvec3> : std::true_type {};
+	template<> struct is_double_precision<dvec4> : std::true_type {};
+
     // absolute value
     inline float abs(float x) { return fabs(x); }
     inline vec2 abs(const vec2 &x) { return vec2(abs(x[0]), abs(x[1])); }
     inline vec3 abs(const vec3 &x) { return vec3(abs(x[0]), abs(x[1]), abs(x[2])); }
     inline vec4 abs(const vec4 &x) { return vec4(abs(x[0]), abs(x[1]), abs(x[2]), abs(x[3])); }
+
+	inline double abs(double x) { return abs(x); }
+	inline dvec2 abs(const dvec2 &x) { return dvec2(abs(x[0]), abs(x[1])); }
+	inline dvec3 abs(const dvec3 &x) { return dvec3(abs(x[0]), abs(x[1]), abs(x[2])); }
+	inline dvec4 abs(const dvec4 &x) { return dvec4(abs(x[0]), abs(x[1]), abs(x[2]), abs(x[3])); }
 
     // returns -1.0, 0.0, or 1.0
     inline float sign(float x) { return x < 0 ? -1.0f : (x > 0 ? 1.0f : 0.0f); }

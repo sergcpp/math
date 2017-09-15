@@ -1153,7 +1153,7 @@ DEF_FUNC(void) dvec2_set(double2 &vec, int i, double v) {
 } DEF_END
 
 DEF_FUNC(double) dvec2_length(const double2 &vec) {
-    return sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
+    return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
 } DEF_END
 
 // dvec3
@@ -1210,7 +1210,7 @@ DEF_FUNC(void) dvec3_set(double3 &vec, int i, double v) {
 } DEF_END
 
 DEF_FUNC(double) dvec3_length(const double3 &vec) {
-    return sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
+    return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
 } DEF_END
 
 // dvec4
@@ -1271,8 +1271,8 @@ DEF_FUNC(void) dvec4_set(double4 &vec, int i, double v) {
 } DEF_END
 
 DEF_FUNC(double) dvec4_length(const double4 &vec) {
-    return sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] +
-                vec.comp[2] * vec.comp[2] + vec.comp[3] * vec.comp[3]);
+    return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] +
+					 vec.comp[2] * vec.comp[2] + vec.comp[3] * vec.comp[3]);
 } DEF_END
 
 // comb
