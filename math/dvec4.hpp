@@ -93,6 +93,7 @@ namespace math {
         friend vec4 atan(const vec4 &angle);*/
 
         static const size_t alignment = alignment_m256;
+		using scalar_type = double;
     };
 
     inline bool operator==(const dvec4 &v1, const dvec4 &v2) { return dvec4_eq_dvec4(v1.vec_, v2.vec_); }

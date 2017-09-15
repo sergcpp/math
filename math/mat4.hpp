@@ -85,6 +85,7 @@ namespace math {
         friend quat to_quat(const mat4 &m);
 
         static const size_t alignment = alignment_m256;
+		using scalar_type = float;
     };
 
     inline bool operator==(const mat4 &m1, const mat4 &m2) { return mat4_eq_mat4(m1.vec_, m2.vec_); }

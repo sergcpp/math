@@ -65,6 +65,7 @@ namespace math {
         friend ivec2 operator/(const ivec2 &v1, const ivec2 &v2);
 
         static const size_t alignment = alignment_m64;
+		using scalar_type = int;
     };
 
     inline bool operator==(const ivec2 &v1, const ivec2 &v2) { return ivec2_eq_ivec2(v1.vec_, v2.vec_); }

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(math)
 
 #add_definitions(-DCPU_ARCH_AVX)
-add_definitions(-DMATH_NO_INLINE)
+#add_definitions(-DMATH_NO_INLINE)
 
 set(CMAKE_CXX_STANDARD 11)
 

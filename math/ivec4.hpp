@@ -75,6 +75,7 @@ namespace math {
         friend ivec4 operator/(const ivec4 &v1, const ivec4 &v2);
 
         static const size_t alignment = alignment_m128;
+		using scalar_type = int;
     };
 
     inline bool operator==(const ivec4 &v1, const ivec4 &v2) { return ivec4_eq_ivec4(v1.vec_, v2.vec_); }

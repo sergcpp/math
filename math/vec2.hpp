@@ -90,6 +90,7 @@ namespace math {
         friend vec2 atan(const vec2 &angle);
 
         static const size_t alignment = 1;
+		using scalar_type = float;
     };
 
     inline bool operator==(const vec2 &v1, const vec2 &v2) { return vec2_eq_vec2(v1.vec_, v2.vec_); }

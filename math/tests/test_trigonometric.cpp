@@ -35,7 +35,7 @@ void test_trigonometric(math::e_arch arch) {
         assert(_deg3 == Approx(deg3));
         assert(_deg4 == Approx(deg4));
 
-        int deg_int = 4;
+        /*int deg_int = 4;
         float rad = radians(deg_int);
 
         assert(rad == Approx(0.0698132));
@@ -43,7 +43,7 @@ void test_trigonometric(math::e_arch arch) {
         int rad_int = 1;
         float deg = degrees(rad_int);
 
-        assert(deg == Approx(57.2958));
+        assert(deg == Approx(57.2958));*/
     }
 
     {

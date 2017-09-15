@@ -63,6 +63,7 @@ namespace math {
         friend const float *value_ptr(const mat2 &m);
 
         static const size_t alignment = alignment_m128;
+		using scalar_type = float;
     };
 
     inline bool operator==(const mat2 &m1, const mat2 &m2) { return mat2_eq_mat2(m1.vec_, m2.vec_); }

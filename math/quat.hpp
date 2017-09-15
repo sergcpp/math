@@ -62,6 +62,7 @@ namespace math {
         friend float dot(const quat &q1, const quat &q2);
 
         static const size_t alignment = alignment_m128;
+		using scalar_type = float;
     };
 
     inline bool operator==(const quat &q1, const quat &q2) { return quat_eq_quat(q1.vec_, q2.vec_); }
