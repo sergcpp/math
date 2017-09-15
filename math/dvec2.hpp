@@ -14,7 +14,7 @@ namespace math {
     public:
         dvec2(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec2() : dvec2(noinit) { dvec2_init1(vec_, 0); }
-        dvec2(double v) : dvec2(noinit) { dvec2_init1(vec_, v); }
+        explicit dvec2(double v) : dvec2(noinit) { dvec2_init1(vec_, v); }
         dvec2(double v0, double v1) { dvec2_init2(vec_, v0, v1); }
         dvec2(const double2 &v) { vec_ = v; }
         dvec2(const dvec3 &v);
@@ -57,7 +57,7 @@ namespace math {
         dvec2 &operator*=(const dvec2 &rhs) { (*this) = (*this) * rhs; return *this; }
         dvec2 &operator/=(const dvec2 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        dvec2 operator-() const { return (*this) * -1; }
+        inline dvec2 operator-() const;
 
         friend bool operator==(const dvec2 &v1, const dvec2 &v2);
 
@@ -93,6 +93,17 @@ namespace math {
     inline dvec2 operator-(const dvec2 &v1, const dvec2 &v2) { return dvec2(dvec2_sub_dvec2(v1.vec_, v2.vec_)); }
     inline dvec2 operator*(const dvec2 &v1, const dvec2 &v2) { return dvec2(dvec2_mul_dvec2(v1.vec_, v2.vec_)); }
     inline dvec2 operator/(const dvec2 &v1, const dvec2 &v2) { return dvec2(dvec2_div_dvec2(v1.vec_, v2.vec_)); }
+
+    inline dvec2 operator+(const dvec2 &v, double f) { return v + dvec2(f); }
+    inline dvec2 operator+(double f, const dvec2 &v) { return dvec2(f) + v; }
+    inline dvec2 operator-(const dvec2 &v, double f) { return v - dvec2(f); }
+    inline dvec2 operator-(double f, const dvec2 &v) { return dvec2(f) - v; }
+    inline dvec2 operator*(const dvec2 &v, double f) { return v * dvec2(f); }
+    inline dvec2 operator*(double f, const dvec2 &v) { return dvec2(f) * v; }
+    inline dvec2 operator/(const dvec2 &v, double f) { return v / dvec2(f); }
+    inline dvec2 operator/(double f, const dvec2 &v) { return dvec2(f) / v; }
+
+    dvec2 dvec2::operator-() const { return (*this) * -1.0; }
 
     inline dvec2 make_dvec2(const float v[2]) { return dvec2(v[0], v[1]); }
     inline const double *value_ptr(const dvec2 &v) { return &v.vec_.comp[0]; }

@@ -14,7 +14,7 @@ namespace math {
     public:
         dvec3(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec3() : dvec3(noinit) { dvec3_init1(vec_, 0); }
-        dvec3(double v) : dvec3(noinit) { dvec3_init1(vec_, v); }
+        explicit dvec3(double v) : dvec3(noinit) { dvec3_init1(vec_, v); }
         dvec3(double v0, double v1, double v2) : dvec3(noinit) { dvec3_init3(vec_, v0, v1, v2); }
         dvec3(const double3 &v) : dvec3(noinit) { vec_ = v; }
         dvec3(const dvec2 &v01, double v2);
@@ -61,7 +61,7 @@ namespace math {
         dvec3 &operator*=(const dvec3 &rhs) { (*this) = (*this) * rhs; return *this; }
         dvec3 &operator/=(const dvec3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-        dvec3 operator-() const { return (*this) * -1; }
+        inline dvec3 operator-() const;
 
         friend bool operator==(const dvec3 &v1, const dvec3 &v2);
 
@@ -98,6 +98,17 @@ namespace math {
     inline dvec3 operator-(const dvec3 &v1, const dvec3 &v2) { return dvec3(dvec3_sub_dvec3(v1.vec_, v2.vec_)); }
     inline dvec3 operator*(const dvec3 &v1, const dvec3 &v2) { return dvec3(dvec3_mul_dvec3(v1.vec_, v2.vec_)); }
     inline dvec3 operator/(const dvec3 &v1, const dvec3 &v2) { return dvec3(dvec3_div_dvec3(v1.vec_, v2.vec_)); }
+
+    inline dvec3 operator+(const dvec3 &v, double f) { return v + dvec3(f); }
+    inline dvec3 operator+(double f, const dvec3 &v) { return dvec3(f) + v; }
+    inline dvec3 operator-(const dvec3 &v, double f) { return v - dvec3(f); }
+    inline dvec3 operator-(double f, const dvec3 &v) { return dvec3(f) - v; }
+    inline dvec3 operator*(const dvec3 &v, double f) { return v * dvec3(f); }
+    inline dvec3 operator*(double f, const dvec3 &v) { return dvec3(f) * v; }
+    inline dvec3 operator/(const dvec3 &v, double f) { return v / dvec3(f); }
+    inline dvec3 operator/(double f, const dvec3 &v) { return dvec3(f) / v; }
+
+    dvec3 dvec3::operator-() const { return (*this) * -1.0; }
 
     inline dvec3 make_vec3(const double v[3]) { return dvec3(v[0], v[1], v[2]); }
     inline const double *value_ptr(const dvec3 &v) { return &v.vec_.comp[0]; }
