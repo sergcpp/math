@@ -196,7 +196,6 @@ namespace math {
     } ALIGN_M256_END;
 
     static_assert(sizeof(double4) == 32, "!");
-    static_assert(alignof(double4) == ALIGN_M256, "!");
 
     ALIGN_M64_BEG union int2 {
         __m64 vec;

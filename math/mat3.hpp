@@ -3,6 +3,7 @@
 #include "vec3.hpp"
 
 namespace math {
+	class mat4;
     class quat;
     class vec3;
 
@@ -24,6 +25,7 @@ namespace math {
         }
         mat3(const float9 &v) : mat3(noinit) { vec_ = v; }
         mat3(const mat3 &v) : mat3(noinit) { vec_ = v.vec_; }
+		mat3(const mat4 &v);
 
         class deref {
             float9 &v_; int i_;
@@ -109,8 +111,11 @@ namespace math {
     inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }
 }
 
+#include "mat4.hpp"
 #include "quat.hpp"
 
 namespace math {
+	inline mat3::mat3(const mat4 &v) : mat3(v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2], v[2][0], v[2][1], v[2][2]) {}
+
     inline quat to_quat(const mat3 &m) { return quat(mat3_to_quat(m.vec_)); }
 }
