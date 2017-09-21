@@ -12,6 +12,9 @@
 #include "quat.hpp"
 
 namespace math {
+    template <typename T, std::size_t Alignment = T::alignment>
+    using aligned_vector = std::vector<T, aligned_allocator<T, Alignment>>;
+
 	template<class T> struct is_single_precision : std::false_type {};
 	template<class T> struct is_double_precision : std::false_type {};
 
