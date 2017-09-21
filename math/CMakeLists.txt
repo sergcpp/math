@@ -11,7 +11,8 @@ ELSE(WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF(WIN32)
 
-set(SOURCE_FILES common.hpp
+set(SOURCE_FILES allocator.hpp
+				 common.hpp
                  dvec2.hpp
                  dvec3.hpp
                  dvec4.hpp
@@ -35,8 +36,7 @@ set(SOURCE_FILES common.hpp
 list(APPEND ALL_SOURCE_FILES ${SOURCE_FILES})
 source_group("src" FILES ${SOURCE_FILES})
 
-set(INTERNAL_FILES  internal/allocator.hpp
-					internal/types.hpp
+set(INTERNAL_FILES	internal/types.hpp
 					internal/math_funcs.hpp
 					internal/math_ref.hpp
 					internal/math_ref.ipp

@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "allocator.hpp"
 #include "dvec2.hpp"
 #include "dvec3.hpp"
 #include "dvec4.hpp"
@@ -9,8 +10,6 @@
 #include "vec3.hpp"
 #include "vec4.hpp"
 #include "quat.hpp"
-
-#include "internal/allocator.hpp"
 
 namespace math {
 	template<class T> struct is_single_precision : std::false_type {};
