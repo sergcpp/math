@@ -4,7 +4,12 @@ project(math)
 #add_definitions(-DCPU_ARCH_AVX)
 #add_definitions(-DMATH_NO_INLINE)
 
-set(CMAKE_CXX_STANDARD 11)
+IF(WIN32)
+
+ELSE(WIN32)
+	set(CMAKE_CXX_STANDARD 11)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+ENDIF(WIN32)
 
 set(SOURCE_FILES common.hpp
                  dvec2.hpp
