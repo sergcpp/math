@@ -190,9 +190,10 @@ namespace math {
     static_assert(sizeof(double3) == 24, "!");
 
     ALIGN_M256_BEG union double4 {
-        __m128d vec[2];
-        __m256d vec2;
-        double comp[4];
+		__m256d vec;
+        double2 vec2[2];
+		double comp[4];
+		double comp2[2][2];
     } ALIGN_M256_END;
 
     static_assert(sizeof(double4) == 32, "!");

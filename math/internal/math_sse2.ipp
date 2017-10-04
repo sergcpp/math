@@ -391,6 +391,49 @@ DEF_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2) {
     return ret;
 } DEF_END
 
+// dmat2
+DEF_FUNC(void) dmat2_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+	vec.vec2[0].vec = _mm_set_pd(v1, v0);
+	vec.vec2[1].vec = _mm_set_pd(v3, v2);
+} DEF_END
+
+DEF_FUNC(double4) dmat2_add_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec2[0].vec = _mm_add_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+	ret.vec2[1].vec = _mm_add_pd(v1.vec2[1].vec, v2.vec2[1].vec);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_sub_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec2[0].vec = _mm_sub_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+	ret.vec2[1].vec = _mm_sub_pd(v1.vec2[1].vec, v2.vec2[1].vec);
+	return ret;
+} DEF_END
+
+/*DEF_FUNC(double4) dmat2_mul_dmat2(const float4 &v1, const float4 &v2) {
+	float4 ret;
+	ret.vec = _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(2, 2, 0, 0)),
+		_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(1, 0, 1, 0))),
+		_mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 3, 1, 1)),
+			_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 2, 3, 2))));
+	return ret;
+} DEF_END*/
+
+DEF_FUNC(double4) dmat2_div_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec2[0].vec = _mm_div_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+	ret.vec2[1].vec = _mm_div_pd(v1.vec2[1].vec, v2.vec2[1].vec);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2) {
+	double4 ret;
+	ret.vec2[0].vec = _mm_mul_pd(m1.vec2[0].vec, m2.vec2[0].vec);
+	ret.vec2[1].vec = _mm_mul_pd(m1.vec2[1].vec, m2.vec2[1].vec);
+	return ret;
+} DEF_END
+
 // ivec2
 #if !defined(_M_X64)
 DEF_FUNC(void) ivec2_init1(int2 &vec, int val) {
@@ -499,39 +542,39 @@ DEF_FUNC(double3) dvec3_div_dvec3(const double3 &v1, const double3 &v2) {
 
 // dvec4
 DEF_FUNC(void) dvec4_init1(double4 &vec, double val) {
-    vec.vec[0] = vec.vec[1] = _mm_set1_pd(val);
+    vec.vec2[0].vec = vec.vec2[1].vec = _mm_set1_pd(val);
 } DEF_END
 
 DEF_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
-    vec.vec[0] = _mm_set_pd(v1, v0);
-    vec.vec[1] = _mm_set_pd(v3, v2);
+    vec.vec2[0].vec = _mm_set_pd(v1, v0);
+    vec.vec2[1].vec = _mm_set_pd(v3, v2);
 } DEF_END
 
 DEF_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    ret.vec[0] = _mm_add_pd(v1.vec[0], v2.vec[0]);
-    ret.vec[1] = _mm_add_pd(v1.vec[1], v2.vec[1]);
+    ret.vec2[0].vec = _mm_add_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+    ret.vec2[1].vec = _mm_add_pd(v1.vec2[1].vec, v2.vec2[1].vec);
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    ret.vec[0] = _mm_sub_pd(v1.vec[0], v2.vec[0]);
-    ret.vec[1] = _mm_sub_pd(v1.vec[1], v2.vec[1]);
+    ret.vec2[0].vec = _mm_sub_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+    ret.vec2[1].vec = _mm_sub_pd(v1.vec2[1].vec, v2.vec2[1].vec);
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    ret.vec[0] = _mm_mul_pd(v1.vec[0], v2.vec[0]);
-    ret.vec[1] = _mm_mul_pd(v1.vec[1], v2.vec[1]);
+    ret.vec2[0].vec = _mm_mul_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+    ret.vec2[1].vec = _mm_mul_pd(v1.vec2[1].vec, v2.vec2[1].vec);
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    ret.vec[0] = _mm_div_pd(v1.vec[0], v2.vec[0]);
-    ret.vec[1] = _mm_div_pd(v1.vec[1], v2.vec[1]);
+    ret.vec2[0].vec = _mm_div_pd(v1.vec2[0].vec, v2.vec2[0].vec);
+    ret.vec2[1].vec = _mm_div_pd(v1.vec2[1].vec, v2.vec2[1].vec);
     return ret;
 } DEF_END
 

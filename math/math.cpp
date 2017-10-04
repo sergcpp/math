@@ -88,6 +88,13 @@ void cpuid(int info[4], int InfoType) {
     NS::mat4_inverse,                                   \
                                                         \
     NS::mat4_mul_vec4,                                  \
+														\
+	NS::dmat2_init4,									\
+	NS::dmat2_add_dmat2, NS::dmat2_sub_dmat2,			\
+	NS::dmat2_mul_dmat2, NS::dmat2_div_dmat2,			\
+														\
+	NS::dmat2_comp_mul,									\
+	NS::dmat2_inverse,									\
                                                         \
     NS::ivec2_init1, NS::ivec2_init2,                   \
     NS::ivec2_add_ivec2, NS::ivec2_sub_ivec2,           \
@@ -197,6 +204,16 @@ namespace math {
     float16 (FASTCALL *mat4_inverse)(const float16 &m);
 
     float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
+
+	void (FASTCALL *dmat2_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+
+	double4(FASTCALL *dmat2_add_dmat2)(const double4 &v1, const double4 &v2);
+	double4(FASTCALL *dmat2_sub_dmat2)(const double4 &v1, const double4 &v2);
+	double4(FASTCALL *dmat2_mul_dmat2)(const double4 &v1, const double4 &v2);
+	double4(FASTCALL *dmat2_div_dmat2)(const double4 &v1, const double4 &v2);
+
+	double4(FASTCALL *dmat2_comp_mul)(const double4 &m1, const double4 &m2);
+	double4(FASTCALL *dmat2_inverse)(const double4 &m);
 
     void (FASTCALL *ivec2_init1)(int2 &vec, int val);
     void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
@@ -319,6 +336,16 @@ namespace math {
         float16 (FASTCALL *mat4_inverse)(const float16 &m);
 
         float4 (FASTCALL *mat4_mul_vec4)(const float16 &v1, const float4 &v2);
+
+		void (FASTCALL *dmat2_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+
+		double4(FASTCALL *dmat2_add_dmat2)(const double4 &v1, const double4 &v2);
+		double4(FASTCALL *dmat2_sub_dmat2)(const double4 &v1, const double4 &v2);
+		double4(FASTCALL *dmat2_mul_dmat2)(const double4 &v1, const double4 &v2);
+		double4(FASTCALL *dmat2_div_dmat2)(const double4 &v1, const double4 &v2);
+
+		double4(FASTCALL *dmat2_comp_mul)(const double4 &m1, const double4 &m2);
+		double4(FASTCALL *dmat2_inverse)(const double4 &m);
 
         void (FASTCALL *ivec2_init1)(int2 &vec, int val);
         void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
@@ -494,6 +521,16 @@ void math::init(math::e_arch arch) {
     mat4_inverse = t.mat4_inverse;
 
     mat4_mul_vec4 = t.mat4_mul_vec4;
+
+	dmat2_init4 = t.dmat2_init4;
+
+	dmat2_add_dmat2 = t.dmat2_add_dmat2;
+	dmat2_sub_dmat2 = t.dmat2_sub_dmat2;
+	dmat2_mul_dmat2 = t.dmat2_mul_dmat2;
+	dmat2_div_dmat2 = t.dmat2_div_dmat2;
+
+	dmat2_comp_mul = t.dmat2_comp_mul;
+	dmat2_inverse = t.dmat2_inverse;
 
     ivec2_init1 = t.ivec2_init1;
     ivec2_init2 = t.ivec2_init2;

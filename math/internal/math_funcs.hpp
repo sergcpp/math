@@ -261,6 +261,40 @@ namespace math {
 
     using NS::vec4_mul_mat4;
 
+	// dmat2
+#if !defined(CPU_ARCH_UNKNOWN)
+	using NS::dmat2_init4;
+
+	using NS::dmat2_add_dmat2;
+	using NS::dmat2_sub_dmat2;
+	using NS::dmat2_mul_dmat2;
+	using NS::dmat2_div_dmat2;
+
+	using NS::dmat2_comp_mul;
+	using NS::dmat2_inverse;
+#else
+	extern void (FASTCALL *dmat2_init4)(double4 &vec, double v0, double v1, double v2, double v3);
+
+	extern double4(FASTCALL *dmat2_add_dmat2)(const double4 &v1, const double4 &v2);
+	extern double4(FASTCALL *dmat2_sub_dmat2)(const double4 &v1, const double4 &v2);
+	extern double4(FASTCALL *dmat2_mul_dmat2)(const double4 &v1, const double4 &v2);
+	extern double4(FASTCALL *dmat2_div_dmat2)(const double4 &v1, const double4 &v2);
+
+	extern double4(FASTCALL *dmat2_comp_mul)(const double4 &m1, const double4 &m2);
+	extern double4(FASTCALL *dmat2_inverse)(const double4 &m);
+#endif
+
+	using NS::dmat2_init1;
+	using NS::dmat2_init2;
+
+	using NS::dmat2_eq_dmat2;
+
+	using NS::dmat2_get;
+	using NS::dmat2_set;
+
+	using NS::dmat2_mul_dvec2;
+	using NS::dvec2_mul_dmat2;
+
     // ivec2
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec2_init1;

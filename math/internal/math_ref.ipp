@@ -750,6 +750,91 @@ DEF_FUNC(float16) mat4_inverse(const float16 &m) {
     return ret;
 } DEF_END
 
+// dmat2
+DEF_FUNC(void) dmat2_init1(double4 &vec, double val) {
+	vec.comp[0] = vec.comp[3] = val;
+	vec.comp[1] = vec.comp[2] = 0;
+} DEF_END
+
+DEF_FUNC(void) dmat2_init2(double4 &vec, const double2 &v01, const double2 &v23) {
+	vec.vec2[0] = v01;
+	vec.vec2[1] = v23;
+} DEF_END
+
+DEF_FUNC(void) dmat2_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+	vec.comp[0] = v0; vec.comp[1] = v1;
+	vec.comp[2] = v2; vec.comp[3] = v3;
+} DEF_END
+
+DEF_FUNC(bool) dmat2_eq_dmat2(const double4 &m1, const double4 &m2) {
+	return m1.comp[0] == m2.comp[0] && m1.comp[1] == m2.comp[1] &&
+		   m1.comp[2] == m2.comp[2] && m1.comp[3] == m2.comp[3];
+}
+
+DEF_FUNC(double4) dmat2_add_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.comp[0] = v1.comp[0] + v2.comp[0];
+	ret.comp[1] = v1.comp[1] + v2.comp[1];
+	ret.comp[2] = v1.comp[2] + v2.comp[2];
+	ret.comp[3] = v1.comp[3] + v2.comp[3];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_sub_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.comp[0] = v1.comp[0] - v2.comp[0];
+	ret.comp[1] = v1.comp[1] - v2.comp[1];
+	ret.comp[2] = v1.comp[2] - v2.comp[2];
+	ret.comp[3] = v1.comp[3] - v2.comp[3];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_mul_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.comp2[0][0] = v1.comp2[0][0] * v2.comp2[0][0] + v1.comp2[1][0] * v2.comp2[0][1];
+	ret.comp2[0][1] = v1.comp2[0][1] * v2.comp2[0][0] + v1.comp2[1][1] * v2.comp2[0][1];
+	ret.comp2[1][0] = v1.comp2[0][0] * v2.comp2[1][0] + v1.comp2[1][0] * v2.comp2[1][1];
+	ret.comp2[1][1] = v1.comp2[0][1] * v2.comp2[1][0] + v1.comp2[1][1] * v2.comp2[1][1];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_div_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.comp[0] = v1.comp[0] / v2.comp[0];
+	ret.comp[1] = v1.comp[1] / v2.comp[1];
+	ret.comp[2] = v1.comp[2] / v2.comp[2];
+	ret.comp[3] = v1.comp[3] / v2.comp[3];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double2) dmat2_get(const double4 &vec, int i) {
+	return vec.vec2[i];
+} DEF_END
+
+DEF_FUNC(void) dmat2_set(double4 &vec, int i, const double2 &v) {
+	vec.vec2[i] = v;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2) {
+	double4 ret;
+	ret.comp[0] = m1.comp[0] * m2.comp[0];
+	ret.comp[1] = m1.comp[1] * m2.comp[1];
+	ret.comp[2] = m1.comp[2] * m2.comp[2];
+	ret.comp[3] = m1.comp[3] * m2.comp[3];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_inverse(const double4 &m) {
+	double inv_det = 1.0 / (m.comp2[0][0] * m.comp2[1][1] - m.comp2[1][0] * m.comp2[0][1]);
+
+	double4 ret;
+	ret.comp2[0][0] = m.comp2[1][1] * inv_det;
+	ret.comp2[0][1] = -m.comp2[0][1] * inv_det;
+	ret.comp2[1][0] = -m.comp2[1][0] * inv_det;
+	ret.comp2[1][1] = m.comp2[0][0] * inv_det;
+	return ret;
+} DEF_END
+
 // ivec2
 DEF_FUNC(void) ivec2_init1(int2 &vec, int val) {
     vec.comp[0] = vec.comp[1] = val;
@@ -1283,7 +1368,7 @@ DEF_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v) {
     return ret;
 } DEF_END
 
-    DEF_FUNC(float3) mat3_mul_vec3(const float9 &m, const float3 &v) {
+DEF_FUNC(float3) mat3_mul_vec3(const float9 &m, const float3 &v) {
     float3 ret;
     ret.comp[0] = m.comp3[0][0] * v.comp[0] + m.comp3[1][0] * v.comp[1] + m.comp3[2][0] * v.comp[2];
     ret.comp[1] = m.comp3[0][1] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[2][1] * v.comp[2];
@@ -1300,6 +1385,13 @@ DEF_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
 	ret.comp[3] = m.comp4[0][3] * v.comp[0] + m.comp4[1][3] * v.comp[1] + m.comp4[2][3] * v.comp[2] + m.comp4[3][3] * v.comp[3];
 
     return ret;
+} DEF_END
+
+DEF_FUNC(double2) dmat2_mul_dvec2(const double4 &m, const double2 &v) {
+	double2 ret;
+	ret.comp[0] = m.comp2[0][0] * v.comp[0] + m.comp2[1][0] * v.comp[1];
+	ret.comp[1] = m.comp2[0][1] * v.comp[0] + m.comp2[1][1] * v.comp[1];
+	return ret;
 } DEF_END
 
 DEF_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m) {
@@ -1325,3 +1417,10 @@ DEF_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m) {
     ret.comp[3] = m.comp4[3][0] * v.comp[0] + m.comp4[3][1] * v.comp[1] + m.comp4[3][2] * v.comp[2] + m.comp4[3][3] * v.comp[3];
     return ret;
 }
+
+DEF_FUNC(double2) dvec2_mul_dmat2(const double2 &v, const double4 &m) {
+	double2 ret;
+	ret.comp[0] = v.comp[0] * m.comp2[0][0] + v.comp[1] * m.comp2[0][1];
+	ret.comp[1] = v.comp[0] * m.comp2[1][0] + v.comp[1] * m.comp2[1][1];
+	return ret;
+} DEF_END

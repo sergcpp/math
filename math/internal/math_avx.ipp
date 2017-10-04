@@ -77,45 +77,83 @@ DEF_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2) {
     return ret;
 } DEF_END
 
+// dmat2
+DEF_FUNC(void) dmat2_init4(double4 &vec, double v0, double v1, double v2, double v3) {
+	vec.vec = _mm256_set_pd(v3, v2, v1, v0);
+} DEF_END
+
+DEF_FUNC(double4) dmat2_add_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec = _mm256_add_pd(v1.vec, v2.vec);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_sub_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec = _mm256_sub_pd(v1.vec, v2.vec);
+	return ret;
+} DEF_END
+
+/*DEF_FUNC(double4) dmat2_mul_dmat2(const float4 &v1, const float4 &v2) {
+	float4 ret;
+	ret.vec = _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(2, 2, 0, 0)),
+		_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(1, 0, 1, 0))),
+		_mm_mul_ps(_mm_shuffle_ps(v2.vec, v2.vec, _MM_SHUFFLE(3, 3, 1, 1)),
+			_mm_shuffle_ps(v1.vec, v1.vec, _MM_SHUFFLE(3, 2, 3, 2))));
+	return ret;
+} DEF_END*/
+
+DEF_FUNC(double4) dmat2_div_dmat2(const double4 &v1, const double4 &v2) {
+	double4 ret;
+	ret.vec = _mm256_div_pd(v1.vec, v2.vec);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2) {
+	double4 ret;
+	ret.vec = _mm256_mul_pd(m1.vec, m2.vec);
+	return ret;
+} DEF_END
+
 // dvec4
 DEF_FUNC(void) dvec4_init1(double4 &vec, double val) {
-    vec.vec2 = _mm256_set1_pd(val);
+    vec.vec = _mm256_set1_pd(val);
     _mm256_zeroupper();
 } DEF_END
 
 DEF_FUNC(void) dvec4_init4(double4 &vec, double v0, double v1, double v2, double v3) {
-    vec.vec2 = _mm256_set_pd(v3, v2, v1, v0);
+    vec.vec = _mm256_set_pd(v3, v2, v1, v0);
     _mm256_zeroupper();
 } DEF_END
 
 DEF_FUNC(double4) dvec4_add_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
-    ret.vec2 = _mm256_add_pd(_v1, _v2);
+    const __m256d &_v1 = v1.vec, &_v2 = v2.vec; // avoid internal compiler error in gcc 5.4
+    ret.vec = _mm256_add_pd(_v1, _v2);
     _mm256_zeroupper();
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_sub_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
-    ret.vec2 = _mm256_sub_pd(_v1, _v2);
+    const __m256d &_v1 = v1.vec, &_v2 = v2.vec; // avoid internal compiler error in gcc 5.4
+    ret.vec = _mm256_sub_pd(_v1, _v2);
     _mm256_zeroupper();
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_mul_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
-    ret.vec2 = _mm256_mul_pd(_v1, _v2);
+    const __m256d &_v1 = v1.vec, &_v2 = v2.vec; // avoid internal compiler error in gcc 5.4
+    ret.vec = _mm256_mul_pd(_v1, _v2);
     _mm256_zeroupper();
     return ret;
 } DEF_END
 
 DEF_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
     double4 ret;
-    const __m256d &_v1 = v1.vec2, &_v2 = v2.vec2; // avoid internal compiler error in gcc 5.4
-    ret.vec2 = _mm256_div_pd(_v1, _v2);
+    const __m256d &_v1 = v1.vec, &_v2 = v2.vec; // avoid internal compiler error in gcc 5.4
+    ret.vec = _mm256_div_pd(_v1, _v2);
     _mm256_zeroupper();
     return ret;
 } DEF_END

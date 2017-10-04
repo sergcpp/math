@@ -10,7 +10,7 @@ namespace math {
     class dvec2 {
         double2 vec_;
 
-        friend class mat2;
+        friend class dmat2;
     public:
         dvec2(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec2() : dvec2(noinit) { dvec2_init1(vec_, 0); }
