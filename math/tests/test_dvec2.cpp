@@ -1,106 +1,127 @@
 #include "test_assert.h"
 
+#include <iostream>
+#include <random>
+
 #include "../math.hpp"
 
-void test_dvec2(math::e_arch arch) {
+void test_dvec2(math::e_arch arch, unsigned int seed) {
     using namespace math;
 
     init(arch);
 
-    {   // basic usage
-        dvec2 v1, v2(2.3), v3(1, 2);
+	const int NUM_REPEATS = 1000;
+	std::mt19937 gen(seed);
+	std::uniform_real_distribution<double> dist(-1000000, 1000000);
 
-        assert(v2[0] == Approx(2.3) && v2[1] == Approx(2.3));
+	std::cout << "\t" << math::arch_name[arch] << " ...";
 
-        v2[0] = v2[1] = 1.3;
+    // basic usage
+	for (int i = 0; i < NUM_REPEATS; i++) {
+		double r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen);
 
-        assert(v1[0] == Approx(0) && v1[1] == Approx(0));
-        assert(v2[0] == Approx(1.3) && v2[1] == Approx(1.3));
-        assert(v3[0] == Approx(1) && v3[1] == Approx(2));
-        assert(v3.x() == Approx(1) && v3.y() == Approx(2));
-        assert(v3.r() == Approx(1) && v3.g() == Approx(2));
-        assert(v3.s() == Approx(1) && v3.t() == Approx(2));
+        dvec2 v1, v2(r1), v3(r2, r3);
+
+        assert(v2[0] == Approx(r1) && v2[1] == Approx(r1));
+
+        v2[0] = v2[1] = r4;
+
+		assert(v1[0] == Approx(0) && v1[1] == Approx(0));
+		assert(v2[0] == Approx(r4) && v2[1] == Approx(r4));
+		assert(v3[0] == Approx(r2) && v3[1] == Approx(r3));
+		assert(v3.x() == Approx(r2) && v3.y() == Approx(r3));
+		assert(v3.r() == Approx(r2) && v3.g() == Approx(r3));
+		assert(v3.s() == Approx(r2) && v3.t() == Approx(r3));
 
         dvec2 v4 = v1 + v2, v5 = v2 + v3;
 
-        assert(v4[0] == Approx(1.3) && v4[1] == Approx(1.3));
-        assert(v5[0] == Approx(2.3) && v5[1] == Approx(3.3));
+		assert(v4[0] == Approx(r4) && v4[1] == Approx(r4));
+		assert(v5[0] == Approx(r4 + r2) && v5[1] == Approx(r4 + r3));
 
         dvec2 v6 = v1 - v2, v7 = v2 - v3;
 
-        assert(v6[0] == Approx(-1.3) && v6[1] == Approx(-1.3));
-        assert(v7[0] == Approx(0.3) && v7[1] == Approx(-0.7));
+		assert(v6[0] == Approx(-r4) && v6[1] == Approx(-r4));
+		assert(v7[0] == Approx(r4 - r2) && v7[1] == Approx(r4 - r3));
 
         dvec2 v8 = v1 * v2, v9 = v2 * v3;
 
-        assert(v8[0] == Approx(0) && v8[1] == Approx(0));
-        assert(v9[0] == Approx(1.3) && v9[1] == Approx(2.6));
+		assert(v8[0] == Approx(0) && v8[1] == Approx(0));
+		assert(v9[0] == Approx(r4 * r2) && v9[1] == Approx(r4 * r3));
 
         dvec2 v10 = v1 / v2, v11 = v2 / v3;
 
-        assert(v10[0] == Approx(0) && v10[1] == Approx(0));
-        assert(v11[0] == Approx(1.3) && v11[1] == Approx(0.65));
+		assert(v10[0] == Approx(0) && v10[1] == Approx(0));
+		assert(v11[0] == Approx(r4 / r2) && v11[1] == Approx(r4 / r3));
     }
 
-    {   // additional constructors
-        dvec2 v0 = { 1, 2 }, v1(v0), v2 = v0;
+    // additional constructors
+	for (int i = 0; i < NUM_REPEATS; i++) {
+		double r1 = dist(gen), r2 = dist(gen);
 
-        assert(v0 == Approx2(1, 2)); assert(v1 == Approx2(1, 2)); assert(v2 == Approx2(1, 2));
+        dvec2 v0 = { r1, r2 }, v1(v0), v2 = v0;
+
+        assert(v0 == Approx2(r1, r2)); assert(v1 == Approx2(r1, r2)); assert(v2 == Approx2(r1, r2));
     }
 
-    {   // additional operators
-        dvec2 v0 = { 1, 2 }, v1 = { 1, 2 }, v2 = { 4.5, 3 }, v3 = { 4.5, 3 };
+    // additional operators
+	for (int i = 0; i < NUM_REPEATS; i++) {
+		double r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen);
+
+        dvec2 v0 = { r1, r2 }, v1 = { r1, r2 }, v2 = { r3, r4 }, v3 = { r3, r4 };
 
         dvec2 v4 = v0++, v5 = ++v1;
 
-        assert(v0 == Approx2(2, 3)); assert(v1 == Approx2(2, 3)); assert(v4 == Approx2(1, 2)); assert(v5 == Approx2(2, 3));
+        assert(v0 == Approx2(r1 + 1, r2 + 1)); assert(v1 == Approx2(r1 + 1, r2 + 1)); assert(v4 == Approx2(r1, r2)); assert(v5 == Approx2(r1 + 1, r2 + 1));
 
         dvec2 v6 = v2--, v7 = --v3;
 
-        assert(v2 == Approx2(3.5, 2)); assert(v3 == Approx2(3.5, 2)); assert(v6 == Approx2(4.5, 3)); assert(v7 == Approx2(3.5, 2));
+        assert(v2 == Approx2(r3 - 1, r4 - 1)); assert(v3 == Approx2(r3 - 1, r4 - 1)); assert(v6 == Approx2(r3, r4)); assert(v7 == Approx2(r3 - 1, r4 - 1));
 
-        dvec2 v8 = { 1, 2 }, v9 = { 1, 2 }, v10 = { 1, 2 }, v11 = { 1, 2 };
+        dvec2 v8 = { r1, r2 }, v9 = { r1, r2 }, v10 = { r1, r2 }, v11 = { r1, r2 };
 
-        v8 += dvec2{ 1, 2 };
-        v9 -= dvec2{ 1, 2 };
-        v10 *= dvec2{ 1, 2 };
-        v11 /= dvec2{ 1, 2 };
+        v8 += dvec2{ r5, r6 };
+        v9 -= dvec2{ r5, r6 };
+        v10 *= dvec2{ r5, r6 };
+        v11 /= dvec2{ r5, r6 };
 
-        assert(v8 == Approx2(2, 4));
-        assert(v9 == Approx2(0, 0));
-        assert(v10 == Approx2(1, 4));
-        assert(v11 == Approx2(1, 1));
+		assert(v8 == Approx2(r1 + r5, r2 + r6));
+		assert(v9 == Approx2(r1 - r5, r2 - r6));
+		assert(v10 == Approx2(r1 * r5, r2 * r6));
+		assert(v11 == Approx2(r1 / r5, r2 / r6));
 
-        dvec2 v12 = { 1, 2 };
+        dvec2 v12 = { r1, r2 };
         v12 = -v12;
 
-        assert(v12 == Approx2(-1, -2));
+        assert(v12 == Approx2(-r1, -r2));
 
         dvec2 v13 = v12;
 
         assert(v12 == v13);
         assert(v11 != v13);
 
-        dvec2 v14 = { 1, 2 };
+        dvec2 v14 = { r1, r2 };
 
         v14[0] += 1;
         v14[1] -= 1;
 
-        assert(v14 == Approx2(2, 1));
+        assert(v14 == Approx2(r1 + 1, r2 - 1));
 
         v14[0] *= 2;
         v14[1] /= 2;
 
-        assert(v14 == Approx2(4, 0.5));
+        assert(v14 == Approx2((r1 + 1) * 2, (r2 - 1) / 2));
     }
 
-    {   // arithmetics with deref
-        dvec2 vv{ 2, 2 };
+    // arithmetics with deref
+	for (int i = 0; i < NUM_REPEATS; i++) {
+		double r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen);
+
+        dvec2 vv{ r1, r2 };
         
-        double f1 = 2;
-        dvec2 v1 = { 1, 2 };
-        dvec3 v2 = { 1, 2, 3 };
-        dvec4 v3 = { 1, 2, 3, 4 };
+		double f1 = r1;
+		dvec2 v1 = { r1, r2 };
+		dvec3 v2 = { r1, r2, r3 };
+		dvec4 v3 = { r1, r2, r3, r4 };
         //mat2 m1;
         //mat3 m2;
         //mat4 m3;
@@ -113,10 +134,10 @@ void test_dvec2(math::e_arch arch) {
         //m2 = m2 * vv[0];
         //m3 = m3 * vv[0];
 
-        assert(f1 == Approx(4));
-        assert(v1 == Approx2(2, 4));
-        assert(v2 == Approx3(2, 4, 6));
-        assert(v3 == Approx4(2, 4, 6, 8));
+		assert(f1 == Approx(r1 * r1));
+		assert(v1 == Approx2(r1 * r1, r2 * r1));
+		assert(v2 == Approx3(r1 * r1, r2 * r1, r3 * r1));
+		assert(v3 == Approx4(r1 * r1, r2 * r1, r3 * r1, r4 * r1));
 
         //assert(m1[0] == Approx2(2, 0));
         //assert(m1[1] == Approx2(0, 2));
@@ -128,16 +149,23 @@ void test_dvec2(math::e_arch arch) {
         //assert(m3[2] == Approx4(0, 0, 2, 0));
         //assert(m3[3] == Approx4(0, 0, 0, 2));
     }
+
+	std::cout << "OK" << std::endl;
 }
 
 void test_dvec2() {
-    test_dvec2(math::Scalar);
+	std::random_device rd;
+	auto seed = rd();
+
+	std::cout << "test_dvec2 (seed " << seed << ")" << std::endl;
+
+    test_dvec2(math::Scalar, seed);
 #ifndef __arm__
-    test_dvec2(math::SSE2);
-    test_dvec2(math::SSE3);
-    test_dvec2(math::SSE4_1);
-    test_dvec2(math::AVX);
+    test_dvec2(math::SSE2, seed);
+    test_dvec2(math::SSE3, seed);
+    test_dvec2(math::SSE4_1, seed);
+    test_dvec2(math::AVX, seed);
 #else
-    test_dvec2(math::NEON);
+    test_dvec2(math::NEON, seed);
 #endif
 }
