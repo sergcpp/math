@@ -206,6 +206,16 @@ namespace math {
 
 	static_assert(sizeof(double9) == 72, "!");
 
+	ALIGN_M256_BEG union double16 {
+		__m128d vec[8];
+		__m256d vec2[4];
+		double4 vec4[4];
+		double comp[16];
+		double comp4[4][4];
+	} ALIGN_M256_END;
+
+	static_assert(sizeof(double16) == 128, "!");
+
     ALIGN_M64_BEG union int2 {
         __m64 vec;
         int comp[2];

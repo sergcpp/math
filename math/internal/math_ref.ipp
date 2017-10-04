@@ -961,6 +961,153 @@ DEF_FUNC(double9) dmat3_inverse(const double9 &m) {
 	return ret;
 } DEF_END
 
+// dmat4
+DEF_FUNC(void) dmat4_init1(double16 &vec, double val) {
+	vec.comp4[0][0] = vec.comp4[1][1] = vec.comp4[2][2] = vec.comp4[3][3] = val;
+	vec.comp4[0][1] = vec.comp4[0][2] = vec.comp4[0][3] =
+		vec.comp4[1][0] = vec.comp4[1][2] = vec.comp4[1][3] =
+		vec.comp4[2][0] = vec.comp4[2][1] = vec.comp4[2][3] =
+		vec.comp4[3][0] = vec.comp4[3][1] = vec.comp4[3][2] = 0;
+} DEF_END
+
+DEF_FUNC(void) dmat4_init16(double16 &vec, double v00, double v01, double v02, double v03,
+										   double v10, double v11, double v12, double v13,
+										   double v20, double v21, double v22, double v23,
+										   double v30, double v31, double v32, double v33) {
+	vec.comp4[0][0] = v00; vec.comp4[0][1] = v01; vec.comp4[0][2] = v02; vec.comp4[0][3] = v03;
+	vec.comp4[1][0] = v10; vec.comp4[1][1] = v11; vec.comp4[1][2] = v12; vec.comp4[1][3] = v13;
+	vec.comp4[2][0] = v20; vec.comp4[2][1] = v21; vec.comp4[2][2] = v22; vec.comp4[2][3] = v23;
+	vec.comp4[3][0] = v30; vec.comp4[3][1] = v31; vec.comp4[3][2] = v32; vec.comp4[3][3] = v33;
+} DEF_END
+
+DEF_FUNC(void) dmat4_init4(double16 &vec, const double4 &v0, const double4 &v1, const double4 &v2, const double4 &v3) {
+	vec.vec4[0] = v0;
+	vec.vec4[1] = v1;
+	vec.vec4[2] = v2;
+	vec.vec4[3] = v3;
+} DEF_END
+
+DEF_FUNC(bool) dmat4_eq_dmat4(const double16 &m1, const double16 &m2) {
+	return m1.comp[0] == m2.comp[0] && m1.comp[1] == m2.comp[1] && m1.comp[2] == m2.comp[2] && m1.comp[3] == m2.comp[3] &&
+		   m1.comp[4] == m2.comp[4] && m1.comp[5] == m2.comp[5] && m1.comp[6] == m2.comp[6] && m1.comp[7] == m2.comp[7] &&
+		   m1.comp[8] == m2.comp[8] && m1.comp[9] == m2.comp[9] && m1.comp[10] == m2.comp[10] && m1.comp[11] == m2.comp[11] &&
+		   m1.comp[12] == m2.comp[12] && m1.comp[13] == m2.comp[13] && m1.comp[14] == m2.comp[14] && m1.comp[15] == m2.comp[15];
+} DEF_END
+
+DEF_FUNC(double16) dmat4_add_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] + v2.comp[i];
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_sub_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] - v2.comp[i];
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_mul_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i += 4) {
+		for (int j = 0; j < 4; j++) {
+			ret.comp[i + j] = (v2.comp[i + 0] * v1.comp[j + 0]) +
+				(v2.comp[i + 1] * v1.comp[j + 4]) +
+				(v2.comp[i + 2] * v1.comp[j + 8]) +
+				(v2.comp[i + 3] * v1.comp[j + 12]);
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_div_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] / v2.comp[i];
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_mul_double(const double16 &v1, double v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] * v2;
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_div_double(const double16 &v1, double v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] / v2;
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dmat4_get(const double16 &vec, int i) {
+	return vec.vec4[i];
+} DEF_END
+
+DEF_FUNC(void) dmat4_set(double16 &vec, int i, const double4 &v) {
+	vec.vec4[i] = v;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_comp_mul(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	for (int i = 0; i < 16; i++) {
+		ret.comp[i] = v1.comp[i] * v2.comp[i];
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_inverse(const double16 &m) {
+	double A2323 = m.comp4[2][2] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][2];
+	double A1323 = m.comp4[2][1] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][1];
+	double A1223 = m.comp4[2][1] * m.comp4[3][2] - m.comp4[2][2] * m.comp4[3][1];
+	double A0323 = m.comp4[2][0] * m.comp4[3][3] - m.comp4[2][3] * m.comp4[3][0];
+	double A0223 = m.comp4[2][0] * m.comp4[3][2] - m.comp4[2][2] * m.comp4[3][0];
+	double A0123 = m.comp4[2][0] * m.comp4[3][1] - m.comp4[2][1] * m.comp4[3][0];
+	double A2313 = m.comp4[1][2] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][2];
+	double A1313 = m.comp4[1][1] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][1];
+	double A1213 = m.comp4[1][1] * m.comp4[3][2] - m.comp4[1][2] * m.comp4[3][1];
+	double A2312 = m.comp4[1][2] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][2];
+	double A1312 = m.comp4[1][1] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][1];
+	double A1212 = m.comp4[1][1] * m.comp4[2][2] - m.comp4[1][2] * m.comp4[2][1];
+	double A0313 = m.comp4[1][0] * m.comp4[3][3] - m.comp4[1][3] * m.comp4[3][0];
+	double A0213 = m.comp4[1][0] * m.comp4[3][2] - m.comp4[1][2] * m.comp4[3][0];
+	double A0312 = m.comp4[1][0] * m.comp4[2][3] - m.comp4[1][3] * m.comp4[2][0];
+	double A0212 = m.comp4[1][0] * m.comp4[2][2] - m.comp4[1][2] * m.comp4[2][0];
+	double A0113 = m.comp4[1][0] * m.comp4[3][1] - m.comp4[1][1] * m.comp4[3][0];
+	double A0112 = m.comp4[1][0] * m.comp4[2][1] - m.comp4[1][1] * m.comp4[2][0];
+
+	double inv_det = 1.0 / (m.comp4[0][0] * (m.comp4[1][1] * A2323 - m.comp4[1][2] * A1323 + m.comp4[1][3] * A1223)
+		- m.comp4[0][1] * (m.comp4[1][0] * A2323 - m.comp4[1][2] * A0323 + m.comp4[1][3] * A0223)
+		+ m.comp4[0][2] * (m.comp4[1][0] * A1323 - m.comp4[1][1] * A0323 + m.comp4[1][3] * A0123)
+		- m.comp4[0][3] * (m.comp4[1][0] * A1223 - m.comp4[1][1] * A0223 + m.comp4[1][2] * A0123));
+
+	double16 ret;
+	ret.comp4[0][0] = inv_det *   (m.comp4[1][1] * A2323 - m.comp4[1][2] * A1323 + m.comp4[1][3] * A1223);
+	ret.comp4[0][1] = inv_det * -(m.comp4[0][1] * A2323 - m.comp4[0][2] * A1323 + m.comp4[0][3] * A1223);
+	ret.comp4[0][2] = inv_det *   (m.comp4[0][1] * A2313 - m.comp4[0][2] * A1313 + m.comp4[0][3] * A1213);
+	ret.comp4[0][3] = inv_det * -(m.comp4[0][1] * A2312 - m.comp4[0][2] * A1312 + m.comp4[0][3] * A1212);
+	ret.comp4[1][0] = inv_det * -(m.comp4[1][0] * A2323 - m.comp4[1][2] * A0323 + m.comp4[1][3] * A0223);
+	ret.comp4[1][1] = inv_det *   (m.comp4[0][0] * A2323 - m.comp4[0][2] * A0323 + m.comp4[0][3] * A0223);
+	ret.comp4[1][2] = inv_det * -(m.comp4[0][0] * A2313 - m.comp4[0][2] * A0313 + m.comp4[0][3] * A0213);
+	ret.comp4[1][3] = inv_det *   (m.comp4[0][0] * A2312 - m.comp4[0][2] * A0312 + m.comp4[0][3] * A0212);
+	ret.comp4[2][0] = inv_det *   (m.comp4[1][0] * A1323 - m.comp4[1][1] * A0323 + m.comp4[1][3] * A0123);
+	ret.comp4[2][1] = inv_det * -(m.comp4[0][0] * A1323 - m.comp4[0][1] * A0323 + m.comp4[0][3] * A0123);
+	ret.comp4[2][2] = inv_det *   (m.comp4[0][0] * A1313 - m.comp4[0][1] * A0313 + m.comp4[0][3] * A0113);
+	ret.comp4[2][3] = inv_det * -(m.comp4[0][0] * A1312 - m.comp4[0][1] * A0312 + m.comp4[0][3] * A0112);
+	ret.comp4[3][0] = inv_det * -(m.comp4[1][0] * A1223 - m.comp4[1][1] * A0223 + m.comp4[1][2] * A0123);
+	ret.comp4[3][1] = inv_det *   (m.comp4[0][0] * A1223 - m.comp4[0][1] * A0223 + m.comp4[0][2] * A0123);
+	ret.comp4[3][2] = inv_det * -(m.comp4[0][0] * A1213 - m.comp4[0][1] * A0213 + m.comp4[0][2] * A0113);
+	ret.comp4[3][3] = inv_det *   (m.comp4[0][0] * A1212 - m.comp4[0][1] * A0212 + m.comp4[0][2] * A0112);
+	return ret;
+} DEF_END
+
 // ivec2
 DEF_FUNC(void) ivec2_init1(int2 &vec, int val) {
     vec.comp[0] = vec.comp[1] = val;
@@ -1500,7 +1647,7 @@ DEF_FUNC(float3) mat3_mul_vec3(const float9 &m, const float3 &v) {
     ret.comp[1] = m.comp3[0][1] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[2][1] * v.comp[2];
     ret.comp[2] = m.comp3[0][2] * v.comp[0] + m.comp3[1][2] * v.comp[1] + m.comp3[2][2] * v.comp[2];
     return ret;
-}
+} DEF_END
 
 DEF_FUNC(float4) mat4_mul_vec4(const float16 &m, const float4 &v) {
     float4 ret;
@@ -1526,7 +1673,18 @@ DEF_FUNC(double3) dmat3_mul_dvec3(const double9 &m, const double3 &v) {
 	ret.comp[1] = m.comp3[0][1] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[2][1] * v.comp[2];
 	ret.comp[2] = m.comp3[0][2] * v.comp[0] + m.comp3[1][2] * v.comp[1] + m.comp3[2][2] * v.comp[2];
 	return ret;
-}
+} DEF_END
+
+DEF_FUNC(double4) dmat4_mul_dvec4(const double16 &m, const double4 &v) {
+	double4 ret;
+
+	ret.comp[0] = m.comp4[0][0] * v.comp[0] + m.comp4[1][0] * v.comp[1] + m.comp4[2][0] * v.comp[2] + m.comp4[3][0] * v.comp[3];
+	ret.comp[1] = m.comp4[0][1] * v.comp[0] + m.comp4[1][1] * v.comp[1] + m.comp4[2][1] * v.comp[2] + m.comp4[3][1] * v.comp[3];
+	ret.comp[2] = m.comp4[0][2] * v.comp[0] + m.comp4[1][2] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[3][2] * v.comp[3];
+	ret.comp[3] = m.comp4[0][3] * v.comp[0] + m.comp4[1][3] * v.comp[1] + m.comp4[2][3] * v.comp[2] + m.comp4[3][3] * v.comp[3];
+
+	return ret;
+} DEF_END
 
 DEF_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m) {
     float2 ret;
@@ -1541,7 +1699,7 @@ DEF_FUNC(float3) vec3_mul_mat3(const float3 &v, const float9 &m) {
     ret.comp[1] = m.comp3[1][0] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[1][2] * v.comp[2];
     ret.comp[2] = m.comp3[2][0] * v.comp[0] + m.comp3[2][1] * v.comp[1] + m.comp3[2][2] * v.comp[2];
     return ret;
-}
+} DEF_END
 
 DEF_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m) {
     float4 ret;
@@ -1550,7 +1708,7 @@ DEF_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m) {
     ret.comp[2] = m.comp4[2][0] * v.comp[0] + m.comp4[2][1] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[2][3] * v.comp[3];
     ret.comp[3] = m.comp4[3][0] * v.comp[0] + m.comp4[3][1] * v.comp[1] + m.comp4[3][2] * v.comp[2] + m.comp4[3][3] * v.comp[3];
     return ret;
-}
+} DEF_END
 
 DEF_FUNC(double2) dvec2_mul_dmat2(const double2 &v, const double4 &m) {
 	double2 ret;
@@ -1565,4 +1723,13 @@ DEF_FUNC(double3) dvec3_mul_dmat3(const double3 &v, const double9 &m) {
 	ret.comp[1] = m.comp3[1][0] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[1][2] * v.comp[2];
 	ret.comp[2] = m.comp3[2][0] * v.comp[0] + m.comp3[2][1] * v.comp[1] + m.comp3[2][2] * v.comp[2];
 	return ret;
-}
+} DEF_END
+
+DEF_FUNC(double4) dvec4_mul_dmat4(const double4 &v, const double16 &m) {
+	double4 ret;
+	ret.comp[0] = m.comp4[0][0] * v.comp[0] + m.comp4[0][1] * v.comp[1] + m.comp4[0][2] * v.comp[2] + m.comp4[0][3] * v.comp[3];
+	ret.comp[1] = m.comp4[1][0] * v.comp[0] + m.comp4[1][1] * v.comp[1] + m.comp4[1][2] * v.comp[2] + m.comp4[1][3] * v.comp[3];
+	ret.comp[2] = m.comp4[2][0] * v.comp[0] + m.comp4[2][1] * v.comp[1] + m.comp4[2][2] * v.comp[2] + m.comp4[2][3] * v.comp[3];
+	ret.comp[3] = m.comp4[3][0] * v.comp[0] + m.comp4[3][1] * v.comp[1] + m.comp4[3][2] * v.comp[2] + m.comp4[3][3] * v.comp[3];
+	return ret;
+} DEF_END

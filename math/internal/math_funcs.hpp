@@ -338,6 +338,53 @@ namespace math {
 	using NS::dmat3_mul_dvec3;
 	using NS::dvec3_mul_dmat3;
 
+	// dmat4
+#if !defined(CPU_ARCH_UNKNOWN)
+	using NS::dmat4_init1;
+	using NS::dmat4_init4;
+	using NS::dmat4_init16;
+
+	using NS::dmat4_add_dmat4;
+	using NS::dmat4_sub_dmat4;
+	using NS::dmat4_mul_dmat4;
+	using NS::dmat4_div_dmat4;
+
+	using NS::dmat4_mul_double;
+	using NS::dmat4_div_double;
+
+	using NS::dmat4_comp_mul;
+
+	using NS::dmat4_mul_dvec4;
+	using NS::dmat4_inverse;
+#else
+	extern void (FASTCALL *dmat4_init1)(double16 &vec, double val);
+	extern void (FASTCALL *dmat4_init4)(double16 &vec, const double4 &v0, const double4 &v1, const double4 &v2, const double4 &v3);
+	extern void (FASTCALL *dmat4_init16)(double16 &vec, double v00, double v01, double v02, double v03,
+														double v10, double v11, double v12, double v13,
+														double v20, double v21, double v22, double v23,
+														double v30, double v31, double v32, double v33);
+
+	extern double16(FASTCALL *dmat4_add_dmat4)(const double16 &v1, const double16 &v2);
+	extern double16(FASTCALL *dmat4_sub_dmat4)(const double16 &v1, const double16 &v2);
+	extern double16(FASTCALL *dmat4_mul_dmat4)(const double16 &v1, const double16 &v2);
+	extern double16(FASTCALL *dmat4_div_dmat4)(const double16 &v1, const double16 &v2);
+
+	extern double16(FASTCALL *dmat4_mul_double)(const double16 &v1, double v2);
+	extern double16(FASTCALL *dmat4_div_double)(const double16 &v1, double v2);
+
+	extern double16(FASTCALL *dmat4_comp_mul)(const double16 &m1, const double16 &m2);
+	extern double16(FASTCALL *dmat4_inverse)(const double16 &m);
+
+	extern double4(FASTCALL *dmat4_mul_dvec4)(const double16 &v1, const double4 &v2);
+#endif
+
+	using NS::dmat4_eq_dmat4;
+
+	using NS::dmat4_get;
+	using NS::dmat4_set;
+
+	using NS::dvec4_mul_dmat4;
+
     // ivec2
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec2_init1;

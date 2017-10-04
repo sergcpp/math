@@ -24,7 +24,7 @@ inline __m128d load_double3_01(const double3 &v) {
 }
 
 inline __m128d load_double3_2X(const double3 &v) {
-    return _mm_setr_pd(v.comp[2], 2);
+    return _mm_setr_pd(v.comp[2], 0);
 }
 
 inline double3 save_double3(const __m128d &v01, const __m128d &v2X) {
@@ -431,6 +431,218 @@ DEF_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2) {
 	double4 ret;
 	ret.vec2[0].vec = _mm_mul_pd(m1.vec2[0].vec, m2.vec2[0].vec);
 	ret.vec2[1].vec = _mm_mul_pd(m1.vec2[1].vec, m2.vec2[1].vec);
+	return ret;
+} DEF_END
+
+// dmat3
+DEF_FUNC(double9) dmat3_add_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	ret.vec3[0] = save_double3(_mm_add_pd(load_double3_01(v1.vec3[0]), load_double3_01(v2.vec3[0])),
+							   _mm_add_pd(load_double3_2X(v1.vec3[0]), load_double3_2X(v2.vec3[0])));
+	ret.vec3[1] = save_double3(_mm_add_pd(load_double3_01(v1.vec3[1]), load_double3_01(v2.vec3[1])),
+							   _mm_add_pd(load_double3_2X(v1.vec3[1]), load_double3_2X(v2.vec3[1])));
+	ret.vec3[2] = save_double3(_mm_add_pd(load_double3_01(v1.vec3[2]), load_double3_01(v2.vec3[2])),
+							   _mm_add_pd(load_double3_2X(v1.vec3[2]), load_double3_2X(v2.vec3[2])));
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_sub_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	ret.vec3[0] = save_double3(_mm_sub_pd(load_double3_01(v1.vec3[0]), load_double3_01(v2.vec3[0])),
+							   _mm_sub_pd(load_double3_2X(v1.vec3[0]), load_double3_2X(v2.vec3[0])));
+	ret.vec3[1] = save_double3(_mm_sub_pd(load_double3_01(v1.vec3[1]), load_double3_01(v2.vec3[1])),
+							   _mm_sub_pd(load_double3_2X(v1.vec3[1]), load_double3_2X(v2.vec3[1])));
+	ret.vec3[2] = save_double3(_mm_sub_pd(load_double3_01(v1.vec3[2]), load_double3_01(v2.vec3[2])),
+							   _mm_sub_pd(load_double3_2X(v1.vec3[2]), load_double3_2X(v2.vec3[2])));
+	return ret;
+} DEF_END
+
+/*DEF_FUNC(float9) mat3_mul_mat3(const float9 &v1, const float9 &v2) {
+	float9 ret;
+
+	__m128 r1, r2,
+		A0 = load_float3(v1.vec3[0]), A1 = load_float3(v1.vec3[1]), A2 = load_float3(v1.vec3[2]),
+		B0 = load_float3(v2.vec3[0]), B1 = load_float3(v2.vec3[1]), B2 = load_float3(v2.vec3[2]);
+
+	r1 = _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0x00), A0);
+	r2 = _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0x00), A0);
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0x55), A1));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0x55), A1));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B0, B0, 0xAA), A2));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(B1, B1, 0xAA), A2));
+	ret.vec3[0] = save_float3(r1);
+	ret.vec3[1] = save_float3(r2);
+
+	r1 = _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0x00), A0);
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0x55), A1));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(B2, B2, 0xAA), A2));
+	ret.vec3[2] = save_float3(r1);
+
+	return ret;
+} DEF_END*/
+
+DEF_FUNC(double9) dmat3_div_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	ret.vec3[0] = save_double3(_mm_div_pd(load_double3_01(v1.vec3[0]), load_double3_01(v2.vec3[0])),
+							   _mm_div_pd(load_double3_2X(v1.vec3[0]), load_double3_2X(v2.vec3[0])));
+	ret.vec3[1] = save_double3(_mm_div_pd(load_double3_01(v1.vec3[1]), load_double3_01(v2.vec3[1])),
+							   _mm_div_pd(load_double3_2X(v1.vec3[1]), load_double3_2X(v2.vec3[1])));
+	ret.vec3[2] = save_double3(_mm_div_pd(load_double3_01(v1.vec3[2]), load_double3_01(v2.vec3[2])),
+							   _mm_div_pd(load_double3_2X(v1.vec3[2]), load_double3_2X(v2.vec3[2])));
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_comp_mul(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	ret.vec3[0] = save_double3(_mm_mul_pd(load_double3_01(v1.vec3[0]), load_double3_01(v2.vec3[0])),
+							   _mm_mul_pd(load_double3_2X(v1.vec3[0]), load_double3_2X(v2.vec3[0])));
+	ret.vec3[1] = save_double3(_mm_mul_pd(load_double3_01(v1.vec3[1]), load_double3_01(v2.vec3[1])),
+							   _mm_mul_pd(load_double3_2X(v1.vec3[1]), load_double3_2X(v2.vec3[1])));
+	ret.vec3[2] = save_double3(_mm_mul_pd(load_double3_01(v1.vec3[2]), load_double3_01(v2.vec3[2])),
+							   _mm_mul_pd(load_double3_2X(v1.vec3[2]), load_double3_2X(v2.vec3[2])));
+	return ret;
+} DEF_END
+
+// dmat4
+DEF_FUNC(void) dmat4_init1(double16 &vec, double val) {
+	vec.vec[0] = vec.vec[5] = _mm_set_pd(0, val);
+	vec.vec[2] = vec.vec[7] = _mm_set_pd(val, 0);
+	vec.vec[1] = vec.vec[3] = vec.vec[4] = vec.vec[6] = _mm_set_pd(0, 0);
+} DEF_END
+
+DEF_FUNC(void) dmat4_init16(double16 &vec, double v00, double v01, double v02, double v03,
+										  double v10, double v11, double v12, double v13,
+										  double v20, double v21, double v22, double v23,
+										  double v30, double v31, double v32, double v33) {
+	vec.vec[0] = _mm_set_pd(v01, v00);
+	vec.vec[1] = _mm_set_pd(v03, v02);
+	vec.vec[2] = _mm_set_pd(v11, v10);
+	vec.vec[3] = _mm_set_pd(v13, v12);
+	vec.vec[4] = _mm_set_pd(v21, v20);
+	vec.vec[5] = _mm_set_pd(v23, v22);
+	vec.vec[6] = _mm_set_pd(v31, v30);
+	vec.vec[7] = _mm_set_pd(v33, v32);
+} DEF_END
+
+DEF_FUNC(void) dmat4_init4(double16 &vec, const double4 &v0, const double4 &v1, const double4 &v2, const double4 &v3) {
+	vec.vec[0] = v0.vec2[0].vec;
+	vec.vec[1] = v0.vec2[1].vec;
+	vec.vec[2] = v1.vec2[0].vec;
+	vec.vec[3] = v1.vec2[1].vec;
+	vec.vec[4] = v2.vec2[0].vec;
+	vec.vec[5] = v2.vec2[1].vec;
+	vec.vec[6] = v3.vec2[0].vec;
+	vec.vec[7] = v3.vec2[1].vec;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_add_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	ret.vec[0] = _mm_add_pd(v1.vec[0], v2.vec[0]);
+	ret.vec[1] = _mm_add_pd(v1.vec[1], v2.vec[1]);
+	ret.vec[2] = _mm_add_pd(v1.vec[2], v2.vec[2]);
+	ret.vec[3] = _mm_add_pd(v1.vec[3], v2.vec[3]);
+	ret.vec[4] = _mm_add_pd(v1.vec[4], v2.vec[4]);
+	ret.vec[5] = _mm_add_pd(v1.vec[5], v2.vec[5]);
+	ret.vec[6] = _mm_add_pd(v1.vec[6], v2.vec[6]);
+	ret.vec[7] = _mm_add_pd(v1.vec[7], v2.vec[7]);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_sub_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	ret.vec[0] = _mm_sub_pd(v1.vec[0], v2.vec[0]);
+	ret.vec[1] = _mm_sub_pd(v1.vec[1], v2.vec[1]);
+	ret.vec[2] = _mm_sub_pd(v1.vec[2], v2.vec[2]);
+	ret.vec[3] = _mm_sub_pd(v1.vec[3], v2.vec[3]);
+	ret.vec[4] = _mm_sub_pd(v1.vec[4], v2.vec[4]);
+	ret.vec[5] = _mm_sub_pd(v1.vec[5], v2.vec[5]);
+	ret.vec[6] = _mm_sub_pd(v1.vec[6], v2.vec[6]);
+	ret.vec[7] = _mm_sub_pd(v1.vec[7], v2.vec[7]);
+	return ret;
+} DEF_END
+
+/*DEF_FUNC(float16) dmat4_mul_dmat4(const float16 &v1, const float16 &v2) {
+	float16 ret;
+
+	__m128 r1, r2,
+		A0 = v1.vec[0], A1 = v1.vec[1], A2 = v1.vec[2], A3 = v1.vec[3];
+
+	r1 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0x00), A0);
+	r2 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0x00), A0);
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0x55), A1));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0x55), A1));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0xAA), A2));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0xAA), A2));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[0], v2.vec[0], 0xFF), A3));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[1], v2.vec[1], 0xFF), A3));
+	ret.vec[0] = r1;
+	ret.vec[1] = r2;
+
+	r1 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0x00), A0);
+	r2 = _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0x00), A0);
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0x55), A1));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0x55), A1));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0xAA), A2));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0xAA), A2));
+	r1 = _mm_add_ps(r1, _mm_mul_ps(_mm_shuffle_ps(v2.vec[2], v2.vec[2], 0xFF), A3));
+	r2 = _mm_add_ps(r2, _mm_mul_ps(_mm_shuffle_ps(v2.vec[3], v2.vec[3], 0xFF), A3));
+	ret.vec[2] = r1;
+	ret.vec[3] = r2;
+
+	return ret;
+} DEF_END*/
+
+DEF_FUNC(double16) dmat4_div_dmat4(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	ret.vec[0] = _mm_div_pd(v1.vec[0], v2.vec[0]);
+	ret.vec[1] = _mm_div_pd(v1.vec[1], v2.vec[1]);
+	ret.vec[2] = _mm_div_pd(v1.vec[2], v2.vec[2]);
+	ret.vec[3] = _mm_div_pd(v1.vec[3], v2.vec[3]);
+	ret.vec[4] = _mm_div_pd(v1.vec[4], v2.vec[4]);
+	ret.vec[5] = _mm_div_pd(v1.vec[5], v2.vec[5]);
+	ret.vec[6] = _mm_div_pd(v1.vec[6], v2.vec[6]);
+	ret.vec[7] = _mm_div_pd(v1.vec[7], v2.vec[7]);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_mul_double(const double16 &v1, double v2) {
+	double16 ret;
+	__m128d _v2 = _mm_set1_pd(v2);
+	ret.vec[0] = _mm_mul_pd(v1.vec[0], _v2);
+	ret.vec[1] = _mm_mul_pd(v1.vec[1], _v2);
+	ret.vec[2] = _mm_mul_pd(v1.vec[2], _v2);
+	ret.vec[3] = _mm_mul_pd(v1.vec[3], _v2);
+	ret.vec[4] = _mm_mul_pd(v1.vec[4], _v2);
+	ret.vec[5] = _mm_mul_pd(v1.vec[5], _v2);
+	ret.vec[6] = _mm_mul_pd(v1.vec[6], _v2);
+	ret.vec[7] = _mm_mul_pd(v1.vec[7], _v2);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_div_double(const double16 &v1, double v2) {
+	double16 ret;
+	__m128d _v2 = _mm_set1_pd(v2);
+	ret.vec[0] = _mm_div_pd(v1.vec[0], _v2);
+	ret.vec[1] = _mm_div_pd(v1.vec[1], _v2);
+	ret.vec[2] = _mm_div_pd(v1.vec[2], _v2);
+	ret.vec[3] = _mm_div_pd(v1.vec[3], _v2);
+	ret.vec[4] = _mm_div_pd(v1.vec[4], _v2);
+	ret.vec[5] = _mm_div_pd(v1.vec[5], _v2);
+	ret.vec[6] = _mm_div_pd(v1.vec[6], _v2);
+	ret.vec[7] = _mm_div_pd(v1.vec[7], _v2);
+	return ret;
+} DEF_END
+
+DEF_FUNC(double16) dmat4_comp_mul(const double16 &v1, const double16 &v2) {
+	double16 ret;
+	ret.vec[0] = _mm_mul_pd(v1.vec[0], v2.vec[0]);
+	ret.vec[1] = _mm_mul_pd(v1.vec[1], v2.vec[1]);
+	ret.vec[2] = _mm_mul_pd(v1.vec[2], v2.vec[2]);
+	ret.vec[3] = _mm_mul_pd(v1.vec[3], v2.vec[3]);
+	ret.vec[4] = _mm_mul_pd(v1.vec[4], v2.vec[4]);
+	ret.vec[5] = _mm_mul_pd(v1.vec[5], v2.vec[5]);
+	ret.vec[6] = _mm_mul_pd(v1.vec[6], v2.vec[6]);
+	ret.vec[7] = _mm_mul_pd(v1.vec[7], v2.vec[7]);
 	return ret;
 } DEF_END
 

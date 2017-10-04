@@ -11,6 +11,7 @@
 #include "mat4.hpp"
 #include "dmat2.hpp"
 #include "dmat3.hpp"
+#include "dmat4.hpp"
 #include "quat.hpp"
 
 #include "ivec2.hpp"

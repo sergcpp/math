@@ -141,12 +141,12 @@ void test_dmat3(math::e_arch arch, unsigned seed) {
 
     // additional constructors
     for (int i = 0; i < NUM_REPEATS; i++) {
-        float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
-              r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
+        double r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
+               r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
 
-        mat3 m0 = { { r1, r2, r3 }, 
-                    { r4, r5, r6 },
-                    { r7, r8, r9 } }, m1(m0), m2 = m0;
+        dmat3 m0 = { { r1, r2, r3 }, 
+                     { r4, r5, r6 },
+                     { r7, r8, r9 } }, m1(m0), m2 = m0;
 
         assert(m0[0] == Approx3(r1, r2, r3) &&
                m0[1] == Approx3(r4, r5, r6) &&

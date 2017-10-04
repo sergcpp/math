@@ -66,6 +66,28 @@ namespace sse2 {
 	DECL_FUNC(double4) dmat2_div_mat2(const double4 &v1, const double4 &v2);
 	DECL_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2);
 
+	// dmat3
+	DECL_FUNC(double9) dmat3_add_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_sub_dmat3(const double9 &v1, const double9 &v2);
+	//DECL_FUNC(double9) dmat3_mul_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_div_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_comp_mul(const double9 &v1, const double9 &v2);
+
+	// dmat4
+	DECL_FUNC(void) dmat4_init1(double16 &vec, double val);
+	DECL_FUNC(void) dmat4_init16(double16 &vec, double v00, double v01, double v02, double v03,
+												double v10, double v11, double v12, double v13,
+												double v20, double v21, double v22, double v23,
+												double v30, double v31, double v32, double v33);
+	DECL_FUNC(void) dmat4_init4(double16 &vec, const double4 &v0, const double4 &v1, const double4 &v2, const double4 &v3);
+	DECL_FUNC(double16) dmat4_add_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_sub_dmat4(const double16 &v1, const double16 &v2);
+	//DECL_FUNC(double16) dmat4_mul_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_div_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_mul_double(const double16 &v1, double v2);
+	DECL_FUNC(double16) dmat4_div_double(const double16 &v1, double v2);
+	DECL_FUNC(double16) dmat4_comp_mul(const double16 &v1, const double16 &v2);
+
 	// ivec2
 	DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
 	DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
