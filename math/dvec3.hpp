@@ -10,7 +10,7 @@ namespace math {
     class dvec3 {
         double3 vec_;
 
-        friend class mat3;
+        friend class dmat3;
     public:
         dvec3(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec3() : dvec3(noinit) { dvec3_init1(vec_, 0); }
@@ -70,8 +70,8 @@ namespace math {
         friend dvec3 operator*(const dvec3 &v1, const dvec3 &v2);
         friend dvec3 operator/(const dvec3 &v1, const dvec3 &v2);
 
-        //friend dvec3 operator*(const mat3 &m, const vec3 &v);
-        //friend dvec3 operator*(const vec3 &v, const mat3 &m);
+        friend dvec3 operator*(const dmat3 &m, const dvec3 &v);
+        friend dvec3 operator*(const dvec3 &v, const dmat3 &m);
 
         friend const double *value_ptr(const dvec3 &v);
 

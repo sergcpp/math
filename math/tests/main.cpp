@@ -6,6 +6,7 @@ void test_mat2();
 void test_mat3();
 void test_mat4();
 void test_dmat2();
+void test_dmat3();
 void test_ivec2();
 void test_ivec3();
 void test_ivec4();
@@ -31,6 +32,7 @@ int main() {
     test_mat3();
     test_mat4();
 	test_dmat2();
+	test_dmat3();
     test_ivec2();
     test_ivec3();
     test_ivec4();

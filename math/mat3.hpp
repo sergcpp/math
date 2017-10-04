@@ -5,7 +5,6 @@
 namespace math {
 	class mat4;
     class quat;
-    class vec3;
 
     class mat3 {
         float9 vec_;

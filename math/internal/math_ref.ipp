@@ -835,6 +835,132 @@ DEF_FUNC(double4) dmat2_inverse(const double4 &m) {
 	return ret;
 } DEF_END
 
+// dmat3
+DEF_FUNC(void) dmat3_init1(double9 &vec, double val) {
+	vec.comp3[0][0] = vec.comp3[1][1] = vec.comp3[2][2] = val;
+	vec.comp3[0][1] = vec.comp3[0][2] =
+		vec.comp3[1][0] = vec.comp3[1][2] =
+		vec.comp3[2][0] = vec.comp3[2][1] = 0;
+} DEF_END
+
+DEF_FUNC(void) dmat3_init9(double9 &vec, double v00, double v01, double v02,
+										 double v10, double v11, double v12,
+										 double v20, double v21, double v22) {
+	vec.comp3[0][0] = v00; vec.comp3[0][1] = v01; vec.comp3[0][2] = v02;
+	vec.comp3[1][0] = v10; vec.comp3[1][1] = v11; vec.comp3[1][2] = v12;
+	vec.comp3[2][0] = v20; vec.comp3[2][1] = v21; vec.comp3[2][2] = v22;
+} DEF_END
+
+DEF_FUNC(void) dmat3_init3(double9 &vec, const double3 &v0, const double3 &v1, const double3 &v2) {
+	vec.vec3[0] = v0;
+	vec.vec3[1] = v1;
+	vec.vec3[2] = v2;
+} DEF_END
+
+DEF_FUNC(bool) dmat3_eq_dmat3(const double9 &m1, const double9 &m2) {
+	return m1.comp3[0][0] == m2.comp3[0][0] && m1.comp3[0][1] == m2.comp3[0][1] && m1.comp3[0][2] == m2.comp3[0][2] &&
+		   m1.comp3[1][0] == m2.comp3[1][0] && m1.comp3[1][1] == m2.comp3[1][1] && m1.comp3[1][2] == m2.comp3[1][2] &&
+		   m1.comp3[2][0] == m2.comp3[2][0] && m1.comp3[2][1] == m2.comp3[2][1] && m1.comp3[2][2] == m2.comp3[2][2];
+}
+
+DEF_FUNC(double9) dmat3_add_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] + v2.comp3[i][j];
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_sub_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] - v2.comp3[i][j];
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_mul_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v2.comp3[i][0] * v1.comp3[0][j] +
+				v2.comp3[i][1] * v1.comp3[1][j] +
+				v2.comp3[i][2] * v1.comp3[2][j];
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_div_dmat3(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] / v2.comp3[i][j];
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_mul_double(const double9 &v1, double v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] * v2;
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_div_double(const double9 &v1, double v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] / v2;
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double3) dmat3_get(const double9 &vec, int i) {
+	return vec.vec3[i];
+} DEF_END
+
+DEF_FUNC(void) dmat3_set(double9 &vec, int i, const double3 &v) {
+	vec.vec3[i] = v;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_comp_mul(const double9 &v1, const double9 &v2) {
+	double9 ret;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			ret.comp3[i][j] = v1.comp3[i][j] * v2.comp3[i][j];
+		}
+	}
+	return ret;
+} DEF_END
+
+DEF_FUNC(double9) dmat3_inverse(const double9 &m) {
+	double inv_det = 1.0 / (m.comp3[0][0] * (m.comp3[1][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[1][2])
+		- m.comp3[1][0] * (m.comp3[0][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[0][2])
+		+ m.comp3[2][0] * (m.comp3[0][1] * m.comp3[1][2] - m.comp3[1][1] * m.comp3[0][2]));
+
+	double9 ret;
+	ret.comp3[0][0] = +(m.comp3[1][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[1][2]) * inv_det;
+	ret.comp3[1][0] = -(m.comp3[1][0] * m.comp3[2][2] - m.comp3[2][0] * m.comp3[1][2]) * inv_det;
+	ret.comp3[2][0] = +(m.comp3[1][0] * m.comp3[2][1] - m.comp3[2][0] * m.comp3[1][1]) * inv_det;
+	ret.comp3[0][1] = -(m.comp3[0][1] * m.comp3[2][2] - m.comp3[2][1] * m.comp3[0][2]) * inv_det;
+	ret.comp3[1][1] = +(m.comp3[0][0] * m.comp3[2][2] - m.comp3[2][0] * m.comp3[0][2]) * inv_det;
+	ret.comp3[2][1] = -(m.comp3[0][0] * m.comp3[2][1] - m.comp3[2][0] * m.comp3[0][1]) * inv_det;
+	ret.comp3[0][2] = +(m.comp3[0][1] * m.comp3[1][2] - m.comp3[1][1] * m.comp3[0][2]) * inv_det;
+	ret.comp3[1][2] = -(m.comp3[0][0] * m.comp3[1][2] - m.comp3[1][0] * m.comp3[0][2]) * inv_det;
+	ret.comp3[2][2] = +(m.comp3[0][0] * m.comp3[1][1] - m.comp3[1][0] * m.comp3[0][1]) * inv_det;
+	return ret;
+} DEF_END
+
 // ivec2
 DEF_FUNC(void) ivec2_init1(int2 &vec, int val) {
     vec.comp[0] = vec.comp[1] = val;
@@ -1394,6 +1520,14 @@ DEF_FUNC(double2) dmat2_mul_dvec2(const double4 &m, const double2 &v) {
 	return ret;
 } DEF_END
 
+DEF_FUNC(double3) dmat3_mul_dvec3(const double9 &m, const double3 &v) {
+	double3 ret;
+	ret.comp[0] = m.comp3[0][0] * v.comp[0] + m.comp3[1][0] * v.comp[1] + m.comp3[2][0] * v.comp[2];
+	ret.comp[1] = m.comp3[0][1] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[2][1] * v.comp[2];
+	ret.comp[2] = m.comp3[0][2] * v.comp[0] + m.comp3[1][2] * v.comp[1] + m.comp3[2][2] * v.comp[2];
+	return ret;
+}
+
 DEF_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m) {
     float2 ret;
     ret.comp[0] = v.comp[0] * m.comp2[0][0] + v.comp[1] * m.comp2[0][1];
@@ -1424,3 +1558,11 @@ DEF_FUNC(double2) dvec2_mul_dmat2(const double2 &v, const double4 &m) {
 	ret.comp[1] = v.comp[0] * m.comp2[1][0] + v.comp[1] * m.comp2[1][1];
 	return ret;
 } DEF_END
+
+DEF_FUNC(double3) dvec3_mul_dmat3(const double3 &v, const double9 &m) {
+	double3 ret;
+	ret.comp[0] = m.comp3[0][0] * v.comp[0] + m.comp3[0][1] * v.comp[1] + m.comp3[0][2] * v.comp[2];
+	ret.comp[1] = m.comp3[1][0] * v.comp[0] + m.comp3[1][1] * v.comp[1] + m.comp3[1][2] * v.comp[2];
+	ret.comp[2] = m.comp3[2][0] * v.comp[0] + m.comp3[2][1] * v.comp[1] + m.comp3[2][2] * v.comp[2];
+	return ret;
+}

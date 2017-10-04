@@ -14,6 +14,7 @@ ENDIF(WIN32)
 set(SOURCE_FILES allocator.hpp
 				 common.hpp
 				 dmat2.hpp
+				 dmat3.hpp
                  dvec2.hpp
                  dvec3.hpp
                  dvec4.hpp

@@ -295,6 +295,49 @@ namespace math {
 	using NS::dmat2_mul_dvec2;
 	using NS::dvec2_mul_dmat2;
 
+	// dmat3
+#if !defined(CPU_ARCH_UNKNOWN)
+	using NS::dmat3_init1;
+	using NS::dmat3_init3;
+	using NS::dmat3_init9;
+
+	using NS::dmat3_add_dmat3;
+	using NS::dmat3_sub_dmat3;
+	using NS::dmat3_mul_dmat3;
+	using NS::dmat3_div_dmat3;
+
+	using NS::dmat3_mul_double;
+	using NS::dmat3_div_double;
+
+	using NS::dmat3_comp_mul;
+	using NS::dmat3_inverse;
+#else
+	extern void (FASTCALL *dmat3_init1)(double9 &vec, double val);
+	extern void (FASTCALL *dmat3_init3)(double9 &vec, const double3 &v0, const double3 &v1, const double3 &v2);
+	extern void (FASTCALL *dmat3_init9)(double9 &vec, double v00, double v01, double v02,
+													  double v10, double v11, double v12,
+													  double v20, double v21, double v22);
+
+	extern double9(FASTCALL *dmat3_add_dmat3)(const double9 &v1, const double9 &v2);
+	extern double9(FASTCALL *dmat3_sub_dmat3)(const double9 &v1, const double9 &v2);
+	extern double9(FASTCALL *dmat3_mul_dmat3)(const double9 &v1, const double9 &v2);
+	extern double9(FASTCALL *dmat3_div_dmat3)(const double9 &v1, const double9 &v2);
+
+	extern double9(FASTCALL *dmat3_mul_double)(const double9 &v1, double v2);
+	extern double9(FASTCALL *dmat3_div_double)(const double9 &v1, double v2);
+
+	extern double9(FASTCALL *dmat3_comp_mul)(const double9 &m1, const double9 &m2);
+	extern double9(FASTCALL *dmat3_inverse)(const double9 &m);
+#endif
+
+	using NS::dmat3_eq_dmat3;
+
+	using NS::dmat3_get;
+	using NS::dmat3_set;
+
+	using NS::dmat3_mul_dvec3;
+	using NS::dvec3_mul_dmat3;
+
     // ivec2
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec2_init1;

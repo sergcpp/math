@@ -10,6 +10,7 @@
 #include "mat3.hpp"
 #include "mat4.hpp"
 #include "dmat2.hpp"
+#include "dmat3.hpp"
 #include "quat.hpp"
 
 #include "ivec2.hpp"

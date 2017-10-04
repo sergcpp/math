@@ -183,11 +183,11 @@ namespace math {
 
     static_assert(sizeof(double2) == 16, "!");
 
-    ALIGN_M32_BEG union double3 {
-        double comp[3];
-    } ALIGN_M32_END;
+	ALIGN_M32_BEG union double3 {
+		double comp[3];
+	} ALIGN_M32_END;
 
-    static_assert(sizeof(double3) == 24, "!");
+	static_assert(sizeof(double3) == 24, "!");
 
     ALIGN_M256_BEG union double4 {
 		__m256d vec;
@@ -197,6 +197,14 @@ namespace math {
     } ALIGN_M256_END;
 
     static_assert(sizeof(double4) == 32, "!");
+
+	ALIGN_M32_BEG union double9 {
+		double3 vec3[3];
+		double comp[9];
+		double comp3[3][3];
+	} ALIGN_M32_END;
+
+	static_assert(sizeof(double9) == 72, "!");
 
     ALIGN_M64_BEG union int2 {
         __m64 vec;
