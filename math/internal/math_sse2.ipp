@@ -392,6 +392,7 @@ DEF_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2) {
 } DEF_END
 
 // ivec2
+#if !defined(_M_X64)
 DEF_FUNC(void) ivec2_init1(int2 &vec, int val) {
     vec.vec = _mm_set1_pi32(val);
     _mm_empty();
@@ -415,6 +416,7 @@ DEF_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2) {
     _mm_empty();
     return ret;
 } DEF_END
+#endif
 
 // ivec4
 DEF_FUNC(void) ivec4_init1(int4 &vec, int val) {
