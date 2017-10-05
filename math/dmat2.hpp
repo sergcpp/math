@@ -87,4 +87,7 @@ namespace math {
     inline const double *value_ptr(const dmat2 &m) {
         return &m.vec_.comp[0];
     }
+
+	inline dvec2 operator*(const dmat2 &m, const dvec2 &v) { return dvec2(dmat2_mul_dvec2(m.vec_, v.vec_)); }
+	inline dvec2 operator*(const dvec2 &v, const dmat2 &m) { return dvec2(dvec2_mul_dmat2(v.vec_, m.vec_)); }
 }

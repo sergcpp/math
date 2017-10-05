@@ -76,17 +76,17 @@ namespace math {
         friend dvec4 operator*(const dvec4 &v1, const dvec4 &v2);
         friend dvec4 operator/(const dvec4 &v1, const dvec4 &v2);
 
-        //friend dvec4 operator*(const mat4 &m, const vec4 &v);
-        //friend dvec4 operator*(const vec4 &v, const mat4 &m);
+        friend dvec4 operator*(const dmat4 &m, const dvec4 &v);
+        friend dvec4 operator*(const dvec4 &v, const dmat4 &m);
 
         friend const double *value_ptr(const dvec4 &v);
 
         friend double length(const dvec4 &v);
-        /*friend float dot(const vec4 &v1, const vec4 &v2);
-        friend vec4 normalize(const vec4 &v);
-        friend vec4 normalize_fast(const vec4 &v);
+        friend double dot(const dvec4 &v1, const dvec4 &v2);
+        friend dvec4 normalize(const dvec4 &v);
+        friend dvec4 normalize_fast(const dvec4 &v);
 
-        friend vec4 sin(const vec4 &angle);
+        /*friend vec4 sin(const vec4 &angle);
         friend vec4 cos(const vec4 &angle);
         friend vec4 tan(const vec4 &angle);
         friend vec4 asin(const vec4 &angle);
@@ -132,9 +132,6 @@ namespace math {
     inline dvec4::dvec4(const dvec3 &v012, double v3) : dvec4(noinit) { dvec4_init4(vec_, v012[0], v012[1], v012[2], v3); }
     inline dvec4::dvec4(double v0, const dvec3 &v123) : dvec4(noinit) { dvec4_init4(vec_, v0, v123[0], v123[1], v123[2]); }
     inline dvec4::dvec4(const vec4 &v) : dvec4(noinit) { dvec4_init4(vec_, double(v[0]), double(v[1]), double(v[2]), double(v[3])); }
-
-    //inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
-    //inline vec4 operator*(const vec4 &v, const mat4 &m) { return vec4(vec4_mul_mat4(v.vec_, m.vec_)); }
 
     inline double operator*(double f1, const dvec4::deref &f2) { return f1 * double(f2); }
     inline double operator/(double f1, const dvec4::deref &f2) { return f1 / double(f2); }

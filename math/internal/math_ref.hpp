@@ -119,6 +119,58 @@ namespace ref {
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_inverse(const float16 &m);
 
+	// dmat2
+	DECL_FUNC(void) dmat2_init1(double4 &vec, double val);
+	DECL_FUNC(void) dmat2_init2(double4 &vec, const double2 &v01, const double2 &v23);
+	DECL_FUNC(void) dmat2_init4(double4 &vec, double v0, double v1, double v2, double v3);
+	DECL_FUNC(bool) dmat2_eq_dmat2(const double4 &m1, const double4 &m2);
+	DECL_FUNC(double4) dmat2_add_dmat2(const double4 &v1, const double4 &v2);
+	DECL_FUNC(double4) dmat2_sub_dmat2(const double4 &v1, const double4 &v2);
+	DECL_FUNC(double4) dmat2_mul_dmat2(const double4 &v1, const double4 &v2);
+	DECL_FUNC(double4) dmat2_div_dmat2(const double4 &v1, const double4 &v2);
+	DECL_FUNC(double2) dmat2_get(const double4 &vec, int i);
+	DECL_FUNC(void) dmat2_set(double4 &vec, int i, const double2 &v);
+	DECL_FUNC(double4) dmat2_comp_mul(const double4 &m1, const double4 &m2);
+	DECL_FUNC(double4) dmat2_inverse(const double4 &m);
+
+	// dmat3
+	DECL_FUNC(void) dmat3_init1(double9 &vec, double val);
+	DECL_FUNC(void) dmat3_init9(double9 &vec, double v00, double v01, double v02,
+											  double v10, double v11, double v12,
+											  double v20, double v21, double v22);
+	DECL_FUNC(void) dmat3_init3(double9 &vec, const double3 &v0, const double3 &v1, const double3 &v2);
+	DECL_FUNC(bool) dmat3_eq_dmat3(const double9 &m1, const double9 &m2);
+	DECL_FUNC(double9) dmat3_add_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_sub_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_mul_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_div_dmat3(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_mul_double(const double9 &v1, double v2);
+	DECL_FUNC(double9) dmat3_div_double(const double9 &v1, double v2);
+	DECL_FUNC(double3) dmat3_get(const double9 &vec, int i);
+	DECL_FUNC(void) dmat3_set(double9 &vec, int i, const double3 &v);
+	DECL_FUNC(double9) dmat3_comp_mul(const double9 &v1, const double9 &v2);
+	DECL_FUNC(double9) dmat3_inverse(const double9 &m);
+
+	// dmat4
+	DECL_FUNC(void) dmat4_init1(double16 &vec, double val);
+	DECL_FUNC(void) dmat4_init16(double16 &vec, double v00, double v01, double v02, double v03,
+												double v10, double v11, double v12, double v13,
+												double v20, double v21, double v22, double v23,
+												double v30, double v31, double v32, double v33);
+	DECL_FUNC(void) dmat4_init4(double16 &vec, const double4 &v0, const double4 &v1, const double4 &v2, const double4 &v3);
+	DECL_FUNC(bool) dmat4_eq_dmat4(const double16 &m1, const double16 &m2);
+	DECL_FUNC(double16) dmat4_add_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_sub_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_mul_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_div_dmat4(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_mul_double(const double16 &v1, double v2);
+	DECL_FUNC(double16) dmat4_div_double(const double16 &v1, double v2);
+	DECL_FUNC(double4) dmat4_get(const double16 &vec, int i);
+	DECL_FUNC(void) dmat4_set(double16 &vec, int i, const double4 &v);
+	DECL_FUNC(double16) dmat4_comp_mul(const double16 &v1, const double16 &v2);
+	DECL_FUNC(double16) dmat4_inverse(const double16 &m);
+
+
     // ivec2
     DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
     DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
@@ -176,6 +228,9 @@ namespace ref {
     DECL_FUNC(double) dvec2_get(const double2 &vec, int i);
     DECL_FUNC(void) dvec2_set(double2 &vec, int i, double v);
     DECL_FUNC(double) dvec2_length(const double2 &vec);
+	DECL_FUNC(double) dvec2_dot(const double2 &v1, const double2 &v2);
+	DECL_FUNC(double2) dvec2_normalize(const double2 &vec);
+	DECL_FUNC(double2) dvec2_normalize_fast(const double2 &vec);
 
     // dvec3
     DECL_FUNC(void) dvec3_init1(double3 &vec, double val);
@@ -188,6 +243,10 @@ namespace ref {
     DECL_FUNC(double) dvec3_get(const double3 &vec, int i);
     DECL_FUNC(void) dvec3_set(double3 &vec, int i, double v);
     DECL_FUNC(double) dvec3_length(const double3 &vec);
+	DECL_FUNC(double) dvec3_dot(const double3 &v1, const double3 &v2);
+	DECL_FUNC(double3) dvec3_cross(const double3 &v1, const double3 &v2);
+	DECL_FUNC(double3) dvec3_normalize(const double3 &vec);
+	DECL_FUNC(double3) dvec3_normalize_fast(const double3 &vec);
 
     // dvec4
     DECL_FUNC(void) dvec4_init1(double4 &vec, double val);
@@ -200,6 +259,9 @@ namespace ref {
     DECL_FUNC(double) dvec4_get(const double4 &vec, int i);
     DECL_FUNC(void) dvec4_set(double4 &vec, int i, double v);
     DECL_FUNC(double) dvec4_length(const double4 &vec);
+	DECL_FUNC(double) dvec4_dot(const double4 &v1, const double4 &v2);
+	DECL_FUNC(double4) dvec4_normalize(const double4 &vec);
+	DECL_FUNC(double4) dvec4_normalize_fast(const double4 &vec);
 
     // comb
     DECL_FUNC(float2) mat2_mul_vec2(const float4 &m, const float2 &v);
@@ -209,6 +271,14 @@ namespace ref {
     DECL_FUNC(float2) vec2_mul_mat2(const float2 &v, const float4 &m);
     DECL_FUNC(float3) vec3_mul_mat3(const float3 &v, const float9 &m);
     DECL_FUNC(float4) vec4_mul_mat4(const float4 &v, const float16 &m);
+
+	DECL_FUNC(double2) dmat2_mul_dvec2(const double4 &m, const double2 &v);
+	DECL_FUNC(double3) dmat3_mul_dvec3(const double9 &m, const double3 &v);
+	DECL_FUNC(double4) dmat4_mul_dvec4(const double16 &m, const double4 &v);
+
+	DECL_FUNC(double2) dvec2_mul_dmat2(const double2 &v, const double4 &m);
+	DECL_FUNC(double3) dvec3_mul_dmat3(const double3 &v, const double9 &m);
+	DECL_FUNC(double4) dvec4_mul_dmat4(const double4 &v, const double16 &m);
 }
 }
 

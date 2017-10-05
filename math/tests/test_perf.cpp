@@ -29,6 +29,30 @@ math::aligned_vector<math::vec4> create_vec4s(size_t N) {
     return vecs;
 }
 
+math::aligned_vector<math::dvec2> create_dvec2s(size_t N) {
+	math::aligned_vector<math::dvec2> vecs(N, math::noinit);
+	for (size_t i = 0; i < N; i++) {
+		vecs[i] = math::dvec2(float(i), float(i + 1));
+	}
+	return vecs;
+}
+
+math::aligned_vector<math::dvec3> create_dvec3s(size_t N) {
+	math::aligned_vector<math::dvec3> vecs(N, math::noinit);
+	for (size_t i = 0; i < N; i++) {
+		vecs[i] = math::dvec3(float(i), float(i + 1), float(i + 2));
+	}
+	return vecs;
+}
+
+math::aligned_vector<math::dvec4> create_dvec4s(size_t N) {
+	math::aligned_vector<math::dvec4> vecs(N, math::noinit);
+	for (size_t i = 0; i < N; i++) {
+		vecs[i] = math::dvec4(float(i), float(i + 1), float(i + 2), float(i + 3));
+	}
+	return vecs;
+}
+
 math::aligned_vector<math::mat2> create_mat2s(size_t N) {
     math::aligned_vector<math::mat2> mats(N, math::noinit);
     for (size_t i = 0; i < N; i++) {
@@ -56,14 +80,6 @@ math::aligned_vector<math::mat4> create_mat4s(size_t N) {
                              float(i), float(i + 1), float(i + 2), float(i + 3));
     }
     return mats;
-}
-
-math::aligned_vector<math::dvec4> create_dvec4s(size_t N) {
-    math::aligned_vector<math::dvec4> vecs(N, math::noinit);
-    for (size_t i = 0; i < N; i++) {
-        vecs[i] = math::dvec4(double(i), double(i + 1), double(i + 2), double(i + 3));
-    }
-    return vecs;
 }
 
 struct scoped_timer {
@@ -327,6 +343,72 @@ void test_vec4_normalize(const char *name, math::e_arch arch, size_t N, size_t M
     }
 }
 
+void test_dvec2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
+	using namespace std; using namespace math;
+
+	init(arch);
+
+	auto vecs = create_dvec2s(N);
+
+	scoped_timer timer = { name, arch };
+
+	for (size_t j = 0; j < M; j++) {
+		for (size_t i = 0; i < N - 1; i += 2) {
+			vecs[i] += vecs[i + 1];
+		}
+	}
+}
+
+void test_dvec2_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
+	using namespace std; using namespace math;
+
+	init(arch);
+
+	auto vecs = create_dvec2s(N);
+
+	scoped_timer timer = { name, arch };
+
+	for (size_t j = 0; j < M; j++) {
+		for (size_t i = 0; i < N - 1; i += 2) {
+			vecs[i] *= vecs[i + 1];
+		}
+	}
+}
+
+void test_dvec2_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
+	using namespace std; using namespace math;
+
+	init(arch);
+
+	auto vecs = create_dvec2s(N);
+
+	scoped_timer timer = { name, arch };
+
+	volatile double res = 0;
+	for (size_t j = 0; j < M; j++) {
+		for (size_t i = 0; i < N - 1; i += 2) {
+			res += dot(vecs[i], vecs[i + 1]);
+		}
+	}
+}
+
+void test_dvec2_len(const char *name, math::e_arch arch, size_t N, size_t M) {
+	using namespace std; using namespace math;
+
+	init(arch);
+
+	auto vecs = create_dvec2s(N);
+
+	scoped_timer timer = { name, arch };
+
+	volatile double res = 0;
+	for (size_t j = 0; j < M; j++) {
+		for (size_t i = 0; i < N - 1; i++) {
+			res += length(vecs[i]);
+		}
+	}
+}
+
 void test_mat2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
     using namespace std; using namespace math;
 
@@ -514,6 +596,11 @@ void test_perf() {
 
         //{ "mat2 add", test_mat2_add },
         //{ "mat2 mul", test_mat2_mul },
+
+		{ "dvec2 add", test_dvec2_add },
+		{ "dvec2 mul", test_dvec2_mul },
+		{ "dvec2 dot", test_dvec2_dot },
+		{ "dvec2 len", test_dvec2_len },
 
         { "mat3 add", test_mat3_add },
         { "mat3 mul", test_mat3_mul },

@@ -501,6 +501,9 @@ namespace math {
     using NS::dvec2_set;
 
     using NS::dvec2_length;
+	using NS::dvec2_dot;
+	using NS::dvec2_normalize;
+	using NS::dvec2_normalize_fast;
 
     // dvec3
 #if !defined(CPU_ARCH_UNKNOWN)
@@ -526,6 +529,10 @@ namespace math {
     using NS::dvec3_set;
 
     using NS::dvec3_length;
+	using NS::dvec3_dot;
+	using NS::dvec3_cross;
+	using NS::dvec3_normalize;
+	using NS::dvec3_normalize_fast;
 
     // dvec4
 #if !defined(CPU_ARCH_UNKNOWN)
@@ -551,6 +558,9 @@ namespace math {
     using NS::dvec4_set;
 
     using NS::dvec4_length;
+	using NS::dvec4_dot;
+	using NS::dvec4_normalize;
+	using NS::dvec4_normalize_fast;
 }
 
 #undef NS

@@ -112,6 +112,9 @@ namespace math {
     inline const double *value_ptr(const dmat4 &m) {
         return &m.vec_.comp[0];
     }
+
+	inline dvec4 operator*(const dmat4 &m, const dvec4 &v) { return dvec4(dmat4_mul_dvec4(m.vec_, v.vec_)); }
+	inline dvec4 operator*(const dvec4 &v, const dmat4 &m) { return dvec4(dvec4_mul_dmat4(v.vec_, m.vec_)); }
 }
 
 #include "mat3.hpp"

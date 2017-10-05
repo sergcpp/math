@@ -1514,6 +1514,26 @@ DEF_FUNC(double) dvec2_length(const double2 &vec) {
     return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
 } DEF_END
 
+DEF_FUNC(double) dvec2_dot(const double2 &v1, const double2 &v2) {
+	return v1.comp[0] * v2.comp[0] + v1.comp[1] * v2.comp[1];
+} DEF_END
+
+DEF_FUNC(double2) dvec2_normalize(const double2 &vec) {
+	double norm = sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
+	double2 ret;
+	ret.comp[0] = vec.comp[0] / norm;
+	ret.comp[1] = vec.comp[1] / norm;
+	return ret;
+} DEF_END
+
+DEF_FUNC(double2) dvec2_normalize_fast(const double2 &vec) {
+	double inv_norm = 1.0 / sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
+	double2 ret;
+	ret.comp[0] = vec.comp[0] * inv_norm;
+	ret.comp[1] = vec.comp[1] * inv_norm;
+	return ret;
+} DEF_END
+
 // dvec3
 DEF_FUNC(void) dvec3_init1(double3 &vec, double val) {
     vec.comp[0] = vec.comp[1] = vec.comp[2] = val;
@@ -1569,6 +1589,36 @@ DEF_FUNC(void) dvec3_set(double3 &vec, int i, double v) {
 
 DEF_FUNC(double) dvec3_length(const double3 &vec) {
     return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
+} DEF_END
+
+DEF_FUNC(double) dvec3_dot(const double3 &v1, const double3 &v2) {
+	return v1.comp[0] * v2.comp[0] + v1.comp[1] * v2.comp[1] + v1.comp[2] * v2.comp[2];
+} DEF_END
+
+DEF_FUNC(double3) dvec3_cross(const double3 &v1, const double3 &v2) {
+	double3 ret;
+	ret.comp[0] = v1.comp[1] * v2.comp[2] - v1.comp[2] * v2.comp[1];
+	ret.comp[1] = v1.comp[2] * v2.comp[0] - v1.comp[0] * v2.comp[2];
+	ret.comp[2] = v1.comp[0] * v2.comp[1] - v1.comp[1] * v2.comp[0];
+	return ret;
+} DEF_END
+
+DEF_FUNC(double3) dvec3_normalize(const double3 &vec) {
+	double norm = sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
+	double3 ret;
+	ret.comp[0] = vec.comp[0] / norm;
+	ret.comp[1] = vec.comp[1] / norm;
+	ret.comp[2] = vec.comp[2] / norm;
+	return ret;
+} DEF_END
+
+DEF_FUNC(double3) dvec3_normalize_fast(const double3 &vec) {
+	double inv_norm = 1.0 / sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] + vec.comp[2] * vec.comp[2]);
+	double3 ret;
+	ret.comp[0] = vec.comp[0] * inv_norm;
+	ret.comp[1] = vec.comp[1] * inv_norm;
+	ret.comp[2] = vec.comp[2] * inv_norm;
+	return ret;
 } DEF_END
 
 // dvec4
@@ -1631,6 +1681,33 @@ DEF_FUNC(void) dvec4_set(double4 &vec, int i, double v) {
 DEF_FUNC(double) dvec4_length(const double4 &vec) {
     return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] +
 					 vec.comp[2] * vec.comp[2] + vec.comp[3] * vec.comp[3]);
+} DEF_END
+
+DEF_FUNC(double) dvec4_dot(const double4 &v1, const double4 &v2) {
+	return v1.comp[0] * v2.comp[0] + v1.comp[1] * v2.comp[1] +
+		v1.comp[2] * v2.comp[2] + v1.comp[3] * v2.comp[3];
+} DEF_END
+
+DEF_FUNC(double4) dvec4_normalize(const double4 &vec) {
+	double norm = sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] +
+		vec.comp[2] * vec.comp[2] + vec.comp[3] * vec.comp[3]);
+	double4 ret;
+	ret.comp[0] = vec.comp[0] / norm;
+	ret.comp[1] = vec.comp[1] / norm;
+	ret.comp[2] = vec.comp[2] / norm;
+	ret.comp[3] = vec.comp[3] / norm;
+	return ret;
+} DEF_END
+
+DEF_FUNC(double4) dvec4_normalize_fast(const double4 &vec) {
+	double inv_norm = 1.0 / sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1] +
+		vec.comp[2] * vec.comp[2] + vec.comp[3] * vec.comp[3]);
+	double4 ret;
+	ret.comp[0] = vec.comp[0] * inv_norm;
+	ret.comp[1] = vec.comp[1] * inv_norm;
+	ret.comp[2] = vec.comp[2] * inv_norm;
+	ret.comp[3] = vec.comp[3] * inv_norm;
+	return ret;
 } DEF_END
 
 // comb

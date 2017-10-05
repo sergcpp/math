@@ -3,9 +3,11 @@
 #include "internal/math_funcs.hpp"
 
 namespace math {
+    class vec3;
     class dvec2;
     class dvec4;
-    class vec3;
+    class dmat3;
+    class dmat4;
 
     class dvec3 {
         double3 vec_;
@@ -76,12 +78,12 @@ namespace math {
         friend const double *value_ptr(const dvec3 &v);
 
         friend double length(const dvec3 &v);
-        /*friend float dot(const vec3 &v1, const vec3 &v2);
-        friend vec3 cross(const vec3 &v1, const vec3 &v2);
-        friend vec3 normalize(const vec3 &v);
-        friend vec3 normalize_fast(const vec3 &v);
+        friend double dot(const dvec3 &v1, const dvec3 &v2);
+        friend dvec3 cross(const dvec3 &v1, const dvec3 &v2);
+        friend dvec3 normalize(const dvec3 &v);
+        friend dvec3 normalize_fast(const dvec3 &v);
 
-        friend vec3 sin(const vec3 &angle);
+        /*friend vec3 sin(const vec3 &angle);
         friend vec3 cos(const vec3 &angle);
         friend vec3 tan(const vec3 &angle);
         friend vec3 asin(const vec3 &angle);
@@ -115,18 +117,15 @@ namespace math {
     inline const double *value_ptr(const dvec3 &v) { return &v.vec_.comp[0]; }
 }
 
+#include "vec3.hpp"
 #include "dvec2.hpp"
 #include "dvec4.hpp"
-#include "vec3.hpp"
 
 namespace math {
     inline dvec3::dvec3(const dvec2 &v01, double v2) : dvec3(noinit) { dvec3_init3(vec_, v01[0], v01[1], v2); }
     inline dvec3::dvec3(double v0, const dvec2 &v12) : dvec3(noinit) { dvec3_init3(vec_, v0, v12[0], v12[1]); }
     inline dvec3::dvec3(const dvec4 &v) : dvec3(noinit) { dvec3_init3(vec_, v[0], v[1], v[2]); }
     inline dvec3::dvec3(const vec3 &v) : dvec3(noinit) { dvec3_init3(vec_, double(v[0]), double(v[1]), double(v[2])); }
-
-    //inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
-    //inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }
 
     inline double operator*(double f1, const dvec3::deref &f2) { return f1 * double(f2); }
     inline double operator/(double f1, const dvec3::deref &f2) { return f1 / double(f2); }
