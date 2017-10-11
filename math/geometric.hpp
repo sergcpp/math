@@ -13,27 +13,22 @@
 
 namespace math {
     // length of vector
-    inline float length(float v) { return fabs(v); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type length(T v) { return std::abs(v); }
     inline float length(const vec2 &v) { return vec2_length(v.vec_); }
     inline float length(const vec3 &v) { return vec3_length(v.vec_); }
     inline float length(const vec4 &v) { return vec4_length(v.vec_); }
 
-    inline float length2(float v) { return v * v; }
-    inline float length2(const vec2 &v) { return dot(v, v); }
-    inline float length2(const vec3 &v) { return dot(v, v); }
-    inline float length2(const vec4 &v) { return dot(v, v); }
-
-    inline double length(double v) { return fabs(v); }
-    inline double length(const dvec2 &v) { return dvec2_length(v.vec_); }
-    inline double length(const dvec3 &v) { return dvec3_length(v.vec_); }
-    inline double length(const dvec4 &v) { return dvec4_length(v.vec_); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type length2(T v) { return v * v; }
+    template <typename T> typename std::enable_if<is_tvec2<T>::value, T>::type::scalar_type length2(const T &v) { return dot(v, v); }
+    template <typename T> typename std::enable_if<is_tvec3<T>::value, T>::type::scalar_type length2(const T &v) { return dot(v, v); }
+    template <typename T> typename std::enable_if<is_tvec4<T>::value, T>::type::scalar_type length2(const T &v) { return dot(v, v); }
 
     // distance between points
-    template <typename T>
-    float distance(const T &v1, const T &v2) { return length(v1 - v2); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type distance(T v1, T v2) { return length(v1 - v2); }
+	template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance(const T &v1, const T &v2) { return length(v1 - v2); }
 
-    template <typename T>
-    float distance2(const T &v1, const T &v2) { return dot(v1 - v2, v1 - v2); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type distance2(T v1, T v2) { return (v1 - v2) * (v1 - v2); }
+	template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance2(const T &v1, const T &v2) { return dot(v1 - v2, v1 - v2); }
 
     // dot product
     inline float dot(const vec2 &v1, const vec2 &v2) { return vec2_dot(v1.vec_, v2.vec_); }

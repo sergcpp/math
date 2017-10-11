@@ -2,7 +2,9 @@
 
 #ifndef __arm__
 #include <emmintrin.h>
+#ifndef __EMSCRIPTEN__
 #include <immintrin.h>
+#endif
 
 #if !defined(__AVX__) && !defined(_MSC_VER) && !defined(__linux__)
 typedef float __m256[8];
@@ -52,14 +54,13 @@ typedef float __m128[4];
     #define OMIT_FRAME_END
 #endif
 
-#if defined(ENVIRONMENT32) && !defined(__arm__)
+#if defined(ENVIRONMENT32) && !defined(__arm__) && !defined(__EMSCRIPTEN__)
     #ifdef __GNUC__
         #define FASTCALL __attribute__((fastcall))
     #else
         #define FASTCALL __fastcall
     #endif
 #else
-    // should be fastcall as it is
     #define FASTCALL
 #endif
 
