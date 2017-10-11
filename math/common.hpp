@@ -136,6 +136,33 @@ namespace math {
 
 	template <typename T>
 	typename std::enable_if<is_tvecx<T>::value, T>::type mix(const T &x, const T &y, typename T::scalar_type a) { return mix(x, y, T(a)); }
+
+	inline float castflt_up(float val) { return val; }
+
+	inline float castflt_up(double val) {
+		union {
+			float a;
+			int b;
+		};
+
+		a = (float)val;
+		if ((double)a < val)
+			b += a < 0 ? -1 : 1;
+		return a;
+	}
+
+	inline float castflt_down(float val) { return val; }
+	inline float castflt_down(double val) {
+		union {
+			float a;
+			int b;
+		};
+
+		a = (float)val;
+		if ((double)a > val)
+			b += a > 0 ? -1 : 1;
+		return a;
+	}
 }
 
 #include "trigonometric.hpp"
