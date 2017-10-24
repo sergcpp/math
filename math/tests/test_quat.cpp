@@ -15,8 +15,8 @@ void test_quat(math::e_arch arch) {
 
         assert(q1[0] == Approx(0) && q1[1] == Approx(0) && q1[2] == Approx(0) && q1[3] == Approx(1));
         assert(q2[0] == Approx(0.5) && q2[1] == Approx(0) && q2[2] == Approx(0) && q2[3] == Approx(0.5));
-        assert(q1.r() == Approx(1) && q1.i() == Approx(0) && q1.j() == Approx(0) && q1.k() == Approx(0));
-        assert(q2.r() == Approx(0.5) && q2.i() == Approx(0.5) && q2.j() == Approx(0) && q2.k() == Approx(0));
+        assert(q1.r == Approx(1) && q1.i == Approx(0) && q1.j == Approx(0) && q1.k == Approx(0));
+        assert(q2.r == Approx(0.5) && q2.i == Approx(0.5) && q2.j == Approx(0) && q2.k == Approx(0));
 
         quat q3(0.8249534f, -0.2835689f, 0.4623645f, 0.1589328f),
              q4(0.2356965f, 0.0823028f, 0.2226638f, 0.9423876f);

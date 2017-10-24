@@ -44,9 +44,6 @@ namespace math {
     using NS::vec2_mul_vec2;
     using NS::vec2_div_vec2;
 
-    using NS::vec2_get;
-    using NS::vec2_set;
-
     using NS::vec2_length;
     using NS::vec2_dot;
     using NS::vec2_normalize;
@@ -89,9 +86,6 @@ namespace math {
 #endif
     using NS::vec3_eq_vec3;
 
-    using NS::vec3_get;
-    using NS::vec3_set;
-
     using NS::vec3_sin;
     using NS::vec3_cos;
     using NS::vec3_tan;
@@ -127,8 +121,6 @@ namespace math {
     extern float4 (FASTCALL *vec4_normalize)(const float4 &vec);
     extern float4 (FASTCALL *vec4_normalize_fast)(const float4 &vec);
 #endif
-    using NS::vec4_get;
-    using NS::vec4_set;
 
     using NS::vec4_sin;
     using NS::vec4_cos;
@@ -164,9 +156,6 @@ namespace math {
     using NS::mat2_init2;
 
     using NS::mat2_eq_mat2;
-
-    using NS::mat2_get;
-    using NS::mat2_set;
 
     using NS::mat2_mul_vec2;
     using NS::vec2_mul_mat2;
@@ -207,9 +196,6 @@ namespace math {
 #endif
 
     using NS::mat3_eq_mat3;
-
-    using NS::mat3_get;
-    using NS::mat3_set;
 
     using NS::mat3_mul_vec3;
     using NS::vec3_mul_mat3;
@@ -256,9 +242,6 @@ namespace math {
 
     using NS::mat4_eq_mat4;
 
-    using NS::mat4_get;
-    using NS::mat4_set;
-
     using NS::vec4_mul_mat4;
 
     // ivec2
@@ -281,9 +264,6 @@ namespace math {
 
     using NS::ivec2_eq_ivec2;
 
-    using NS::ivec2_get;
-    using NS::ivec2_set;
-
     // ivec3
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec3_init1;
@@ -304,9 +284,6 @@ namespace math {
 
     using NS::ivec3_eq_ivec3;
 
-    using NS::ivec3_get;
-    using NS::ivec3_set;
-
     // ivec4
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::ivec4_init1;
@@ -326,9 +303,6 @@ namespace math {
 
     using NS::ivec4_eq_ivec4;
 
-    using NS::ivec4_get;
-    using NS::ivec4_set;
-
     // quat
 #if !defined(CPU_ARCH_UNKNOWN)
     using NS::quat_init4;
@@ -345,9 +319,6 @@ namespace math {
 #endif
 
     using NS::quat_eq_quat;
-
-    using NS::quat_get;
-    using NS::quat_set;
 
     using NS::quat_to_mat3;
     using NS::mat3_to_quat;
@@ -373,9 +344,6 @@ namespace math {
 
     using NS::dvec2_eq_dvec2;
 
-    using NS::dvec2_get;
-    using NS::dvec2_set;
-
     using NS::dvec2_length;
 
     // dvec3
@@ -398,9 +366,6 @@ namespace math {
 
     using NS::dvec3_eq_dvec3;
 
-    using NS::dvec3_get;
-    using NS::dvec3_set;
-
     using NS::dvec3_length;
 
     // dvec4
@@ -422,9 +387,6 @@ namespace math {
 #endif
 
     using NS::dvec4_eq_dvec4;
-
-    using NS::dvec4_get;
-    using NS::dvec4_set;
 
     using NS::dvec4_length;
 }

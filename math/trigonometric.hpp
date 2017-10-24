@@ -62,15 +62,15 @@ namespace math {
 
     // quat
     inline float roll(const quat &q) {
-        return atan2(2.0f * (q.x() * q.y() + q.w() * q.z()), q.w() * q.w() + q.x() * q.x() - q.y() * q.y() - q.z() * q.z());
+        return atan2(2.0f * (q.x * q.y + q.w * q.z), q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z);
     }
 
     inline float pitch(const quat &q) {
-        return atan2(2.0f * (q.y() * q.z() + q.w() * q.x()), q.w() * q.w() - q.x() * q.x() - q.y() * q.y() + q.z() * q.z());
+        return atan2(2.0f * (q.y * q.z + q.w * q.x), q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z);
     }
 
     inline float yaw(const quat &q) {
-        return asin(clamp(-2.0f * (q.x() * q.z() - q.w() * q.y()), -1.0f, 1.0f));
+        return asin(clamp(-2.0f * (q.x * q.z - q.w * q.y), -1.0f, 1.0f));
     }
 
     inline vec3 euler_angles(const quat &q) {
@@ -88,10 +88,10 @@ namespace math {
         }
 
         if (cos_theta > 1 - std::numeric_limits<float>::epsilon()) {
-            return quat(mix(q0.w(), q1.w(), a),
-                        mix(q0.x(), q1.x(), a),
-                        mix(q0.y(), q1.y(), a),
-                        mix(q0.z(), q1.z(), a));
+            return quat(mix(q0.w, q1.w, a),
+                        mix(q0.x, q1.x, a),
+                        mix(q0.y, q1.y, a),
+                        mix(q0.z, q1.z, a));
         } else {
             float angle = acos(cos_theta);
             return (sin((1.0f - a) * angle) * q0 + sin(a * angle) * q2) / sin(angle);

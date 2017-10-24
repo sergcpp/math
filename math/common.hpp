@@ -173,10 +173,10 @@ namespace math {
         const typename T::scalar_type cos_theta = dot(x, y);
 
         if (cos_theta > (typename T::scalar_type)(1) - std::numeric_limits<typename T::scalar_type>::epsilon()) {
-            return T(mix(x.r(), y.r(), a),
-                     mix(x.i(), y.i(), a),
-                     mix(x.j(), y.j(), a),
-                     mix(x.k(), y.k(), a));
+            return T(mix(x.r, y.r, a),
+                     mix(x.i, y.i, a),
+                     mix(x.j, y.j, a),
+                     mix(x.k, y.k, a));
         } else {
             typename T::scalar_type angle = acos(cos_theta);
             return (sin(((typename T::scalar_type)(1) - a) * angle) * x + sin(a * angle) * y) / sin(angle);

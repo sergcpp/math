@@ -5,8 +5,12 @@
 namespace math {
     // column-major !!!!
     class mat2 {
-        float4 vec_;
     public:
+		union {
+			float4 vec_;
+			vec2 v[2];;
+		};
+
         mat2(e_noinit) { assert(is_aligned(this, alignment)); }
         mat2() : mat2(1.0f) {}
         explicit mat2(float v) : mat2(noinit) { mat2_init1(vec_, v); }
@@ -15,52 +19,20 @@ namespace math {
         mat2(const float4 &v) : mat2(noinit) { vec_ = v; }
         mat2(const mat2 &m) : mat2(noinit) { vec_ = m.vec_; }
 
-        class deref {
-            float4 &v_; int i_;
-        public:
-            deref(float4 &v, int i) : v_(v), i_(i) {}
-            operator vec2() const { return mat2_get(v_, i_); }
-            deref operator=(const vec2 &rhs) { mat2_set(v_, i_, rhs.vec_); return *this; }
-            deref operator=(const deref &rhs) { return operator=((vec2)rhs); }
+        vec2 &operator[] (int i) { return v[i]; }
+        const vec2 &operator[] (int i) const { return v[i]; }
 
-            vec2::deref operator[] (int i) const { return vec2::deref(v_.vec2[i_], i); }
+        mat2 &operator++();
+        mat2 operator++(int);
+        mat2 &operator--();
+        mat2 operator--(int);
 
-            deref operator+=(const vec2 &rhs) { *this = vec2(*this) + rhs; return *this; }
-            deref operator-=(const vec2 &rhs) { *this = vec2(*this) - rhs; return *this; }
-            deref operator*=(const vec2 &rhs) { *this = vec2(*this) * rhs; return *this; }
-            deref operator/=(const vec2 &rhs) { *this = vec2(*this) / rhs; return *this; }
-        };
+        mat2 &operator+=(const mat2 &rhs);
+        mat2 &operator-=(const mat2 &rhs);
+        mat2 &operator*=(const mat2 &rhs);
+        mat2 &operator/=(const mat2 &rhs);
 
-        deref operator[] (int i) { return deref(vec_, i); }
-        vec2 operator[] (int i) const { return vec2(vec_.vec2[i]); }
-
-        mat2 &operator++() { (*this) = (*this) + mat2(1, 1, 1, 1); return *this; }
-        mat2 operator++(int) { mat2 temp = (*this); ++(*this); return temp; }
-        mat2 &operator--() { (*this) = (*this) - mat2(1, 1, 1, 1); return *this; }
-        mat2 operator--(int) { mat2 temp = (*this); --(*this); return temp; }
-
-        mat2 &operator+=(const mat2 &rhs) { (*this) = (*this) + rhs; return *this; }
-        mat2 &operator-=(const mat2 &rhs) { (*this) = (*this) - rhs; return *this; }
-        mat2 &operator*=(const mat2 &rhs) { (*this) = (*this) * rhs; return *this; }
-        mat2 &operator/=(const mat2 &rhs) { (*this) = (*this) / rhs; return *this; }
-
-        mat2 operator-() const { return matrix_comp_mult((*this), mat2(-1, -1, -1, -1)); }
-
-        friend bool operator==(const mat2 &m1, const mat2 &m2);
-
-        friend mat2 operator+(const mat2 &m1, const mat2 &m2);
-        friend mat2 operator-(const mat2 &m1, const mat2 &m2);
-        friend mat2 operator*(const mat2 &m1, const mat2 &m2);
-        friend mat2 operator/(const mat2 &m1, const mat2 &m2);
-
-        friend vec2 operator*(const mat2 &m, const vec2 &v);
-        friend vec2 operator*(const vec2 &v, const mat2 &m);
-
-        friend mat2 matrix_comp_mult(const mat2 &m1, const mat2 &m2);
-
-        friend mat2 inverse(const mat2 &m);
-
-        friend const float *value_ptr(const mat2 &m);
+        mat2 operator-() const;
 
         static const size_t alignment = alignment_m128;
 		using scalar_type = float;
@@ -74,11 +46,11 @@ namespace math {
     inline mat2 operator*(const mat2 &m1, const mat2 &m2) { return mat2(mat2_mul_mat2(m1.vec_, m2.vec_)); }
     inline mat2 operator/(const mat2 &m1, const mat2 &m2) { return mat2(mat2_div_mat2(m1.vec_, m2.vec_)); }
 
+	inline mat2 matrix_comp_mult(const mat2 &m1, const mat2 &m2) { return mat2_comp_mul(m1.vec_, m2.vec_); }
+
     inline mat2 operator*(const mat2 &m1, float v1) { return matrix_comp_mult(m1, mat2(v1, v1, v1, v1)); }
     inline mat2 operator*(float v1, const mat2 &m1) { return operator*(m1, v1); }
     inline mat2 operator/(const mat2 &m1, float v1) { return m1 / mat2(v1, v1, v1, v1); }
-
-    inline mat2 matrix_comp_mult(const mat2 &m1, const mat2 &m2) { return mat2_comp_mul(m1.vec_, m2.vec_); }
 
     inline mat2 make_mat2(const float v[4]) {
         return mat2(v[0], v[1], v[2], v[3]);
@@ -87,4 +59,16 @@ namespace math {
     inline const float *value_ptr(const mat2 &m) {
         return &m.vec_.comp[0];
     }
+
+	inline mat2 &mat2::operator++() { (*this) = (*this) + mat2(1, 1, 1, 1); return *this; }
+	inline mat2 mat2::operator++(int) { mat2 temp = (*this); ++(*this); return temp; }
+	inline mat2 &mat2::operator--() { (*this) = (*this) - mat2(1, 1, 1, 1); return *this; }
+	inline mat2 mat2::operator--(int) { mat2 temp = (*this); --(*this); return temp; }
+
+	inline mat2 &mat2::operator+=(const mat2 &rhs) { (*this) = (*this) + rhs; return *this; }
+	inline mat2 &mat2::operator-=(const mat2 &rhs) { (*this) = (*this) - rhs; return *this; }
+	inline mat2 &mat2::operator*=(const mat2 &rhs) { (*this) = (*this) * rhs; return *this; }
+	inline mat2 &mat2::operator/=(const mat2 &rhs) { (*this) = (*this) / rhs; return *this; }
+
+	inline mat2 mat2::operator-() const { return matrix_comp_mult((*this), mat2(-1, -1, -1, -1)); }
 }

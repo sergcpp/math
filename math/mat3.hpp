@@ -8,10 +8,12 @@ namespace math {
     class vec3;
 
     class mat3 {
-        float9 vec_;
-
-        friend class mat4;
     public:
+		union {
+			float9 vec_;
+			vec3 v[3];;
+		};
+
         mat3(e_noinit) { assert(is_aligned(this, alignment)); }
         mat3() : mat3(1.0f) {}
         explicit mat3(float v) : mat3(noinit) { mat3_init1(vec_, v); }
@@ -27,24 +29,8 @@ namespace math {
         mat3(const mat3 &v) : mat3(noinit) { vec_ = v.vec_; }
 		mat3(const mat4 &v);
 
-        class deref {
-            float9 &v_; int i_;
-        public:
-            deref(float9 &v, int i) : v_(v), i_(i) {}
-            operator vec3() const { return mat3_get(v_, i_); }
-            deref operator=(const vec3 &rhs) { mat3_set(v_, i_, rhs.vec_); return *this; }
-            deref operator=(const deref &rhs) { return operator=((vec3)rhs); }
-
-            vec3::deref operator[] (int i) const { return vec3::deref(v_.vec3[i_], i); }
-
-            deref operator+=(const vec3 &rhs) { *this = vec3(*this) + rhs; return *this; }
-            deref operator-=(const vec3 &rhs) { *this = vec3(*this) - rhs; return *this; }
-            deref operator*=(const vec3 &rhs) { *this = vec3(*this) * rhs; return *this; }
-            deref operator/=(const vec3 &rhs) { *this = vec3(*this) / rhs; return *this; }
-        };
-
-        deref operator[] (int i) { return deref(vec_, i); }
-        vec3 operator[] (int i) const { return vec3(vec_.vec3[i]); }
+        vec3 &operator[] (int i) { return v[i]; }
+        vec3 operator[] (int i) const { return v[i]; }
 
         mat3 &operator++() { (*this) = (*this) + mat3(1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
         mat3 operator++(int) { mat3 temp = (*this); ++(*this); return temp; }
@@ -57,27 +43,6 @@ namespace math {
         mat3 &operator/=(const mat3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
         mat3 operator-() const { return matrix_comp_mult((*this), mat3(-1, -1, -1, -1, -1, -1, -1, -1, -1)); }
-
-        friend bool operator==(const mat3 &m1, const mat3 &m2);
-
-        friend mat3 operator+(const mat3 &m1, const mat3 &m2);
-        friend mat3 operator-(const mat3 &m1, const mat3 &m2);
-        friend mat3 operator*(const mat3 &m1, const mat3 &m2);
-        friend mat3 operator/(const mat3 &m1, const mat3 &m2);
-
-        friend mat3 operator*(const mat3 &m1, float v1);
-        friend mat3 operator/(const mat3 &m1, float v1);
-
-        friend vec3 operator*(const mat3 &m, const vec3 &v);
-        friend vec3 operator*(const vec3 &v, const mat3 &m);
-
-        friend mat3 matrix_comp_mult(const mat3 &m1, const mat3 &m2);
-
-        friend mat3 inverse(const mat3 &m);
-
-        friend const float *value_ptr(const mat3 &m);
-
-        friend quat to_quat(const mat3 &m);
 
         static const size_t alignment = alignment_m32;
 		using scalar_type = float;

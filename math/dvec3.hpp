@@ -8,10 +8,14 @@ namespace math {
     class vec3;
 
     class dvec3 {
-        double3 vec_;
-
-        friend class mat3;
     public:
+		union {
+			double3 vec_;
+			struct { double x, y, z; };
+			struct { double r, g, b; };
+			struct { double s, t, p; };
+		};
+
         dvec3(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec3() : dvec3(noinit) { dvec3_init1(vec_, 0); }
         explicit dvec3(double v) : dvec3(noinit) { dvec3_init1(vec_, v); }
@@ -22,71 +26,20 @@ namespace math {
         dvec3(const dvec4 &v);
         explicit dvec3(const vec3 &v);
 
-        class deref {
-            double3 &v_; int i_;
-        public:
-            deref(double3 &v, int i) : v_(v), i_(i) {}
-            operator double() const { return dvec3_get(v_, i_); }
-            deref operator=(const double rhs) { dvec3_set(v_, i_, rhs); return *this; }
-            deref operator=(const deref &rhs) { return operator=((double)rhs); }
+        double &operator[] (int i) { return vec_.comp[i]; }
+        double operator[] (int i) const { return vec_.comp[i]; }
 
-            deref operator+=(double rhs) { *this = double(*this) + rhs; return *this; }
-            deref operator-=(double rhs) { *this = double(*this) - rhs; return *this; }
-            deref operator*=(double rhs) { *this = double(*this) * rhs; return *this; }
-            deref operator/=(double rhs) { *this = double(*this) / rhs; return *this; }
-        };
+        dvec3 &operator++();
+        dvec3 operator++(int);
+        dvec3 &operator--();
+        dvec3 operator--(int);
 
-        deref operator[] (int i) { return deref(vec_, i); }
-        double operator[] (int i) const { return dvec3_get(vec_, i); }
-
-        double x() const { return (*this)[0]; }
-        double y() const { return (*this)[1]; }
-        double z() const { return (*this)[2]; }
-
-        double r() const { return (*this)[0]; }
-        double g() const { return (*this)[1]; }
-        double b() const { return (*this)[2]; }
-
-        double s() const { return (*this)[0]; }
-        double t() const { return (*this)[1]; }
-        double p() const { return (*this)[2]; }
-
-        dvec3 &operator++() { (*this) = (*this) + dvec3(1); return *this; }
-        dvec3 operator++(int) { dvec3 temp = (*this); ++(*this); return temp; }
-        dvec3 &operator--() { (*this) = (*this) - dvec3(1); return *this; }
-        dvec3 operator--(int) { dvec3 temp = (*this); --(*this); return temp; }
-
-        dvec3 &operator+=(const dvec3 &rhs) { (*this) = (*this) + rhs; return *this; }
-        dvec3 &operator-=(const dvec3 &rhs) { (*this) = (*this) - rhs; return *this; }
-        dvec3 &operator*=(const dvec3 &rhs) { (*this) = (*this) * rhs; return *this; }
-        dvec3 &operator/=(const dvec3 &rhs) { (*this) = (*this) / rhs; return *this; }
+        dvec3 &operator+=(const dvec3 &rhs);
+        dvec3 &operator-=(const dvec3 &rhs);
+        dvec3 &operator*=(const dvec3 &rhs);
+        dvec3 &operator/=(const dvec3 &rhs);
 
         inline dvec3 operator-() const;
-
-        friend bool operator==(const dvec3 &v1, const dvec3 &v2);
-
-        friend dvec3 operator+(const dvec3 &v1, const dvec3 &v2);
-        friend dvec3 operator-(const dvec3 &v1, const dvec3 &v2);
-        friend dvec3 operator*(const dvec3 &v1, const dvec3 &v2);
-        friend dvec3 operator/(const dvec3 &v1, const dvec3 &v2);
-
-        //friend dvec3 operator*(const mat3 &m, const vec3 &v);
-        //friend dvec3 operator*(const vec3 &v, const mat3 &m);
-
-        friend const double *value_ptr(const dvec3 &v);
-
-        friend double length(const dvec3 &v);
-        /*friend float dot(const vec3 &v1, const vec3 &v2);
-        friend vec3 cross(const vec3 &v1, const vec3 &v2);
-        friend vec3 normalize(const vec3 &v);
-        friend vec3 normalize_fast(const vec3 &v);
-
-        friend vec3 sin(const vec3 &angle);
-        friend vec3 cos(const vec3 &angle);
-        friend vec3 tan(const vec3 &angle);
-        friend vec3 asin(const vec3 &angle);
-        friend vec3 acos(const vec3 &angle);
-        friend vec3 atan(const vec3 &angle);*/
 
         static const size_t alignment = alignment_m32;
 		using scalar_type = double;
@@ -109,6 +62,16 @@ namespace math {
     inline dvec3 operator/(const dvec3 &v, double f) { return v / dvec3(f); }
     inline dvec3 operator/(double f, const dvec3 &v) { return dvec3(f) / v; }
 
+	inline dvec3 &dvec3::operator++() { (*this) = (*this) + dvec3(1); return *this; }
+	inline dvec3 dvec3::operator++(int) { dvec3 temp = (*this); ++(*this); return temp; }
+	inline dvec3 &dvec3::operator--() { (*this) = (*this) - dvec3(1); return *this; }
+	inline dvec3 dvec3::operator--(int) { dvec3 temp = (*this); --(*this); return temp; }
+
+	inline dvec3 &dvec3::operator+=(const dvec3 &rhs) { (*this) = (*this) + rhs; return *this; }
+	inline dvec3 &dvec3::operator-=(const dvec3 &rhs) { (*this) = (*this) - rhs; return *this; }
+	inline dvec3 &dvec3::operator*=(const dvec3 &rhs) { (*this) = (*this) * rhs; return *this; }
+	inline dvec3 &dvec3::operator/=(const dvec3 &rhs) { (*this) = (*this) / rhs; return *this; }
+
     dvec3 dvec3::operator-() const { return (*this) * -1.0; }
 
     inline dvec3 make_vec3(const double v[3]) { return dvec3(v[0], v[1], v[2]); }
@@ -127,13 +90,4 @@ namespace math {
 
     //inline vec3 operator*(const mat3 &m, const vec3 &v) { return vec3(mat3_mul_vec3(m.vec_, v.vec_)); }
     //inline vec3 operator*(const vec3 &v, const mat3 &m) { return vec3(vec3_mul_mat3(v.vec_, m.vec_)); }
-
-    inline double operator*(double f1, const dvec3::deref &f2) { return f1 * double(f2); }
-    inline double operator/(double f1, const dvec3::deref &f2) { return f1 / double(f2); }
-    inline dvec2 operator*(const dvec2 &v, const dvec3::deref &f) { return v * double(f); }
-    inline dvec2 operator/(const dvec2 &v, const dvec3::deref &f) { return v / double(f); }
-    inline dvec3 operator*(const dvec3 &v, const dvec3::deref &f) { return v * double(f); }
-    inline dvec3 operator/(const dvec3 &v, const dvec3::deref &f) { return v / double(f); }
-    inline dvec4 operator*(const dvec4 &v, const dvec3::deref &f) { return v * double(f); }
-    inline dvec4 operator/(const dvec4 &v, const dvec3::deref &f) { return v / double(f); }
 }

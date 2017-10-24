@@ -40,14 +40,6 @@ DEF_FUNC(float2) vec2_div_vec2(const float2 &v1, const float2 &v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(float) vec2_get(const float2 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) vec2_set(float2 &vec, int i, float v) {
-    vec.comp[i] = v;
-} DEF_END
-
 DEF_FUNC(float) vec2_length(const float2 &vec) {
     return sqrtf(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
 } DEF_END
@@ -157,14 +149,6 @@ DEF_FUNC(float3) vec3_div_vec3(const float3 &v1, const float3 &v2) {
     ret.comp[1] = v1.comp[1] / v2.comp[1];
     ret.comp[2] = v1.comp[2] / v2.comp[2];
     return ret;
-} DEF_END
-
-DEF_FUNC(float) vec3_get(const float3 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) vec3_set(float3 &vec, int i, float v) {
-    vec.comp[i] = v;
 } DEF_END
 
 DEF_FUNC(float) vec3_length(const float3 &vec) {
@@ -296,14 +280,6 @@ DEF_FUNC(float4) vec4_div_vec4(const float4 &v1, const float4 &v2) {
     ret.comp[2] = v1.comp[2] / v2.comp[2];
     ret.comp[3] = v1.comp[3] / v2.comp[3];
     return ret;
-} DEF_END
-
-DEF_FUNC(float) vec4_get(const float4 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) vec4_set(float4 &vec, int i, float v) {
-    vec.comp[i] = v;
 } DEF_END
 
 DEF_FUNC(float) vec4_length(const float4 &vec) {
@@ -449,14 +425,6 @@ DEF_FUNC(float4) mat2_div_mat2(const float4 &v1, const float4 &v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(float2) mat2_get(const float4 &vec, int i) {
-    return vec.vec2[i];
-} DEF_END
-
-DEF_FUNC(void) mat2_set(float4 &vec, int i, const float2 &v) {
-    vec.vec2[i] = v;
-} DEF_END
-
 DEF_FUNC(float4) mat2_comp_mul(const float4 &m1, const float4 &m2) {
     float4 ret;
     ret.comp[0] = m1.comp[0] * m2.comp[0];
@@ -565,14 +533,6 @@ DEF_FUNC(float9) mat3_div_float(const float9 &v1, float v2) {
         }
     }
     return ret;
-} DEF_END
-
-DEF_FUNC(float3) mat3_get(const float9 &vec, int i) {
-    return vec.vec3[i];
-} DEF_END
-
-DEF_FUNC(void) mat3_set(float9 &vec, int i, const float3 &v) {
-    vec.vec3[i] = v;
 } DEF_END
 
 DEF_FUNC(float9) mat3_comp_mul(const float9 &v1, const float9 &v2) {
@@ -689,14 +649,6 @@ DEF_FUNC(float16) mat4_div_float(const float16 &v1, float v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(float4) mat4_get(const float16 &vec, int i) {
-    return vec.vec4[i];
-} DEF_END
-
-DEF_FUNC(void) mat4_set(float16 &vec, int i, const float4 &v) {
-    vec.vec4[i] = v;
-} DEF_END
-
 DEF_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2) {
     float16 ret;
     for (int i = 0; i < 16; i++) {
@@ -791,14 +743,6 @@ DEF_FUNC(int2) ivec2_div_ivec2(const int2 &v1, const int2 &v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(int) ivec2_get(const int2 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) ivec2_set(int2 &vec, int i, int v) {
-    vec.comp[i] = v;
-} DEF_END
-
 // ivec3
 DEF_FUNC(void) ivec3_init1(int3 &vec, int val) {
     vec.comp[0] = vec.comp[1] = vec.comp[2] = val;
@@ -842,14 +786,6 @@ DEF_FUNC(int3) ivec3_div_ivec3(const int3 &v1, const int3 &v2) {
     ret.comp[1] = v1.comp[1] / v2.comp[1];
     ret.comp[2] = v1.comp[2] / v2.comp[2];
     return ret;
-} DEF_END
-
-DEF_FUNC(int) ivec3_get(const int3 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) ivec3_set(int3 &vec, int i, int v) {
-    vec.comp[i] = v;
 } DEF_END
 
 // ivec4
@@ -902,14 +838,6 @@ DEF_FUNC(int4) ivec4_div_ivec4(const int4 &v1, const int4 &v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(int) ivec4_get(const int4 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) ivec4_set(int4 &vec, int i, int v) {
-    vec.comp[i] = v;
-} DEF_END
-
 // quat
 DEF_FUNC(void) quat_init4(float4 &vec, float r, float i, float j, float k) {
     vec.comp[0] = i; vec.comp[1] = j; vec.comp[2] = k; vec.comp[3] = r;
@@ -953,14 +881,6 @@ DEF_FUNC(float4) quat_div_float(const float4 &v1, const float f) {
     ret.comp[2] = v1.comp[2] / f;
     ret.comp[3] = v1.comp[3] / f;
     return ret;
-} DEF_END
-
-DEF_FUNC(float) quat_get(const float4 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) quat_set(float4 &vec, int i, float v) {
-    vec.comp[i] = v;
 } DEF_END
 
 DEF_FUNC(float9) quat_to_mat3(const float4 &vec) {
@@ -1144,14 +1064,6 @@ DEF_FUNC(double2) dvec2_div_dvec2(const double2 &v1, const double2 &v2) {
     return ret;
 } DEF_END
 
-DEF_FUNC(double) dvec2_get(const double2 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) dvec2_set(double2 &vec, int i, double v) {
-    vec.comp[i] = v;
-} DEF_END
-
 DEF_FUNC(double) dvec2_length(const double2 &vec) {
     return std::sqrt(vec.comp[0] * vec.comp[0] + vec.comp[1] * vec.comp[1]);
 } DEF_END
@@ -1199,14 +1111,6 @@ DEF_FUNC(double3) dvec3_div_dvec3(const double3 &v1, const double3 &v2) {
     ret.comp[1] = v1.comp[1] / v2.comp[1];
     ret.comp[2] = v1.comp[2] / v2.comp[2];
     return ret;
-} DEF_END
-
-DEF_FUNC(double) dvec3_get(const double3 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) dvec3_set(double3 &vec, int i, double v) {
-    vec.comp[i] = v;
 } DEF_END
 
 DEF_FUNC(double) dvec3_length(const double3 &vec) {
@@ -1260,14 +1164,6 @@ DEF_FUNC(double4) dvec4_div_dvec4(const double4 &v1, const double4 &v2) {
     ret.comp[2] = v1.comp[2] / v2.comp[2];
     ret.comp[3] = v1.comp[3] / v2.comp[3];
     return ret;
-} DEF_END
-
-DEF_FUNC(double) dvec4_get(const double4 &vec, int i) {
-    return vec.comp[i];
-} DEF_END
-
-DEF_FUNC(void) dvec4_set(double4 &vec, int i, double v) {
-    vec.comp[i] = v;
 } DEF_END
 
 DEF_FUNC(double) dvec4_length(const double4 &vec) {

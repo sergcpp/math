@@ -17,9 +17,9 @@ void test_ivec4(math::e_arch arch) {
         assert(v1[0] == 0); assert(v1[1] == 0); assert(v1[2] == 0); assert(v1[3] == 0);
         assert(v2[0] == 1); assert(v2[1] == 1); assert(v2[2] == 1); assert(v2[3] == 1);
         assert(v3[0] == 1); assert(v3[1] == 2); assert(v3[2] == 3); assert(v3[3] == 4);
-        assert(v3.x() == 1); assert(v3.y() == 2); assert(v3.z() == 3); assert(v3.w() == 4);
-        assert(v3.r() == 1); assert(v3.g() == 2); assert(v3.b() == 3); assert(v3.a() == 4);
-        assert(v3.s() == 1); assert(v3.t() == 2); assert(v3.p() == 3); assert(v3.q() == 4);
+        assert(v3.x == 1); assert(v3.y == 2); assert(v3.z == 3); assert(v3.w == 4);
+        assert(v3.r == 1); assert(v3.g == 2); assert(v3.b == 3); assert(v3.a == 4);
+        assert(v3.s == 1); assert(v3.t == 2); assert(v3.p == 3); assert(v3.q == 4);
 
         ivec4 v4 = v1 + v2, v5 = v2 + v3;
 
@@ -130,6 +130,10 @@ void test_ivec4(math::e_arch arch) {
         //assert(m3[1] == ivec4(0, 2, 0, 0));
         //assert(m3[2] == ivec4(0, 0, 2, 0));
         //assert(m3[3] == ivec4(0, 0, 0, 2));
+
+		const int *p1 = value_ptr(vv);
+		const int *p2 = &vv[0];
+		assert(p1 == p2);
     }
 }
 

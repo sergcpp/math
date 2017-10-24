@@ -6,35 +6,20 @@
 
 namespace math {
     class quat {
-        float4 vec_;
-
     public:
+		union {
+			float4 vec_;
+			struct { float i, j, k, r; };
+			struct { float x, y, z, w; };
+		};
+
         quat(e_noinit) { assert(is_aligned(this, alignment)); }
         quat() : quat(noinit) { quat_init4(vec_, 1, 0, 0, 0); }
         quat(float r, float i, float j, float k) : quat(noinit) { quat_init4(vec_, r, i, j, k); }
         quat(const vec4 &v) : quat(noinit) { vec_ = v.vec_; }
 
-        class deref {
-            float4 &v_; int i_;
-        public:
-            deref(float4 &v, int i) : v_(v), i_(i) {}
-            operator float() const { return quat_get(v_, i_); }
-            deref operator=(const float rhs) { quat_set(v_, i_, rhs); return *this; }
-            deref operator=(const deref &rhs) { return operator=((float)rhs); }
-        };
-
-        deref operator[] (int i) { return deref(vec_, i); }
-        float operator[] (int i) const { return vec4_get(vec_, i); }
-
-        float i() const { return (*this)[0]; }
-        float j() const { return (*this)[1]; }
-        float k() const { return (*this)[2]; }
-        float r() const { return (*this)[3]; }
-
-        float x() const { return (*this)[0]; }
-        float y() const { return (*this)[1]; }
-        float z() const { return (*this)[2]; }
-        float w() const { return (*this)[3]; }
+        float &operator[] (int i) { return vec_.comp[i]; }
+        float operator[] (int i) const { return vec_.comp[i]; }
 
         operator vec4() const { return vec4(vec_); }
 

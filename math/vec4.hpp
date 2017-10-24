@@ -9,11 +9,14 @@ namespace math {
     class vec3;
 
     class vec4 {
-        float4 vec_;
-
-        friend class mat4;
-        friend class quat;
     public:
+		union {
+			float4 vec_;
+			struct { float x, y, z, w; };
+			struct { float r, g, b, a; };
+			struct { float s, t, p, q; };
+		};
+
         vec4(e_noinit) { assert(is_aligned(this, alignment)); }
         vec4() : vec4(noinit) { vec4_init1(vec_, 0); }
         explicit vec4(float v) : vec4(noinit) { vec4_init1(vec_, v); }
@@ -27,37 +30,8 @@ namespace math {
         vec4(float v0, const vec3 &v123);
         explicit vec4(const ivec4 &v);
 
-        class deref {
-            float4 &v_; int i_;
-        public:
-            deref(float4 &v, int i) : v_(v), i_(i) {}
-            operator float() const { return vec4_get(v_, i_); }
-            deref operator=(const float rhs) { vec4_set(v_, i_, rhs); return *this; }
-            deref operator=(const deref &rhs) { return operator=((float)rhs); }
-
-            deref operator+=(float rhs) { *this = float(*this) + rhs; return *this; }
-            deref operator-=(float rhs) { *this = float(*this) - rhs; return *this; }
-            deref operator*=(float rhs) { *this = float(*this) * rhs; return *this; }
-            deref operator/=(float rhs) { *this = float(*this) / rhs; return *this; }
-        };
-
-        deref operator[] (int i) { return deref(vec_, i); }
-        float operator[] (int i) const { return vec4_get(vec_, i); }
-
-        float x() const { return (*this)[0]; }
-        float y() const { return (*this)[1]; }
-        float z() const { return (*this)[2]; }
-        float w() const { return (*this)[3]; }
-
-        float r() const { return (*this)[0]; }
-        float g() const { return (*this)[1]; }
-        float b() const { return (*this)[2]; }
-        float a() const { return (*this)[3]; }
-
-        float s() const { return (*this)[0]; }
-        float t() const { return (*this)[1]; }
-        float p() const { return (*this)[2]; }
-        float q() const { return (*this)[3]; }
+        float &operator[] (int i) { return vec_.comp[i]; }
+        float operator[] (int i) const { return vec_.comp[i]; }
 
         vec4 &operator++() { (*this) = (*this) + vec4(1); return *this; }
         vec4 operator++(int) { vec4 temp = (*this); ++(*this); return temp; }
@@ -147,13 +121,4 @@ namespace math {
 
     inline vec4 operator*(const mat4 &m, const vec4 &v) { return vec4(mat4_mul_vec4(m.vec_, v.vec_)); }
     inline vec4 operator*(const vec4 &v, const mat4 &m) { return vec4(vec4_mul_mat4(v.vec_, m.vec_)); }
-
-    inline float operator*(float f1, const vec4::deref &f2) { return f1 * float(f2); }
-    inline float operator/(float f1, const vec4::deref &f2) { return f1 / float(f2); }
-    inline vec2 operator*(const vec2 &v, const vec4::deref &f) { return v * float(f); }
-    inline vec2 operator/(const vec2 &v, const vec4::deref &f) { return v / float(f); }
-    inline vec3 operator*(const vec3 &v, const vec4::deref &f) { return v * float(f); }
-    inline vec3 operator/(const vec3 &v, const vec4::deref &f) { return v / float(f); }
-    inline vec4 operator*(const vec4 &v, const vec4::deref &f) { return v * float(f); }
-    inline vec4 operator/(const vec4 &v, const vec4::deref &f) { return v / float(f); }
 }

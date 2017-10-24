@@ -29,9 +29,9 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
         assert(v1[0] == Approx(0) && v1[1] == Approx(0));
         assert(v2[0] == Approx(r4) && v2[1] == Approx(r4));
         assert(v3[0] == Approx(r2) && v3[1] == Approx(r3));
-        assert(v3.x() == Approx(r2) && v3.y() == Approx(r3));
-        assert(v3.r() == Approx(r2) && v3.g() == Approx(r3));
-        assert(v3.s() == Approx(r2) && v3.t() == Approx(r3));
+        assert(v3.x == Approx(r2) && v3.y == Approx(r3));
+        assert(v3.r == Approx(r2) && v3.g == Approx(r3));
+        assert(v3.s == Approx(r2) && v3.t == Approx(r3));
 
         vec2 v4 = v1 + v2, v5 = v2 + v3;
 
@@ -148,6 +148,10 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
         assert(m3[1] == Approx4(0, r1, 0, 0));
         assert(m3[2] == Approx4(0, 0, r1, 0));
         assert(m3[3] == Approx4(0, 0, 0, r1));
+
+		const float *p1 = value_ptr(vv);
+		const float *p2 = &vv[0];
+		assert(p1 == p2);
     }
 
     std::cout << "OK" << std::endl;

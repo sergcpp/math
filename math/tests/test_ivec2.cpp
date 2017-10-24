@@ -30,9 +30,9 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
         assert(v1[0] == 0 && v1[1] == 0);
         assert(v2[0] == r4 && v2[1] == r4);
         assert(v3[0] == r2 && v3[1] == r3);
-        assert(v3.x() == r2 && v3.y() == r3);
-        assert(v3.r() == r2 && v3.g() == r3);
-        assert(v3.s() == r2 && v3.t() == r3);
+        assert(v3.x == r2 && v3.y == r3);
+        assert(v3.r == r2 && v3.g == r3);
+        assert(v3.s == r2 && v3.t == r3);
 
         ivec2 v4 = v1 + v2, v5 = v2 + v3;
 
@@ -155,6 +155,10 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
         //assert(m3[1] == ivec4(0, 2, 0, 0));
         //assert(m3[2] == ivec4(0, 0, 2, 0));
         //assert(m3[3] == ivec4(0, 0, 0, 2));
+
+		const int *p1 = value_ptr(vv);
+		const int *p2 = &vv[0];
+		assert(p1 == p2);
     }
 
 	std::cout << "OK" << std::endl;

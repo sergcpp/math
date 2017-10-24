@@ -7,8 +7,12 @@ namespace math {
     class quat;
 
     class mat4 {
-        float16 vec_;
     public:
+		union {
+			float16 vec_;
+			vec4 v[4];
+		};
+
         mat4(e_noinit) { assert(is_aligned(this, alignment)); }
         mat4() : mat4(1.0f) {}
         explicit mat4(float v) : mat4(noinit) { mat4_init1(vec_, v); }
@@ -32,57 +36,20 @@ namespace math {
         mat4(const mat4 &v) : mat4(noinit) { vec_ = v.vec_; }
         mat4(const mat3 &v);
 
-        class deref {
-            float16 &v_; int i_;
-        public:
-            deref(float16 &v, int i) : v_(v), i_(i) {}
-            operator vec4() const { return mat4_get(v_, i_); }
-            deref operator=(const vec4 &rhs) { mat4_set(v_, i_, rhs.vec_); return *this; }
-            deref operator=(const deref &rhs) { return operator=((vec4)rhs); }
+        vec4 &operator[] (int i) { return v[i]; }
+        vec4 operator[] (int i) const { return v[i]; }
 
-            vec4::deref operator[] (int i) const { return vec4::deref(v_.vec4[i_], i); }
+        mat4 &operator++();
+        mat4 operator++(int);
+        mat4 &operator--();
+        mat4 operator--(int);
 
-            deref operator+=(const vec4 &rhs) { *this = vec4(*this) + rhs; return *this; }
-            deref operator-=(const vec4 &rhs) { *this = vec4(*this) - rhs; return *this; }
-            deref operator*=(const vec4 &rhs) { *this = vec4(*this) * rhs; return *this; }
-            deref operator/=(const vec4 &rhs) { *this = vec4(*this) / rhs; return *this; }
-        };
+        mat4 &operator+=(const mat4 &rhs);
+        mat4 &operator-=(const mat4 &rhs);
+        mat4 &operator*=(const mat4 &rhs);
+        mat4 &operator/=(const mat4 &rhs);
 
-        deref operator[] (int i) { return deref(vec_, i); }
-        vec4 operator[] (int i) const { return vec4(vec_.vec4[i]); }
-
-        mat4 &operator++() { (*this) = (*this) + mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
-        mat4 operator++(int) { mat4 temp = (*this); ++(*this); return temp; }
-        mat4 &operator--() { (*this) = (*this) - mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
-        mat4 operator--(int) { mat4 temp = (*this); --(*this); return temp; }
-
-        mat4 &operator+=(const mat4 &rhs) { (*this) = (*this) + rhs; return *this; }
-        mat4 &operator-=(const mat4 &rhs) { (*this) = (*this) - rhs; return *this; }
-        mat4 &operator*=(const mat4 &rhs) { (*this) = (*this) * rhs; return *this; }
-        mat4 &operator/=(const mat4 &rhs) { (*this) = (*this) / rhs; return *this; }
-
-        mat4 operator-() const { return matrix_comp_mult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
-
-        friend bool operator==(const mat4 &m1, const mat4 &m2);
-
-        friend mat4 operator+(const mat4 &m1, const mat4 &m2);
-        friend mat4 operator-(const mat4 &m1, const mat4 &m2);
-        friend mat4 operator*(const mat4 &m1, const mat4 &m2);
-        friend mat4 operator/(const mat4 &m1, const mat4 &m2);
-    
-        friend mat4 operator*(const mat4 &m1, float v1);
-        friend mat4 operator/(const mat4 &m1, float v1);
-
-        friend vec4 operator*(const mat4 &m, const vec4 &v);
-        friend vec4 operator*(const vec4 &v, const mat4 &m);
-
-        friend mat4 matrix_comp_mult(const mat4 &m1, const mat4 &m2);
-
-        friend mat4 inverse(const mat4 &m);
-
-        friend const float *value_ptr(const mat4 &m);
-
-        friend quat to_quat(const mat4 &m);
+        mat4 operator-() const;
 
         static const size_t alignment = alignment_m256;
 		using scalar_type = float;
@@ -101,6 +68,18 @@ namespace math {
     inline mat4 operator/(const mat4 &m1, float v1) { return mat4_div_float(m1.vec_, v1); }
 
     inline mat4 matrix_comp_mult(const mat4 &m1, const mat4 &m2) { return mat4_comp_mul(m1.vec_, m2.vec_); }
+
+	inline mat4 &mat4::operator++() { (*this) = (*this) + mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
+	inline mat4 mat4::operator++(int) { mat4 temp = (*this); ++(*this); return temp; }
+	inline mat4 &mat4::operator--() { (*this) = (*this) - mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
+	inline mat4 mat4::operator--(int) { mat4 temp = (*this); --(*this); return temp; }
+
+	inline mat4 &mat4::operator+=(const mat4 &rhs) { (*this) = (*this) + rhs; return *this; }
+	inline mat4 &mat4::operator-=(const mat4 &rhs) { (*this) = (*this) - rhs; return *this; }
+	inline mat4 &mat4::operator*=(const mat4 &rhs) { (*this) = (*this) * rhs; return *this; }
+	inline mat4 &mat4::operator/=(const mat4 &rhs) { (*this) = (*this) / rhs; return *this; }
+
+	inline mat4 mat4::operator-() const { return matrix_comp_mult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
 
     inline mat4 make_mat4(const float v[16]) {
         return mat4(v[0], v[1], v[2], v[3],

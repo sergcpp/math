@@ -29,9 +29,9 @@ void test_dvec2(math::e_arch arch, unsigned int seed) {
 		assert(v1[0] == Approx(0) && v1[1] == Approx(0));
 		assert(v2[0] == Approx(r4) && v2[1] == Approx(r4));
 		assert(v3[0] == Approx(r2) && v3[1] == Approx(r3));
-		assert(v3.x() == Approx(r2) && v3.y() == Approx(r3));
-		assert(v3.r() == Approx(r2) && v3.g() == Approx(r3));
-		assert(v3.s() == Approx(r2) && v3.t() == Approx(r3));
+		assert(v3.x == Approx(r2) && v3.y == Approx(r3));
+		assert(v3.r == Approx(r2) && v3.g == Approx(r3));
+		assert(v3.s == Approx(r2) && v3.t == Approx(r3));
 
         dvec2 v4 = v1 + v2, v5 = v2 + v3;
 
