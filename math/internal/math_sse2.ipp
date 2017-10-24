@@ -403,18 +403,14 @@ DEF_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1) {
     _mm_empty();
 } DEF_END
 
-DEF_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.vec = _mm_add_pi32(v1.vec, v2.vec);
+DEF_FUNC(void) ivec2_add_ivec2(int2 &vec, const int2 &rhs) {
+    vec.vec = _mm_add_pi32(vec.vec, rhs.vec);
     _mm_empty();
-    return ret;
 } DEF_END
 
-DEF_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.vec = _mm_sub_pi32(v1.vec, v2.vec);
+DEF_FUNC(void) ivec2_sub_ivec2(int2 &vec, const int2 &rhs) {
+    vec.vec = _mm_sub_pi32(vec.vec, rhs.vec);
     _mm_empty();
-    return ret;
 } DEF_END
 #endif
 
@@ -427,16 +423,12 @@ DEF_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3) {
     vec.vec = _mm_set_epi32(v3, v2, v1, v0);
 } DEF_END
 
-DEF_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.vec = _mm_add_epi32(v1.vec, v2.vec);
-    return ret;
+DEF_FUNC(void) ivec4_add_ivec4(int4 &vec, const int4 &rhs) {
+    vec.vec = _mm_add_epi32(vec.vec, rhs.vec);
 } DEF_END
 
-DEF_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.vec = _mm_sub_epi32(v1.vec, v2.vec);
-    return ret;
+DEF_FUNC(void) ivec4_sub_ivec4(int4 &vec, const int4 &rhs) {
+    vec.vec = _mm_sub_epi32(vec.vec, rhs.vec);
 } DEF_END
 
 // dvec2

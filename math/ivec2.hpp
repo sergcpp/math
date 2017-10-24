@@ -28,15 +28,15 @@ namespace math {
         int &operator[] (int i) { return vec_.comp[i]; }
         int operator[] (int i) const { return vec_.comp[i]; }
 
-        ivec2 &operator++();
-        ivec2 operator++(int);
-        ivec2 &operator--();
-        ivec2 operator--(int);
+        ivec2 &operator+=(const ivec2 &rhs) { ivec2_add_ivec2(vec_, rhs.vec_); return *this; }
+        ivec2 &operator-=(const ivec2 &rhs) { ivec2_sub_ivec2(vec_, rhs.vec_); return *this; }
+        ivec2 &operator*=(const ivec2 &rhs) { ivec2_mul_ivec2(vec_, rhs.vec_); return *this; }
+        ivec2 &operator/=(const ivec2 &rhs) { ivec2_div_ivec2(vec_, rhs.vec_); return *this; }
 
-        ivec2 &operator+=(const ivec2 &rhs);
-        ivec2 &operator-=(const ivec2 &rhs);
-        ivec2 &operator*=(const ivec2 &rhs);
-        ivec2 &operator/=(const ivec2 &rhs);
+		ivec2 &operator++() { (*this) += ivec2(1); return *this; }
+		ivec2 operator++(int) { ivec2 temp = (*this); ++(*this); return temp; }
+		ivec2 &operator--() { (*this) -= ivec2(1); return *this; }
+		ivec2 operator--(int) { ivec2 temp = (*this); --(*this); return temp; }
 
         ivec2 operator-() const;
 
@@ -47,10 +47,10 @@ namespace math {
     inline bool operator==(const ivec2 &v1, const ivec2 &v2) { return ivec2_eq_ivec2(v1.vec_, v2.vec_); }
     inline bool operator!=(const ivec2 &v1, const ivec2 &v2) { return !operator==(v1, v2); }
 
-    inline ivec2 operator+(const ivec2 &v1, const ivec2 &v2) { return ivec2(ivec2_add_ivec2(v1.vec_, v2.vec_)); }
-    inline ivec2 operator-(const ivec2 &v1, const ivec2 &v2) { return ivec2(ivec2_sub_ivec2(v1.vec_, v2.vec_)); }
-    inline ivec2 operator*(const ivec2 &v1, const ivec2 &v2) { return ivec2(ivec2_mul_ivec2(v1.vec_, v2.vec_)); }
-    inline ivec2 operator/(const ivec2 &v1, const ivec2 &v2) { return ivec2(ivec2_div_ivec2(v1.vec_, v2.vec_)); }
+    inline ivec2 operator+(const ivec2 &v1, const ivec2 &v2) { ivec2 temp = v1; temp += v2; return temp; }
+    inline ivec2 operator-(const ivec2 &v1, const ivec2 &v2) { ivec2 temp = v1; temp -= v2; return temp; }
+    inline ivec2 operator*(const ivec2 &v1, const ivec2 &v2) { ivec2 temp = v1; temp *= v2; return temp; }
+    inline ivec2 operator/(const ivec2 &v1, const ivec2 &v2) { ivec2 temp = v1; temp /= v2; return temp; }
 
     inline ivec2 operator+(const ivec2 &v, int f) { return v + ivec2(f); }
     inline ivec2 operator+(int f, const ivec2 &v) { return ivec2(f) + v; }
@@ -60,16 +60,6 @@ namespace math {
     inline ivec2 operator*(int f, const ivec2 &v) { return ivec2(f) * v; }
     inline ivec2 operator/(const ivec2 &v, int f) { return v / ivec2(f); }
     inline ivec2 operator/(int f, const ivec2 &v) { return ivec2(f) / v; }
-
-	inline ivec2 &ivec2::operator++() { (*this) = (*this) + ivec2(1); return *this; }
-	inline ivec2 ivec2::operator++(int) { ivec2 temp = (*this); ++(*this); return temp; }
-	inline ivec2 &ivec2::operator--() { (*this) = (*this) - ivec2(1); return *this; }
-	inline ivec2 ivec2::operator--(int) { ivec2 temp = (*this); --(*this); return temp; }
-
-	inline ivec2 &ivec2::operator+=(const ivec2 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline ivec2 &ivec2::operator-=(const ivec2 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline ivec2 &ivec2::operator*=(const ivec2 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline ivec2 &ivec2::operator/=(const ivec2 &rhs) { (*this) = (*this) / rhs; return *this; }
 
     inline ivec2 ivec2::operator-() const { return (*this) * -1; }
 

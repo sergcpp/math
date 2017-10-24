@@ -200,24 +200,24 @@ namespace math {
 
     void (FASTCALL *ivec2_init1)(int2 &vec, int val);
     void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
-    int2 (FASTCALL *ivec2_add_ivec2)(const int2 &v1, const int2 &v2);
-    int2 (FASTCALL *ivec2_sub_ivec2)(const int2 &v1, const int2 &v2);
-    int2 (FASTCALL *ivec2_mul_ivec2)(const int2 &v1, const int2 &v2);
-    int2 (FASTCALL *ivec2_div_ivec2)(const int2 &v1, const int2 &v2);
+    void (FASTCALL *ivec2_add_ivec2)(int2 &vec, const int2 &rhs);
+    void (FASTCALL *ivec2_sub_ivec2)(int2 &vec, const int2 &rhs);
+    void (FASTCALL *ivec2_mul_ivec2)(int2 &vec, const int2 &rhs);
+    void (FASTCALL *ivec2_div_ivec2)(int2 &vec, const int2 &rhs);
 
     void (FASTCALL *ivec3_init1)(int3 &vec, int val);
     void (FASTCALL *ivec3_init3)(int3 &vec, int v0, int v1, int v2);
-    int3 (FASTCALL *ivec3_add_ivec3)(const int3 &v1, const int3 &v2);
-    int3 (FASTCALL *ivec3_sub_ivec3)(const int3 &v1, const int3 &v2);
-    int3 (FASTCALL *ivec3_mul_ivec3)(const int3 &v1, const int3 &v2);
-    int3 (FASTCALL *ivec3_div_ivec3)(const int3 &v1, const int3 &v2);
+    void (FASTCALL *ivec3_add_ivec3)(int3 &vec, const int3 &rhs);
+    void (FASTCALL *ivec3_sub_ivec3)(int3 &vec, const int3 &rhs);
+    void (FASTCALL *ivec3_mul_ivec3)(int3 &vec, const int3 &rhs);
+    void (FASTCALL *ivec3_div_ivec3)(int3 &vec, const int3 &rhs);
 
     void (FASTCALL *ivec4_init1)(int4 &vec, int val);
     void (FASTCALL *ivec4_init4)(int4 &vec, int v0, int v1, int v2, int v3);
-    int4 (FASTCALL *ivec4_add_ivec4)(const int4 &v1, const int4 &v2);
-    int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
-    int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
-    int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
+    void (FASTCALL *ivec4_add_ivec4)(int4 &vec, const int4 &rhs);
+    void (FASTCALL *ivec4_sub_ivec4)(int4 &vec, const int4 &rhs);
+    void (FASTCALL *ivec4_mul_ivec4)(int4 &vec, const int4 &rhs);
+    void (FASTCALL *ivec4_div_ivec4)(int4 &vec, const int4 &rhs);
 
     void (FASTCALL *quat_init4)(float4 &vec, float r, float i, float j, float k);
     float4 (FASTCALL *quat_add_quat)(const float4 &v1, const float4 &v2);
@@ -322,24 +322,24 @@ namespace math {
 
         void (FASTCALL *ivec2_init1)(int2 &vec, int val);
         void (FASTCALL *ivec2_init2)(int2 &vec, int v0, int v1);
-        int2 (FASTCALL *ivec2_add_ivec2)(const int2 &v1, const int2 &v2);
-        int2 (FASTCALL *ivec2_sub_ivec2)(const int2 &v1, const int2 &v2);
-        int2 (FASTCALL *ivec2_mul_ivec2)(const int2 &v1, const int2 &v2);
-        int2 (FASTCALL *ivec2_div_ivec2)(const int2 &v1, const int2 &v2);
+        void (FASTCALL *ivec2_add_ivec2)(int2 &vec, const int2 &rhs);
+        void (FASTCALL *ivec2_sub_ivec2)(int2 &vec, const int2 &rhs);
+        void (FASTCALL *ivec2_mul_ivec2)(int2 &vec, const int2 &rhs);
+        void (FASTCALL *ivec2_div_ivec2)(int2 &vec, const int2 &rhs);
 
         void (FASTCALL *ivec3_init1)(int3 &vec, int val);
         void (FASTCALL *ivec3_init3)(int3 &vec, int v0, int v1, int v2);
-        int3 (FASTCALL *ivec3_add_ivec3)(const int3 &v1, const int3 &v2);
-        int3 (FASTCALL *ivec3_sub_ivec3)(const int3 &v1, const int3 &v2);
-        int3 (FASTCALL *ivec3_mul_ivec3)(const int3 &v1, const int3 &v2);
-        int3 (FASTCALL *ivec3_div_ivec3)(const int3 &v1, const int3 &v2);
+        void (FASTCALL *ivec3_add_ivec3)(int3 &vec, const int3 &rhs);
+        void (FASTCALL *ivec3_sub_ivec3)(int3 &vec, const int3 &rhs);
+        void (FASTCALL *ivec3_mul_ivec3)(int3 &vec, const int3 &rhs);
+        void (FASTCALL *ivec3_div_ivec3)(int3 &vec, const int3 &rhs);
 
         void (FASTCALL *ivec4_init1)(int4 &vec, int val);
         void (FASTCALL *ivec4_init4)(int4 &vec, int v0, int v1, int v2, int v3);
-        int4 (FASTCALL *ivec4_add_ivec4)(const int4 &v1, const int4 &v2);
-        int4 (FASTCALL *ivec4_sub_ivec4)(const int4 &v1, const int4 &v2);
-        int4 (FASTCALL *ivec4_mul_ivec4)(const int4 &v1, const int4 &v2);
-        int4 (FASTCALL *ivec4_div_ivec4)(const int4 &v1, const int4 &v2);
+        void (FASTCALL *ivec4_add_ivec4)(int4 &vec, const int4 &rhs);
+        void (FASTCALL *ivec4_sub_ivec4)(int4 &vec, const int4 &rhs);
+        void (FASTCALL *ivec4_mul_ivec4)(int4 &vec, const int4 &rhs);
+        void (FASTCALL *ivec4_div_ivec4)(int4 &vec, const int4 &rhs);
 
         void (FASTCALL *quat_init4)(float4 &vec, float r, float i, float j, float k);
         float4 (FASTCALL *quat_add_quat)(const float4 &v1, const float4 &v2);

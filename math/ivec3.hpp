@@ -29,26 +29,17 @@ namespace math {
         int &operator[] (int i) { return vec_.comp[i]; }
         int operator[] (int i) const { return vec_.comp[i]; }
 
-        ivec3 &operator++() { (*this) = (*this) + ivec3(1); return *this; }
-        ivec3 operator++(int) { ivec3 temp = (*this); ++(*this); return temp; }
-        ivec3 &operator--() { (*this) = (*this) - ivec3(1); return *this; }
-        ivec3 operator--(int) { ivec3 temp = (*this); --(*this); return temp; }
+        ivec3 &operator+=(const ivec3 &rhs) { ivec3_add_ivec3(vec_, rhs.vec_); return *this; }
+        ivec3 &operator-=(const ivec3 &rhs) { ivec3_sub_ivec3(vec_, rhs.vec_); return *this; }
+        ivec3 &operator*=(const ivec3 &rhs) { ivec3_mul_ivec3(vec_, rhs.vec_); return *this; }
+        ivec3 &operator/=(const ivec3 &rhs) { ivec3_div_ivec3(vec_, rhs.vec_); return *this; }
 
-        ivec3 &operator+=(const ivec3 &rhs) { (*this) = (*this) + rhs; return *this; }
-        ivec3 &operator-=(const ivec3 &rhs) { (*this) = (*this) - rhs; return *this; }
-        ivec3 &operator*=(const ivec3 &rhs) { (*this) = (*this) * rhs; return *this; }
-        ivec3 &operator/=(const ivec3 &rhs) { (*this) = (*this) / rhs; return *this; }
+		ivec3 &operator++() { (*this) += ivec3(1); return *this; }
+		ivec3 operator++(int) { ivec3 temp = (*this); ++(*this); return temp; }
+		ivec3 &operator--() { (*this) -= ivec3(1); return *this; }
+		ivec3 operator--(int) { ivec3 temp = (*this); --(*this); return temp; }
 
         ivec3 operator-() const;
-
-        friend bool operator==(const ivec3 &v1, const ivec3 &v2);
-
-        friend ivec3 operator+(const ivec3 &v1, const ivec3 &v2);
-        friend ivec3 operator-(const ivec3 &v1, const ivec3 &v2);
-        friend ivec3 operator*(const ivec3 &v1, const ivec3 &v2);
-        friend ivec3 operator/(const ivec3 &v1, const ivec3 &v2);
-
-		friend const int *value_ptr(const ivec3 &v);
 
         static const size_t alignment = alignment_m32;
 		using scalar_type = int;
@@ -57,10 +48,10 @@ namespace math {
     inline bool operator==(const ivec3 &v1, const ivec3 &v2) { return ivec3_eq_ivec3(v1.vec_, v2.vec_); }
     inline bool operator!=(const ivec3 &v1, const ivec3 &v2) { return !operator==(v1, v2); }
 
-    inline ivec3 operator+(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_add_ivec3(v1.vec_, v2.vec_)); }
-    inline ivec3 operator-(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_sub_ivec3(v1.vec_, v2.vec_)); }
-    inline ivec3 operator*(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_mul_ivec3(v1.vec_, v2.vec_)); }
-    inline ivec3 operator/(const ivec3 &v1, const ivec3 &v2) { return ivec3(ivec3_div_ivec3(v1.vec_, v2.vec_)); }
+    inline ivec3 operator+(const ivec3 &v1, const ivec3 &v2) { ivec3 temp = v1; temp += v2; return temp; }
+    inline ivec3 operator-(const ivec3 &v1, const ivec3 &v2) { ivec3 temp = v1; temp -= v2; return temp; }
+    inline ivec3 operator*(const ivec3 &v1, const ivec3 &v2) { ivec3 temp = v1; temp *= v2; return temp; }
+    inline ivec3 operator/(const ivec3 &v1, const ivec3 &v2) { ivec3 temp = v1; temp /= v2; return temp; }
 
     inline ivec3 operator+(const ivec3 &v, int f) { return v + ivec3(f); }
     inline ivec3 operator+(int f, const ivec3 &v) { return ivec3(f) + v; }

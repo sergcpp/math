@@ -715,32 +715,24 @@ DEF_FUNC(bool) ivec2_eq_ivec2(const int2 &v1, const int2 &v2) {
     return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1];
 } DEF_END
 
-DEF_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.comp[0] = v1.comp[0] + v2.comp[0];
-    ret.comp[1] = v1.comp[1] + v2.comp[1];
-    return ret;
+DEF_FUNC(void) ivec2_add_ivec2(int2 &vec, const int2 &rhs) {
+    vec.comp[0] += rhs.comp[0];
+    vec.comp[1] += rhs.comp[1];
 } DEF_END
 
-DEF_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.comp[0] = v1.comp[0] - v2.comp[0];
-    ret.comp[1] = v1.comp[1] - v2.comp[1];
-    return ret;
+DEF_FUNC(void) ivec2_sub_ivec2(int2 &vec, const int2 &rhs) {
+    vec.comp[0] -= rhs.comp[0];
+    vec.comp[1] -= rhs.comp[1];
 } DEF_END
 
-DEF_FUNC(int2) ivec2_mul_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.comp[0] = v1.comp[0] * v2.comp[0];
-    ret.comp[1] = v1.comp[1] * v2.comp[1];
-    return ret;
+DEF_FUNC(void) ivec2_mul_ivec2(int2 &vec, const int2 &rhs) {
+    vec.comp[0] *= rhs.comp[0];
+    vec.comp[1] *= rhs.comp[1];
 } DEF_END
 
-DEF_FUNC(int2) ivec2_div_ivec2(const int2 &v1, const int2 &v2) {
-    int2 ret;
-    ret.comp[0] = v1.comp[0] / v2.comp[0];
-    ret.comp[1] = v1.comp[1] / v2.comp[1];
-    return ret;
+DEF_FUNC(void) ivec2_div_ivec2(int2 &vec, const int2 &rhs) {
+    vec.comp[0] /= rhs.comp[0];
+    vec.comp[1] /= rhs.comp[1];
 } DEF_END
 
 // ivec3
@@ -756,36 +748,28 @@ DEF_FUNC(bool) ivec3_eq_ivec3(const int3 &v1, const int3 &v2) {
     return v1.comp[0] == v2.comp[0] && v1.comp[1] == v2.comp[1] && v1.comp[2] == v2.comp[2];
 } DEF_END
 
-DEF_FUNC(int3) ivec3_add_ivec3(const int3 &v1, const int3 &v2) {
-    int3 ret;
-    ret.comp[0] = v1.comp[0] + v2.comp[0];
-    ret.comp[1] = v1.comp[1] + v2.comp[1];
-    ret.comp[2] = v1.comp[2] + v2.comp[2];
-    return ret;
+DEF_FUNC(void) ivec3_add_ivec3(int3 &vec, const int3 &rhs) {
+    vec.comp[0] += rhs.comp[0];
+    vec.comp[1] += rhs.comp[1];
+    vec.comp[2] += rhs.comp[2];
 } DEF_END
 
-DEF_FUNC(int3) ivec3_sub_ivec3(const int3 &v1, const int3 &v2) {
-    int3 ret;
-    ret.comp[0] = v1.comp[0] - v2.comp[0];
-    ret.comp[1] = v1.comp[1] - v2.comp[1];
-    ret.comp[2] = v1.comp[2] - v2.comp[2];
-    return ret;
+DEF_FUNC(void) ivec3_sub_ivec3(int3 &vec, const int3 &rhs) {
+    vec.comp[0] -= rhs.comp[0];
+    vec.comp[1] -= rhs.comp[1];
+    vec.comp[2] -= rhs.comp[2];
 } DEF_END
 
-DEF_FUNC(int3) ivec3_mul_ivec3(const int3 &v1, const int3 &v2) {
-    int3 ret;
-    ret.comp[0] = v1.comp[0] * v2.comp[0];
-    ret.comp[1] = v1.comp[1] * v2.comp[1];
-    ret.comp[2] = v1.comp[2] * v2.comp[2];
-    return ret;
+DEF_FUNC(void) ivec3_mul_ivec3(int3 &vec, const int3 &rhs) {
+    vec.comp[0] *= rhs.comp[0];
+    vec.comp[1] *= rhs.comp[1];
+    vec.comp[2] *= rhs.comp[2];
 } DEF_END
 
-DEF_FUNC(int3) ivec3_div_ivec3(const int3 &v1, const int3 &v2) {
-    int3 ret;
-    ret.comp[0] = v1.comp[0] / v2.comp[0];
-    ret.comp[1] = v1.comp[1] / v2.comp[1];
-    ret.comp[2] = v1.comp[2] / v2.comp[2];
-    return ret;
+DEF_FUNC(void) ivec3_div_ivec3(int3 &vec, const int3 &rhs) {
+    vec.comp[0] /= rhs.comp[0];
+    vec.comp[1] /= rhs.comp[1];
+    vec.comp[2] /= rhs.comp[2];
 } DEF_END
 
 // ivec4
@@ -802,40 +786,32 @@ DEF_FUNC(bool) ivec4_eq_ivec4(const int4 &v1, const int4 &v2) {
             v1.comp[2] == v2.comp[2] && v1.comp[3] == v2.comp[3];
 } DEF_END
 
-DEF_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.comp[0] = v1.comp[0] + v2.comp[0];
-    ret.comp[1] = v1.comp[1] + v2.comp[1];
-    ret.comp[2] = v1.comp[2] + v2.comp[2];
-    ret.comp[3] = v1.comp[3] + v2.comp[3];
-    return ret;
+DEF_FUNC(void) ivec4_add_ivec4(int4 &vec, const int4 &rhs) {
+    vec.comp[0] += rhs.comp[0];
+    vec.comp[1] += rhs.comp[1];
+    vec.comp[2] += rhs.comp[2];
+    vec.comp[3] += rhs.comp[3];
 } DEF_END
 
-DEF_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.comp[0] = v1.comp[0] - v2.comp[0];
-    ret.comp[1] = v1.comp[1] - v2.comp[1];
-    ret.comp[2] = v1.comp[2] - v2.comp[2];
-    ret.comp[3] = v1.comp[3] - v2.comp[3];
-    return ret;
+DEF_FUNC(void) ivec4_sub_ivec4(int4 &vec, const int4 &rhs) {
+    vec.comp[0] -= rhs.comp[0];
+    vec.comp[1] -= rhs.comp[1];
+    vec.comp[2] -= rhs.comp[2];
+    vec.comp[3] -= rhs.comp[3];
 } DEF_END
 
-DEF_FUNC(int4) ivec4_mul_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.comp[0] = v1.comp[0] * v2.comp[0];
-    ret.comp[1] = v1.comp[1] * v2.comp[1];
-    ret.comp[2] = v1.comp[2] * v2.comp[2];
-    ret.comp[3] = v1.comp[3] * v2.comp[3];
-    return ret;
+DEF_FUNC(void) ivec4_mul_ivec4(int4 &vec, const int4 &rhs) {
+    vec.comp[0] *= rhs.comp[0];
+    vec.comp[1] *= rhs.comp[1];
+    vec.comp[2] *= rhs.comp[2];
+    vec.comp[3] *= rhs.comp[3];
 } DEF_END
 
-DEF_FUNC(int4) ivec4_div_ivec4(const int4 &v1, const int4 &v2) {
-    int4 ret;
-    ret.comp[0] = v1.comp[0] / v2.comp[0];
-    ret.comp[1] = v1.comp[1] / v2.comp[1];
-    ret.comp[2] = v1.comp[2] / v2.comp[2];
-    ret.comp[3] = v1.comp[3] / v2.comp[3];
-    return ret;
+DEF_FUNC(void) ivec4_div_ivec4(int4 &vec, const int4 &rhs) {
+    vec.comp[0] /= rhs.comp[0];
+    vec.comp[1] /= rhs.comp[1];
+    vec.comp[2] /= rhs.comp[2];
+    vec.comp[3] /= rhs.comp[3];
 } DEF_END
 
 // quat

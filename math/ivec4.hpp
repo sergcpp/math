@@ -32,26 +32,17 @@ namespace math {
         int &operator[] (int i) { return vec_.comp[i]; }
         int operator[] (int i) const { return vec_.comp[i]; }
 
-        ivec4 &operator++() { (*this) = (*this) + ivec4(1); return *this; }
-        ivec4 operator++(int) { ivec4 temp = (*this); ++(*this); return temp; }
-        ivec4 &operator--() { (*this) = (*this) - ivec4(1); return *this; }
-        ivec4 operator--(int) { ivec4 temp = (*this); --(*this); return temp; }
+        ivec4 &operator+=(const ivec4 &rhs) { ivec4_add_ivec4(vec_, rhs.vec_); return *this; }
+        ivec4 &operator-=(const ivec4 &rhs) { ivec4_sub_ivec4(vec_, rhs.vec_); return *this; }
+        ivec4 &operator*=(const ivec4 &rhs) { ivec4_mul_ivec4(vec_, rhs.vec_); return *this; }
+        ivec4 &operator/=(const ivec4 &rhs) { ivec4_div_ivec4(vec_, rhs.vec_); return *this; }
 
-        ivec4 &operator+=(const ivec4 &rhs) { (*this) = (*this) + rhs; return *this; }
-        ivec4 &operator-=(const ivec4 &rhs) { (*this) = (*this) - rhs; return *this; }
-        ivec4 &operator*=(const ivec4 &rhs) { (*this) = (*this) * rhs; return *this; }
-        ivec4 &operator/=(const ivec4 &rhs) { (*this) = (*this) / rhs; return *this; }
+		ivec4 &operator++() { (*this) += ivec4(1); return *this; }
+		ivec4 operator++(int) { ivec4 temp = (*this); ++(*this); return temp; }
+		ivec4 &operator--() { (*this) -= ivec4(1); return *this; }
+		ivec4 operator--(int) { ivec4 temp = (*this); --(*this); return temp; }
 
         ivec4 operator-() const;
-
-        friend bool operator==(const ivec4 &v1, const ivec4 &v2);
-
-        friend ivec4 operator+(const ivec4 &v1, const ivec4 &v2);
-        friend ivec4 operator-(const ivec4 &v1, const ivec4 &v2);
-        friend ivec4 operator*(const ivec4 &v1, const ivec4 &v2);
-        friend ivec4 operator/(const ivec4 &v1, const ivec4 &v2);
-
-		friend const int *value_ptr(const ivec4 &v);
 
         static const size_t alignment = alignment_m128;
 		using scalar_type = int;
@@ -60,10 +51,10 @@ namespace math {
     inline bool operator==(const ivec4 &v1, const ivec4 &v2) { return ivec4_eq_ivec4(v1.vec_, v2.vec_); }
     inline bool operator!=(const ivec4 &v1, const ivec4 &v2) { return !operator==(v1, v2); }
 
-    inline ivec4 operator+(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_add_ivec4(v1.vec_, v2.vec_)); }
-    inline ivec4 operator-(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_sub_ivec4(v1.vec_, v2.vec_)); }
-    inline ivec4 operator*(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_mul_ivec4(v1.vec_, v2.vec_)); }
-    inline ivec4 operator/(const ivec4 &v1, const ivec4 &v2) { return ivec4(ivec4_div_ivec4(v1.vec_, v2.vec_)); }
+    inline ivec4 operator+(const ivec4 &v1, const ivec4 &v2) { ivec4 temp = v1; temp += v2; return temp; }
+    inline ivec4 operator-(const ivec4 &v1, const ivec4 &v2) { ivec4 temp = v1; temp -= v2; return temp; }
+    inline ivec4 operator*(const ivec4 &v1, const ivec4 &v2) { ivec4 temp = v1; temp *= v2; return temp; }
+    inline ivec4 operator/(const ivec4 &v1, const ivec4 &v2) { ivec4 temp = v1; temp /= v2; return temp; }
 
     inline ivec4 operator+(const ivec4 &v, int f) { return v + ivec4(f); }
     inline ivec4 operator+(int f, const ivec4 &v) { return ivec4(f) + v; }

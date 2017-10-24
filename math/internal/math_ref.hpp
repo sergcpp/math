@@ -113,28 +113,28 @@ namespace ref {
     DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
     DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
     DECL_FUNC(bool) ivec2_eq_ivec2(const int2 &v1, const int2 &v2);
-    DECL_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2);
-    DECL_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2);
-    DECL_FUNC(int2) ivec2_mul_ivec2(const int2 &v1, const int2 &v2);
-    DECL_FUNC(int2) ivec2_div_ivec2(const int2 &v1, const int2 &v2);
+    DECL_FUNC(void) ivec2_add_ivec2(int2 &vec, const int2 &rhs);
+    DECL_FUNC(void) ivec2_sub_ivec2(int2 &vec, const int2 &rhs);
+    DECL_FUNC(void) ivec2_mul_ivec2(int2 &vec, const int2 &rhs);
+    DECL_FUNC(void) ivec2_div_ivec2(int2 &vec, const int2 &rhs);
 
     // ivec3
     DECL_FUNC(void) ivec3_init1(int3 &vec, int val);
     DECL_FUNC(void) ivec3_init3(int3 &vec, int v0, int v1, int v2);
     DECL_FUNC(bool) ivec3_eq_ivec3(const int3 &v1, const int3 &v2);
-    DECL_FUNC(int3) ivec3_add_ivec3(const int3 &v1, const int3 &v2);
-    DECL_FUNC(int3) ivec3_sub_ivec3(const int3 &v1, const int3 &v2);
-    DECL_FUNC(int3) ivec3_mul_ivec3(const int3 &v1, const int3 &v2);
-    DECL_FUNC(int3) ivec3_div_ivec3(const int3 &v1, const int3 &v2);
+    DECL_FUNC(void) ivec3_add_ivec3(int3 &vec, const int3 &rhs);
+    DECL_FUNC(void) ivec3_sub_ivec3(int3 &vec, const int3 &rhs);
+    DECL_FUNC(void) ivec3_mul_ivec3(int3 &vec, const int3 &rhs);
+    DECL_FUNC(void) ivec3_div_ivec3(int3 &vec, const int3 &rhs);
 
     // ivec4
     DECL_FUNC(void) ivec4_init1(int4 &vec, int val);
     DECL_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3);
     DECL_FUNC(bool) ivec4_eq_ivec4(const int4 &v1, const int4 &v2);
-    DECL_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2);
-    DECL_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2);
-    DECL_FUNC(int4) ivec4_mul_ivec4(const int4 &v1, const int4 &v2);
-    DECL_FUNC(int4) ivec4_div_ivec4(const int4 &v1, const int4 &v2);
+    DECL_FUNC(void) ivec4_add_ivec4(int4 &vec, const int4 &rhs);
+    DECL_FUNC(void) ivec4_sub_ivec4(int4 &vec, const int4 &rhs);
+    DECL_FUNC(void) ivec4_mul_ivec4(int4 &vec, const int4 &rhs);
+    DECL_FUNC(void) ivec4_div_ivec4(int4 &vec, const int4 &rhs);
 
     // quat
     DECL_FUNC(void) quat_init4(float4 &vec, float r, float i, float j, float k);

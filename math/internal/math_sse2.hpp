@@ -61,14 +61,14 @@ namespace sse2 {
 	// ivec2
 	DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
 	DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
-	DECL_FUNC(int2) ivec2_add_ivec2(const int2 &v1, const int2 &v2);
-	DECL_FUNC(int2) ivec2_sub_ivec2(const int2 &v1, const int2 &v2);
+	DECL_FUNC(void) ivec2_add_ivec2(int2 &vec, const int2 &rhs);
+	DECL_FUNC(void) ivec2_sub_ivec2(int2 &vec, const int2 &rhs);
 
 	// ivec4
 	DECL_FUNC(void) ivec4_init1(int4 &vec, int val);
 	DECL_FUNC(void) ivec4_init4(int4 &vec, int v0, int v1, int v2, int v3);
-	DECL_FUNC(int4) ivec4_add_ivec4(const int4 &v1, const int4 &v2);
-	DECL_FUNC(int4) ivec4_sub_ivec4(const int4 &v1, const int4 &v2);
+	DECL_FUNC(void) ivec4_add_ivec4(int4 &vec, const int4 &rhs);
+	DECL_FUNC(void) ivec4_sub_ivec4(int4 &vec, const int4 &rhs);
 
 	// dvec2
 	DECL_FUNC(void) dvec2_init1(double2 &vec, double val);
