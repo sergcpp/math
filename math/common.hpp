@@ -140,27 +140,31 @@ namespace math {
 	inline float castflt_up(float val) { return val; }
 
 	inline float castflt_up(double val) {
-		union {
-			float a;
-			int b;
-		};
+        int32_t b;
+        float a = (float)val;
 
-		a = (float)val;
-		if ((double)a < val)
-			b += a < 0 ? -1 : 1;
-		return a;
+        memcpy(&b, &a, sizeof(float));
+
+        if ((double)a < val)
+            b += a > 0 ? -1 : 1;
+
+        memcpy(&a, &b, sizeof(float));
+
+        return a;
 	}
 
 	inline float castflt_down(float val) { return val; }
 	inline float castflt_down(double val) {
-		union {
-			float a;
-			int b;
-		};
+        int32_t b;
+        float a = (float)val;
 
-		a = (float)val;
-		if ((double)a > val)
-			b += a > 0 ? -1 : 1;
+        memcpy(&b, &a, sizeof(float));
+
+        if ((double)a > val)
+            b += a > 0 ? -1 : 1;
+
+        memcpy(&a, &b, sizeof(float));
+
 		return a;
 	}
 }
