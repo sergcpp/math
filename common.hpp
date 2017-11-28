@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <cstring>
 
 #include "allocator.hpp"
 #include "dvec2.hpp"
