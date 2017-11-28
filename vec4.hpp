@@ -10,12 +10,12 @@ namespace math {
 
     class vec4 {
     public:
-		union {
-			float4 vec_;
-			struct { float x, y, z, w; };
-			struct { float r, g, b, a; };
-			struct { float s, t, p, q; };
-		};
+        union {
+            float4 vec_;
+            struct { float x, y, z, w; };
+            struct { float r, g, b, a; };
+            struct { float s, t, p, q; };
+        };
 
         vec4(e_noinit) { assert(is_aligned(this, alignment)); }
         vec4() : vec4(noinit) { vec4_init1(vec_, 0); }
@@ -75,7 +75,7 @@ namespace math {
         friend vec4 atan(const vec4 &angle);
 
         static const size_t alignment = alignment_m128;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const vec4 &v1, const vec4 &v2) { return vec4_eq_vec4(v1.vec_, v2.vec_); }

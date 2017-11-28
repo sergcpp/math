@@ -10,16 +10,16 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
 
     init(arch);
 
-	const int NUM_REPEATS = 1000;
-	std::mt19937 gen(seed);
-	std::uniform_int_distribution<int> dist(-1000, 1000);
+    const int NUM_REPEATS = 1000;
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<int> dist(-1000, 1000);
 
-	std::cout << "\t" << math::arch_name[arch] << " ...";
+    std::cout << "\t" << math::arch_name[arch] << " ...";
 
     // basic usage
-	for (int i = 0; i < NUM_REPEATS; i++) {
-		int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen);
-		if (r4 == 0 || r2 == 0 || r3 == 0) continue;
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen);
+        if (r4 == 0 || r2 == 0 || r3 == 0) continue;
 
         ivec2 v1, v2(r1), v3(r2, r3);
 
@@ -56,32 +56,38 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
     }
 
     // additional constructors
-	for (int i = 0; i < NUM_REPEATS; i++) {
-		int r1 = dist(gen), r2 = dist(gen);
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        int r1 = dist(gen), r2 = dist(gen);
 
         ivec2 v0 = { r1, r2 }, v1(v0), v2 = v0;
 
-        assert(v0 == ivec2(r1, r2)); assert(v1 == ivec2(r1, r2)); assert(v2 == ivec2(r1, r2));
+        assert(v0 == ivec2(r1, r2));
+        assert(v1 == ivec2(r1, r2));
+        assert(v2 == ivec2(r1, r2));
     }
 
     // additional operators
-	for (int i = 0; i < NUM_REPEATS; i++) {
-		int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
-			r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen),
-			r13 = dist(gen), r14 = dist(gen);
-		if (r11 == 0 || r12 == 0) continue;
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
+            r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen),
+            r13 = dist(gen), r14 = dist(gen);
+        if (r11 == 0 || r12 == 0) continue;
 
         ivec2 v0 = { r1, r2 }, v1 = { r3, r4 }, v2 = { r5, r6 }, v3 = { r7, r8 };
 
         ivec2 v4 = v0++, v5 = ++v1;
 
-        assert(v0 == ivec2(r1 + 1, r2 + 1)); assert(v1 == ivec2(r3 + 1, r4 + 1));
-		assert(v4 == ivec2(r1, r2)); assert(v5 == ivec2(r3 + 1, r4 + 1));
+        assert(v0 == ivec2(r1 + 1, r2 + 1));
+        assert(v1 == ivec2(r3 + 1, r4 + 1));
+        assert(v4 == ivec2(r1, r2));
+        assert(v5 == ivec2(r3 + 1, r4 + 1));
 
         ivec2 v6 = v2--, v7 = --v3;
 
-        assert(v2 == ivec2(r5 - 1, r6 - 1)); assert(v3 == ivec2(r7 - 1, r8 - 1));
-		assert(v6 == ivec2(r5, r6)); assert(v7 == ivec2(r7 - 1, r8 - 1));
+        assert(v2 == ivec2(r5 - 1, r6 - 1));
+        assert(v3 == ivec2(r7 - 1, r8 - 1));
+        assert(v6 == ivec2(r5, r6));
+        assert(v7 == ivec2(r7 - 1, r8 - 1));
 
         ivec2 v8 = { r9, r10 }, v9 = { r9, r10 }, v10 = { r9, r10 }, v11 = { r9, r10 };
 
@@ -119,12 +125,12 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
     }
 
     // arithmetics with deref
-	for (int i = 0; i < NUM_REPEATS; i++) {
-		int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
-			r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
+    for (int i = 0; i < NUM_REPEATS; i++) {
+        int r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
+            r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
 
         ivec2 vv{ r1, r2 };
-        
+
         int f1 = r3;
         ivec2 v1 = { r4, r5 };
         ivec3 v2 = { r6, r7, r8 };
@@ -156,19 +162,19 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
         //assert(m3[2] == ivec4(0, 0, 2, 0));
         //assert(m3[3] == ivec4(0, 0, 0, 2));
 
-		const int *p1 = value_ptr(vv);
-		const int *p2 = &vv[0];
-		assert(p1 == p2);
+        const int *p1 = value_ptr(vv);
+        const int *p2 = &vv[0];
+        assert(p1 == p2);
     }
 
-	std::cout << "OK" << std::endl;
+    std::cout << "OK" << std::endl;
 }
 
 void test_ivec2() {
-	std::random_device rd;
-	auto seed = rd();
+    std::random_device rd;
+    auto seed = rd();
 
-	std::cout << "test_ivec2 (seed " << seed << ")" << std::endl;
+    std::cout << "test_ivec2 (seed " << seed << ")" << std::endl;
 
     test_ivec2(math::Scalar, seed);
 #ifndef __arm__

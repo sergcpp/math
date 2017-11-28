@@ -8,10 +8,10 @@ namespace math {
 
     class mat4 {
     public:
-		union {
-			float16 vec_;
-			vec4 v[4];
-		};
+        union {
+            float16 vec_;
+            vec4 v[4];
+        };
 
         mat4(e_noinit) { assert(is_aligned(this, alignment)); }
         mat4() : mat4(1.0f) {}
@@ -27,11 +27,11 @@ namespace math {
         }
         mat4(const float16 &v) : mat4(noinit) { vec_ = v; }
         mat4(const float9 &v) : mat4(noinit) {
-            mat4_init16(vec_, 
-                v.comp3[0][0], v.comp3[0][1], v.comp3[0][2], 0,
-                v.comp3[1][0], v.comp3[1][1], v.comp3[1][2], 0,
-                v.comp3[2][0], v.comp3[2][1], v.comp3[2][2], 0,
-                0, 0, 0, 1);
+            mat4_init16(vec_,
+                        v.comp3[0][0], v.comp3[0][1], v.comp3[0][2], 0,
+                        v.comp3[1][0], v.comp3[1][1], v.comp3[1][2], 0,
+                        v.comp3[2][0], v.comp3[2][1], v.comp3[2][2], 0,
+                        0, 0, 0, 1);
         }
         mat4(const mat4 &v) : mat4(noinit) { vec_ = v.vec_; }
         mat4(const mat3 &v);
@@ -52,7 +52,7 @@ namespace math {
         mat4 operator-() const;
 
         static const size_t alignment = alignment_m256;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const mat4 &m1, const mat4 &m2) { return mat4_eq_mat4(m1.vec_, m2.vec_); }
@@ -69,17 +69,17 @@ namespace math {
 
     inline mat4 matrix_comp_mult(const mat4 &m1, const mat4 &m2) { return mat4_comp_mul(m1.vec_, m2.vec_); }
 
-	inline mat4 &mat4::operator++() { (*this) = (*this) + mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
-	inline mat4 mat4::operator++(int) { mat4 temp = (*this); ++(*this); return temp; }
-	inline mat4 &mat4::operator--() { (*this) = (*this) - mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
-	inline mat4 mat4::operator--(int) { mat4 temp = (*this); --(*this); return temp; }
+    inline mat4 &mat4::operator++() { (*this) = (*this) + mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
+    inline mat4 mat4::operator++(int) { mat4 temp = (*this); ++(*this); return temp; }
+    inline mat4 &mat4::operator--() { (*this) = (*this) - mat4(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1); return *this; }
+    inline mat4 mat4::operator--(int) { mat4 temp = (*this); --(*this); return temp; }
 
-	inline mat4 &mat4::operator+=(const mat4 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline mat4 &mat4::operator-=(const mat4 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline mat4 &mat4::operator*=(const mat4 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline mat4 &mat4::operator/=(const mat4 &rhs) { (*this) = (*this) / rhs; return *this; }
+    inline mat4 &mat4::operator+=(const mat4 &rhs) { (*this) = (*this) + rhs; return *this; }
+    inline mat4 &mat4::operator-=(const mat4 &rhs) { (*this) = (*this) - rhs; return *this; }
+    inline mat4 &mat4::operator*=(const mat4 &rhs) { (*this) = (*this) * rhs; return *this; }
+    inline mat4 &mat4::operator/=(const mat4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
-	inline mat4 mat4::operator-() const { return matrix_comp_mult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
+    inline mat4 mat4::operator-() const { return matrix_comp_mult((*this), mat4(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)); }
 
     inline mat4 make_mat4(const float v[16]) {
         return mat4(v[0], v[1], v[2], v[3],

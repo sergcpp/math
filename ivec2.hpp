@@ -9,12 +9,12 @@ namespace math {
 
     class ivec2 {
     public:
-		union {
-			int2 vec_;
-			struct { int x, y; };
-			struct { int r, g; };
-			struct { int s, t; };
-		};
+        union {
+            int2 vec_;
+            struct { int x, y; };
+            struct { int r, g; };
+            struct { int s, t; };
+        };
 
         ivec2(e_noinit) { assert(is_aligned(this, alignment)); }
         ivec2() : ivec2(noinit) { ivec2_init1(vec_, 0); }
@@ -33,15 +33,15 @@ namespace math {
         ivec2 &operator*=(const ivec2 &rhs) { ivec2_mul_ivec2(vec_, rhs.vec_); return *this; }
         ivec2 &operator/=(const ivec2 &rhs) { ivec2_div_ivec2(vec_, rhs.vec_); return *this; }
 
-		ivec2 &operator++() { (*this) += ivec2(1); return *this; }
-		ivec2 operator++(int) { ivec2 temp = (*this); ++(*this); return temp; }
-		ivec2 &operator--() { (*this) -= ivec2(1); return *this; }
-		ivec2 operator--(int) { ivec2 temp = (*this); --(*this); return temp; }
+        ivec2 &operator++() { (*this) += ivec2(1); return *this; }
+        ivec2 operator++(int) { ivec2 temp = (*this); ++(*this); return temp; }
+        ivec2 &operator--() { (*this) -= ivec2(1); return *this; }
+        ivec2 operator--(int) { ivec2 temp = (*this); --(*this); return temp; }
 
         ivec2 operator-() const;
 
         static const size_t alignment = alignment_m64;
-		using scalar_type = int;
+        using scalar_type = int;
     };
 
     inline bool operator==(const ivec2 &v1, const ivec2 &v2) { return ivec2_eq_ivec2(v1.vec_, v2.vec_); }
@@ -63,7 +63,7 @@ namespace math {
 
     inline ivec2 ivec2::operator-() const { return (*this) * -1; }
 
-	inline const int *value_ptr(const ivec2 &v) { return &v.vec_.comp[0]; }
+    inline const int *value_ptr(const ivec2 &v) { return &v.vec_.comp[0]; }
 }
 
 #include "ivec3.hpp"

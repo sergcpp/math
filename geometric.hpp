@@ -25,10 +25,10 @@ namespace math {
 
     // distance between points
     template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type distance(T v1, T v2) { return length(v1 - v2); }
-	template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance(const T &v1, const T &v2) { return length(v1 - v2); }
+    template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance(const T &v1, const T &v2) { return length(v1 - v2); }
 
     template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type distance2(T v1, T v2) { return (v1 - v2) * (v1 - v2); }
-	template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance2(const T &v1, const T &v2) { return dot(v1 - v2, v1 - v2); }
+    template <typename T> typename std::enable_if<is_tvecx<T>::value, T>::type::scalar_type distance2(const T &v1, const T &v2) { return dot(v1 - v2, v1 - v2); }
 
     // dot product
     inline float dot(const vec2 &v1, const vec2 &v2) { return vec2_dot(v1.vec_, v2.vec_); }

@@ -9,7 +9,8 @@ void test_trigonometric(math::e_arch arch) {
 
     init(arch);
 
-    {   // radian/degree conversion
+    {
+        // radian/degree conversion
         float deg1 = 4.12f;
         vec2 deg2 = { deg1, 6.5f };
         vec3 deg3 = { deg2, 1.2f };
@@ -89,8 +90,13 @@ void test_trigonometric(math::e_arch arch) {
 
         assert(_angle1 == Approx(angle1));
         assert(_angle2 == Approx(angle2));
-        assert(_angle3[0] == Approx(angle3[0])); assert(_angle3[1] == Approx(angle3[1])); assert(_angle3[2] == Approx(-angle3[2]));
-        assert(_angle4[0] == Approx(angle4[0])); assert(_angle4[1] == Approx(angle4[1])); assert(_angle4[2] == Approx(-angle4[2])); assert(_angle4[3] == Approx(angle4[3]));
+        assert(_angle3[0] == Approx(angle3[0]));
+        assert(_angle3[1] == Approx(angle3[1]));
+        assert(_angle3[2] == Approx(-angle3[2]));
+        assert(_angle4[0] == Approx(angle4[0]));
+        assert(_angle4[1] == Approx(angle4[1]));
+        assert(_angle4[2] == Approx(-angle4[2]));
+        assert(_angle4[3] == Approx(angle4[3]));
 
         float tan1 = math::tan(angle1);
         vec2 tan2 = math::tan(angle2);

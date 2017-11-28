@@ -7,9 +7,9 @@ DEF_FUNC(void) mat4_init1(float16 &vec, float val) {
 } DEF_END
 
 DEF_FUNC(void) mat4_init16(float16 &vec, float v00, float v01, float v02, float v03,
-                                            float v10, float v11, float v12, float v13,
-                                            float v20, float v21, float v22, float v23,
-                                            float v30, float v31, float v32, float v33) {
+                           float v10, float v11, float v12, float v13,
+                           float v20, float v21, float v22, float v23,
+                           float v30, float v31, float v32, float v33) {
     vec.vec2[0] = _mm256_set_ps(v13, v12, v11, v10, v03, v02, v01, v00);
     vec.vec2[1] = _mm256_set_ps(v33, v32, v31, v30, v23, v22, v21, v20);
     _mm256_zeroupper();
@@ -41,7 +41,7 @@ DEF_FUNC(float16) mat4_mul_mat4(const float16 &v1, const float16 &v2) {
     float16 ret;
 
     __m256 A0 = _mm256_broadcast_ps(&v1.vec[0]), A1 = _mm256_broadcast_ps(&v1.vec[1]),
-            A2 = _mm256_broadcast_ps(&v1.vec[2]), A3 = _mm256_broadcast_ps(&v1.vec[3]);
+           A2 = _mm256_broadcast_ps(&v1.vec[2]), A3 = _mm256_broadcast_ps(&v1.vec[3]);
 
     __m256 out01x, out23x;
     out01x = _mm256_mul_ps(_mm256_shuffle_ps(v2.vec2[0], v2.vec2[0], 0x00), A0);

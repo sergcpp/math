@@ -28,12 +28,12 @@ void test_mat3(math::e_arch arch, unsigned seed) {
              m3(r2, r3, r4,
                 r5, r6, r7,
                 r8, r9, r10),
-             m4(vec3{r11}, vec3{r12}, vec3{r13});
+             m4(vec3{ r11 }, vec3{ r12 }, vec3{ r13 });
 
         assert(m1[0] == Approx3(1, 0, 0));
         assert(m1[1] == Approx3(0, 1, 0));
         assert(m1[2] == Approx3(0, 0, 1));
-        
+
         assert(m2[0] == Approx3(r1, 0, 0));
         assert(m2[1] == Approx3(0, r1, 0));
         assert(m2[2] == Approx3(0, 0, r1));
@@ -77,7 +77,7 @@ void test_mat3(math::e_arch arch, unsigned seed) {
         assert(m8[0] == Approx3(r1 - r2, -r3, -r4) &&
                m8[1] == Approx3(-r5, r1 - r6, -r7) &&
                m8[2] == Approx3(-r8, -r9, r1 - r10));
-        
+
         //mat3 m9 = m1 * m2, m10 = m2 * m3;
 
         //assert(m9[0] == Approx3(2.3, 6.9, 6.9) &&
@@ -118,7 +118,8 @@ void test_mat3(math::e_arch arch, unsigned seed) {
                m16[2] == Approx3(r22 / r25, r23 / r25, r24 / r25));
     }
 
-    {   // matrix multiplication
+    {
+        // matrix multiplication
         extern std::vector<float> mat3_mul_mat3_test_data;
 
         for (size_t i = 0; i < mat3_mul_mat3_test_data.size(); i += 27) {
@@ -144,9 +145,10 @@ void test_mat3(math::e_arch arch, unsigned seed) {
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
               r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
 
-        mat3 m0 = { { r1, r2, r3 }, 
-                    { r4, r5, r6 },
-                    { r7, r8, r9 } }, m1(m0), m2 = m0;
+        mat3 m0 = { { r1, r2, r3 },
+            { r4, r5, r6 },
+            { r7, r8, r9 }
+        }, m1(m0), m2 = m0;
 
         assert(m0[0] == Approx3(r1, r2, r3) &&
                m0[1] == Approx3(r4, r5, r6) &&
@@ -167,12 +169,14 @@ void test_mat3(math::e_arch arch, unsigned seed) {
               r19 = dist(gen), r20 = dist(gen), r21 = dist(gen), r22 = dist(gen), r23 = dist(gen), r24 = dist(gen);
 
         mat3 m0 = { { r1, r2, r3 },
-                    { r4, r5, r6 },
-                    { r7, r8, r9 } }, 
-             m1 = { r1, r2, r3,
-                    r4, r5, r6,
-                    r7, r8, r9 },
-             m2 = m0, m3 = m1;
+            { r4, r5, r6 },
+            { r7, r8, r9 }
+        },
+        m1 = { r1, r2, r3,
+               r4, r5, r6,
+               r7, r8, r9
+             },
+        m2 = m0, m3 = m1;
 
         mat3 m4 = m0++, m5 = ++m1;
 
@@ -206,11 +210,13 @@ void test_mat3(math::e_arch arch, unsigned seed) {
 
         mat3 m8 = { r1, r2, r3,
                     r4, r5, r6,
-                    r7, r8, r9 }, m9 = m8, m10 = m8, m11 = m8;
+                    r7, r8, r9
+                  }, m9 = m8, m10 = m8, m11 = m8;
 
         mat3 mm = { 1, 1, 1,
                     2, 2, 2,
-                    3, 3, 3 };
+                    3, 3, 3
+                  };
 
         m8 += mm;
         m9 -= mm;
@@ -232,7 +238,8 @@ void test_mat3(math::e_arch arch, unsigned seed) {
 
         mat3 m12 = { r1, r2, r3,
                      r4, r5, r6,
-                     r7, r8, r9 };
+                     r7, r8, r9
+                   };
         m12 = -m12;
 
         assert(m12[0] == Approx3(-r1, -r2, -r3) &&
@@ -246,12 +253,13 @@ void test_mat3(math::e_arch arch, unsigned seed) {
 
         mat3 m14 = { r1, r2, r3,
                      r4, r5, r6,
-                     r7, r8, r9 };
+                     r7, r8, r9
+                   };
 
         m14[0] += { 1, 1, 1 };
         m14[1] -= { 1, 1, 1 };
         m14[2] *= { 2, 2, 2 };
-        
+
         assert(m14[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m14[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m14[2] == Approx3(r7 * 2, r8 * 2, r9 * 2));

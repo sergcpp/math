@@ -10,90 +10,92 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
     init(arch);
 
-	std::cout << "\t" << math::arch_name[arch] << " ...";
+    std::cout << "\t" << math::arch_name[arch] << " ...";
 
-    {   // mat - vec multiplication
-		extern std::vector<float> mat4_vec4_mult_test_data;
+    {
+        // mat - vec multiplication
+        extern std::vector<float> mat4_vec4_mult_test_data;
 
-		for (size_t i = 0; i < mat4_vec4_mult_test_data.size(); i += 24) {
-			vec4 v1 = make_vec4(&mat4_vec4_mult_test_data[i]);
-			mat4 m1 = make_mat4(&mat4_vec4_mult_test_data[i + 4]);
+        for (size_t i = 0; i < mat4_vec4_mult_test_data.size(); i += 24) {
+            vec4 v1 = make_vec4(&mat4_vec4_mult_test_data[i]);
+            mat4 m1 = make_mat4(&mat4_vec4_mult_test_data[i + 4]);
 
-			vec4 res = m1 * v1;
+            vec4 res = m1 * v1;
 
-			assert(res == Approx4(mat4_vec4_mult_test_data[i + 20], mat4_vec4_mult_test_data[i + 21],
-								  mat4_vec4_mult_test_data[i + 22], mat4_vec4_mult_test_data[i + 23]).epsilon(0.01));
-		}
+            assert(res == Approx4(mat4_vec4_mult_test_data[i + 20], mat4_vec4_mult_test_data[i + 21],
+                                  mat4_vec4_mult_test_data[i + 22], mat4_vec4_mult_test_data[i + 23]).epsilon(0.01));
+        }
 
-		extern std::vector<float> mat3_vec3_mult_test_data;
+        extern std::vector<float> mat3_vec3_mult_test_data;
 
-		for (size_t i = 0; i < mat3_vec3_mult_test_data.size(); i += 15) {
-			vec3 v1 = make_vec3(&mat3_vec3_mult_test_data[i]);
-			mat3 m1 = make_mat3(&mat3_vec3_mult_test_data[i + 3]);
+        for (size_t i = 0; i < mat3_vec3_mult_test_data.size(); i += 15) {
+            vec3 v1 = make_vec3(&mat3_vec3_mult_test_data[i]);
+            mat3 m1 = make_mat3(&mat3_vec3_mult_test_data[i + 3]);
 
-			vec3 res = m1 * v1;
+            vec3 res = m1 * v1;
 
-			assert(res == Approx3(mat3_vec3_mult_test_data[i + 12], mat3_vec3_mult_test_data[i + 13],
-								  mat3_vec3_mult_test_data[i + 14]).epsilon(0.01));
-		}
+            assert(res == Approx3(mat3_vec3_mult_test_data[i + 12], mat3_vec3_mult_test_data[i + 13],
+                                  mat3_vec3_mult_test_data[i + 14]).epsilon(0.01));
+        }
 
-		extern std::vector<float> mat2_vec2_mult_test_data;
+        extern std::vector<float> mat2_vec2_mult_test_data;
 
-		for (size_t i = 0; i < mat2_vec2_mult_test_data.size(); i += 8) {
-			vec2 v1 = make_vec2(&mat2_vec2_mult_test_data[i]);
-			mat2 m1 = make_mat2(&mat2_vec2_mult_test_data[i + 2]);
+        for (size_t i = 0; i < mat2_vec2_mult_test_data.size(); i += 8) {
+            vec2 v1 = make_vec2(&mat2_vec2_mult_test_data[i]);
+            mat2 m1 = make_mat2(&mat2_vec2_mult_test_data[i + 2]);
 
-			vec2 res = m1 * v1;
+            vec2 res = m1 * v1;
 
-			assert(res == Approx2(mat2_vec2_mult_test_data[i + 6], mat2_vec2_mult_test_data[i + 7]).epsilon(0.01));
-		}
+            assert(res == Approx2(mat2_vec2_mult_test_data[i + 6], mat2_vec2_mult_test_data[i + 7]).epsilon(0.01));
+        }
     }
 
-    {   // vec - mat multiplication
-		extern std::vector<float> vec4_mat4_mult_test_data;
+    {
+        // vec - mat multiplication
+        extern std::vector<float> vec4_mat4_mult_test_data;
 
-		for (size_t i = 0; i < vec4_mat4_mult_test_data.size(); i += 24) {
-			vec4 v1 = make_vec4(&vec4_mat4_mult_test_data[i]);
-			mat4 m1 = make_mat4(&vec4_mat4_mult_test_data[i + 4]);
+        for (size_t i = 0; i < vec4_mat4_mult_test_data.size(); i += 24) {
+            vec4 v1 = make_vec4(&vec4_mat4_mult_test_data[i]);
+            mat4 m1 = make_mat4(&vec4_mat4_mult_test_data[i + 4]);
 
-			vec4 res = v1 * m1;
+            vec4 res = v1 * m1;
 
-			assert(res == Approx4(vec4_mat4_mult_test_data[i + 20], vec4_mat4_mult_test_data[i + 21],
-								  vec4_mat4_mult_test_data[i + 22], vec4_mat4_mult_test_data[i + 23]).epsilon(0.01));
-		}
+            assert(res == Approx4(vec4_mat4_mult_test_data[i + 20], vec4_mat4_mult_test_data[i + 21],
+                                  vec4_mat4_mult_test_data[i + 22], vec4_mat4_mult_test_data[i + 23]).epsilon(0.01));
+        }
 
-		extern std::vector<float> vec3_mat3_mult_test_data;
+        extern std::vector<float> vec3_mat3_mult_test_data;
 
-		for (size_t i = 0; i < vec3_mat3_mult_test_data.size(); i += 15) {
-			vec3 v1 = make_vec3(&vec3_mat3_mult_test_data[i]);
-			mat3 m1 = make_mat3(&vec3_mat3_mult_test_data[i + 3]);
+        for (size_t i = 0; i < vec3_mat3_mult_test_data.size(); i += 15) {
+            vec3 v1 = make_vec3(&vec3_mat3_mult_test_data[i]);
+            mat3 m1 = make_mat3(&vec3_mat3_mult_test_data[i + 3]);
 
-			vec3 res = v1 * m1;
+            vec3 res = v1 * m1;
 
-			assert(res == Approx3(vec3_mat3_mult_test_data[i + 12], vec3_mat3_mult_test_data[i + 13],
-								  vec3_mat3_mult_test_data[i + 14]).epsilon(0.01));
-		}
+            assert(res == Approx3(vec3_mat3_mult_test_data[i + 12], vec3_mat3_mult_test_data[i + 13],
+                                  vec3_mat3_mult_test_data[i + 14]).epsilon(0.01));
+        }
 
-		extern std::vector<float> vec2_mat2_mult_test_data;
+        extern std::vector<float> vec2_mat2_mult_test_data;
 
-		for (size_t i = 0; i < vec2_mat2_mult_test_data.size(); i += 8) {
-			vec2 v1 = make_vec2(&vec2_mat2_mult_test_data[i]);
-			mat2 m1 = make_mat2(&vec2_mat2_mult_test_data[i + 2]);
+        for (size_t i = 0; i < vec2_mat2_mult_test_data.size(); i += 8) {
+            vec2 v1 = make_vec2(&vec2_mat2_mult_test_data[i]);
+            mat2 m1 = make_mat2(&vec2_mat2_mult_test_data[i + 2]);
 
-			vec2 res = v1 * m1;
+            vec2 res = v1 * m1;
 
-			assert(res == Approx2(vec2_mat2_mult_test_data[i + 6], vec2_mat2_mult_test_data[i + 7]).epsilon(0.01));
-		}
+            assert(res == Approx2(vec2_mat2_mult_test_data[i + 6], vec2_mat2_mult_test_data[i + 7]).epsilon(0.01));
+        }
     }
 
-	std::cout << "OK" << std::endl;
+    std::cout << "OK" << std::endl;
 }
 
 void test_comb() {
-	std::random_device rd;
-	auto seed = rd();
+    std::random_device rd;
+    auto seed = rd();
 
-	std::cout << "test_comb (seed " << seed << ")" << std::endl;
+    std::cout << "test_comb (seed " << seed << ")" << std::endl;
 
     test_comb(math::Scalar, seed);
 #ifndef __arm__

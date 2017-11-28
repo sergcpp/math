@@ -31,7 +31,7 @@ void test_mat4(math::e_arch arch, unsigned seed) {
                 r6, r7, r8, r9,
                 r10, r11, r12, r13,
                 r14, r15, r16, r17),
-            m4(vec4{ r18 }, vec4{ r19 }, vec4{ r20 }, vec4{ r21 });
+             m4(vec4{ r18 }, vec4{ r19 }, vec4{ r20 }, vec4{ r21 });
 
         assert(m1[0] == Approx4(1, 0, 0, 0));
         assert(m1[1] == Approx4(0, 1, 0, 0));
@@ -139,7 +139,8 @@ void test_mat4(math::e_arch arch, unsigned seed) {
         assert(m16[3] == Approx4(r34 / r38, r35 / r38, r36 / r38, r37 / r38));
     }
 
-    {   // matrix multiplication
+    {
+        // matrix multiplication
         extern std::vector<float> mat4_mul_mat4_test_data;
 
         for (size_t i = 0; i < mat4_mul_mat4_test_data.size(); i += 48) {
@@ -169,9 +170,10 @@ void test_mat4(math::e_arch arch, unsigned seed) {
               r13 = dist(gen), r14 = dist(gen), r15 = dist(gen), r16 = dist(gen), r17 = dist(gen), r18 = dist(gen);
 
         mat4 m0 = { { r1, r2, r3, r4 },
-                    { r5, r6, r7, r8 },
-                    { r9, r10, r11, r12 },
-                    { r13, r14, r15, r16 } }, m1(m0), m2 = m0;
+            { r5, r6, r7, r8 },
+            { r9, r10, r11, r12 },
+            { r13, r14, r15, r16 }
+        }, m1(m0), m2 = m0;
 
         assert(m0[0] == Approx4(r1, r2, r3, r4) &&
                m0[1] == Approx4(r5, r6, r7, r8) &&
@@ -199,14 +201,16 @@ void test_mat4(math::e_arch arch, unsigned seed) {
               r43 = dist(gen), r44 = dist(gen), r45 = dist(gen), r46 = dist(gen), r47 = dist(gen), r48 = dist(gen);
 
         mat4 m0 = { { r1, r2, r3, r4 },
-                    { r5, r6, r7, r8 },
-                    { r9, r10, r11, r12 },
-                    { r13, r14, r15, r16 } },
-             m1 = { r17, r18, r19, r20,
-                    r21, r22, r23, r24,
-                    r25, r26, r27, r28,
-                    r29, r30, r31, r32 },
-             m2 = m0, m3 = m1;
+            { r5, r6, r7, r8 },
+            { r9, r10, r11, r12 },
+            { r13, r14, r15, r16 }
+        },
+        m1 = { r17, r18, r19, r20,
+               r21, r22, r23, r24,
+               r25, r26, r27, r28,
+               r29, r30, r31, r32
+             },
+        m2 = m0, m3 = m1;
 
         mat4 m4 = m0++, m5 = ++m1;
 
@@ -249,12 +253,14 @@ void test_mat4(math::e_arch arch, unsigned seed) {
         mat4 m8 = { r33, r34, r35, r36,
                     r37, r38, r39, r40,
                     r41, r42, r43, r44,
-                    r45, r46, r47, r48 }, m9 = m8, m10 = m8, m11 = m8;
+                    r45, r46, r47, r48
+                  }, m9 = m8, m10 = m8, m11 = m8;
 
         mat4 mm = { 1, 1, 1, 1,
                     2, 2, 2, 2,
                     3, 3, 3, 3,
-                    4, 4, 4, 4 };
+                    4, 4, 4, 4
+                  };
 
         m8 += mm;
         m9 -= mm;
@@ -281,7 +287,8 @@ void test_mat4(math::e_arch arch, unsigned seed) {
         mat4 m12 = { r33, r34, r35, r36,
                      r37, r38, r39, r40,
                      r41, r42, r43, r44,
-                     r45, r46, r47, r48 };
+                     r45, r46, r47, r48
+                   };
         m12 = -m12;
 
         assert(m12[0] == Approx4(-r33, -r34, -r35, -r36) &&
@@ -297,7 +304,8 @@ void test_mat4(math::e_arch arch, unsigned seed) {
         mat4 m14 = { r33, r34, r35, r36,
                      r37, r38, r39, r40,
                      r41, r42, r43, r44,
-                     r45, r46, r47, r48 };
+                     r45, r46, r47, r48
+                   };
 
         m14[0] += { 1, 1, 1, 1 };
         m14[1] -= { 1, 1, 1, 1 };

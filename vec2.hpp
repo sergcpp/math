@@ -10,12 +10,12 @@ namespace math {
 
     class vec2 {
     public:
-		union {
-			float2 vec_;
-			struct { float x, y; };
-			struct { float r, g; };
-			struct { float s, t; };
-		};
+        union {
+            float2 vec_;
+            struct { float x, y; };
+            struct { float r, g; };
+            struct { float s, t; };
+        };
 
         vec2(e_noinit) {}
         vec2() { vec2_init1(vec_, 0); }
@@ -47,7 +47,7 @@ namespace math {
         vec2 operator-() const;
 
         static const size_t alignment = 1;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const vec2 &v1, const vec2 &v2) { return vec2_eq_vec2(v1.vec_, v2.vec_); }
@@ -72,15 +72,15 @@ namespace math {
     inline vec2 &vec2::operator*=(float rhs) { (*this) = (*this) * rhs; return *this; }
     inline vec2 &vec2::operator/=(float rhs) { (*this) = (*this) / rhs; return *this; }
 
-	inline vec2 &vec2::operator++() { (*this) = (*this) + vec2(1); return *this; }
-	inline vec2 vec2::operator++(int) { vec2 temp = (*this); ++(*this); return temp; }
-	inline vec2 &vec2::operator--() { (*this) = (*this) - vec2(1); return *this; }
-	inline vec2 vec2::operator--(int) { vec2 temp = (*this); --(*this); return temp; }
+    inline vec2 &vec2::operator++() { (*this) = (*this) + vec2(1); return *this; }
+    inline vec2 vec2::operator++(int) { vec2 temp = (*this); ++(*this); return temp; }
+    inline vec2 &vec2::operator--() { (*this) = (*this) - vec2(1); return *this; }
+    inline vec2 vec2::operator--(int) { vec2 temp = (*this); --(*this); return temp; }
 
-	inline vec2 &vec2::operator+=(const vec2 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline vec2 &vec2::operator-=(const vec2 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline vec2 &vec2::operator*=(const vec2 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline vec2 &vec2::operator/=(const vec2 &rhs) { (*this) = (*this) / rhs; return *this; }
+    inline vec2 &vec2::operator+=(const vec2 &rhs) { (*this) = (*this) + rhs; return *this; }
+    inline vec2 &vec2::operator-=(const vec2 &rhs) { (*this) = (*this) - rhs; return *this; }
+    inline vec2 &vec2::operator*=(const vec2 &rhs) { (*this) = (*this) * rhs; return *this; }
+    inline vec2 &vec2::operator/=(const vec2 &rhs) { (*this) = (*this) / rhs; return *this; }
 
     inline vec2 vec2::operator-() const { return (*this) * -1.0f; }
 

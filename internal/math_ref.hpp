@@ -79,8 +79,8 @@ namespace ref {
     // mat3
     DECL_FUNC(void) mat3_init1(float9 &vec, float val);
     DECL_FUNC(void) mat3_init9(float9 &vec, float v00, float v01, float v02,
-                                            float v10, float v11, float v12,
-                                            float v20, float v21, float v22);
+                                float v10, float v11, float v12,
+                                float v20, float v21, float v22);
     DECL_FUNC(void) mat3_init3(float9 &vec, const float3 &v0, const float3 &v1, const float3 &v2);
     DECL_FUNC(bool) mat3_eq_mat3(const float9 &m1, const float9 &m2);
     DECL_FUNC(float9) mat3_add_mat3(const float9 &v1, const float9 &v2);
@@ -95,9 +95,9 @@ namespace ref {
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);
     DECL_FUNC(void) mat4_init16(float16 &vec, float v00, float v01, float v02, float v03,
-                                              float v10, float v11, float v12, float v13,
-                                              float v20, float v21, float v22, float v23,
-                                              float v30, float v31, float v32, float v33);
+                                float v10, float v11, float v12, float v13,
+                                float v20, float v21, float v22, float v23,
+                                float v30, float v31, float v32, float v33);
     DECL_FUNC(void) mat4_init4(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);
     DECL_FUNC(bool) mat4_eq_mat4(const float16 &m1, const float16 &m2);
     DECL_FUNC(float16) mat4_add_mat4(const float16 &v1, const float16 &v2);
@@ -196,7 +196,7 @@ namespace ref {
 
 namespace math {
 namespace ref {
-	#include "math_ref.ipp"
+#include "math_ref.ipp"
 }
 }
 

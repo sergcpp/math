@@ -7,7 +7,8 @@ void test_quat(math::e_arch arch) {
 
     init(arch);
 
-    {   // basic usage
+    {
+        // basic usage
         quat q1, q2(0.5f, 0.5f, 0, 0);
 
         assert(q1 == Approx4(0, 0, 0, 1));
@@ -23,7 +24,7 @@ void test_quat(math::e_arch arch) {
 
         quat q5 = mix(q3, q4, 0.5f);
         assert(q5[0] == Approx(-0.119268775) && q5[1] == Approx(0.405942678) && q5[2] == Approx(0.652634323) && q5[3] == Approx(0.628533244));
-    
+
         quat q6 = q3 * 2.0f;
         assert(q6[0] == Approx(-0.567127778) && q6[1] == Approx(0.924728990) && q6[2] == Approx(0.317865610) && q6[3] == Approx(1.64990675));
 
@@ -46,25 +47,31 @@ void test_quat(math::e_arch arch) {
 
         mat3 m3 = { 0.521917793f, -5.96046448e-08f, -0.852995157f,
                     -0.524448693f, 0.788658082f, -0.320892453f,
-                    0.672721505f, 0.614831984f, 0.411615491f };
+                    0.672721505f, 0.614831984f, 0.411615491f
+                  };
         quat q9 = to_quat(m3);
         assert(q9[0] == Approx(-0.2835689) && q9[1] == Approx(0.4623645) && q9[2] == Approx(0.1589328) && q9[3] == Approx(0.8249534));
 
         mat4 m4 = { 0.521917793f, -5.96046448e-08f, -0.852995157f, 0,
                     -0.524448693f, 0.788658082f, -0.320892453f, 0,
                     0.672721505f, 0.614831984f, 0.411615491f, 0,
-                    0, 0, 0, 1 };
+                    0, 0, 0, 1
+                  };
         quat q10 = to_quat(m4);
         assert(q10[0] == Approx(-0.2835689) && q10[1] == Approx(0.4623645) && q10[2] == Approx(0.1589328) && q10[3] == Approx(0.8249534));
     }
 
-    {   // additional constructors
+    {
+        // additional constructors
         quat q0 = { 1, 2, 3, 4 }, q1(q0), q2 = q0;
 
-        assert(q0 == Approx4(2, 3, 4, 1)); assert(q1 == Approx4(2, 3, 4, 1)); assert(q2 == Approx4(2, 3, 4, 1));
+        assert(q0 == Approx4(2, 3, 4, 1));
+        assert(q1 == Approx4(2, 3, 4, 1));
+        assert(q2 == Approx4(2, 3, 4, 1));
     }
 
-    {   // angles
+    {
+        // angles
         quat q0 = { 0.8249534f, -0.2835689f, 0.4623645f, 0.1589328f };
 
         float p = pitch(q0);
@@ -77,7 +84,8 @@ void test_quat(math::e_arch arch) {
         assert(angles[0] == Approx(-0.662173092) && angles[1] == Approx(1.02169740) && angles[2] == Approx(-1.14202898e-07));
     }
 
-    {   // slerp
+    {
+        // slerp
         math::quat q0 = { 0.8249534f, -0.2835689f, 0.4623645f, 0.1589328f },
                    q1 = { 0.2356965f, 0.0823028f, 0.2226638f, 0.9423876f };
 

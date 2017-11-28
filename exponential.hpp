@@ -8,7 +8,7 @@
 
 namespace math {
     // x ^ y
-	template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type pow(T x, T y) { return std::pow(x, y); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type pow(T x, T y) { return std::pow(x, y); }
     template <typename T> typename std::enable_if<is_tvec2<T>::value, T>::type pow(const T &x, const T &y) { return T(pow(x[0], y[0]), pow(x[1], y[1])); }
     template <typename T> typename std::enable_if<is_tvec3<T>::value, T>::type pow(const T &x, const T &y) { return T(pow(x[0], y[0]), pow(x[1], y[1]), pow(x[2], y[2])); }
     template <typename T> typename std::enable_if<is_tvec4<T>::value, T>::type pow(const T &x, const T &y) { return T(pow(x[0], y[0]), pow(x[1], y[1]), pow(x[2], y[2]), pow(x[3], y[3])); }
@@ -44,7 +44,7 @@ namespace math {
     template <typename T> typename std::enable_if<is_tvec4<T>::value, T>::type sqrt(const T &x) { return T(sqrt(x[0]), sqrt(x[1]), sqrt(x[2]), sqrt(x[3])); }
 
     // inverse square root
-    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type inversesqrt(T x) { return T(1)/std::sqrt(x); }
+    template <typename T> typename std::enable_if<is_scalar<T>::value, T>::type inversesqrt(T x) { return T(1) / std::sqrt(x); }
     template <typename T> typename std::enable_if<is_tvec2<T>::value, T>::type inversesqrt(const T &x) { return T(inversesqrt(x[0]), inversesqrt(x[1])); }
     template <typename T> typename std::enable_if<is_tvec3<T>::value, T>::type inversesqrt(const T &x) { return T(inversesqrt(x[0]), inversesqrt(x[1]), inversesqrt(x[2])); }
     template <typename T> typename std::enable_if<is_tvec4<T>::value, T>::type inversesqrt(const T &x) { return T(inversesqrt(x[0]), inversesqrt(x[1]), inversesqrt(x[2]), inversesqrt(x[3])); }

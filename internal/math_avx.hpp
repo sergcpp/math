@@ -10,9 +10,9 @@ namespace avx {
     // mat4
     DECL_FUNC(void) mat4_init1(float16 &vec, float val);
     DECL_FUNC(void) mat4_init16(float16 &vec, float v00, float v01, float v02, float v03,
-                                              float v10, float v11, float v12, float v13,
-                                              float v20, float v21, float v22, float v23,
-                                              float v30, float v31, float v32, float v33);
+                                float v10, float v11, float v12, float v13,
+                                float v20, float v21, float v22, float v23,
+                                float v30, float v31, float v32, float v33);
     DECL_FUNC(void) mat4_init4(float16 &vec, const float4 &v0, const float4 &v1, const float4 &v2, const float4 &v3);
     DECL_FUNC(float16) mat4_add_mat4(const float16 &v1, const float16 &v2);
     DECL_FUNC(float16) mat4_sub_mat4(const float16 &v1, const float16 &v2);
@@ -48,10 +48,10 @@ namespace avx {
 
 namespace math {
 namespace avx {
-    using namespace sse4_1;
+using namespace sse4_1;
 
 #if defined(__AVX__) || defined(_MSC_VER)
-	#include "math_avx.ipp"
+#include "math_avx.ipp"
 #endif
 }
 }

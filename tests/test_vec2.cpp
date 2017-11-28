@@ -60,7 +60,9 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
 
         vec2 v0 = { r1, r2 }, v1(v0), v2 = v0;
 
-        assert(v0 == Approx2(r1, r2)); assert(v1 == Approx2(r1, r2)); assert(v2 == Approx2(r1, r2));
+        assert(v0 == Approx2(r1, r2));
+        assert(v1 == Approx2(r1, r2));
+        assert(v2 == Approx2(r1, r2));
     }
 
     // additional operators
@@ -71,11 +73,17 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
 
         vec2 v4 = v0++, v5 = ++v1;
 
-        assert(v0 == Approx2(r1 + 1, r2 + 1)); assert(v1 == Approx2(r1 + 1, r2 + 1)); assert(v4 == Approx2(r1, r2)); assert(v5 == Approx2(r1 + 1, r2 + 1));
+        assert(v0 == Approx2(r1 + 1, r2 + 1));
+        assert(v1 == Approx2(r1 + 1, r2 + 1));
+        assert(v4 == Approx2(r1, r2));
+        assert(v5 == Approx2(r1 + 1, r2 + 1));
 
         vec2 v6 = v2--, v7 = --v3;
 
-        assert(v2 == Approx2(r3 - 1, r4 - 1)); assert(v3 == Approx2(r3 - 1, r4 - 1)); assert(v6 == Approx2(r3, r4)); assert(v7 == Approx2(r3 - 1, r4 - 1));
+        assert(v2 == Approx2(r3 - 1, r4 - 1));
+        assert(v3 == Approx2(r3 - 1, r4 - 1));
+        assert(v6 == Approx2(r3, r4));
+        assert(v7 == Approx2(r3 - 1, r4 - 1));
 
         vec2 v8 = { r1, r2 }, v9 = { r1, r2 }, v10 = { r1, r2 }, v11 = { r1, r2 };
 
@@ -117,7 +125,7 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen);
 
         vec2 vv{ r1, r2 };
-        
+
         float f1 = r1;
         vec2 v1 = { r1, r2 };
         vec3 v2 = { r1, r2, r3 };
@@ -149,9 +157,9 @@ void test_vec2(math::e_arch arch, unsigned int seed) {
         assert(m3[2] == Approx4(0, 0, r1, 0));
         assert(m3[3] == Approx4(0, 0, 0, r1));
 
-		const float *p1 = value_ptr(vv);
-		const float *p2 = &vv[0];
-		assert(p1 == p2);
+        const float *p1 = value_ptr(vv);
+        const float *p2 = &vv[0];
+        assert(p1 == p2);
     }
 
     std::cout << "OK" << std::endl;

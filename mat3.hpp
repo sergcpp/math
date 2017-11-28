@@ -3,16 +3,16 @@
 #include "vec3.hpp"
 
 namespace math {
-	class mat4;
+    class mat4;
     class quat;
     class vec3;
 
     class mat3 {
     public:
-		union {
-			float9 vec_;
-			vec3 v[3];;
-		};
+        union {
+            float9 vec_;
+            vec3 v[3];;
+        };
 
         mat3(e_noinit) { assert(is_aligned(this, alignment)); }
         mat3() : mat3(1.0f) {}
@@ -27,7 +27,7 @@ namespace math {
         }
         mat3(const float9 &v) : mat3(noinit) { vec_ = v; }
         mat3(const mat3 &v) : mat3(noinit) { vec_ = v.vec_; }
-		mat3(const mat4 &v);
+        mat3(const mat4 &v);
 
         vec3 &operator[] (int i) { return v[i]; }
         vec3 operator[] (int i) const { return v[i]; }
@@ -45,7 +45,7 @@ namespace math {
         mat3 operator-() const { return matrix_comp_mult((*this), mat3(-1, -1, -1, -1, -1, -1, -1, -1, -1)); }
 
         static const size_t alignment = alignment_m32;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const mat3 &m1, const mat3 &m2) { return mat3_eq_mat3(m1.vec_, m2.vec_); }
@@ -63,8 +63,8 @@ namespace math {
     inline mat3 matrix_comp_mult(const mat3 &m1, const mat3 &m2) { return mat3_comp_mul(m1.vec_, m2.vec_); }
 
     inline mat3 make_mat3(const float v[9]) {
-        return mat3(v[0], v[1], v[2], 
-                    v[3], v[4], v[5], 
+        return mat3(v[0], v[1], v[2],
+                    v[3], v[4], v[5],
                     v[6], v[7], v[8]);
     }
 
@@ -80,7 +80,7 @@ namespace math {
 #include "quat.hpp"
 
 namespace math {
-	inline mat3::mat3(const mat4 &v) : mat3(v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2], v[2][0], v[2][1], v[2][2]) {}
+    inline mat3::mat3(const mat4 &v) : mat3(v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2], v[2][0], v[2][1], v[2][2]) {}
 
     inline quat to_quat(const mat3 &m) { return quat(mat3_to_quat(m.vec_)); }
 }

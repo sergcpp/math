@@ -7,12 +7,12 @@ project(math)
 IF(WIN32)
 
 ELSE(WIN32)
-	set(CMAKE_CXX_STANDARD 11)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF(WIN32)
 
 set(SOURCE_FILES allocator.hpp
-				 common.hpp
+                 common.hpp
                  dvec2.hpp
                  dvec3.hpp
                  dvec4.hpp
@@ -36,18 +36,18 @@ set(SOURCE_FILES allocator.hpp
 list(APPEND ALL_SOURCE_FILES ${SOURCE_FILES})
 source_group("src" FILES ${SOURCE_FILES})
 
-set(INTERNAL_FILES	internal/types.hpp
-					internal/math_funcs.hpp
-					internal/math_ref.hpp
-					internal/math_ref.ipp
-					internal/math_sse2.hpp
-					internal/math_sse2.ipp
-					internal/math_sse3.hpp
-					internal/math_sse3.ipp
-					internal/math_sse4_1.hpp
-					internal/math_sse4_1.ipp
-					internal/math_avx.hpp
-					internal/math_avx.ipp)
+set(INTERNAL_FILES  internal/types.hpp
+                    internal/math_funcs.hpp
+                    internal/math_ref.hpp
+                    internal/math_ref.ipp
+                    internal/math_sse2.hpp
+                    internal/math_sse2.ipp
+                    internal/math_sse3.hpp
+                    internal/math_sse3.ipp
+                    internal/math_sse4_1.hpp
+                    internal/math_sse4_1.ipp
+                    internal/math_avx.hpp
+                    internal/math_avx.ipp)
 
 list(APPEND ALL_SOURCE_FILES ${INTERNAL_FILES})
 source_group("src\\internal" FILES ${INTERNAL_FILES})

@@ -7,11 +7,11 @@
 namespace math {
     class quat {
     public:
-		union {
-			float4 vec_;
-			struct { float i, j, k, r; };
-			struct { float x, y, z, w; };
-		};
+        union {
+            float4 vec_;
+            struct { float i, j, k, r; };
+            struct { float x, y, z, w; };
+        };
 
         quat(e_noinit) { assert(is_aligned(this, alignment)); }
         quat() : quat(noinit) { quat_init4(vec_, 1, 0, 0, 0); }
@@ -47,7 +47,7 @@ namespace math {
         friend float dot(const quat &q1, const quat &q2);
 
         static const size_t alignment = alignment_m128;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const quat &q1, const quat &q2) { return quat_eq_quat(q1.vec_, q2.vec_); }

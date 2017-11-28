@@ -82,7 +82,8 @@ struct scoped_timer {
 };
 
 void test_vec2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -98,7 +99,8 @@ void test_vec2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec2_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -114,7 +116,8 @@ void test_vec2_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec2_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -131,7 +134,8 @@ void test_vec2_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec2_len(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -148,7 +152,8 @@ void test_vec2_len(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -164,7 +169,8 @@ void test_vec3_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -180,7 +186,8 @@ void test_vec3_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -197,7 +204,8 @@ void test_vec3_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_cross(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -213,7 +221,8 @@ void test_vec3_cross(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_len(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -230,7 +239,8 @@ void test_vec3_len(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec3_normalize(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -246,7 +256,8 @@ void test_vec3_normalize(const char *name, math::e_arch arch, size_t N, size_t M
 }
 
 void test_vec4_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -262,7 +273,8 @@ void test_vec4_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -278,7 +290,8 @@ void test_vec4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec4_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -295,7 +308,8 @@ void test_vec4_dot(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec4_len(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -312,7 +326,8 @@ void test_vec4_len(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_vec4_normalize(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -328,7 +343,8 @@ void test_vec4_normalize(const char *name, math::e_arch arch, size_t N, size_t M
 }
 
 void test_mat2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -344,7 +360,8 @@ void test_mat2_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat2_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -360,7 +377,8 @@ void test_mat2_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat3_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -376,7 +394,8 @@ void test_mat3_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat3_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -392,7 +411,8 @@ void test_mat3_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat3_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -408,7 +428,8 @@ void test_mat3_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M)
 }
 
 void test_mat4_add(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -424,7 +445,8 @@ void test_mat4_add(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -440,7 +462,8 @@ void test_mat4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_mat4_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -456,7 +479,8 @@ void test_mat4_comp_mul(const char *name, math::e_arch arch, size_t N, size_t M)
 }
 
 void test_dvec4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
     init(arch);
 
@@ -472,28 +496,31 @@ void test_dvec4_mul(const char *name, math::e_arch arch, size_t N, size_t M) {
 }
 
 void test_perf() {
-    using namespace std; using namespace math;
+    using namespace std;
+    using namespace math;
 
 #ifndef __arm__
     std::pair<const char *, e_arch> archs[] = { { "Ref", Scalar },
-                                                { "SSE2", SSE2 },
-                                                { "SSE3", SSE3 },
-                                                { "SSE4", SSE4_1 },
-                                                { "AVX", AVX } };
+        { "SSE2", SSE2 },
+        { "SSE3", SSE3 },
+        { "SSE4", SSE4_1 },
+        { "AVX", AVX }
+    };
 #else
     std::pair<const char *, e_arch> archs[] = { { "Ref", Scalar },
-                                                { "NEON", NEON } };
+        { "NEON", NEON }
+    };
 #endif
 
-    {   // warmup cpu a little
+    {
+        // warmup cpu a little
         chrono::system_clock::time_point t1 = chrono::system_clock::now();
         while (chrono::system_clock::now() - t1 < chrono::seconds(1));
     }
 
     const size_t N = 1000, M = 100000;
 
-    std::pair<const char *, void(*)(const char *, math::e_arch, size_t, size_t)> tests[] =
-    { 
+    std::pair<const char *, void(*)(const char *, math::e_arch, size_t, size_t)> tests[] = {
         //{ "vec2 add", test_vec2_add },
         //{ "vec2 mul", test_vec2_mul },
         //{ "vec2 dot", test_vec2_dot },

@@ -9,12 +9,12 @@ namespace math {
 
     class ivec4 {
     public:
-		union {
-			int4 vec_;
-			struct { int x, y, z, w; };
-			struct { int r, g, b, a; };
-			struct { int s, t, p, q; };
-		};
+        union {
+            int4 vec_;
+            struct { int x, y, z, w; };
+            struct { int r, g, b, a; };
+            struct { int s, t, p, q; };
+        };
 
         ivec4(e_noinit) { assert(is_aligned(this, alignment)); }
         ivec4() { ivec4_init1(vec_, 0); }
@@ -37,15 +37,15 @@ namespace math {
         ivec4 &operator*=(const ivec4 &rhs) { ivec4_mul_ivec4(vec_, rhs.vec_); return *this; }
         ivec4 &operator/=(const ivec4 &rhs) { ivec4_div_ivec4(vec_, rhs.vec_); return *this; }
 
-		ivec4 &operator++() { (*this) += ivec4(1); return *this; }
-		ivec4 operator++(int) { ivec4 temp = (*this); ++(*this); return temp; }
-		ivec4 &operator--() { (*this) -= ivec4(1); return *this; }
-		ivec4 operator--(int) { ivec4 temp = (*this); --(*this); return temp; }
+        ivec4 &operator++() { (*this) += ivec4(1); return *this; }
+        ivec4 operator++(int) { ivec4 temp = (*this); ++(*this); return temp; }
+        ivec4 &operator--() { (*this) -= ivec4(1); return *this; }
+        ivec4 operator--(int) { ivec4 temp = (*this); --(*this); return temp; }
 
         ivec4 operator-() const;
 
         static const size_t alignment = alignment_m128;
-		using scalar_type = int;
+        using scalar_type = int;
     };
 
     inline bool operator==(const ivec4 &v1, const ivec4 &v2) { return ivec4_eq_ivec4(v1.vec_, v2.vec_); }
@@ -67,7 +67,7 @@ namespace math {
 
     inline ivec4 ivec4::operator-() const { return (*this) * -1; }
 
-	inline const int *value_ptr(const ivec4 &v) { return &v.vec_.comp[0]; }
+    inline const int *value_ptr(const ivec4 &v) { return &v.vec_.comp[0]; }
 }
 
 #include "ivec2.hpp"

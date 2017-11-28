@@ -81,7 +81,8 @@ void test_mat2(math::e_arch arch, unsigned seed) {
         assert(m16[1] == Approx2(r12 / 2, r15 / 2));
     }
 
-    {   // matrix multiplication
+    {
+        // matrix multiplication
         extern std::vector<float> mat2_mul_mat2_test_data;
 
         for (size_t i = 0; i < mat2_mul_mat2_test_data.size(); i += 12) {
@@ -111,22 +112,27 @@ void test_mat2(math::e_arch arch, unsigned seed) {
         assert(m2[0] == Approx2(r1, r2) && m2[1] == Approx2(r3, r4));
     }
 
-    {   // additional operators
+    {
+        // additional operators
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen),
               r5 = dist(gen), r6 = dist(gen), r7 = dist(gen), r8 = dist(gen);
 
         mat2 m0 = { { r1, r2 }, { r3, r4 } }, m1 = { r1, r2, r3, r4 },
-             m2 = { { r1, r2 }, { r3, r4 } }, m3 = { r1, r2, r3, r4 };
+        m2 = { { r1, r2 }, { r3, r4 } }, m3 = { r1, r2, r3, r4 };
 
         mat2 m4 = m0++, m5 = ++m1;
 
-        assert(m0[0] == Approx2(r1 + 1, r2 + 1) && m0[1] == Approx2(r3 + 1, r4 + 1)); assert(m1[0] == Approx2(r1 + 1, r2 + 1) && m1[1] == Approx2(r3 + 1, r4 + 1));
-        assert(m4[0] == Approx2(r1, r2) && m4[1] == Approx2(r3, r4)); assert(m5[0] == Approx2(r1 + 1, r2 + 1) && m5[1] == Approx2(r3 + 1, r4 + 1));
+        assert(m0[0] == Approx2(r1 + 1, r2 + 1) && m0[1] == Approx2(r3 + 1, r4 + 1));
+        assert(m1[0] == Approx2(r1 + 1, r2 + 1) && m1[1] == Approx2(r3 + 1, r4 + 1));
+        assert(m4[0] == Approx2(r1, r2) && m4[1] == Approx2(r3, r4));
+        assert(m5[0] == Approx2(r1 + 1, r2 + 1) && m5[1] == Approx2(r3 + 1, r4 + 1));
 
         mat2 m6 = m2--, m7 = --m3;
 
-        assert(m2[0] == Approx2(r1 - 1, r2 - 1) && m2[1] == Approx2(r3 - 1, r4 - 1)); assert(m3[0] == Approx2(r1 - 1, r2 - 1) && m3[1] == Approx2(r3 - 1, r4 - 1));
-        assert(m6[0] == Approx2(r1, r2) && m4[1] == Approx2(r3, r4)); assert(m7[0] == Approx2(r1 - 1, r2 - 1) && m7[1] == Approx2(r3 - 1, r4 - 1));
+        assert(m2[0] == Approx2(r1 - 1, r2 - 1) && m2[1] == Approx2(r3 - 1, r4 - 1));
+        assert(m3[0] == Approx2(r1 - 1, r2 - 1) && m3[1] == Approx2(r3 - 1, r4 - 1));
+        assert(m6[0] == Approx2(r1, r2) && m4[1] == Approx2(r3, r4));
+        assert(m7[0] == Approx2(r1 - 1, r2 - 1) && m7[1] == Approx2(r3 - 1, r4 - 1));
 
         mat2 m8 = { r1, r2, r3, r4 }, m9 = m8, m10 = m8, m11 = m8;
 
@@ -154,7 +160,7 @@ void test_mat2(math::e_arch arch, unsigned seed) {
 
         m14[0] += { r5, r6 };
         m14[1] -= { r5, r6 };
-        
+
         assert(m14[0] == Approx2(r1 + r5, r2 + r6) && m14[1] == Approx2(r3 - r5, r4 - r6));
 
         mat2 m15 = { r1, r2, r3, r4 };

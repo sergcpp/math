@@ -10,12 +10,12 @@ namespace math {
 
     class vec3 {
     public:
-		union {
-			float3 vec_;
-			struct { float x, y, z; };
-			struct { float r, g, b; };
-			struct { float s, t, p; };
-		};
+        union {
+            float3 vec_;
+            struct { float x, y, z; };
+            struct { float r, g, b; };
+            struct { float s, t, p; };
+        };
 
         vec3(e_noinit) { assert(is_aligned(this, alignment)); }
         vec3() : vec3(noinit) { vec3_init1(vec_, 0); }
@@ -48,7 +48,7 @@ namespace math {
         vec3 operator-() const;
 
         static const size_t alignment = alignment_m32;
-		using scalar_type = float;
+        using scalar_type = float;
     };
 
     inline bool operator==(const vec3 &v1, const vec3 &v2) { return vec3_eq_vec3(v1.vec_, v2.vec_); }
@@ -68,15 +68,15 @@ namespace math {
     inline vec3 operator/(const vec3 &v, float f) { return v / vec3(f); }
     inline vec3 operator/(float f, const vec3 &v) { return vec3(f) / v; }
 
-	inline vec3 &vec3::operator++() { (*this) = (*this) + vec3(1); return *this; }
-	inline vec3 vec3::operator++(int) { vec3 temp = (*this); ++(*this); return temp; }
-	inline vec3 &vec3::operator--() { (*this) = (*this) - vec3(1); return *this; }
-	inline vec3 vec3::operator--(int) { vec3 temp = (*this); --(*this); return temp; }
+    inline vec3 &vec3::operator++() { (*this) = (*this) + vec3(1); return *this; }
+    inline vec3 vec3::operator++(int) { vec3 temp = (*this); ++(*this); return temp; }
+    inline vec3 &vec3::operator--() { (*this) = (*this) - vec3(1); return *this; }
+    inline vec3 vec3::operator--(int) { vec3 temp = (*this); --(*this); return temp; }
 
-	inline vec3 &vec3::operator+=(const vec3 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline vec3 &vec3::operator-=(const vec3 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline vec3 &vec3::operator*=(const vec3 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline vec3 &vec3::operator/=(const vec3 &rhs) { (*this) = (*this) / rhs; return *this; }
+    inline vec3 &vec3::operator+=(const vec3 &rhs) { (*this) = (*this) + rhs; return *this; }
+    inline vec3 &vec3::operator-=(const vec3 &rhs) { (*this) = (*this) - rhs; return *this; }
+    inline vec3 &vec3::operator*=(const vec3 &rhs) { (*this) = (*this) * rhs; return *this; }
+    inline vec3 &vec3::operator/=(const vec3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
     inline vec3 &vec3::operator+=(float rhs) { (*this) = (*this) + rhs; return *this; }
     inline vec3 &vec3::operator-=(float rhs) { (*this) = (*this) - rhs; return *this; }

@@ -9,12 +9,12 @@ namespace math {
 
     class dvec3 {
     public:
-		union {
-			double3 vec_;
-			struct { double x, y, z; };
-			struct { double r, g, b; };
-			struct { double s, t, p; };
-		};
+        union {
+            double3 vec_;
+            struct { double x, y, z; };
+            struct { double r, g, b; };
+            struct { double s, t, p; };
+        };
 
         dvec3(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec3() : dvec3(noinit) { dvec3_init1(vec_, 0); }
@@ -42,7 +42,7 @@ namespace math {
         inline dvec3 operator-() const;
 
         static const size_t alignment = alignment_m32;
-		using scalar_type = double;
+        using scalar_type = double;
     };
 
     inline bool operator==(const dvec3 &v1, const dvec3 &v2) { return dvec3_eq_dvec3(v1.vec_, v2.vec_); }
@@ -62,15 +62,15 @@ namespace math {
     inline dvec3 operator/(const dvec3 &v, double f) { return v / dvec3(f); }
     inline dvec3 operator/(double f, const dvec3 &v) { return dvec3(f) / v; }
 
-	inline dvec3 &dvec3::operator++() { (*this) = (*this) + dvec3(1); return *this; }
-	inline dvec3 dvec3::operator++(int) { dvec3 temp = (*this); ++(*this); return temp; }
-	inline dvec3 &dvec3::operator--() { (*this) = (*this) - dvec3(1); return *this; }
-	inline dvec3 dvec3::operator--(int) { dvec3 temp = (*this); --(*this); return temp; }
+    inline dvec3 &dvec3::operator++() { (*this) = (*this) + dvec3(1); return *this; }
+    inline dvec3 dvec3::operator++(int) { dvec3 temp = (*this); ++(*this); return temp; }
+    inline dvec3 &dvec3::operator--() { (*this) = (*this) - dvec3(1); return *this; }
+    inline dvec3 dvec3::operator--(int) { dvec3 temp = (*this); --(*this); return temp; }
 
-	inline dvec3 &dvec3::operator+=(const dvec3 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline dvec3 &dvec3::operator-=(const dvec3 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline dvec3 &dvec3::operator*=(const dvec3 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline dvec3 &dvec3::operator/=(const dvec3 &rhs) { (*this) = (*this) / rhs; return *this; }
+    inline dvec3 &dvec3::operator+=(const dvec3 &rhs) { (*this) = (*this) + rhs; return *this; }
+    inline dvec3 &dvec3::operator-=(const dvec3 &rhs) { (*this) = (*this) - rhs; return *this; }
+    inline dvec3 &dvec3::operator*=(const dvec3 &rhs) { (*this) = (*this) * rhs; return *this; }
+    inline dvec3 &dvec3::operator/=(const dvec3 &rhs) { (*this) = (*this) / rhs; return *this; }
 
     dvec3 dvec3::operator-() const { return (*this) * -1.0; }
 

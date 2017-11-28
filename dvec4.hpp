@@ -9,12 +9,12 @@ namespace math {
 
     class dvec4 {
     public:
-		union {
-			double4 vec_;
-			struct { double x, y, z, w; };
-			struct { double r, g, b, a; };
-			struct { double s, t, p, q; };
-		};
+        union {
+            double4 vec_;
+            struct { double x, y, z, w; };
+            struct { double r, g, b, a; };
+            struct { double s, t, p, q; };
+        };
 
         dvec4(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec4() : dvec4(noinit) { dvec4_init1(vec_, 0); }
@@ -30,7 +30,7 @@ namespace math {
         explicit dvec4(const vec4 &v);
 
         double &operator[] (int i) { return vec_.comp[i]; }
-		double operator[] (int i) const { return vec_.comp[i]; }
+        double operator[] (int i) const { return vec_.comp[i]; }
 
         dvec4 &operator++();
         dvec4 operator++(int);
@@ -45,7 +45,7 @@ namespace math {
         dvec4 operator-() const;
 
         static const size_t alignment = alignment_m256;
-		using scalar_type = double;
+        using scalar_type = double;
     };
 
     inline bool operator==(const dvec4 &v1, const dvec4 &v2) { return dvec4_eq_dvec4(v1.vec_, v2.vec_); }
@@ -65,15 +65,15 @@ namespace math {
     inline dvec4 operator/(const dvec4 &v, double f) { return v / dvec4(f); }
     inline dvec4 operator/(double f, const dvec4 &v) { return dvec4(f) / v; }
 
-	inline dvec4 &dvec4::operator++() { (*this) = (*this) + dvec4(1); return *this; }
-	inline dvec4 dvec4::operator++(int) { dvec4 temp = (*this); ++(*this); return temp; }
-	inline dvec4 &dvec4::operator--() { (*this) = (*this) - dvec4(1); return *this; }
-	inline dvec4 dvec4::operator--(int) { dvec4 temp = (*this); --(*this); return temp; }
+    inline dvec4 &dvec4::operator++() { (*this) = (*this) + dvec4(1); return *this; }
+    inline dvec4 dvec4::operator++(int) { dvec4 temp = (*this); ++(*this); return temp; }
+    inline dvec4 &dvec4::operator--() { (*this) = (*this) - dvec4(1); return *this; }
+    inline dvec4 dvec4::operator--(int) { dvec4 temp = (*this); --(*this); return temp; }
 
-	inline dvec4 &dvec4::operator+=(const dvec4 &rhs) { (*this) = (*this) + rhs; return *this; }
-	inline dvec4 &dvec4::operator-=(const dvec4 &rhs) { (*this) = (*this) - rhs; return *this; }
-	inline dvec4 &dvec4::operator*=(const dvec4 &rhs) { (*this) = (*this) * rhs; return *this; }
-	inline dvec4 &dvec4::operator/=(const dvec4 &rhs) { (*this) = (*this) / rhs; return *this; }
+    inline dvec4 &dvec4::operator+=(const dvec4 &rhs) { (*this) = (*this) + rhs; return *this; }
+    inline dvec4 &dvec4::operator-=(const dvec4 &rhs) { (*this) = (*this) - rhs; return *this; }
+    inline dvec4 &dvec4::operator*=(const dvec4 &rhs) { (*this) = (*this) * rhs; return *this; }
+    inline dvec4 &dvec4::operator/=(const dvec4 &rhs) { (*this) = (*this) / rhs; return *this; }
 
     inline dvec4 dvec4::operator-() const { return (*this) * -1.0; }
 

@@ -10,20 +10,20 @@ namespace math {
         return T(3.14159265358979f);
     }
 
-	template<typename T>
-	typename std::enable_if<is_double_precision<T>::value, T>::type pi() {
-		return T(3.14159265358979);
-	}
+    template<typename T>
+    typename std::enable_if<is_double_precision<T>::value, T>::type pi() {
+        return T(3.14159265358979);
+    }
 
     inline float radians(float degrees) { return degrees * (pi<float>() / 180.0f); }
     inline vec2 radians(const vec2 &degrees) { return degrees * (pi<float>() / 180.0f); }
     inline vec3 radians(const vec3 &degrees) { return degrees * (pi<float>() / 180.0f); }
     inline vec4 radians(const vec4 &degrees) { return degrees * (pi<float>() / 180.0f); }
 
-	inline double radians(double degrees) { return degrees * (pi<double>() / 180.0); }
-	inline dvec2 radians(const dvec2 &degrees) { return degrees * (pi<double>() / 180.0); }
-	inline dvec3 radians(const dvec3 &degrees) { return degrees * (pi<double>() / 180.0); }
-	inline dvec4 radians(const dvec4 &degrees) { return degrees * (pi<double>() / 180.0); }
+    inline double radians(double degrees) { return degrees * (pi<double>() / 180.0); }
+    inline dvec2 radians(const dvec2 &degrees) { return degrees * (pi<double>() / 180.0); }
+    inline dvec3 radians(const dvec3 &degrees) { return degrees * (pi<double>() / 180.0); }
+    inline dvec4 radians(const dvec4 &degrees) { return degrees * (pi<double>() / 180.0); }
 
     inline float degrees(float radians) { return radians * (180.0f / pi<float>()); }
     inline vec2 degrees(const vec2 &radians) { return radians * (180.0f / pi<float>()); }

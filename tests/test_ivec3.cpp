@@ -7,61 +7,100 @@ void test_ivec3(math::e_arch arch) {
 
     init(arch);
 
-    {   // basic usage
+    {
+        // basic usage
         ivec3 v1, v2(2), v3(1, 2, 3);
 
-        assert(v2[0] == 2); assert(v2[1] == 2); assert(v2[2] == 2);
+        assert(v2[0] == 2);
+        assert(v2[1] == 2);
+        assert(v2[2] == 2);
 
         v2[0] = v2[1] = v2[2] = 1;
 
-        assert(v1[0] == 0); assert(v1[1] == 0); assert(v1[2] == 0);
-        assert(v2[0] == 1); assert(v2[1] == 1); assert(v2[2] == 1);
-        assert(v3[0] == 1); assert(v3[1] == 2); assert(v3[2] == 3);
-        assert(v3.x == 1); assert(v3.y == 2); assert(v3.z == 3);
-        assert(v3.r == 1); assert(v3.g == 2); assert(v3.b == 3);
-        assert(v3.s == 1); assert(v3.t == 2); assert(v3.p == 3);
+        assert(v1[0] == 0);
+        assert(v1[1] == 0);
+        assert(v1[2] == 0);
+        assert(v2[0] == 1);
+        assert(v2[1] == 1);
+        assert(v2[2] == 1);
+        assert(v3[0] == 1);
+        assert(v3[1] == 2);
+        assert(v3[2] == 3);
+        assert(v3.x == 1);
+        assert(v3.y == 2);
+        assert(v3.z == 3);
+        assert(v3.r == 1);
+        assert(v3.g == 2);
+        assert(v3.b == 3);
+        assert(v3.s == 1);
+        assert(v3.t == 2);
+        assert(v3.p == 3);
 
         ivec3 v4 = v1 + v2, v5 = v2 + v3;
 
-        assert(v4[0] == 1); assert(v4[1] == 1); assert(v4[2] == 1);
-        assert(v5[0] == 2); assert(v5[1] == 3); assert(v5[2] == 4);
+        assert(v4[0] == 1);
+        assert(v4[1] == 1);
+        assert(v4[2] == 1);
+        assert(v5[0] == 2);
+        assert(v5[1] == 3);
+        assert(v5[2] == 4);
 
         ivec3 v6 = v1 - v2, v7 = v2 - v3;
 
-        assert(v6[0] == -1); assert(v6[1] == -1); assert(v6[2] == -1);
-        assert(v7[0] == 0); assert(v7[1] == -1); assert(v7[2] == -2);
+        assert(v6[0] == -1);
+        assert(v6[1] == -1);
+        assert(v6[2] == -1);
+        assert(v7[0] == 0);
+        assert(v7[1] == -1);
+        assert(v7[2] == -2);
 
         ivec3 v8 = v1 * v2, v9 = v2 * v3;
 
-        assert(v8[0] == 0); assert(v8[1] == 0); assert(v8[2] == 0);
-        assert(v9[0] == 1); assert(v9[1] == 2); assert(v9[2] == 3);
+        assert(v8[0] == 0);
+        assert(v8[1] == 0);
+        assert(v8[2] == 0);
+        assert(v9[0] == 1);
+        assert(v9[1] == 2);
+        assert(v9[2] == 3);
 
         ivec3 v10 = v1 / v2, v11 = v2 / v3;
 
-        assert(v10[0] == 0); assert(v10[1] == 0); assert(v10[2] == 0);
-        assert(v11[0] == 1); assert(v11[1] == 0); assert(v11[2] == 0);
+        assert(v10[0] == 0);
+        assert(v10[1] == 0);
+        assert(v10[2] == 0);
+        assert(v11[0] == 1);
+        assert(v11[1] == 0);
+        assert(v11[2] == 0);
     }
 
-    {   // additional constructors
+    {
+        // additional constructors
         ivec2 v0 = { 0, 1 };
         ivec3 v1 = { v0, 3 }, v2 = { 5, v0 }, v3(v2), v4 = v2;
 
-        assert(v1 == ivec3(0, 1, 3)); assert(v2 == ivec3(5, 0, 1));
-        assert(v3 == ivec3(5, 0, 1)); assert(v4 == ivec3(5, 0, 1));
+        assert(v1 == ivec3(0, 1, 3));
+        assert(v2 == ivec3(5, 0, 1));
+        assert(v3 == ivec3(5, 0, 1));
+        assert(v4 == ivec3(5, 0, 1));
     }
 
-    {   // additional operators
+    {
+        // additional operators
         ivec3 v0 = { 1, 2, 3 }, v1 = { 1, 2, 3 }, v2 = { 4, 3, 8 }, v3 = { 4, 3, 8 };
 
         ivec3 v4 = v0++, v5 = ++v1;
 
-        assert(v0 == ivec3(2, 3, 4)); assert(v1 == ivec3(2, 3, 4));
-        assert(v4 == ivec3(1, 2, 3)); assert(v5 == ivec3(2, 3, 4));
+        assert(v0 == ivec3(2, 3, 4));
+        assert(v1 == ivec3(2, 3, 4));
+        assert(v4 == ivec3(1, 2, 3));
+        assert(v5 == ivec3(2, 3, 4));
 
         ivec3 v6 = v2--, v7 = --v3;
 
-        assert(v2 == ivec3(3, 2, 7)); assert(v3 == ivec3(3, 2, 7));
-        assert(v6 == ivec3(4, 3, 8)); assert(v7 == ivec3(3, 2, 7));
+        assert(v2 == ivec3(3, 2, 7));
+        assert(v3 == ivec3(3, 2, 7));
+        assert(v6 == ivec3(4, 3, 8));
+        assert(v7 == ivec3(3, 2, 7));
 
         ivec3 v8 = { 1, 2, 3 }, v9 = { 1, 2, 3 }, v10 = { 1, 2, 3 }, v11 = { 1, 2, 3 };
 
@@ -70,8 +109,10 @@ void test_ivec3(math::e_arch arch) {
         v10 *= ivec3{ 1, 2, 3 };
         v11 /= ivec3{ 1, 2, 3 };
 
-        assert(v8 == ivec3(2, 4, 6)); assert(v9 == ivec3(0, 0, 0));
-        assert(v10 == ivec3(1, 4, 9)); assert(v11 == ivec3(1, 1, 1));
+        assert(v8 == ivec3(2, 4, 6));
+        assert(v9 == ivec3(0, 0, 0));
+        assert(v10 == ivec3(1, 4, 9));
+        assert(v11 == ivec3(1, 1, 1));
 
         ivec3 v12 = { 1, 2, 3 };
         v12 = -v12;
@@ -96,7 +137,8 @@ void test_ivec3(math::e_arch arch) {
         assert(v14[1] == 0);
     }
 
-    {   // arithmetics with deref
+    {
+        // arithmetics with deref
         ivec3 vv{ 2, 2, 2 };
 
         int f1 = 2;
@@ -130,9 +172,9 @@ void test_ivec3(math::e_arch arch) {
         //assert(m3[2] == Approx4(0, 0, 2, 0));
         //assert(m3[3] == Approx4(0, 0, 0, 2));
 
-		const int *p1 = value_ptr(vv);
-		const int *p2 = &vv[0];
-		assert(p1 == p2);
+        const int *p1 = value_ptr(vv);
+        const int *p2 = &vv[0];
+        assert(p1 == p2);
     }
 }
 

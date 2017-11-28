@@ -13,8 +13,8 @@ void test_common(math::e_arch arch, unsigned seed) {
     const int NUM_REPEATS = 1000;
     std::mt19937 gen(seed);
     std::uniform_real_distribution<float> dist(-1000000, 1000000),
-                                          pos_dist(0, 1000000),
-                                          neg_dist(-1000000, 0);
+        pos_dist(0, 1000000),
+        neg_dist(-1000000, 0);
 
     std::cout << "\t" << math::arch_name[arch] << " ...";
 
@@ -58,7 +58,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         assert(sign4 == Approx4(1, -1, 1, -1));
     }
 
-    {   // floor
+    {
+        // floor
         extern std::vector<float> floor_test_data;
 
         for (size_t i = 0; i < floor_test_data.size(); i += 8) {
@@ -79,7 +80,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         }
     }
 
-    {   // ceil
+    {
+        // ceil
         extern std::vector<float> ceil_test_data;
 
         for (size_t i = 0; i < ceil_test_data.size(); i += 8) {
@@ -100,7 +102,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         }
     }
 
-    {   // fract
+    {
+        // fract
         extern std::vector<float> fract_test_data;
 
         for (size_t i = 0; i < fract_test_data.size(); i += 8) {
@@ -121,7 +124,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         }
     }
 
-    {   // mod
+    {
+        // mod
         extern std::vector<float> mod_test_data;
 
         for (size_t i = 0; i < mod_test_data.size(); i += 12) {
@@ -142,7 +146,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         }
     }
 
-    {   // min
+    {
+        // min
         extern std::vector<float> min_test_data;
 
         for (size_t i = 0; i < min_test_data.size(); i += 17) {
@@ -173,7 +178,8 @@ void test_common(math::e_arch arch, unsigned seed) {
         }
     }
 
-    {   // max
+    {
+        // max
         extern std::vector<float> max_test_data;
 
         for (size_t i = 0; i < max_test_data.size(); i += 17) {
