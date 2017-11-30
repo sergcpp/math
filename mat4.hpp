@@ -33,7 +33,6 @@ namespace math {
                         v.comp3[2][0], v.comp3[2][1], v.comp3[2][2], 0,
                         0, 0, 0, 1);
         }
-        mat4(const mat4 &v) : mat4(noinit) { vec_ = v.vec_; }
         mat4(const mat3 &v);
 
         vec4 &operator[] (int i) { return v[i]; }

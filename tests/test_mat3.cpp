@@ -143,7 +143,7 @@ void test_mat3(math::e_arch arch, unsigned seed) {
     // additional constructors
     for (int i = 0; i < NUM_REPEATS; i++) {
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
-              r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen);
+              r7 = dist(gen), r8 = dist(gen), r9 = dist(gen);
 
         mat3 m0 = { { r1, r2, r3 },
             { r4, r5, r6 },
@@ -164,9 +164,7 @@ void test_mat3(math::e_arch arch, unsigned seed) {
     // additional operators
     for (int i = 0; i < NUM_REPEATS; i++) {
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
-              r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen),
-              r13 = dist(gen), r14 = dist(gen), r15 = dist(gen), r16 = dist(gen), r17 = dist(gen), r18 = dist(gen),
-              r19 = dist(gen), r20 = dist(gen), r21 = dist(gen), r22 = dist(gen), r23 = dist(gen), r24 = dist(gen);
+              r7 = dist(gen), r8 = dist(gen), r9 = dist(gen);
 
         mat3 m0 = { { r1, r2, r3 },
             { r4, r5, r6 },

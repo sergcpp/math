@@ -176,9 +176,9 @@ void test_vec4(math::e_arch arch, unsigned seed) {
 
     // arithmetics with deref
     for (int i = 0; i < NUM_REPEATS; i++) {
-        float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen);
+        float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen);
 
-        vec4 vv{ r6, r6, r6, r6 };
+        vec4 vv{ r5, r5, r5, r5 };
 
         float f1 = r1;
         vec2 v1 = { r1, r2 };
@@ -196,20 +196,20 @@ void test_vec4(math::e_arch arch, unsigned seed) {
         m2 = m2 * vv[0];
         m3 = m3 * vv[0];
 
-        assert(f1 == Approx(r1 * r6));
-        assert(v1 == Approx2(r1 * r6, r2 * r6));
-        assert(v2 == Approx3(r1 * r6, r2 * r6, r3 * r6));
-        assert(v3 == Approx4(r1 * r6, r2 * r6, r3 * r6, r4 * r6));
+        assert(f1 == Approx(r1 * r5));
+        assert(v1 == Approx2(r1 * r5, r2 * r5));
+        assert(v2 == Approx3(r1 * r5, r2 * r5, r3 * r5));
+        assert(v3 == Approx4(r1 * r5, r2 * r5, r3 * r5, r4 * r5));
 
-        assert(m1[0] == Approx2(r6, 0));
-        assert(m1[1] == Approx2(0, r6));
-        assert(m2[0] == Approx3(r6, 0, 0));
-        assert(m2[1] == Approx3(0, r6, 0));
-        assert(m2[2] == Approx3(0, 0, r6));
-        assert(m3[0] == Approx4(r6, 0, 0, 0));
-        assert(m3[1] == Approx4(0, r6, 0, 0));
-        assert(m3[2] == Approx4(0, 0, r6, 0));
-        assert(m3[3] == Approx4(0, 0, 0, r6));
+        assert(m1[0] == Approx2(r5, 0));
+        assert(m1[1] == Approx2(0, r5));
+        assert(m2[0] == Approx3(r5, 0, 0));
+        assert(m2[1] == Approx3(0, r5, 0));
+        assert(m2[2] == Approx3(0, 0, r5));
+        assert(m3[0] == Approx4(r5, 0, 0, 0));
+        assert(m3[1] == Approx4(0, r5, 0, 0));
+        assert(m3[2] == Approx4(0, 0, r5, 0));
+        assert(m3[3] == Approx4(0, 0, 0, r5));
 
         const float *p1 = value_ptr(vv);
         const float *p2 = &vv[0];

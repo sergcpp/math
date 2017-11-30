@@ -26,7 +26,6 @@ namespace math {
             mat3_init3(vec_, v0.vec_, v1.vec_, v2.vec_);
         }
         mat3(const float9 &v) : mat3(noinit) { vec_ = v; }
-        mat3(const mat3 &v) : mat3(noinit) { vec_ = v.vec_; }
         mat3(const mat4 &v);
 
         vec3 &operator[] (int i) { return v[i]; }

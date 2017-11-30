@@ -20,7 +20,7 @@ void test_mat2(math::e_arch arch, unsigned seed) {
     for (int i = 0; i < NUM_REPEATS; i++) {
         float r1 = dist(gen), r2 = dist(gen), r3 = dist(gen), r4 = dist(gen), r5 = dist(gen), r6 = dist(gen),
               r7 = dist(gen), r8 = dist(gen), r9 = dist(gen), r10 = dist(gen), r11 = dist(gen), r12 = dist(gen),
-              r13 = dist(gen), r14 = dist(gen), r15 = dist(gen), r16 = dist(gen), r17 = dist(gen), r18 = dist(gen);
+              r13 = dist(gen), r14 = dist(gen), r15 = dist(gen);
 
         mat2 m1, m2(r1), m3(r2, r3, r4, r5), m4(vec2(r6, r7), vec2(r8, r9));
 

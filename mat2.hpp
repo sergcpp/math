@@ -17,7 +17,6 @@ namespace math {
         mat2(float v0, float v1, float v2, float v3) : mat2(noinit) { mat2_init4(vec_, v0, v1, v2, v3); }
         mat2(const vec2 &v01, const vec2 &v23) : mat2(noinit) { mat2_init2(vec_, v01.vec_, v23.vec_); }
         mat2(const float4 &v) : mat2(noinit) { vec_ = v; }
-        mat2(const mat2 &m) : mat2(noinit) { vec_ = m.vec_; }
 
         vec2 &operator[] (int i) { return v[i]; }
         const vec2 &operator[] (int i) const { return v[i]; }

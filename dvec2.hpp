@@ -16,7 +16,7 @@ namespace math {
             struct { double s, t; };
         };
 
-        dvec2(e_noinit) { assert(is_aligned(this, alignment)); }
+        explicit dvec2(e_noinit) { assert(is_aligned(this, alignment)); }
         dvec2() : dvec2(noinit) { dvec2_init1(vec_, 0); }
         explicit dvec2(double v) : dvec2(noinit) { dvec2_init1(vec_, v); }
         dvec2(double v0, double v1) { dvec2_init2(vec_, v0, v1); }

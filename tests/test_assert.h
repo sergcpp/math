@@ -31,7 +31,7 @@
 template <typename T>
 class ApproxT {
 public:
-    ApproxT(const T &val) : val_(val), eps_(0.0001) {}
+    explicit ApproxT(const T &val) : val_(val), eps_(0.0001) {}
 
     const ApproxT &epsilon(double eps) {
         eps_ = eps;
