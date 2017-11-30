@@ -24,10 +24,10 @@ void test_transform(math::e_arch arch, unsigned seed) {
         mat4 m1;
         mat4 m2 = translate(m1, { r1, r2, r3 });
 
-        assert(m2[0] == Approx4(1, 0, 0, 0));
-        assert(m2[1] == Approx4(0, 1, 0, 0));
-        assert(m2[2] == Approx4(0, 0, 1, 0));
-        assert(m2[3] == Approx4(r1, r2, r3, 1));
+        require(m2[0] == Approx4(1, 0, 0, 0));
+        require(m2[1] == Approx4(0, 1, 0, 0));
+        require(m2[2] == Approx4(0, 0, 1, 0));
+        require(m2[3] == Approx4(r1, r2, r3, 1));
     }
 
     {
@@ -38,10 +38,10 @@ void test_transform(math::e_arch arch, unsigned seed) {
             mat4 m1;
             mat4 m2 = rotate(m1, radians(mat_rotate_test_data[0]), make_vec3(&mat_rotate_test_data[1]));
 
-            assert(m2[0] == Approx4(mat_rotate_test_data[4], mat_rotate_test_data[5], mat_rotate_test_data[6], mat_rotate_test_data[7]));
-            assert(m2[1] == Approx4(mat_rotate_test_data[8], mat_rotate_test_data[9], mat_rotate_test_data[10], mat_rotate_test_data[11]));
-            assert(m2[2] == Approx4(mat_rotate_test_data[12], mat_rotate_test_data[13], mat_rotate_test_data[14], mat_rotate_test_data[15]));
-            assert(m2[3] == Approx4(mat_rotate_test_data[16], mat_rotate_test_data[17], mat_rotate_test_data[18], mat_rotate_test_data[19]));
+            require(m2[0] == Approx4(mat_rotate_test_data[4], mat_rotate_test_data[5], mat_rotate_test_data[6], mat_rotate_test_data[7]));
+            require(m2[1] == Approx4(mat_rotate_test_data[8], mat_rotate_test_data[9], mat_rotate_test_data[10], mat_rotate_test_data[11]));
+            require(m2[2] == Approx4(mat_rotate_test_data[12], mat_rotate_test_data[13], mat_rotate_test_data[14], mat_rotate_test_data[15]));
+            require(m2[3] == Approx4(mat_rotate_test_data[16], mat_rotate_test_data[17], mat_rotate_test_data[18], mat_rotate_test_data[19]));
         }
     }
 
@@ -52,10 +52,10 @@ void test_transform(math::e_arch arch, unsigned seed) {
         mat4 m1;
         mat4 m2 = scale(m1, { r1, r2, r3 });
 
-        assert(m2[0] == Approx4(r1, 0, 0, 0));
-        assert(m2[1] == Approx4(0, r2, 0, 0));
-        assert(m2[2] == Approx4(0, 0, r3, 0));
-        assert(m2[3] == Approx4(0, 0, 0, 1));
+        require(m2[0] == Approx4(r1, 0, 0, 0));
+        require(m2[1] == Approx4(0, r2, 0, 0));
+        require(m2[2] == Approx4(0, 0, r3, 0));
+        require(m2[3] == Approx4(0, 0, 0, 1));
     }
 
     {
@@ -66,8 +66,8 @@ void test_transform(math::e_arch arch, unsigned seed) {
             mat2 m1 = make_mat2(&mat2_inverse_test_data[i]);
             mat2 im1 = inverse(m1);
 
-            assert(im1[0] == Approx2(mat2_inverse_test_data[i + 4], mat2_inverse_test_data[i + 5]));
-            assert(im1[1] == Approx2(mat2_inverse_test_data[i + 6], mat2_inverse_test_data[i + 7]));
+            require(im1[0] == Approx2(mat2_inverse_test_data[i + 4], mat2_inverse_test_data[i + 5]));
+            require(im1[1] == Approx2(mat2_inverse_test_data[i + 6], mat2_inverse_test_data[i + 7]));
         }
 
         extern std::vector<float> mat3_inverse_test_data;
@@ -76,9 +76,9 @@ void test_transform(math::e_arch arch, unsigned seed) {
             mat3 m1 = make_mat3(&mat3_inverse_test_data[i]);
             mat3 im1 = inverse(m1);
 
-            assert(im1[0] == Approx3(mat3_inverse_test_data[i + 9], mat3_inverse_test_data[i + 10], mat3_inverse_test_data[i + 11]));
-            assert(im1[1] == Approx3(mat3_inverse_test_data[i + 12], mat3_inverse_test_data[i + 13], mat3_inverse_test_data[i + 14]));
-            assert(im1[2] == Approx3(mat3_inverse_test_data[i + 15], mat3_inverse_test_data[i + 16], mat3_inverse_test_data[i + 17]));
+            require(im1[0] == Approx3(mat3_inverse_test_data[i + 9], mat3_inverse_test_data[i + 10], mat3_inverse_test_data[i + 11]));
+            require(im1[1] == Approx3(mat3_inverse_test_data[i + 12], mat3_inverse_test_data[i + 13], mat3_inverse_test_data[i + 14]));
+            require(im1[2] == Approx3(mat3_inverse_test_data[i + 15], mat3_inverse_test_data[i + 16], mat3_inverse_test_data[i + 17]));
         }
 
         extern std::vector<float> mat4_inverse_test_data;
@@ -87,10 +87,10 @@ void test_transform(math::e_arch arch, unsigned seed) {
             mat4 m1 = make_mat4(&mat4_inverse_test_data[i]);
             mat4 im1 = inverse(m1);
 
-            assert(im1[0] == Approx4(mat4_inverse_test_data[i + 16], mat4_inverse_test_data[i + 17], mat4_inverse_test_data[i + 18], mat4_inverse_test_data[i + 19]));
-            assert(im1[1] == Approx4(mat4_inverse_test_data[i + 20], mat4_inverse_test_data[i + 21], mat4_inverse_test_data[i + 22], mat4_inverse_test_data[i + 23]));
-            assert(im1[2] == Approx4(mat4_inverse_test_data[i + 24], mat4_inverse_test_data[i + 25], mat4_inverse_test_data[i + 26], mat4_inverse_test_data[i + 27]));
-            assert(im1[3] == Approx4(mat4_inverse_test_data[i + 28], mat4_inverse_test_data[i + 29], mat4_inverse_test_data[i + 30], mat4_inverse_test_data[i + 31]));
+            require(im1[0] == Approx4(mat4_inverse_test_data[i + 16], mat4_inverse_test_data[i + 17], mat4_inverse_test_data[i + 18], mat4_inverse_test_data[i + 19]));
+            require(im1[1] == Approx4(mat4_inverse_test_data[i + 20], mat4_inverse_test_data[i + 21], mat4_inverse_test_data[i + 22], mat4_inverse_test_data[i + 23]));
+            require(im1[2] == Approx4(mat4_inverse_test_data[i + 24], mat4_inverse_test_data[i + 25], mat4_inverse_test_data[i + 26], mat4_inverse_test_data[i + 27]));
+            require(im1[3] == Approx4(mat4_inverse_test_data[i + 28], mat4_inverse_test_data[i + 29], mat4_inverse_test_data[i + 30], mat4_inverse_test_data[i + 31]));
         }
     }
 

@@ -30,60 +30,60 @@ void test_mat3(math::e_arch arch, unsigned seed) {
                 r8, r9, r10),
              m4(vec3{ r11 }, vec3{ r12 }, vec3{ r13 });
 
-        assert(m1[0] == Approx3(1, 0, 0));
-        assert(m1[1] == Approx3(0, 1, 0));
-        assert(m1[2] == Approx3(0, 0, 1));
+        require(m1[0] == Approx3(1, 0, 0));
+        require(m1[1] == Approx3(0, 1, 0));
+        require(m1[2] == Approx3(0, 0, 1));
 
-        assert(m2[0] == Approx3(r1, 0, 0));
-        assert(m2[1] == Approx3(0, r1, 0));
-        assert(m2[2] == Approx3(0, 0, r1));
+        require(m2[0] == Approx3(r1, 0, 0));
+        require(m2[1] == Approx3(0, r1, 0));
+        require(m2[2] == Approx3(0, 0, r1));
 
-        assert(m3[0] == Approx3(r2, r3, r4));
-        assert(m3[1] == Approx3(r5, r6, r7));
-        assert(m3[2] == Approx3(r8, r9, r10));
+        require(m3[0] == Approx3(r2, r3, r4));
+        require(m3[1] == Approx3(r5, r6, r7));
+        require(m3[2] == Approx3(r8, r9, r10));
 
-        assert(m4[0] == Approx3(r11, r11, r11));
-        assert(m4[1] == Approx3(r12, r12, r12));
-        assert(m4[2] == Approx3(r13, r13, r13));
+        require(m4[0] == Approx3(r11, r11, r11));
+        require(m4[1] == Approx3(r12, r12, r12));
+        require(m4[2] == Approx3(r13, r13, r13));
 
         m1[0] = vec3(r14, r15, r16);
         m1[1] = vec3(r17, r18, r19);
 
-        assert(m1[0] == Approx3(r14, r15, r16));
-        assert(m1[1] == Approx3(r17, r18, r19));
-        assert(m1[2] == Approx3(0, 0, 1));
+        require(m1[0] == Approx3(r14, r15, r16));
+        require(m1[1] == Approx3(r17, r18, r19));
+        require(m1[2] == Approx3(0, 0, 1));
 
         m1[0][1] = r20;
         m1[1][1] = r21;
 
-        assert(m1[0] == Approx3(r14, r20, r16));
-        assert(m1[1] == Approx3(r17, r21, r19));
-        assert(m1[2] == Approx3(0, 0, 1));
+        require(m1[0] == Approx3(r14, r20, r16));
+        require(m1[1] == Approx3(r17, r21, r19));
+        require(m1[2] == Approx3(0, 0, 1));
 
         mat3 m5 = m1 + m2, m6 = m2 + m3;
 
-        assert(m5[0] == Approx3(r1 + r14, r20, r16) &&
+        require(m5[0] == Approx3(r1 + r14, r20, r16) &&
                m5[1] == Approx3(r17, r1 + r21, r19) &&
                m5[2] == Approx3(0, 0, r1 + 1));
-        assert(m6[0] == Approx3(r1 + r2, r3, r4) &&
+        require(m6[0] == Approx3(r1 + r2, r3, r4) &&
                m6[1] == Approx3(r5, r1 + r6, r7) &&
                m6[2] == Approx3(r8, r9, r1 + r10));
 
         mat3 m7 = m1 - m2, m8 = m2 - m3;
 
-        assert(m7[0] == Approx3(r14 - r1, r20, r16) &&
+        require(m7[0] == Approx3(r14 - r1, r20, r16) &&
                m7[1] == Approx3(r17, r21 - r1, r19) &&
                m7[2] == Approx3(0, 0, 1 - r1));
-        assert(m8[0] == Approx3(r1 - r2, -r3, -r4) &&
+        require(m8[0] == Approx3(r1 - r2, -r3, -r4) &&
                m8[1] == Approx3(-r5, r1 - r6, -r7) &&
                m8[2] == Approx3(-r8, -r9, r1 - r10));
 
         //mat3 m9 = m1 * m2, m10 = m2 * m3;
 
-        //assert(m9[0] == Approx3(2.3, 6.9, 6.9) &&
+        //require(m9[0] == Approx3(2.3, 6.9, 6.9) &&
         //       m9[1] == Approx3(6.9, 18.4, 11.5) &&
         //       m9[2] == Approx3(0, 0, 2.3));
-        //assert(m10[0] == Approx3(0, 2.3, 4.6) &&
+        //require(m10[0] == Approx3(0, 2.3, 4.6) &&
         //       m10[1] == Approx3(9.2, 11.5, 13.8) &&
         //       m10[2] == Approx3(18.4, 20.7, 23));
 
@@ -91,29 +91,29 @@ void test_mat3(math::e_arch arch, unsigned seed) {
 
         mat3 m11 = m2 / m1;
 
-        assert(m11[0] == Approx3(r1 / r14, 0, 0) &&
+        require(m11[0] == Approx3(r1 / r14, 0, 0) &&
                m11[1] == Approx3(0, r1 / r21, 0) &&
                m11[2] == Approx3(0, 0, r1 / r24));
 
         mat3 m13 = matrix_comp_mult(m1, m3);
 
-        assert(m13[0] == Approx3(r14 * r2, r20 * r3, r16 * r4));
-        assert(m13[1] == Approx3(r17 * r5, r21 * r6, r19 * r7));
-        assert(m13[2] == Approx3(r22 * r8, r23 * r9, r24 * r10));
+        require(m13[0] == Approx3(r14 * r2, r20 * r3, r16 * r4));
+        require(m13[1] == Approx3(r17 * r5, r21 * r6, r19 * r7));
+        require(m13[2] == Approx3(r22 * r8, r23 * r9, r24 * r10));
 
         mat3 m14 = r25 * m1,
              m15 = m1 * r25,
              m16 = m1 / r25;
 
-        assert(m14[0] == Approx3(r14 * r25, r20 * r25, r16 * r25) &&
+        require(m14[0] == Approx3(r14 * r25, r20 * r25, r16 * r25) &&
                m14[1] == Approx3(r17 * r25, r21 * r25, r19 * r25) &&
                m14[2] == Approx3(r22 * r25, r23 * r25, r24 * r25));
 
-        assert(m15[0] == Approx3(r14 * r25, r20 * r25, r16 * r25) &&
+        require(m15[0] == Approx3(r14 * r25, r20 * r25, r16 * r25) &&
                m15[1] == Approx3(r17 * r25, r21 * r25, r19 * r25) &&
                m15[2] == Approx3(r22 * r25, r23 * r25, r24 * r25));
 
-        assert(m16[0] == Approx3(r14 / r25, r20 / r25, r16 / r25) &&
+        require(m16[0] == Approx3(r14 / r25, r20 / r25, r16 / r25) &&
                m16[1] == Approx3(r17 / r25, r21 / r25, r19 / r25) &&
                m16[2] == Approx3(r22 / r25, r23 / r25, r24 / r25));
     }
@@ -127,16 +127,16 @@ void test_mat3(math::e_arch arch, unsigned seed) {
                  m2 = make_mat3(&mat3_mul_mat3_test_data[i + 9]);
             mat3 m3 = m1 * m2;
 
-            assert(m3[0] == Approx3(mat3_mul_mat3_test_data[i + 18], mat3_mul_mat3_test_data[i + 19], mat3_mul_mat3_test_data[i + 20]));
-            assert(m3[1] == Approx3(mat3_mul_mat3_test_data[i + 21], mat3_mul_mat3_test_data[i + 22], mat3_mul_mat3_test_data[i + 23]));
-            assert(m3[2] == Approx3(mat3_mul_mat3_test_data[i + 24], mat3_mul_mat3_test_data[i + 25], mat3_mul_mat3_test_data[i + 26]));
+            require(m3[0] == Approx3(mat3_mul_mat3_test_data[i + 18], mat3_mul_mat3_test_data[i + 19], mat3_mul_mat3_test_data[i + 20]));
+            require(m3[1] == Approx3(mat3_mul_mat3_test_data[i + 21], mat3_mul_mat3_test_data[i + 22], mat3_mul_mat3_test_data[i + 23]));
+            require(m3[2] == Approx3(mat3_mul_mat3_test_data[i + 24], mat3_mul_mat3_test_data[i + 25], mat3_mul_mat3_test_data[i + 26]));
 
             mat3 m4 = m1;
             m4 *= m2;
 
-            assert(m4[0] == Approx3(mat3_mul_mat3_test_data[i + 18], mat3_mul_mat3_test_data[i + 19], mat3_mul_mat3_test_data[i + 20]));
-            assert(m4[1] == Approx3(mat3_mul_mat3_test_data[i + 21], mat3_mul_mat3_test_data[i + 22], mat3_mul_mat3_test_data[i + 23]));
-            assert(m4[2] == Approx3(mat3_mul_mat3_test_data[i + 24], mat3_mul_mat3_test_data[i + 25], mat3_mul_mat3_test_data[i + 26]));
+            require(m4[0] == Approx3(mat3_mul_mat3_test_data[i + 18], mat3_mul_mat3_test_data[i + 19], mat3_mul_mat3_test_data[i + 20]));
+            require(m4[1] == Approx3(mat3_mul_mat3_test_data[i + 21], mat3_mul_mat3_test_data[i + 22], mat3_mul_mat3_test_data[i + 23]));
+            require(m4[2] == Approx3(mat3_mul_mat3_test_data[i + 24], mat3_mul_mat3_test_data[i + 25], mat3_mul_mat3_test_data[i + 26]));
         }
     }
 
@@ -150,13 +150,13 @@ void test_mat3(math::e_arch arch, unsigned seed) {
             { r7, r8, r9 }
         }, m1(m0), m2 = m0;
 
-        assert(m0[0] == Approx3(r1, r2, r3) &&
+        require(m0[0] == Approx3(r1, r2, r3) &&
                m0[1] == Approx3(r4, r5, r6) &&
                m0[2] == Approx3(r7, r8, r9));
-        assert(m1[0] == Approx3(r1, r2, r3) &&
+        require(m1[0] == Approx3(r1, r2, r3) &&
                m1[1] == Approx3(r4, r5, r6) &&
                m1[2] == Approx3(r7, r8, r9));
-        assert(m2[0] == Approx3(r1, r2, r3) &&
+        require(m2[0] == Approx3(r1, r2, r3) &&
                m2[1] == Approx3(r4, r5, r6) &&
                m2[2] == Approx3(r7, r8, r9));
     }
@@ -178,31 +178,31 @@ void test_mat3(math::e_arch arch, unsigned seed) {
 
         mat3 m4 = m0++, m5 = ++m1;
 
-        assert(m0[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
+        require(m0[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m0[1] == Approx3(r4 + 1, r5 + 1, r6 + 1) &&
                m0[2] == Approx3(r7 + 1, r8 + 1, r9 + 1));
-        assert(m1[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
+        require(m1[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m1[1] == Approx3(r4 + 1, r5 + 1, r6 + 1) &&
                m1[2] == Approx3(r7 + 1, r8 + 1, r9 + 1));
-        assert(m4[0] == Approx3(r1, r2, r3) &&
+        require(m4[0] == Approx3(r1, r2, r3) &&
                m4[1] == Approx3(r4, r5, r6) &&
                m4[2] == Approx3(r7, r8, r9));
-        assert(m5[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
+        require(m5[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m5[1] == Approx3(r4 + 1, r5 + 1, r6 + 1) &&
                m5[2] == Approx3(r7 + 1, r8 + 1, r9 + 1));
 
         mat3 m6 = m2--, m7 = --m3;
 
-        assert(m2[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
+        require(m2[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
                m2[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m2[2] == Approx3(r7 - 1, r8 - 1, r9 - 1));
-        assert(m3[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
+        require(m3[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
                m3[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m3[2] == Approx3(r7 - 1, r8 - 1, r9 - 1));
-        assert(m6[0] == Approx3(r1, r2, r3) &&
+        require(m6[0] == Approx3(r1, r2, r3) &&
                m6[1] == Approx3(r4, r5, r6) &&
                m6[2] == Approx3(r7, r8, r9));
-        assert(m7[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
+        require(m7[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
                m7[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m7[2] == Approx3(r7 - 1, r8 - 1, r9 - 1));
 
@@ -221,16 +221,16 @@ void test_mat3(math::e_arch arch, unsigned seed) {
         //m10 *= mm;
         m11 /= mm;
 
-        assert(m8[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
+        require(m8[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m8[1] == Approx3(r4 + 2, r5 + 2, r6 + 2) &&
                m8[2] == Approx3(r7 + 3, r8 + 3, r9 + 3));
-        assert(m9[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
+        require(m9[0] == Approx3(r1 - 1, r2 - 1, r3 - 1) &&
                m9[1] == Approx3(r4 - 2, r5 - 2, r6 - 2) &&
                m9[2] == Approx3(r7 - 3, r8 - 3, r9 - 3));
-        //assert(m10[0] == Approx3(r1 * 1, r2 * 1, r3 * 1) &&
+        //require(m10[0] == Approx3(r1 * 1, r2 * 1, r3 * 1) &&
         //       m10[1] == Approx3(r4 * 2, r5 * 2, r6 * 2) &&
         //       m10[2] == Approx3(r7 * 3, r8 * 3, r9 * 3));
-        assert(m11[0] == Approx3(r1 / 1, r2 / 1, r3 / 1) &&
+        require(m11[0] == Approx3(r1 / 1, r2 / 1, r3 / 1) &&
                m11[1] == Approx3(r4 / 2, r5 / 2, r6 / 2) &&
                m11[2] == Approx3(r7 / 3, r8 / 3, r9 / 3));
 
@@ -240,14 +240,14 @@ void test_mat3(math::e_arch arch, unsigned seed) {
                    };
         m12 = -m12;
 
-        assert(m12[0] == Approx3(-r1, -r2, -r3) &&
+        require(m12[0] == Approx3(-r1, -r2, -r3) &&
                m12[1] == Approx3(-r4, -r5, -r6) &&
                m12[2] == Approx3(-r7, -r8, -r9));
 
         mat3 m13 = m12;
 
-        assert(m12 == m13);
-        assert(m11 != m13);
+        require(m12 == m13);
+        require(m11 != m13);
 
         mat3 m14 = { r1, r2, r3,
                      r4, r5, r6,
@@ -258,13 +258,13 @@ void test_mat3(math::e_arch arch, unsigned seed) {
         m14[1] -= { 1, 1, 1 };
         m14[2] *= { 2, 2, 2 };
 
-        assert(m14[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
+        require(m14[0] == Approx3(r1 + 1, r2 + 1, r3 + 1) &&
                m14[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m14[2] == Approx3(r7 * 2, r8 * 2, r9 * 2));
 
         m14[0] /= { 2, 2, 2 };
 
-        assert(m14[0] == Approx3((r1 + 1) / 2, (r2 + 1) / 2, (r3 + 1) / 2) &&
+        require(m14[0] == Approx3((r1 + 1) / 2, (r2 + 1) / 2, (r3 + 1) / 2) &&
                m14[1] == Approx3(r4 - 1, r5 - 1, r6 - 1) &&
                m14[2] == Approx3(r7 * 2, r8 * 2, r9 * 2));
     }

@@ -32,10 +32,10 @@ void test_common(math::e_arch arch, unsigned seed) {
         vec3 abs3 = math::abs(v3);
         vec4 abs4 = math::abs(v4);
 
-        assert(abs1 == Approx(r1));
-        assert(abs2 == Approx2(r1, -r2));
-        assert(abs3 == Approx3(r1, -r2, r3));
-        assert(abs4 == Approx4(r1, -r2, r3, -r4));
+        require(abs1 == Approx(r1));
+        require(abs2 == Approx2(r1, -r2));
+        require(abs3 == Approx3(r1, -r2, r3));
+        require(abs4 == Approx4(r1, -r2, r3, -r4));
     }
 
     // sign
@@ -52,10 +52,10 @@ void test_common(math::e_arch arch, unsigned seed) {
         vec3 sign3 = math::sign(v3);
         vec4 sign4 = math::sign(v4);
 
-        assert(sign1 == Approx(1));
-        assert(sign2 == Approx2(1, -1));
-        assert(sign3 == Approx3(1, -1, 1));
-        assert(sign4 == Approx4(1, -1, 1, -1));
+        require(sign1 == Approx(1));
+        require(sign2 == Approx2(1, -1));
+        require(sign3 == Approx3(1, -1, 1));
+        require(sign4 == Approx4(1, -1, 1, -1));
     }
 
     {
@@ -73,10 +73,10 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 floor3 = math::floor(v3);
             vec4 floor4 = math::floor(v4);
 
-            assert(floor1 == Approx(floor_test_data[i + 1]));
-            assert(floor2 == Approx2(floor_test_data[i + 1], floor_test_data[i + 3]));
-            assert(floor3 == Approx3(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5]));
-            assert(floor4 == Approx4(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5], floor_test_data[i + 7]));
+            require(floor1 == Approx(floor_test_data[i + 1]));
+            require(floor2 == Approx2(floor_test_data[i + 1], floor_test_data[i + 3]));
+            require(floor3 == Approx3(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5]));
+            require(floor4 == Approx4(floor_test_data[i + 1], floor_test_data[i + 3], floor_test_data[i + 5], floor_test_data[i + 7]));
         }
     }
 
@@ -95,10 +95,10 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 ceil3 = math::ceil(v3);
             vec4 ceil4 = math::ceil(v4);
 
-            assert(ceil1 == Approx(ceil_test_data[i + 1]));
-            assert(ceil2 == Approx2(ceil_test_data[i + 1], ceil_test_data[i + 3]));
-            assert(ceil3 == Approx3(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5]));
-            assert(ceil4 == Approx4(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5], ceil_test_data[i + 7]));
+            require(ceil1 == Approx(ceil_test_data[i + 1]));
+            require(ceil2 == Approx2(ceil_test_data[i + 1], ceil_test_data[i + 3]));
+            require(ceil3 == Approx3(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5]));
+            require(ceil4 == Approx4(ceil_test_data[i + 1], ceil_test_data[i + 3], ceil_test_data[i + 5], ceil_test_data[i + 7]));
         }
     }
 
@@ -117,10 +117,10 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 fract3 = math::fract(v3);
             vec4 fract4 = math::fract(v4);
 
-            assert(fract1 == Approx(fract_test_data[i + 1]));
-            assert(fract2 == Approx2(fract_test_data[i + 1], fract_test_data[i + 3]));
-            assert(fract3 == Approx3(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5]));
-            assert(fract4 == Approx4(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5], fract_test_data[i + 7]));
+            require(fract1 == Approx(fract_test_data[i + 1]));
+            require(fract2 == Approx2(fract_test_data[i + 1], fract_test_data[i + 3]));
+            require(fract3 == Approx3(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5]));
+            require(fract4 == Approx4(fract_test_data[i + 1], fract_test_data[i + 3], fract_test_data[i + 5], fract_test_data[i + 7]));
         }
     }
 
@@ -139,10 +139,10 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 mod3 = math::mod(v3, vec3(mod_test_data[i + 1], mod_test_data[i + 4], mod_test_data[i + 7]));
             vec4 mod4 = math::mod(v4, vec4(mod_test_data[i + 1], mod_test_data[i + 4], mod_test_data[i + 7], mod_test_data[i + 10]));
 
-            assert(mod1 == Approx(mod_test_data[i + 2]));
-            assert(mod2 == Approx2(mod_test_data[i + 2], mod_test_data[i + 5]));
-            assert(mod3 == Approx3(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8]));
-            assert(mod4 == Approx4(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8], mod_test_data[i + 11]));
+            require(mod1 == Approx(mod_test_data[i + 2]));
+            require(mod2 == Approx2(mod_test_data[i + 2], mod_test_data[i + 5]));
+            require(mod3 == Approx3(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8]));
+            require(mod4 == Approx4(mod_test_data[i + 2], mod_test_data[i + 5], mod_test_data[i + 8], mod_test_data[i + 11]));
         }
     }
 
@@ -161,20 +161,20 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 min3 = math::min(v3, { min_test_data[i + 1], min_test_data[i + 4], min_test_data[i + 7] });
             vec4 min4 = math::min(v4, { min_test_data[i + 1], min_test_data[i + 4], min_test_data[i + 7], min_test_data[i + 10] });
 
-            assert(min1 == Approx(min_test_data[i + 2]));
-            assert(min2 == Approx2(min_test_data[i + 2], min_test_data[i + 5]));
-            assert(min3 == Approx3(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8]));
-            assert(min4 == Approx4(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8], min_test_data[i + 11]));
+            require(min1 == Approx(min_test_data[i + 2]));
+            require(min2 == Approx2(min_test_data[i + 2], min_test_data[i + 5]));
+            require(min3 == Approx3(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8]));
+            require(min4 == Approx4(min_test_data[i + 2], min_test_data[i + 5], min_test_data[i + 8], min_test_data[i + 11]));
 
             min1 = math::min(v1, min_test_data[i + 12]);
             min2 = math::min(v2, min_test_data[i + 12]);
             min3 = math::min(v3, min_test_data[i + 12]);
             min4 = math::min(v4, min_test_data[i + 12]);
 
-            assert(min1 == Approx(min_test_data[i + 13]));
-            assert(min2 == Approx2(min_test_data[i + 13], min_test_data[i + 14]));
-            assert(min3 == Approx3(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15]));
-            assert(min4 == Approx4(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15], min_test_data[i + 16]));
+            require(min1 == Approx(min_test_data[i + 13]));
+            require(min2 == Approx2(min_test_data[i + 13], min_test_data[i + 14]));
+            require(min3 == Approx3(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15]));
+            require(min4 == Approx4(min_test_data[i + 13], min_test_data[i + 14], min_test_data[i + 15], min_test_data[i + 16]));
         }
     }
 
@@ -193,20 +193,20 @@ void test_common(math::e_arch arch, unsigned seed) {
             vec3 max3 = math::max(v3, { max_test_data[i + 1], max_test_data[i + 4], max_test_data[i + 7] });
             vec4 max4 = math::max(v4, { max_test_data[i + 1], max_test_data[i + 4], max_test_data[i + 7], max_test_data[i + 10] });
 
-            assert(max1 == Approx(max_test_data[i + 2]));
-            assert(max2 == Approx2(max_test_data[i + 2], max_test_data[i + 5]));
-            assert(max3 == Approx3(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8]));
-            assert(max4 == Approx4(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8], max_test_data[i + 11]));
+            require(max1 == Approx(max_test_data[i + 2]));
+            require(max2 == Approx2(max_test_data[i + 2], max_test_data[i + 5]));
+            require(max3 == Approx3(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8]));
+            require(max4 == Approx4(max_test_data[i + 2], max_test_data[i + 5], max_test_data[i + 8], max_test_data[i + 11]));
 
             max1 = math::max(v1, max_test_data[i + 12]);
             max2 = math::max(v2, max_test_data[i + 12]);
             max3 = math::max(v3, max_test_data[i + 12]);
             max4 = math::max(v4, max_test_data[i + 12]);
 
-            assert(max1 == Approx(max_test_data[i + 13]));
-            assert(max2 == Approx2(max_test_data[i + 13], max_test_data[i + 14]));
-            assert(max3 == Approx3(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15]));
-            assert(max4 == Approx4(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15], max_test_data[i + 16]));
+            require(max1 == Approx(max_test_data[i + 13]));
+            require(max2 == Approx2(max_test_data[i + 13], max_test_data[i + 14]));
+            require(max3 == Approx3(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15]));
+            require(max4 == Approx4(max_test_data[i + 13], max_test_data[i + 14], max_test_data[i + 15], max_test_data[i + 16]));
         }
     }
 

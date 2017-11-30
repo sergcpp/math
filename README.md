@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/1f1xu8ri7v2spc50?svg=true)](https://ci.appveyor.com/project/MrApfel1994/math)
+
 Simple math library which utilizes sse/neon intrinsics.
 
 Some test results:

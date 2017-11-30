@@ -22,8 +22,8 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec4 res = m1 * v1;
 
-            assert(res == Approx4(mat4_vec4_mult_test_data[i + 20], mat4_vec4_mult_test_data[i + 21],
-                                  mat4_vec4_mult_test_data[i + 22], mat4_vec4_mult_test_data[i + 23]).epsilon(0.01));
+            require(res == Approx4(mat4_vec4_mult_test_data[i + 20], mat4_vec4_mult_test_data[i + 21],
+                                   mat4_vec4_mult_test_data[i + 22], mat4_vec4_mult_test_data[i + 23]).epsilon(0.01));
         }
 
         extern std::vector<float> mat3_vec3_mult_test_data;
@@ -34,7 +34,7 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec3 res = m1 * v1;
 
-            assert(res == Approx3(mat3_vec3_mult_test_data[i + 12], mat3_vec3_mult_test_data[i + 13],
+            require(res == Approx3(mat3_vec3_mult_test_data[i + 12], mat3_vec3_mult_test_data[i + 13],
                                   mat3_vec3_mult_test_data[i + 14]).epsilon(0.01));
         }
 
@@ -46,7 +46,7 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec2 res = m1 * v1;
 
-            assert(res == Approx2(mat2_vec2_mult_test_data[i + 6], mat2_vec2_mult_test_data[i + 7]).epsilon(0.01));
+            require(res == Approx2(mat2_vec2_mult_test_data[i + 6], mat2_vec2_mult_test_data[i + 7]).epsilon(0.01));
         }
     }
 
@@ -60,7 +60,7 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec4 res = v1 * m1;
 
-            assert(res == Approx4(vec4_mat4_mult_test_data[i + 20], vec4_mat4_mult_test_data[i + 21],
+            require(res == Approx4(vec4_mat4_mult_test_data[i + 20], vec4_mat4_mult_test_data[i + 21],
                                   vec4_mat4_mult_test_data[i + 22], vec4_mat4_mult_test_data[i + 23]).epsilon(0.01));
         }
 
@@ -72,7 +72,7 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec3 res = v1 * m1;
 
-            assert(res == Approx3(vec3_mat3_mult_test_data[i + 12], vec3_mat3_mult_test_data[i + 13],
+            require(res == Approx3(vec3_mat3_mult_test_data[i + 12], vec3_mat3_mult_test_data[i + 13],
                                   vec3_mat3_mult_test_data[i + 14]).epsilon(0.01));
         }
 
@@ -84,7 +84,7 @@ void test_comb(math::e_arch arch, unsigned seed) {
 
             vec2 res = v1 * m1;
 
-            assert(res == Approx2(vec2_mat2_mult_test_data[i + 6], vec2_mat2_mult_test_data[i + 7]).epsilon(0.01));
+            require(res == Approx2(vec2_mat2_mult_test_data[i + 6], vec2_mat2_mult_test_data[i + 7]).epsilon(0.01));
         }
     }
 

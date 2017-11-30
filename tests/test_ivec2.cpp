@@ -23,36 +23,36 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
 
         ivec2 v1, v2(r1), v3(r2, r3);
 
-        assert(v2[0] == r1 && v2[1] == r1);
+        require(v2[0] == r1 && v2[1] == r1);
 
         v2[0] = v2[1] = r4;
 
-        assert(v1[0] == 0 && v1[1] == 0);
-        assert(v2[0] == r4 && v2[1] == r4);
-        assert(v3[0] == r2 && v3[1] == r3);
-        assert(v3.x == r2 && v3.y == r3);
-        assert(v3.r == r2 && v3.g == r3);
-        assert(v3.s == r2 && v3.t == r3);
+        require(v1[0] == 0 && v1[1] == 0);
+        require(v2[0] == r4 && v2[1] == r4);
+        require(v3[0] == r2 && v3[1] == r3);
+        require(v3.x == r2 && v3.y == r3);
+        require(v3.r == r2 && v3.g == r3);
+        require(v3.s == r2 && v3.t == r3);
 
         ivec2 v4 = v1 + v2, v5 = v2 + v3;
 
-        assert(v4[0] == r4 && v4[1] == r4);
-        assert(v5[0] == r4 + r2 && v5[1] == r4 + r3);
+        require(v4[0] == r4 && v4[1] == r4);
+        require(v5[0] == r4 + r2 && v5[1] == r4 + r3);
 
         ivec2 v6 = v1 - v2, v7 = v2 - v3;
 
-        assert(v6[0] == -r4 && v6[1] == -r4);
-        assert(v7[0] == r4 - r2 && v7[1] == r4 - r3);
+        require(v6[0] == -r4 && v6[1] == -r4);
+        require(v7[0] == r4 - r2 && v7[1] == r4 - r3);
 
         ivec2 v8 = v1 * v2, v9 = v2 * v3;
 
-        assert(v8[0] == 0 && v8[1] == 0);
-        assert(v9[0] == r4 * r2 && v9[1] == r4 * r3);
+        require(v8[0] == 0 && v8[1] == 0);
+        require(v9[0] == r4 * r2 && v9[1] == r4 * r3);
 
         ivec2 v10 = v1 / v2, v11 = v2 / v3;
 
-        assert(v10[0] == 0 && v10[1] == 0);
-        assert(v11[0] == r4 / r2 && v11[1] == r4 / r3);
+        require(v10[0] == 0 && v10[1] == 0);
+        require(v11[0] == r4 / r2 && v11[1] == r4 / r3);
     }
 
     // additional constructors
@@ -61,9 +61,9 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
 
         ivec2 v0 = { r1, r2 }, v1(v0), v2 = v0;
 
-        assert(v0 == ivec2(r1, r2));
-        assert(v1 == ivec2(r1, r2));
-        assert(v2 == ivec2(r1, r2));
+        require(v0 == ivec2(r1, r2));
+        require(v1 == ivec2(r1, r2));
+        require(v2 == ivec2(r1, r2));
     }
 
     // additional operators
@@ -77,17 +77,17 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
 
         ivec2 v4 = v0++, v5 = ++v1;
 
-        assert(v0 == ivec2(r1 + 1, r2 + 1));
-        assert(v1 == ivec2(r3 + 1, r4 + 1));
-        assert(v4 == ivec2(r1, r2));
-        assert(v5 == ivec2(r3 + 1, r4 + 1));
+        require(v0 == ivec2(r1 + 1, r2 + 1));
+        require(v1 == ivec2(r3 + 1, r4 + 1));
+        require(v4 == ivec2(r1, r2));
+        require(v5 == ivec2(r3 + 1, r4 + 1));
 
         ivec2 v6 = v2--, v7 = --v3;
 
-        assert(v2 == ivec2(r5 - 1, r6 - 1));
-        assert(v3 == ivec2(r7 - 1, r8 - 1));
-        assert(v6 == ivec2(r5, r6));
-        assert(v7 == ivec2(r7 - 1, r8 - 1));
+        require(v2 == ivec2(r5 - 1, r6 - 1));
+        require(v3 == ivec2(r7 - 1, r8 - 1));
+        require(v6 == ivec2(r5, r6));
+        require(v7 == ivec2(r7 - 1, r8 - 1));
 
         ivec2 v8 = { r9, r10 }, v9 = { r9, r10 }, v10 = { r9, r10 }, v11 = { r9, r10 };
 
@@ -96,32 +96,32 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
         v10 *= ivec2{ r11, r12 };
         v11 /= ivec2{ r11, r12 };
 
-        assert(v8 == ivec2(r9 + r11, r10 + r12));
-        assert(v9 == ivec2(r9 - r11, r10 - r12));
-        assert(v10 == ivec2(r9 * r11, r10 * r12));
-        assert(v11 == ivec2(r9 / r11, r10 / r12));
+        require(v8 == ivec2(r9 + r11, r10 + r12));
+        require(v9 == ivec2(r9 - r11, r10 - r12));
+        require(v10 == ivec2(r9 * r11, r10 * r12));
+        require(v11 == ivec2(r9 / r11, r10 / r12));
 
         ivec2 v12 = { r13, r14 };
         v12 = -v12;
 
-        assert(v12 == ivec2(-r13, -r14));
+        require(v12 == ivec2(-r13, -r14));
 
         ivec2 v13 = v12;
 
-        assert(v12 == v13);
-        assert(v11 != v13);
+        require(v12 == v13);
+        require(v11 != v13);
 
         ivec2 v14 = { r13, r14 };
 
         v14[0] += 1;
         v14[1] -= 1;
 
-        assert(v14 == ivec2(r13 + 1, r14 - 1));
+        require(v14 == ivec2(r13 + 1, r14 - 1));
 
         v14[0] *= 2;
         v14[1] /= 2;
 
-        assert(v14 == ivec2((r13 + 1) * 2, (r14 - 1) / 2));
+        require(v14 == ivec2((r13 + 1) * 2, (r14 - 1) / 2));
     }
 
     // arithmetics with deref
@@ -147,24 +147,24 @@ void test_ivec2(math::e_arch arch, unsigned seed) {
         //m2 = m2 * vv[0];
         //m3 = m3 * vv[0];
 
-        assert(f1 == r3 * r1);
-        assert(v1 == ivec2(r4 * r1, r5 * r1));
-        assert(v2 == ivec3(r6 * r1, r7 * r1, r8 * r1));
-        assert(v3 == ivec4(r9 * r1, r10 * r1, r11 * r1, r12 * r1));
+        require(f1 == r3 * r1);
+        require(v1 == ivec2(r4 * r1, r5 * r1));
+        require(v2 == ivec3(r6 * r1, r7 * r1, r8 * r1));
+        require(v3 == ivec4(r9 * r1, r10 * r1, r11 * r1, r12 * r1));
 
-        //assert(m1[0] == ivec2(2, 0));
-        //assert(m1[1] == ivec2(0, 2));
-        //assert(m2[0] == ivec3(2, 0, 0));
-        //assert(m2[1] == ivec3(0, 2, 0));
-        //assert(m2[2] == ivec3(0, 0, 2));
-        //assert(m3[0] == ivec4(2, 0, 0, 0));
-        //assert(m3[1] == ivec4(0, 2, 0, 0));
-        //assert(m3[2] == ivec4(0, 0, 2, 0));
-        //assert(m3[3] == ivec4(0, 0, 0, 2));
+        //require(m1[0] == ivec2(2, 0));
+        //require(m1[1] == ivec2(0, 2));
+        //require(m2[0] == ivec3(2, 0, 0));
+        //require(m2[1] == ivec3(0, 2, 0));
+        //require(m2[2] == ivec3(0, 0, 2));
+        //require(m3[0] == ivec4(2, 0, 0, 0));
+        //require(m3[1] == ivec4(0, 2, 0, 0));
+        //require(m3[2] == ivec4(0, 0, 2, 0));
+        //require(m3[3] == ivec4(0, 0, 0, 2));
 
         const int *p1 = value_ptr(vv);
         const int *p2 = &vv[0];
-        assert(p1 == p2);
+        require(p1 == p2);
     }
 
     std::cout << "OK" << std::endl;

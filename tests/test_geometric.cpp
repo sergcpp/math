@@ -27,11 +27,11 @@ void test_geometric(math::e_arch arch, unsigned seed) {
 
             float dot01 = dot(v0, v1);
 
-            assert(l0 == Approx(vec2_geo_test_data[4]));
-            assert(ll0 == Approx(vec2_geo_test_data[5]));
-            assert(d01 == Approx(vec2_geo_test_data[6]));
-            assert(dd01 == Approx(vec2_geo_test_data[7]));
-            assert(dot01 == Approx(vec2_geo_test_data[8]));
+            require(l0 == Approx(vec2_geo_test_data[4]));
+            require(ll0 == Approx(vec2_geo_test_data[5]));
+            require(d01 == Approx(vec2_geo_test_data[6]));
+            require(dd01 == Approx(vec2_geo_test_data[7]));
+            require(dot01 == Approx(vec2_geo_test_data[8]));
         }
     }
 
@@ -51,22 +51,22 @@ void test_geometric(math::e_arch arch, unsigned seed) {
 
             float dot01 = dot(v0, v1);
 
-            assert(l0 == Approx(vec3_geo_test_data[6]));
-            assert(ll0 == Approx(vec3_geo_test_data[7]));
-            assert(d01 == Approx(vec3_geo_test_data[8]));
-            assert(dd01 == Approx(vec3_geo_test_data[9]));
-            assert(dot01 == Approx(vec3_geo_test_data[10]));
+            require(l0 == Approx(vec3_geo_test_data[6]));
+            require(ll0 == Approx(vec3_geo_test_data[7]));
+            require(d01 == Approx(vec3_geo_test_data[8]));
+            require(dd01 == Approx(vec3_geo_test_data[9]));
+            require(dot01 == Approx(vec3_geo_test_data[10]));
 
             vec3 cross01 = cross(v0, v1);
 
-            assert(cross01[0] == Approx(vec3_geo_test_data[11]));
-            assert(cross01[1] == Approx(vec3_geo_test_data[12]));
-            assert(cross01[2] == Approx(vec3_geo_test_data[13]));
+            require(cross01[0] == Approx(vec3_geo_test_data[11]));
+            require(cross01[1] == Approx(vec3_geo_test_data[12]));
+            require(cross01[2] == Approx(vec3_geo_test_data[13]));
 
             vec3 v2 = normalize(v0), v3 = normalize_fast(v0);
 
-            assert(v2 == Approx3(vec3_geo_test_data[14], vec3_geo_test_data[15], vec3_geo_test_data[16]));
-            assert(v3 == Approx3(vec3_geo_test_data[14], vec3_geo_test_data[15], vec3_geo_test_data[16]).epsilon(0.001));
+            require(v2 == Approx3(vec3_geo_test_data[14], vec3_geo_test_data[15], vec3_geo_test_data[16]));
+            require(v3 == Approx3(vec3_geo_test_data[14], vec3_geo_test_data[15], vec3_geo_test_data[16]).epsilon(0.001));
         }
     }
 
@@ -86,16 +86,16 @@ void test_geometric(math::e_arch arch, unsigned seed) {
 
             float dot01 = dot(v0, v1);
 
-            assert(l0 == Approx(vec4_geo_test_data[8]));
-            assert(ll0 == Approx(vec4_geo_test_data[9]));
-            assert(d01 == Approx(vec4_geo_test_data[10]));
-            assert(dd01 == Approx(vec4_geo_test_data[11]));
-            assert(dot01 == Approx(vec4_geo_test_data[12]));
+            require(l0 == Approx(vec4_geo_test_data[8]));
+            require(ll0 == Approx(vec4_geo_test_data[9]));
+            require(d01 == Approx(vec4_geo_test_data[10]));
+            require(dd01 == Approx(vec4_geo_test_data[11]));
+            require(dot01 == Approx(vec4_geo_test_data[12]));
 
             vec4 v2 = normalize(v0), v3 = normalize_fast(v0);
 
-            assert(v2 == Approx4(vec4_geo_test_data[13], vec4_geo_test_data[14], vec4_geo_test_data[15], vec4_geo_test_data[16]));
-            assert(v3 == Approx4(vec4_geo_test_data[13], vec4_geo_test_data[14], vec4_geo_test_data[15], vec4_geo_test_data[16]));
+            require(v2 == Approx4(vec4_geo_test_data[13], vec4_geo_test_data[14], vec4_geo_test_data[15], vec4_geo_test_data[16]));
+            require(v3 == Approx4(vec4_geo_test_data[13], vec4_geo_test_data[14], vec4_geo_test_data[15], vec4_geo_test_data[16]));
         }
     }
 

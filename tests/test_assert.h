@@ -1,12 +1,19 @@
 #pragma once
 
-#undef NDEBUG
-#include <cassert>
 #include <cmath>
 
 #include <string>
 
-#define assert_throws(expr) {           \
+static void handle_assert(bool passed, const char* assert, const char* file, long line) {
+    if (!passed) {
+        printf("Assertion failed %s in %s at line %d\n", assert, file, line);
+        exit(-1);
+    }
+}
+
+#define require(x) handle_assert(x, #x , __FILE__, __LINE__ )
+
+#define require_throws(expr) {          \
             bool _ = false;             \
             try {                       \
                 expr;                   \
@@ -16,7 +23,7 @@
             assert(_);                  \
         }
 
-#define assert_nothrow(expr) {          \
+#define require_nothrow(expr) {         \
             bool _ = false;             \
             try {                       \
                 expr;                   \
