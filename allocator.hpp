@@ -6,9 +6,9 @@
 #include <new>
 #include <stdexcept>
 
-//#if defined(_WIN32) || defined()
+#if defined(_WIN32) || defined(__linux__)
 #include <malloc.h>
-//#endif
+#endif
 
 // from https://gist.github.com/donny-dont/1471329
 
@@ -19,7 +19,15 @@ namespace math {
 #elif __STDC_VERSION__ >= 201112L
         return aligned_alloc(alignment, size);
 #else
+    #ifdef __APPLE__
+        void *p = nullptr;
+        size_t mod = alignment % sizeof(void *);
+        if (mod) alignment += sizeof(void *) - mod;
+        posix_memalign(&p, alignment, size);
+        return p;
+    #else
         return memalign(alignment, size);
+    #endif
 #endif
     }
 
