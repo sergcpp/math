@@ -4,12 +4,15 @@ project(math)
 #add_definitions(-DCPU_ARCH_AVX)
 #add_definitions(-DMATH_NO_INLINE)
 
-IF(WIN32)
+IF(MSVC)
 
-ELSE(WIN32)
+ELSE(MSVC)
     set(CMAKE_CXX_STANDARD 11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-ENDIF(WIN32)
+    IF(WIN32)
+    ELSE(WIN32)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    ENDIF(WIN32)
+ENDIF(MSVC)
 
 set(SOURCE_FILES allocator.hpp
                  common.hpp

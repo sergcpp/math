@@ -6,7 +6,7 @@
 #include <immintrin.h>
 #endif
 
-#if !defined(__AVX__) && !defined(_MSC_VER) && !defined(__linux__) && !defined(__APPLE__)
+#if !defined(__AVX__) && !defined(_MSC_VER) && !defined(__linux__) && !defined(__APPLE__) && !defined(__MINGW32__)
 typedef float __m256[8];
 #endif
 
