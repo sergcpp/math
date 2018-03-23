@@ -56,18 +56,18 @@ typedef float __m128[4];
 
 #if defined(ENVIRONMENT32) && !defined(__arm__) && !defined(__EMSCRIPTEN__)
     #ifdef __GNUC__
-        #define FASTCALL __attribute__((fastcall))
+        #define CALL_CONV __attribute__((fastcall))
     #else
-        #define FASTCALL __fastcall
+        #define CALL_CONV __vectorcall
     #endif
 #else
-    #define FASTCALL
+    #define CALL_CONV
 #endif
 
 #if defined(MATH_NO_INLINE)
-#define DECL_FUNC(x) x FASTCALL
+#define DECL_FUNC(x) x CALL_CONV
 #else
-#define DECL_FUNC(x) inline x FASTCALL
+#define DECL_FUNC(x) inline x CALL_CONV
 #endif
 
 #if !defined(__clang__)

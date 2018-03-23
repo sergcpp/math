@@ -59,10 +59,12 @@ namespace sse2 {
     DECL_FUNC(float16) mat4_comp_mul(const float16 &v1, const float16 &v2);
 
     // ivec2
+#if !defined(_M_X64)
     DECL_FUNC(void) ivec2_init1(int2 &vec, int val);
     DECL_FUNC(void) ivec2_init2(int2 &vec, int v0, int v1);
     DECL_FUNC(void) ivec2_add_ivec2(int2 &vec, const int2 &rhs);
     DECL_FUNC(void) ivec2_sub_ivec2(int2 &vec, const int2 &rhs);
+#endif
 
     // ivec4
     DECL_FUNC(void) ivec4_init1(int4 &vec, int val);
