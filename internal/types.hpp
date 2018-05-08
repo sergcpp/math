@@ -25,8 +25,15 @@ typedef float32x2_t __m64;
 typedef int32x4_t __m128i;
 #else
 
+typedef double __m256d[4];
+typedef double __m128d[2];
+
 typedef float __m256[8];
 typedef float __m128[4];
+
+typedef int __m128i[4];
+
+typedef float __m64[2];
 #endif
 #endif
 
