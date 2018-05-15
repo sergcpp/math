@@ -177,7 +177,7 @@ void test_ivec2() {
     std::cout << "test_ivec2 (seed " << seed << ")" << std::endl;
 
     test_ivec2(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_ivec2(math::SSE2, seed);
     test_ivec2(math::SSE3, seed);
     test_ivec2(math::SSE4_1, seed);

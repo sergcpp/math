@@ -180,7 +180,7 @@ void test_ivec3(math::e_arch arch) {
 
 void test_ivec3() {
     test_ivec3(math::Scalar);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_ivec3(math::SSE2);
     test_ivec3(math::SSE3);
     test_ivec3(math::SSE4_1);

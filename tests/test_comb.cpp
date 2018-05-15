@@ -98,7 +98,7 @@ void test_comb() {
     std::cout << "test_comb (seed " << seed << ")" << std::endl;
 
     test_comb(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_comb(math::SSE2, seed);
     test_comb(math::SSE3, seed);
     test_comb(math::SSE4_1, seed);

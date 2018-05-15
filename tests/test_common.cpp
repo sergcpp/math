@@ -220,7 +220,7 @@ void test_common() {
     std::cout << "test_common (seed " << seed << ")" << std::endl;
 
     test_common(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_common(math::SSE2, seed);
     test_common(math::SSE3, seed);
     test_common(math::SSE4_1, seed);

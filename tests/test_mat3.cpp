@@ -279,7 +279,7 @@ void test_mat3() {
     std::cout << "test_mat3 (seed " << seed << ")" << std::endl;
 
     test_mat3(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_mat3(math::SSE2, seed);
     test_mat3(math::SSE3, seed);
     test_mat3(math::SSE4_1, seed);

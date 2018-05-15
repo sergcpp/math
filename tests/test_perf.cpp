@@ -499,7 +499,7 @@ void test_perf() {
     using namespace std;
     using namespace math;
 
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     std::pair<const char *, e_arch> archs[] = { { "Ref", Scalar },
         { "SSE2", SSE2 },
         { "SSE3", SSE3 },

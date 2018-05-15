@@ -1,6 +1,6 @@
 #pragma once
 
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
 #include <emmintrin.h>
 #ifndef __EMSCRIPTEN__
 #include <immintrin.h>
@@ -61,7 +61,7 @@ typedef float __m64[2];
     #define OMIT_FRAME_END
 #endif
 
-#if defined(ENVIRONMENT32) && !defined(__arm__) && !defined(__EMSCRIPTEN__)
+#if defined(ENVIRONMENT32) && !defined(__arm__) && !defined(__aarch64__) && !defined(__EMSCRIPTEN__)
     #ifdef __GNUC__
         #define CALL_CONV __attribute__((fastcall))
     #else

@@ -17,7 +17,7 @@ void cpuid(int info[4], int InfoType) {
 
 #else
 
-#if !defined(__arm__) && !defined(__EMSCRIPTEN__)
+#if !defined(__arm__) && !defined(__aarch64__) && !defined(__EMSCRIPTEN__)
 //  GCC Intrinsics
 #include <cpuid.h>
 void cpuid(int info[4], int InfoType) {
@@ -27,7 +27,7 @@ void cpuid(int info[4], int InfoType) {
 
 #endif
 
-#if defined(__arm__)
+#if defined(__arm__) || defined(__aarch64__)
 #ifdef __ARM_NEON__
 #include "internal/math_neon.hpp"
 #endif
@@ -372,25 +372,25 @@ const struct func_table {
     },
     {
         // SSE2
-#if !defined(__arm__)
+#if !defined(__arm__) && !defined(__aarch64__)
         FUNC_LIST(sse2)
 #endif
     },
     {
         // SSE3
-#if !defined(__arm__)
+#if !defined(__arm__) && !defined(__aarch64__)
         FUNC_LIST(sse3)
 #endif
     },
     {
         // SSE4.1
-#if !defined(__arm__) && !defined(__EMSCRIPTEN__)
+#if !defined(__arm__) && !defined(__aarch64__) && !defined(__EMSCRIPTEN__)
         FUNC_LIST(sse4_1)
 #endif
     },
     {
         // AVX
-#if !defined(__arm__) && !defined(__EMSCRIPTEN__)
+#if !defined(__arm__) && !defined(__aarch64__) && !defined(__EMSCRIPTEN__)
         FUNC_LIST(avx)
 #endif
     },
@@ -556,7 +556,7 @@ bool math::supported(e_arch arch) {
         init_cpu(cpu);
     }
 
-#if defined(__arm__)
+#if defined(__arm__) || defined(__aarch64__)
     return arch == Scalar || arch == NEON;
 #elif defined(__EMSCRIPTEN__)
     return arch == Scalar || arch == SSE2 || arch == SSE3 || arch == SSE4_1;
@@ -572,7 +572,7 @@ bool math::supported(e_arch arch) {
 void math::init_cpu(CPUFeatures &cpu) {
     cpu.initialized = true;
 
-#if !defined(__arm__) && !defined(__EMSCRIPTEN__)
+#if !defined(__arm__) && !defined(__aarch64__) && !defined(__EMSCRIPTEN__)
     int info[4];
     cpuid(info, 0);
     int nIds = info[0];
@@ -633,7 +633,7 @@ void math::init_cpu(CPUFeatures &cpu) {
 #define MATH_IMPL
 
 #include "internal/math_ref.hpp"
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
 #include "internal/math_sse2.hpp"
 #include "internal/math_sse3.hpp"
 #include "internal/math_sse4_1.hpp"

@@ -205,7 +205,7 @@ void test_vec3() {
     std::cout << "test_vec3 (seed " << seed << ")" << std::endl;
 
     test_vec3(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_vec3(math::SSE2, seed);
     test_vec3(math::SSE3, seed);
     test_vec3(math::SSE4_1, seed);

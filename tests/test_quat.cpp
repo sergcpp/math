@@ -97,7 +97,7 @@ void test_quat(math::e_arch arch) {
 
 void test_quat() {
     test_quat(math::Scalar);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_quat(math::SSE2);
     test_quat(math::SSE3);
     test_quat(math::SSE4_1);

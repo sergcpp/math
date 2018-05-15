@@ -104,7 +104,7 @@ void test_transform() {
     std::cout << "test_transform (seed " << seed << ")" << std::endl;
 
     test_transform(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_transform(math::SSE2, seed);
     test_transform(math::SSE3, seed);
     test_transform(math::SSE4_1, seed);

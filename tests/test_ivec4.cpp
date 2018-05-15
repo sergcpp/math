@@ -196,7 +196,7 @@ void test_ivec4(math::e_arch arch) {
 
 void test_ivec4() {
     test_ivec4(math::Scalar);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_ivec4(math::SSE2);
     test_ivec4(math::SSE3);
     test_ivec4(math::SSE4_1);

@@ -122,7 +122,7 @@ void test_trigonometric(math::e_arch arch) {
 
 void test_trigonometric() {
     test_trigonometric(math::Scalar);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_trigonometric(math::SSE2);
     test_trigonometric(math::SSE3);
     test_trigonometric(math::SSE4_1);

@@ -109,7 +109,7 @@ void test_geometric() {
     std::cout << "test_geometric (seed " << seed << ")" << std::endl;
 
     test_geometric(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_geometric(math::SSE2, seed);
     test_geometric(math::SSE3, seed);
     test_geometric(math::SSE4_1, seed);

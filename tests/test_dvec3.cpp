@@ -201,7 +201,7 @@ void test_dvec3() {
     std::cout << "test_dvec3 (seed " << seed << ")" << std::endl;
 
     test_dvec3(math::Scalar, seed);
-#ifndef __arm__
+#if !defined(__arm__) && !defined(__aarch64__)
     test_dvec3(math::SSE2, seed);
     test_dvec3(math::SSE3, seed);
     test_dvec3(math::SSE4_1, seed);
