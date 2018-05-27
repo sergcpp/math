@@ -18,6 +18,14 @@ typedef float __m256[8];
 #ifdef __ARM_NEON__
 #include <arm_neon.h>
 
+#if defined(__aarch64__)
+typedef float64x2_t __m256d[2];
+typedef float64x2_t __m128d;
+#else
+typedef double __m256d[4];
+typedef double __m128d[2];
+#endif
+
 typedef float32x4_t __m256[2];
 typedef float32x4_t __m128;
 typedef float32x2_t __m64;
